@@ -6,7 +6,7 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle;
+namespace Befactory\PaymentCoreBundle;
 
 
 /**

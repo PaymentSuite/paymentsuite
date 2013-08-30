@@ -6,7 +6,7 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Services\interfaces;
+namespace Befactory\PaymentCoreBundle\Services\interfaces;
 
 /**
  * Interface for CartWrapper

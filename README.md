@@ -1,1 +1,1 @@
-# CorePaymentBundle
+# PaymentCoreBundle

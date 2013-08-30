@@ -6,7 +6,7 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle;
+namespace Befactory\PaymentCoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * This class define all events thrown by all payment method
  */
-class CorePaymentEvents
+class PaymentCoreEvents
 {
 
     /**

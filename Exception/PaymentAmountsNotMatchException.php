@@ -6,9 +6,9 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Exception;
+namespace Befactory\PaymentCoreBundle\Exception;
 
-use Befactory\CorePaymentBundle\Exception\PaymentException;
+use Befactory\PaymentCoreBundle\Exception\PaymentException;
 
 
 /**

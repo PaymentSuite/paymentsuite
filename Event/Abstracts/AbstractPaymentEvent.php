@@ -6,11 +6,11 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Event\Abstracts;
+namespace Befactory\PaymentCoreBundle\Event\Abstracts;
 
-use Befactory\CorePaymentBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\CorePaymentBundle\Services\Interfaces\OrderWrapperInterface;
-use Befactory\CorePaymentBundle\PaymentMethodInterface;
+use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Befactory\PaymentCoreBundle\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 

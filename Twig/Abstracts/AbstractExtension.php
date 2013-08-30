@@ -6,7 +6,7 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Twig\Abstracts;
+namespace Befactory\PaymentCoreBundle\Twig\Abstracts;
 
 use Symfony\Component\Form\FormFactory;
 use Twig_Extension;

@@ -6,20 +6,20 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Services\Abstracts;
+namespace Befactory\PaymentCoreBundle\Services\Abstracts;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Befactory\CorePaymentBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\CorePaymentBundle\Services\Interfaces\OrderWrapperInterface;
-use Befactory\CorePaymentBundle\PaymentMethodInterface;
+use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Befactory\PaymentCoreBundle\PaymentMethodInterface;
 
-use Befactory\CorePaymentBundle\Event\PaymentReadyEvent;
-use Befactory\CorePaymentBundle\Event\PaymentDoneEvent;
-use Befactory\CorePaymentBundle\Event\PaymentSuccessEvent;
-use Befactory\CorePaymentBundle\Event\PaymentFailEvent;
-use Befactory\CorePaymentBundle\Event\PaymentOrderCreatedEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentReadyEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
 
-use Befactory\CorePaymentBundle\CorePaymentEvents;
+use Befactory\PaymentCoreBundle\PaymentCoreEvents;
 
 
 /**
@@ -54,7 +54,7 @@ abstract class AbstractPaymentManager
     {
 
         $paymentDoneEvent = new PaymentReadyEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(CorePaymentEvents::PAYMENT_READY, $paymentDoneEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_READY, $paymentDoneEvent);
 
         return $this;
     }
@@ -74,7 +74,7 @@ abstract class AbstractPaymentManager
     protected function notifyPaymentDone(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
         $paymentDoneEvent = new PaymentDoneEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(CorePaymentEvents::PAYMENT_DONE, $paymentDoneEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_DONE, $paymentDoneEvent);
 
         return $this;
     }
@@ -93,7 +93,7 @@ abstract class AbstractPaymentManager
     {
 
         $paymentSuccessEvent = new PaymentSuccessEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(CorePaymentEvents::PAYMENT_SUCCESS, $paymentSuccessEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_SUCCESS, $paymentSuccessEvent);
 
         return $this;
     }
@@ -112,7 +112,7 @@ abstract class AbstractPaymentManager
     {
 
         $paymentFailEvent = new PaymentFailEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(CorePaymentEvents::PAYMENT_FAIL, $paymentFailEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_FAIL, $paymentFailEvent);
 
         return $this;
     }
@@ -131,7 +131,7 @@ abstract class AbstractPaymentManager
     {
 
         $paymentFailEvent = new PaymentOrderCreatedEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(CorePaymentEvents::PAYMENT_ORDER_CREATED, $paymentFailEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_CREATED, $paymentFailEvent);
 
         return $this;
     }

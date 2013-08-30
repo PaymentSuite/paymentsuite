@@ -6,7 +6,7 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle;
+namespace Befactory\PaymentCoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -14,6 +14,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Core Payment Bundle
  */
-class CorePaymentBundle extends Bundle
+class PaymentCoreBundle extends Bundle
 {
 }

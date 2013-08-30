@@ -6,9 +6,9 @@
  * Befactory 2013
  */
 
-namespace Befactory\CorePaymentBundle\Event;
+namespace Befactory\PaymentCoreBundle\Event;
 
-use Befactory\CorePaymentBundle\Event\Abstracts\AbstractPaymentEvent;
+use Befactory\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 
 /**
