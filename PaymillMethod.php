@@ -96,6 +96,15 @@ class PaymillMethod implements PaymentMethodInterface
 
 
     /**
+     * @var string
+     *
+     * Transaction status
+     */
+    private $transactionStatus;
+
+
+
+    /**
      * set amount
      *
      * @param float $amount Amount
@@ -202,7 +211,7 @@ class PaymillMethod implements PaymentMethodInterface
     /**
      * set Credit cart expiration month
      *
-     * @param integer $amount Credit cart expiration month
+     * @param $creditCartExpirationMonth
      *
      * @return PaymillMethod self Object
      */
@@ -306,7 +315,7 @@ class PaymillMethod implements PaymentMethodInterface
     /**
      * set Transaction status
      *
-     * @param string $amount Transaction status
+     * @param string $transactionStatus Transaction status
      *
      * @return PaymillMethod self Object
      */

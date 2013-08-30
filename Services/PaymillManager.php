@@ -21,9 +21,9 @@ use Befactory\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Befactory\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-use Befactory\PaymentCoreBundle\Events\PaymentDoneEvent;
-use Befactory\PaymentCoreBundle\Events\PaymentSuccessEvent;
-use Befactory\PaymentCoreBundle\Events\PaymentFailEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
+use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
 use Befactory\PaymentCoreBundle\PaymentCoreEvents;
 use Befactory\PaymillBundle\PaymillMethod;
 
@@ -80,6 +80,7 @@ class PaymillManager extends AbstractPaymentManager
      * @param string                $privateKey      Private key
      * @param string                $publicKey       Public key
      * @param string                $apiEndPoint     Api end point
+     * @param CartWrapperInterface  $cartWrapper     Cart wrapper
      * @param OrderWrapperInterface $orderWrapper    Order wrapper
      */
     public function __construct(EventDispatcher $eventDispatcher, $privateKey, $publicKey, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
@@ -97,13 +98,12 @@ class PaymillManager extends AbstractPaymentManager
     /**
      * Tries to process a payment through Paymill
      *
-     * @param string $token          The paymill token
-     * @param float  $originalAmount The total in euros
+     * @param PaymillMethod $paymentMethod
+     *
+     * @throws PaymentAmountsNotMatchException
+     * @throws PaymentException
      *
      * @return PaymillManager Self object
-     *
-     * @throws PaymentAmountsNotMatchException When amounts do not match
-     * @throws PaymentException Generic payment exception
      */
     public function processPayment(PaymillMethod $paymentMethod)
     {
@@ -111,7 +111,7 @@ class PaymillManager extends AbstractPaymentManager
         $cartAmount = (float) $this->cartWrapper->getAmount() * 100;
 
         /**
-         * If both amounts are diffreent, execute Exception
+         * If both amounts are different, execute Exception
          */
         if (abs($paymentMethod->getAmount() - $cartAmount) > 0.00001) {
 
@@ -166,9 +166,9 @@ class PaymillManager extends AbstractPaymentManager
 
 
         /**
-         * Payment paid succesfuly
+         * Payment paid successfully
          *
-         * Paid process has ended succesfuly
+         * Paid process has ended successfully
          */
         $this->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 

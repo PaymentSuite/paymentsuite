@@ -32,6 +32,9 @@ class PaymillController extends Controller
      *
      * @param Request $request Request element
      *
+     * @throws \Befactory\PaymentCoreBundle\Exception\PaymentException|\Exception
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @Route("/execute", name="paymill_execute")
      *
      * @Method("POST")
