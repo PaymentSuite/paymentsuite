@@ -14,7 +14,6 @@
 namespace Befactory\PaymillBundle\Services;
 
 use Befactory\PaymentCoreBundle\Services\Abstracts\AbstractPaymentManager;
-
 use Services_Paymill_Transactions;
 use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
@@ -181,7 +180,7 @@ class PaymillManager extends AbstractPaymentManager
          *
          * At this point, order MUST be created
          */
-        $this->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper);
+        $this->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
         return $this;
     }

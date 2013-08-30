@@ -15,7 +15,6 @@ namespace Befactory\PaymillBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Befactory\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -64,7 +63,7 @@ class PaymillController extends Controller
                 $redirectUrl = $this->container->getParameter('paymill.success.route');
                 $redirectAppend = $this->container->getParameter('paymill.success.order.append');
                 $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
-                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
+                $redirectAppendValue = $this->get('payment.order.wrapper')->getOrderId();
 
             } catch (PaymentException $e) {
 
@@ -75,6 +74,8 @@ class PaymillController extends Controller
                 $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
                 $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
                 $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
+
+                throw $e;
             }
         } else {
 
@@ -93,7 +94,6 @@ class PaymillController extends Controller
                         )
                         : array();
 
-die($this->generateUrl($redirectUrl, $redirectData));
-        return new RedirectResponse($this->generateUrl($redirectUrl, $redirectData));
+        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }
