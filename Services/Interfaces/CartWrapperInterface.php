@@ -23,4 +23,28 @@ interface CartWrapperInterface
      * @return float Cart amount
      */
     public function getAmount();
+
+
+    /**
+     * Get cart
+     *
+     * @return Object Cart object
+     */
+    public function getCart();
+
+
+    /**
+     * Return order description
+     *
+     * @return string
+     */
+    public function getCartDescription();
+
+
+    /**
+     * Return cart id
+     *
+     * @return integer
+     */
+    public function getCartId();
 }

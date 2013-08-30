@@ -9,13 +9,15 @@
 namespace Befactory\CorePaymentBundle\Event\Abstracts;
 
 use Befactory\CorePaymentBundle\Services\Interfaces\CartWrapperInterface;
+use Befactory\CorePaymentBundle\Services\Interfaces\OrderWrapperInterface;
 use Befactory\CorePaymentBundle\PaymentMethodInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 
 /**
  * Abstract payment event
  */
-abstract class AbstractPaymentEvent
+abstract class AbstractPaymentEvent extends Event
 {
 
     /**

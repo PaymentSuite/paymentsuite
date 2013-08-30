@@ -14,7 +14,7 @@ use Befactory\CorePaymentBundle\Event\Abstracts\AbstractPaymentEvent;
 /**
  * Event for payment success
  */
-class PaymentDoneEvent extends AbstractPaymentEvent
+class PaymentSuccessEvent extends AbstractPaymentEvent
 {
 
 }

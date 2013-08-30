@@ -13,6 +13,14 @@ use Befactory\CorePaymentBundle\Services\Interfaces\CartWrapperInterface;
 use Befactory\CorePaymentBundle\Services\Interfaces\OrderWrapperInterface;
 use Befactory\CorePaymentBundle\PaymentMethodInterface;
 
+use Befactory\CorePaymentBundle\Event\PaymentReadyEvent;
+use Befactory\CorePaymentBundle\Event\PaymentDoneEvent;
+use Befactory\CorePaymentBundle\Event\PaymentSuccessEvent;
+use Befactory\CorePaymentBundle\Event\PaymentFailEvent;
+use Befactory\CorePaymentBundle\Event\PaymentOrderCreatedEvent;
+
+use Befactory\CorePaymentBundle\CorePaymentEvents;
+
 
 /**
  * Abstract Manager class, for all payment methods managers
@@ -50,7 +58,6 @@ abstract class AbstractPaymentManager
 
         return $this;
     }
-
 
 
     /**
