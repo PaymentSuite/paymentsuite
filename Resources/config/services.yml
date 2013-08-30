@@ -1,0 +1,28 @@
+services:
+
+    paymill.form.type:
+        class: %paymill.form.type.class%
+        arguments:
+            payment.cart.wrapper: @payment.cart.wrapper
+        tags:
+            - { name: form.type, alias: paymill_view }
+
+    paymill.manager:
+        class: %paymill.manager.class%
+        arguments:
+            event.dispatcher: @event_dispatcher
+            paymill.private.key: %paymill.private.key%
+            paymill.public.key: %paymill.public.key%
+            paymill.api.endpoint: %paymill.api.endpoint%
+            payment.cart.wrapper: @payment.cart.wrapper
+            payment.order.wrapper: @payment.order.wrapper
+
+    paymill.twig.extension:
+        class: %paymill.twig.extension.class%
+        arguments:
+            payment.active: %paymill.active%
+            form.factory: @form.factory
+        calls:
+            - [setPublicKey, [%paymill.public.key%]]
+        tags:
+            - { name: twig.extension }

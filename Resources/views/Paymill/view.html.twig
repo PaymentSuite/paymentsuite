@@ -1,0 +1,5 @@
+{% block payment_form %}
+
+    {{ form_widget(paymill_form, { action: url('paymill_execute', method: "post") }) }}
+
+{% endblock payment_form %}

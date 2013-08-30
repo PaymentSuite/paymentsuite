@@ -1,0 +1,6 @@
+parameters:
+
+    paymill.api.endpoint: "https://api.paymill.com/v2/"
+    paymill.form.type.class: "Befactory\\PaymillBundle\\Form\\Type\\PaymillType"
+    paymill.manager.class: "Befactory\\PaymillBundle\\Services\\PaymillManager"
+    paymill.twig.extension.class: "Befactory\\PaymillBundle\\Twig\\PaymillExtension"

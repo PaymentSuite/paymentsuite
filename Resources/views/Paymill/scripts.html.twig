@@ -1,0 +1,88 @@
+<script type="text/javascript" src="https://bridge.paymill.com"></script>
+
+<script type="text/javascript">
+
+    var PAYMILL_PUBLIC_KEY = '{{ public_key }}';
+
+    /**
+     * Validation for paymill payment
+     */
+    $("#payment-form").submit(function(){
+        //join all cc numbers in one
+        var cc = $('#cc-number-1').val()+$('#cc-number-2').val()+$('#cc-number-3').val()+$('#cc-number-4').val();
+        var cardholder = $('#cc-owner').val();
+        var expiry_month = $('#cc-expiration-month').val();
+        var expiry_year = $('#cc-expiration-year').val();
+        var cvv = $('#cc-cvv').val();
+
+        var errors = new Array();
+        var okCardNumber = paymill.validateCardNumber(cc);
+        if (!okCardNumber) {
+            $('#card-number-error').html('{{ '_Card_number_invalid'|trans|e('js') }}');
+        } else {
+            $('#card-number-error').html('');
+        }
+
+        var okExpiy = paymill.validateExpiry(expiry_month, expiry_year);
+        if (!okExpiy) {
+            $('#card-expiry-error').html('{{ '_Card_expiry_invalid'|trans|e('js')}}');
+        } else {
+            $('#card-expiry-error').html('');
+        }
+
+        var okCvc = paymill.validateCvc(cvv);
+        if (!okCvc) {
+            $('#card-cvc-error').html('{{ '_Card_cvc_invalid'|trans|e('js')}}');
+        } else {
+            $('#card-cvc-error').html('');
+        }
+
+        if (okCardNumber && okExpiy && okCvc) {
+            paymill.createToken({
+                number: cc,
+                exp_month: expiry_month,
+                exp_year: expiry_year,
+                cvc: cvv,
+                amount_int: $('#total-int').val(),
+                currency: 'EUR',
+                cardholder: cardholder
+            },  paymillResponseHandler);
+        }
+
+        return false;
+    });
+
+
+    /**
+     * Handler for paymill response
+     */
+    function paymillResponseHandler(error, result) {
+
+        if (error) {
+
+            // Shows the error above the form
+            $('#payment-error')
+                .find('.alert')
+                .html(error.apierror)
+                .end()
+                .show();
+
+            //reactivate submit button
+            $(".submit-button").removeAttr("disabled");
+            $("#payment_shadow").remove();
+            $("#payment_overlay").remove();
+        } else {
+
+            $('#payment-error').hide();
+            var form = $("#payment-form");
+            // Token
+            var token = result.token;
+            // Add token to form and submit it
+            form.append("<input type='hidden' name='paymillToken' value='" + token + "'/>");
+            // add original amount for double check
+            form.append("<input type='hidden' name='originalAmount' value='" + $('#total-int').val() + "' />");
+
+            return form.get(0).submit();
+        }
+    }
+</script>
