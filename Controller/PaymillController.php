@@ -1,7 +1,12 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */
@@ -12,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Befactory\CorePaymentBundle\Exception\PaymentException;
+use Befactory\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Befactory\PaymillBundle\PaymillMethod;
 
@@ -43,7 +48,8 @@ class PaymillController extends Controller
 
             $paymentMethod = new PaymillMethod;
             $paymentMethod
-                ->setAmount((int) $data['amount'])
+                ->setAmount((float) $data['amount'])
+                ->setApiToken($data['api_token'])
                 ->setCreditCartNumber($data['credit_cart_1'] . $data['credit_cart_2'] . $data['credit_cart_3'] . $data['credit_cart_4'])
                 ->setCreditCartOwner($data['credit_cart_owner'])
                 ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
@@ -56,8 +62,9 @@ class PaymillController extends Controller
                     ->processPayment($paymentMethod);
 
                 $redirectUrl = $this->container->getParameter('paymill.success.route');
-                $redirectAppendOrder = $this->container->getParameter('paymill.success.order.append');
-                $redirectAppendOrderField = $this->container->getParameter('paymill.success.order.field');
+                $redirectAppend = $this->container->getParameter('paymill.success.order.append');
+                $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
+                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
 
             } catch (PaymentException $e) {
 
@@ -65,32 +72,28 @@ class PaymillController extends Controller
                  * Must redirect to fail route
                  */
                 $redirectUrl = $this->container->getParameter('paymill.fail.route');
-
-                $redirectUrl = $this->container->getParameter('paymill.fail.route');
-                $redirectAppendOrder = $this->container->getParameter('paymill.fail.order.append');
-                $redirectAppendOrderField = $this->container->getParameter('paymill.fail.order.field');
+                $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
+                $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
+                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
             }
         } else {
 
             /**
              * If form is not valid, fail return page
              */
-            $redirectUrl = $this->container->getParameter('paymill.routes.fail');
-
             $redirectUrl = $this->container->getParameter('paymill.fail.route');
-            $redirectAppendOrder = $this->container->getParameter('paymill.fail.order.append');
-            $redirectAppendOrderField = $this->container->getParameter('paymill.fail.order.field');
+            $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
+            $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
+            $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
         }
 
-        $redirectData = array();
-        if ($redirectAppendOrder) {
+        $redirectData   = $redirectAppend
+                        ? array(
+                            $redirectAppendField => $redirectAppendValue,
+                        )
+                        : array();
 
-            $orderWrapper = $this->get('payment.order.wrapper');
-            $redirectData = array(
-                $redirectAppendOrderField => $orderWrapper->getOrderId(),
-            );
-        }
-
+die($this->generateUrl($redirectUrl, $redirectData));
         return new RedirectResponse($this->generateUrl($redirectUrl, $redirectData));
     }
 }

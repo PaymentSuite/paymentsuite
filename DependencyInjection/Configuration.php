@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
+ *
+ * Befactory 2013
+ */
+
 namespace Befactory\PaymillBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -53,11 +64,11 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->cannotBeEmpty()
                         ->end()
-                        ->booleanNode('order_append')
+                        ->booleanNode('cart_append')
                             ->defaultTrue()
                         ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
+                        ->scalarNode('cart_append_field')
+                            ->defaultValue('cart_id')
                         ->end()
                     ->end()
                 ->end()

@@ -1,25 +1,31 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */
 
 namespace Befactory\PaymillBundle\Services;
 
-use Befactory\CorePaymentBundle\Services\Abstracts\AbstractPaymentManager;
+use Befactory\PaymentCoreBundle\Services\Abstracts\AbstractPaymentManager;
 
 use Services_Paymill_Transactions;
-use Befactory\CorePaymentBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\CorePaymentBundle\Exception\PaymentAmountsNotMatchException;
-use Befactory\CorePaymentBundle\Exception\PaymentException;
+use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Befactory\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use Befactory\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-use Befactory\CorePaymentBundle\Events\PaymentDoneEvent;
-use Befactory\CorePaymentBundle\Events\PaymentSuccessEvent;
-use Befactory\CorePaymentBundle\Events\PaymentFailEvent;
-use Befactory\CorePaymentBundle\CorePaymentEvents;
+use Befactory\PaymentCoreBundle\Events\PaymentDoneEvent;
+use Befactory\PaymentCoreBundle\Events\PaymentSuccessEvent;
+use Befactory\PaymentCoreBundle\Events\PaymentFailEvent;
+use Befactory\PaymentCoreBundle\PaymentCoreEvents;
 use Befactory\PaymillBundle\PaymillMethod;
 
 /**
@@ -49,7 +55,7 @@ class PaymillManager extends AbstractPaymentManager
      *
      * Paymill api ednpoint
      */
-    protected $apiEndpoint;
+    protected $apiEndPoint;
 
 
     /**
@@ -103,35 +109,38 @@ class PaymillManager extends AbstractPaymentManager
     public function processPayment(PaymillMethod $paymentMethod)
     {
         /// first check that amounts are the same
-        $cartAmount = round($this->cartWrapper->getAmount(), 2) * 100.00;
+        $cartAmount = (float) $this->cartWrapper->getAmount() * 100;
 
-        if ($paymentMethod->getAmount() != $cartAmount) {
+        /**
+         * If both amounts are diffreent, execute Exception
+         */
+        if (abs($paymentMethod->getAmount() - $cartAmount) > 0.00001) {
 
             throw new PaymentAmountsNotMatchException;
-
-            return false;
         }
 
         $this->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
-        //validate the order in the module
-        //params for paymill interaction
+        /**
+         * Validate the order in the module
+         * params for paymill interaction
+         */
         $params = array(
             'amount' => intval($cartAmount),
             'currency' => 'EUR',
-            'token' => $token,
-            'description' => $orderWrapper->getDescription(),
+            'token' => $paymentMethod->getApiToken(),
+            'description' => $this->cartWrapper->getCartDescription(),
         );
 
         $transactionsObject = new Services_Paymill_Transactions(
             $this->privateKey,
-            $this->apiEndpoint
+            $this->apiEndPoint
         );
         $transaction = $transactionsObject->create($params);
+
         $paymentMethod
             ->setTransactionId($transaction['id'])
             ->setTransactionStatus($transaction['status']);
-
 
         /**
          * Payment paid done

@@ -1,7 +1,12 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */
@@ -10,7 +15,7 @@ namespace Befactory\PaymillBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Befactory\CorePaymentBundle\Services\interfaces\CartWrapperInterface;
+use Befactory\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
 
 /**
  * Type for a shop edit profile form
@@ -79,6 +84,9 @@ class PaymillType extends AbstractType
             ))
             ->add('amount', 'hidden', array(
                 'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
+            ))
+            ->add('api_token', 'hidden', array(
+                'data'  =>  ''
             ))
             ->add('payment_processer', 'hidden', array(
                 'data'  =>  'paymill_processer'

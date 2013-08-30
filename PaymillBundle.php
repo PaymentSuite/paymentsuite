@@ -1,7 +1,12 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */

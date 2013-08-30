@@ -1,14 +1,19 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */
 
 namespace Befactory\PaymillBundle\Twig;
 
-use Befactory\CorePaymentBundle\Twig\Abstracts\AbstractExtension;
+use Befactory\PaymentCoreBundle\Twig\Abstracts\AbstractExtension;
 use Twig_SimpleFunction;
 
 /**
@@ -18,20 +23,49 @@ use Twig_SimpleFunction;
 class PaymillExtension extends AbstractExtension
 {
 
-
+    /**
+     * @var Twig_Environment
+     *
+     * Twig environment
+     */
     private $environment;
+
+
+    /**
+     * @var string
+     *
+     * Public key
+     */
     private $publicKey;
 
 
+    /**
+     * Init runtime
+     *
+     * @param Twig_Environment $environment Twig environment
+     *
+     * @return PaymillExtension self object
+     */
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->environment = $environment;
+
+        return $this;
     }
 
 
+    /**
+     * Sets public key
+     *
+     * @param string $publicKey Public key
+     *
+     * @return PaymillExtension self object
+     */
     public function setPublicKey($publicKey)
     {
         $this->publicKey = $publicKey;
+
+        return $this;
     }
 
 

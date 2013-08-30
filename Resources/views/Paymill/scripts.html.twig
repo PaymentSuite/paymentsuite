@@ -74,13 +74,8 @@
         } else {
 
             $('#payment-error').hide();
+            $('#paymill_view_api_token').val(result.token);
             var form = $("#payment-form");
-            // Token
-            var token = result.token;
-            // Add token to form and submit it
-            form.append("<input type='hidden' name='paymillToken' value='" + token + "'/>");
-            // add original amount for double check
-            form.append("<input type='hidden' name='originalAmount' value='" + $('#total-int').val() + "' />");
 
             return form.get(0).submit();
         }

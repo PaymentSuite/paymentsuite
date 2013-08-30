@@ -1,16 +1,24 @@
 <?php
 
 /**
- * BeFactory Payments Suite
+ * BeFactory PaymillBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package PaymillBundle
  *
  * Befactory 2013
  */
 
 namespace Befactory\PaymillBundle;
 
-use Befactory\CorePaymentBundle\PaymentMethodInterface;
+use Befactory\PaymentCoreBundle\PaymentMethodInterface;
 
 
+/**
+ * PaymillMethod class
+ */
 class PaymillMethod implements PaymentMethodInterface
 {
 
@@ -23,16 +31,77 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * @var float
+     *
+     * Paymill amount
+     */
     private $amount;
+
+
+    /**
+     * @var string
+     *
+     * Credit Cart number
+     */
     private $creditCartNumber;
+
+
+    /**
+     * @var string
+     *
+     * Credit cart owner
+     */
     private $creditCartOwner;
+
+
+    /**
+     * @var integer
+     *
+     * Credit cart expiration year
+     */
     private $creditCartExpirationYear;
+
+
+    /**
+     * @var integer
+     *
+     * Credit cart expiration month value
+     */
     private $creditCartExpirationMonth;
+
+
+    /**
+     * @var string
+     *
+     * Credit cart security value
+     */
     private $creditCartSecurity;
-    private $creditCartToken;
+
+
+    /**
+     * @var string
+     *
+     * Paymill response api token
+     */
+    private $apiToken;
+
+
+    /**
+     * @var integer
+     *
+     * Paymill transaction id
+     */
     private $transactionId;
 
 
+    /**
+     * set amount
+     *
+     * @param float $amount Amount
+     *
+     * @return PaymillMethod self Object
+     */
     public function setAmount($amount)
     {
         $this->amount = $amount;
@@ -41,12 +110,24 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get amount
+     *
+     * @return float amount
+     */
     public function getAmount()
     {
         return $this->amount;
     }
 
 
+    /**
+     * set Credit cart number
+     *
+     * @param string $creditCartNumber Credit cart number
+     *
+     * @return PaymillMethod self Object
+     */
     public function setCreditCartNumber($creditCartNumber)
     {
         $this->creditCartNumber = $this->creditCartNumber;
@@ -55,12 +136,24 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get Credit cart number
+     *
+     * @return string Credit cart number
+     */
     public function getCreditCartNumber()
     {
         return $this->creditCartNumber;
     }
 
 
+    /**
+     * set Credit cart owner
+     *
+     * @param string $creditCartOwner Credit cart owner
+     *
+     * @return PaymillMethod self Object
+     */
     public function setCreditCartOwner($creditCartOwner)
     {
         $this->creditCartOwner = $creditCartOwner;
@@ -69,12 +162,24 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get Credit cart owner
+     *
+     * @return string Credit cart owner
+     */
     public function getCreditCartOwner()
     {
         return $this->creditCartOwner;
     }
 
 
+    /**
+     * set Credit cart expiration year
+     *
+     * @param integer $creditCartExpirationYear Credit cart expiration year
+     *
+     * @return PaymillMethod self Object
+     */
     public function setCreditCartExpirationYear($creditCartExpirationYear)
     {
         $this->creditCartExpirationYear = $creditCartExpirationYear;
@@ -83,12 +188,24 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get Credit cart expiration year
+     *
+     * @return integer Credit cart expiration year
+     */
     public function getCreditCartExpirationYear()
     {
         return $this->creditCartExpirationYear;
     }
 
 
+    /**
+     * set Credit cart expiration month
+     *
+     * @param integer $amount Credit cart expiration month
+     *
+     * @return PaymillMethod self Object
+     */
     public function setCreditCartExpirationMonth($creditCartExpirationMonth)
     {
         $this->creditCartExpirationMonth = $creditCartExpirationMonth;
@@ -97,12 +214,24 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get Credit cart expiration month
+     *
+     * @return integer Credit cart expiration month
+     */
     public function getCreditCartExpirationMonth()
     {
         return $this->creditCartExpirationMonth;
     }
 
 
+    /**
+     * set Credit cart security
+     *
+     * @param string $creditCartSecurity Credit cart security
+     *
+     * @return PaymillMethod self Object
+     */
     public function setCreditCartSecurity($creditCartSecurity)
     {
         $this->creditCartSecurity = $creditCartSecurity;
@@ -111,26 +240,50 @@ class PaymillMethod implements PaymentMethodInterface
     }
 
 
+    /**
+     * Get Credit cart security
+     *
+     * @return float Credit cart security
+     */
     public function getCreditCartSecurity()
     {
         return $this->creditCartSecurity;
     }
 
 
-    public function setCreditCartToken($creditCartToken)
+    /**
+     * set Api token
+     *
+     * @param string $apiToken Api token
+     *
+     * @return PaymillMethod self Object
+     */
+    public function setApiToken($apiToken)
     {
-        $this->creditCartToken = $creditCartToken;
+        $this->apiToken = $apiToken;
 
         return $this;
     }
 
 
-    public function getCreditCartToken()
+    /**
+     * Get Api token
+     *
+     * @return string Api token
+     */
+    public function getApiToken()
     {
-        return $this->creditCartToken;
+        return $this->apiToken;
     }
 
 
+    /**
+     * set Transaction id
+     *
+     * @param integer $transactionId Transaction id
+     *
+     * @return PaymillMethod self Object
+     */
     public function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
@@ -138,12 +291,25 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
+
+    /**
+     * Get Transaction id
+     *
+     * @return integer Transaction id
+     */
     public function getTransactionId()
     {
         return $this->transactionId;
     }
 
 
+    /**
+     * set Transaction status
+     *
+     * @param string $amount Transaction status
+     *
+     * @return PaymillMethod self Object
+     */
     public function setTransactionStatus($transactionStatus)
     {
         $this->transactionStatus = $transactionStatus;
@@ -151,6 +317,12 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
+
+    /**
+     * Get Transaction status
+     *
+     * @return string Transaction status
+     */
     public function getTransactionStatus()
     {
         return $this->transactionStatus;
