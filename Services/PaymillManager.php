@@ -13,13 +13,12 @@
 
 namespace Befactory\PaymillBundle\Services;
 
-use Befactory\PaymentCoreBundle\Services\Abstracts\AbstractPaymentManager;
 use Services_Paymill_Transactions;
 use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
 use Befactory\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Befactory\PaymentCoreBundle\Exception\PaymentException;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Befactory\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
@@ -30,8 +29,16 @@ use Befactory\PaymillBundle\PaymillMethod;
 /**
  * Paymill manager
  */
-class PaymillManager extends AbstractPaymentManager
+class PaymillManager
 {
+
+    /**
+     * @var PaymentEventDispatcher
+     * 
+     * Payment event dispatcher
+     */
+    protected $paymentEventDispatcher;
+    
 
     /**
      * @var string
@@ -76,17 +83,16 @@ class PaymillManager extends AbstractPaymentManager
     /**
      * Construct method for paymill manager
      *
-     * @param EventDispatcher       $eventDispatcher Event dispatcher
-     * @param string                $privateKey      Private key
-     * @param string                $publicKey       Public key
-     * @param string                $apiEndPoint     Api end point
-     * @param CartWrapperInterface  $cartWrapper     Cart wrapper
-     * @param OrderWrapperInterface $orderWrapper    Order wrapper
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param string                 $privateKey             Private key
+     * @param string                 $publicKey              Public key
+     * @param string                 $apiEndPoint            Api end point
+     * @param CartWrapperInterface   $cartWrapper            Cart wrapper
+     * @param OrderWrapperInterface  $orderWrapper           Order wrapper
      */
-    public function __construct(EventDispatcher $eventDispatcher, $privateKey, $publicKey, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, $privateKey, $publicKey, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
     {
-        parent::__construct($eventDispatcher);
-
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->publicKey = $publicKey;
         $this->privateKey = $privateKey;
         $this->apiEndPoint = $apiEndPoint;
@@ -118,7 +124,7 @@ class PaymillManager extends AbstractPaymentManager
             throw new PaymentAmountsNotMatchException;
         }
 
-        $this->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
         /**
          * Validate the order in the module
@@ -146,7 +152,7 @@ class PaymillManager extends AbstractPaymentManager
          *
          * Paid process has ended ( No matters result )
          */
-        $this->notifyPaymentDone($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentDone($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
         /**
          * when a transaction is successful, it is marked as 'closed'
@@ -159,7 +165,7 @@ class PaymillManager extends AbstractPaymentManager
              *
              * Paid process has ended failed
              */
-            $this->notifyPaymentFail($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+            $this->paymentEventDispatcher->notifyPaymentFail($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
             throw new PaymentException;
         }
@@ -170,7 +176,7 @@ class PaymillManager extends AbstractPaymentManager
          *
          * Paid process has ended successfully
          */
-        $this->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
 
         /**
@@ -180,7 +186,7 @@ class PaymillManager extends AbstractPaymentManager
          *
          * At this point, order MUST be created
          */
-        $this->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $paymentMethod);
 
         return $this;
     }

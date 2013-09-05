@@ -13,15 +13,33 @@
 
 namespace Befactory\PaymillBundle\Twig;
 
-use Befactory\PaymentCoreBundle\Twig\Abstracts\AbstractExtension;
+use Symfony\Component\Form\FormFactory;
+use Twig_Extension;
 use Twig_SimpleFunction;
+use Twig_SimpleFilter;
 
 /**
  * Text utilities extension
  *
  */
-class PaymillExtension extends AbstractExtension
+class PaymillExtension extends Twig_Extension
 {
+
+    /**
+     * @var boolean
+     *
+     * Payment method is defined
+     */
+    protected $enabled;
+
+
+    /**
+     * @var FormFactory
+     *
+     * Form factory
+     */
+    protected $formFactory;
+
 
     /**
      * @var Twig_Environment
@@ -37,6 +55,19 @@ class PaymillExtension extends AbstractExtension
      * Public key
      */
     private $publicKey;
+
+
+    /**
+     * Construct method
+     *
+     * @param boolean $enabled      Return if module is enabled
+     * @param string  $paymentRoute Payment route
+     */
+    public function __construct($enabled, FormFactory $formFactory)
+    {
+        $this->enabled = $enabled;
+        $this->formFactory = $formFactory;
+    }
 
 
     /**

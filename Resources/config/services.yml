@@ -10,7 +10,7 @@ services:
     paymill.manager:
         class: %paymill.manager.class%
         arguments:
-            event.dispatcher: @event_dispatcher
+            payment.event.dispatcher: @payment.event.dispatcher
             paymill.private.key: %paymill.private.key%
             paymill.public.key: %paymill.public.key%
             paymill.api.endpoint: %paymill.api.endpoint%
