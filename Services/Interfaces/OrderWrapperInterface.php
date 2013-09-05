@@ -13,7 +13,6 @@
 
 namespace Befactory\PaymentCoreBundle\Services\interfaces;
 
-
 /**
  * Interface for OrderWrapper
  */
@@ -34,6 +33,16 @@ interface OrderWrapperInterface
      * @return Object Order object
      */
     public function getOrder();
+
+
+    /**
+     * Get order given an identifier
+     * 
+     * @param integer $orderId Order identifier, usually defined as primary key or unique key
+     *
+     * @return Object Order object
+     */
+    public function findOrder($orderId);
 
 
     /**

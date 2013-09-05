@@ -13,7 +13,7 @@
 
 namespace Befactory\PaymentCoreBundle\Exception;
 
-use \Exception;
+use Exception;
 
 
 /**

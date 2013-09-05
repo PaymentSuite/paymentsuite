@@ -1,0 +1,24 @@
+{
+    "name": "befactory/payment-core-bundle",
+    "type": "symfony-bundle",
+    "description": "Payment Core Bundle, part and core of Befactory Payment Suite",
+    "keywords": ["payment", "ecommerce", "befactory"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Morera",
+            "email": "marc.morera@mmoreram.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2",
+        "symfony/config": ">=2.2",
+        "symfony/http-kernel": ">=2.2",
+        "symfony/dependency-injection": ">=2.2"
+    },
+    "target-dir": "Befactory/PaymentCoreBundle",
+    "autoload": {
+        "psr-0": { "Befactory\\PaymentCoreBundle": "" }
+    }
+}

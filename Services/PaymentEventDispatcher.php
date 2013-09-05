@@ -11,29 +11,34 @@
  * Befactory 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Services\Abstracts;
+namespace Befactory\PaymentCoreBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
+
 use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
 use Befactory\PaymentCoreBundle\PaymentMethodInterface;
-
 use Befactory\PaymentCoreBundle\Event\PaymentReadyEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
-
 use Befactory\PaymentCoreBundle\PaymentCoreEvents;
 
 
 /**
- * Abstract Manager class, for all payment methods managers
- *
- * This class brings managers all EventDIspatcher functionalities
+ * Payment event dispatcher.
  */
-abstract class AbstractPaymentManager
+class PaymentEventDispatcher
 {
+
+    /**
+     * @var EventDispatcher
+     * 
+     * Event dispatcher
+     */
+    private $eventDispatcher;
+
 
     /**
      * Construct method
@@ -53,9 +58,9 @@ abstract class AbstractPaymentManager
      * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
-     * @return AbstractPaymentManager self Object
+     * @return PaymentEventDispatcher self Object
      */
-    protected function notifyPaymentReady(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentReady(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
         $paymentDoneEvent = new PaymentReadyEvent($cartWrapper, $orderWrapper, $paymentMethod);
@@ -74,9 +79,9 @@ abstract class AbstractPaymentManager
      * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
-     * @return AbstractPaymentManager self Object
+     * @return PaymentEventDispatcher self Object
      */
-    protected function notifyPaymentDone(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentDone(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
         $paymentDoneEvent = new PaymentDoneEvent($cartWrapper, $orderWrapper, $paymentMethod);
         $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_DONE, $paymentDoneEvent);
@@ -92,9 +97,9 @@ abstract class AbstractPaymentManager
      * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
-     * @return AbstractPaymentManager self Object
+     * @return PaymentEventDispatcher self Object
      */
-    protected function notifyPaymentSuccess(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentSuccess(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
         $paymentSuccessEvent = new PaymentSuccessEvent($cartWrapper, $orderWrapper, $paymentMethod);
@@ -111,9 +116,9 @@ abstract class AbstractPaymentManager
      * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
-     * @return AbstractPaymentManager self Object
+     * @return PaymentEventDispatcher self Object
      */
-    protected function notifyPaymentFail(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentFail(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
         $paymentFailEvent = new PaymentFailEvent($cartWrapper, $orderWrapper, $paymentMethod);
@@ -130,9 +135,9 @@ abstract class AbstractPaymentManager
      * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
-     * @return AbstractPaymentManager self Object
+     * @return PaymentEventDispatcher self Object
      */
-    protected function notifyPaymentOrderCreated(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentOrderCreated(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
         $paymentFailEvent = new PaymentOrderCreatedEvent($cartWrapper, $orderWrapper, $paymentMethod);

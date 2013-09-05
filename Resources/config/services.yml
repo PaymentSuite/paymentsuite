@@ -1,0 +1,6 @@
+services:
+
+    payment.event.dispatcher:
+        class: %payment.event.dispatcher.class%
+        arguments:
+            event.dispatcher: @event_dispatcher

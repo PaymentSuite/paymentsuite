@@ -13,8 +13,6 @@
 
 namespace Befactory\PaymentCoreBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 
 /**
  * This class define all events thrown by all payment method
@@ -24,15 +22,16 @@ class PaymentCoreEvents
 
     /**
      * This event is thrown when a payment is ready to be processed
-     *
+     * 
      * event.name : payment.ready
      * event.class : PaymentReadyEvent
+     * 
      */
     const PAYMENT_READY = 'payment.ready';
 
 
     /**
-     * This event is thrown when a payment is ready to be processed
+     * This event is thrown when a payment is paid, no matter the result
      *
      * event.name : payment.done
      * event.class : PaymentDoneEvent

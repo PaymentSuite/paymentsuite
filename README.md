@@ -1,14 +1,34 @@
-#Payment Suite for Symfony
+Payment Suite for Symfony
+-----
 
-##For developers
-Si eres desarrollador y quieres implementar tu propio mÃ©todo de pago, solo tienes que conocer las herramients que te brinda el PaymentCore. 
-PaymentCore ofrece todo un esqueleto de clases abstractas y interfaces para que puedas implementar fÃ¡cilmente tu plataforma. 
+Payment Suite para Symfony2 es un conjunto de herramientas para unificar todas las plataformas de pago en un solo modelo de eventos.  
 
-###PaymentBridge
-Como es lÃ³gico este bundle estÃ¡ completamente desacoplado de cualquier proyecto que lo utilize. Esto significa que en algun momento hay que implementar un Bundle de tipo Bridge, el cual definirÃ¡ una serie de servicios necesarios para que Cualquier plataforma de pago pueda tener acceso a ciertos datos de tu modelo.  
-Es por esto que cuando utilizemos cualquier plataforma de pago implementado en esta suite, debemos crear un bundle llamado "PaymentBridgeBundle" que defina tan solo dos servicios
+Se basa en un sistema de clases abstractas y interfaces para que sea lo mas fácil posible añadir nuevas plataformas sin que el usuario final tenga que añadir lógica extra en su ecommerce.  
 
-####payment.cart.wrapper
+Table of contents
+-----
+1. [About Payment Suite](#about-payment-suite)
+2. [PaymentBridgeBundle](#paymentbridgebundle)
+    * [CartWrapper](#cart-wrapper)
+    * [OrderWrapper](#order-wrapper)
+    * [PaymentMethod](#payment-method)
+    * [Manager](#manager)
+
+
+# About Payment Suite
+
+La Suite de Payment mantiene desde el primer momento un índice de acoplamiento completamente nulo con el ecommerce, ya que es completamente transparente al modelo y la implementación de este. Esto hace que sea un código muy testeable unitariamente y muy fácil de entender a nivel abstracto.  
+
+De todas formas, tenemos que tener en cuenta que de alguna forma u otra, cualquier plataforma de pago tiene que tener acceso a algunos datos del modelo del ecommerce, todos relacionados con el Cart o el Order generado a través del Cart.  
+
+# PaymentBridgeBundle
+
+Por ello, cada ecommerce deberá crear un Bundle propio que hará de puente entre su modelo y el nivel de abstracción del Payment Suite. En este Bundle deberá, tan solo, definir dos servicios. Por nomenclatura, este bundle deberá llamarse PaymentBridgeBundle.
+
+## CartWrapper
+
+Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
+
     <?php
 
     namespace Befactory\PaymentCoreBundle\Services\interfaces;
@@ -54,8 +74,13 @@ Es por esto que cuando utilizemos cualquier plataforma de pago implementado en e
         public function getCartId();
     }
 
-####payment.order.wrapper
+## OrderWrapper
+
+El otro servicio es exactamente el mismo pero para acceder a ciertos valores referentes a Order. Su nombre **debe** ser `payment.order.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.  
+
     <?php
+
+    namespace Befactory\PaymentCoreBundle\Services\interfaces;
 
     /**
      * Interface for OrderWrapper
@@ -80,6 +105,16 @@ Es por esto que cuando utilizemos cualquier plataforma de pago implementado en e
 
 
         /**
+         * Get order given an identifier
+         * 
+         * @param integer $orderId Order identifier, usually defined as primary key or unique key
+         *
+         * @return Object Order object
+         */
+        public function findOrder($orderId);
+
+
+        /**
          * Return order description
          *
          * @return string
@@ -95,28 +130,140 @@ Es por esto que cuando utilizemos cualquier plataforma de pago implementado en e
         public function getOrderId();
     }
 
+## PaymentMethod
 
-###Eventos
-####payment.ready
+Cada una de las plataformas debe identificarse de forma individual, así como pasar una serie de datos específicas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Befactory\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el método de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos específicos, será posible.
 
-Se lanza previo pago. La razÃ³n de este evento es para que las plataformas que disponen de prepago ( sistemas de pago en tienda ) puedan transformar su cart en order sin haber ejecutado el pago. Cualquier subscriber que estÃ© suscrito a este evento deberÃ­a crear un Order en un estado ready, pero no pagado.
-####payment.done
+    <!php
 
-Se lanza cuando el pago ha sido ejecutado. Este evento se lanza sea cual sea el resultado del pago.
-####payment.fail
-
-Se lanza cuando el pago ha sido ejecutado con un resultado negativo.
-####payment.success
-
-Se lanza cuandl el pago ha sido ejecutado con un resultado positivo.
-####payment.order.created
-
-Se lanza cuando un nuevo order ha sido creado. La utilidad de este evento es que todos los subscribers a este evento podrÃ¡n tratar el Order creado
+    namespace Befactory\PaymentCoreBundle;
 
 
+    /**
+     * Interface for all type of payments
+     */
+    interface PaymentMethodInterface
+    {
+
+        /**
+         * Return type of payment name
+         *
+         * @return string
+         */
+        public function getPaymentName();
 
 
+        /**
+         * Return type of payment name
+         *
+         * @return string
+         */
+        public function getAmount();
+    }
+
+## PaymentEventDispatcher
+
+Toda plataforma necesita un core de proceso especíco encargado de toda la lógica de negocio. Este debe ser el encargado de lanzar todos los eventos disponibles del core. Es para esto que PaymentCore dispone de un servicio público específico para hacer dispatch de algunos eventos.  
+
+Por definición, toda plataforma debería, en algún momento u otro lanzar todos y cada uno de los eventos, por si algun subscriber necesita realizar alguna operación relacionada con tal evento.  
+
+Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos extienden de un abstracto común, por lo que en realidad, todos tienen disponibles los mismos objetos.
+
+    
+
+    /**
+     * Get Cart Wrapper
+     *
+     * @return CartWrapperInterface Cart Wrapper
+     */
+    public function getCartWrapper()
+    {
+        return $this->cartWrapper;
+    }
 
 
+    /**
+     * Get Order Wrapper
+     *
+     * @return OrderWrapperInterface Order wrapper
+     */
+    public function getOrderWrapper()
+    {
+        return $this->orderWrapper;
+    }
 
-##For 
+
+    /**
+     * Get Payment Method
+     *
+     * @return PaymentMethod Payment method
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+### Payment Ready Event
+
+    /**
+     * This event is thrown when a payment is ready to be processed
+     * 
+     * event.name : payment.ready
+     * event.class : PaymentReadyEvent
+     * 
+     */
+    const PAYMENT_READY = 'payment.ready';
+
+> En este momento, getOrderWrapper debería devolver un wrapper con un order `null` ya que tan solo el cart está construido y available.
+> Una posible utilidad podría ser la creación inmediato de un Order en un estado "ready_to_pay".
+
+### Payment Done Event
+
+    /**
+     * This event is thrown when a payment is paid, no matter the result
+     *
+     * event.name : payment.done
+     * event.class : PaymentDoneEvent
+     */
+    const PAYMENT_DONE = 'payment.done';
+
+> Este evento se lanza siempre que un pago ha sido registrado, haya sido correcto o rejected.
+> Es posible que en algunos casos, en este momento y posteriormente, tengamos ya un order creado ( por ejemplo en pagos por transferencia ), asi que en cada una de las plataformas, se tendrá que gestionar estos casos.
+> Una posible utilidad podría ser el control de intentos de pago por parte del usuario, sin importar el resultado de tal acción.
+
+### Payment Success Event
+
+    /**
+     * This event is thrown when a payment is paid succesfuly
+     *
+     * event.name : payment.success
+     * event.class : PaymentSuccessEvent
+     */
+    const PAYMENT_SUCCESS = 'payment.success';
+
+> En principio, la transacción ha sido correcta.
+> Su principal utilidad es la creación de un order a partir del Cart pagado.
+> La responsabilidad del core del ecommerce debería ser inyectar el nuevo Order al servicio `payment.order.wrapper`, para que tanto la plataforma de pago como los futuros eventos contengan ya el Order creado y puedan acceder a sus datos compartidos.
+
+### Payment Fail Event
+
+    /**
+     * This event is thrown when a payment can't be paid for any reason
+     *
+     * event.name : payment.fail
+     * event.class : PaymentFailEvent
+     */
+    const PAYMENT_FAIL = 'payment.fail';
+
+### Payment Order Created Event
+
+    /**
+     * This event is thrown when a payment can't be paid for any reason
+     *
+     * event.name : payment.order.created
+     * event.class : PaymentOrderCreatedEvent
+     */
+    const PAYMENT_ORDER_CREATED = 'payment.order.created';
+
+> En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
+> Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.

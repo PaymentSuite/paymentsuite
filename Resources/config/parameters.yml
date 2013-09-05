@@ -1,0 +1,3 @@
+parameters:
+
+    payment.event.dispatcher.class: "Befactory\\PaymentCoreBundle\\Services\\PaymentEventDispatcher"

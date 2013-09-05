@@ -1,0 +1,10 @@
+/* TEAM */            
+Creator : Befactory team
+Contact: mmoreram at befactory dot com
+Twitter: mmoreram                   
+Location: Barcelona, Catalunya, Catalunya.
+
+/* THANKS */
+http://github.com
+http://symfony.com
+Fabien Potencier
