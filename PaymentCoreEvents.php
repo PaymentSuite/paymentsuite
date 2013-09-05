@@ -5,14 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymentCoreBundle
  *
  * Befactory 2013
  */
 
 namespace Befactory\PaymentCoreBundle;
-
 
 /**
  * This class define all events thrown by all payment method

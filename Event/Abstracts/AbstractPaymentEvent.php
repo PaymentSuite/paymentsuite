@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymentCoreBundle
  *
  * Befactory 2013
@@ -17,7 +17,6 @@ use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
 use Befactory\PaymentCoreBundle\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\Event;
-
 
 /**
  * Abstract payment event

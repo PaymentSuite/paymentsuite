@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymentCoreBundle
  *
  * Befactory 2013
@@ -24,7 +24,6 @@ use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
 use Befactory\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
 use Befactory\PaymentCoreBundle\PaymentCoreEvents;
-
 
 /**
  * Payment event dispatcher.
