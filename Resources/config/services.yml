@@ -20,9 +20,16 @@ services:
     paymill.twig.extension:
         class: %paymill.twig.extension.class%
         arguments:
+            paymill.public.key: %paymill.public.key%
+            paymill.controller.route: %paymill.controller.route%
             payment.active: %paymill.active%
             form.factory: @form.factory
-        calls:
-            - [setPublicKey, [%paymill.public.key%]]
         tags:
             - { name: twig.extension }
+
+    paymill.routes.loader:
+        class: %paymill.routes.loader.class%
+        arguments:
+            paymill.controller.route: %paymill.controller.route%
+        tags:
+            - { name: routing.loader }

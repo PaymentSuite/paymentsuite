@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymillBundle
  *
  * Befactory 2013
@@ -43,6 +43,9 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('active')
                     ->defaultTrue()
+                ->end()
+                ->scalarNode('controller_route')
+                    ->defaultValue('/payment/paymill/execute')
                 ->end()
                 ->arrayNode('payment_success')
                     ->children()

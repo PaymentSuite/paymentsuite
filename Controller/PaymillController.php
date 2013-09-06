@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymillBundle
  *
  * Befactory 2013
@@ -22,7 +22,7 @@ use Befactory\PaymillBundle\PaymillMethod;
 
 
 /**
- * @Route("/payment/paymill")
+ * PaymillController
  */
 class PaymillController extends Controller
 {
@@ -32,10 +32,7 @@ class PaymillController extends Controller
      *
      * @param Request $request Request element
      *
-     * @throws \Befactory\PaymentCoreBundle\Exception\PaymentException|\Exception
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @Route("/execute", name="paymill_execute")
+     * @return RedirectResponse
      *
      * @Method("POST")
      */

@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymillBundle
  *
  * Befactory 2013
@@ -36,6 +36,7 @@ class PaymillExtension extends Extension
         $container->setParameter('paymill.active', $config['active']);
         $container->setParameter('paymill.private.key', $config['private_key']);
         $container->setParameter('paymill.public.key', $config['public_key']);
+        $container->setParameter('paymill.controller.route', $config['controller_route']);
 
         $container->setParameter('paymill.success.route', $config['payment_success']['route']);
         $container->setParameter('paymill.success.order.append', $config['payment_success']['order_append']);

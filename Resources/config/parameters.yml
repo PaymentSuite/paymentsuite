@@ -4,3 +4,4 @@ parameters:
     paymill.form.type.class: "Befactory\\PaymillBundle\\Form\\Type\\PaymillType"
     paymill.manager.class: "Befactory\\PaymillBundle\\Services\\PaymillManager"
     paymill.twig.extension.class: "Befactory\\PaymillBundle\\Twig\\PaymillExtension"
+    paymill.routes.loader.class: "Befactory\\PaymillBundle\\Router\\PaymillRoutesLoader"

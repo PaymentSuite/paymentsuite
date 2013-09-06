@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Marc Morera <marc.morera@befactory.com>
  * @package PaymillBundle
  *
  * Befactory 2013
@@ -58,13 +58,24 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
+     * @var string
+     * 
+     * Paymill controller route
+     */
+    private $paymillControllerRoute;
+
+
+    /**
      * Construct method
      *
+     * @param string $publicKey Public key
      * @param boolean $enabled      Return if module is enabled
      * @param string  $paymentRoute Payment route
      */
-    public function __construct($enabled, FormFactory $formFactory)
+    public function __construct($publicKey, $paymillControllerRoute, $enabled, FormFactory $formFactory)
     {
+        $this->publicKey = $publicKey;
+        $this->paymillControllerRoute = $paymillControllerRoute;
         $this->enabled = $enabled;
         $this->formFactory = $formFactory;
     }
@@ -86,21 +97,6 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
-     * Sets public key
-     *
-     * @param string $publicKey Public key
-     *
-     * @return PaymillExtension self object
-     */
-    public function setPublicKey($publicKey)
-    {
-        $this->publicKey = $publicKey;
-
-        return $this;
-    }
-
-
-    /**
      * Return all filters
      *
      * @return array Filters created
@@ -115,7 +111,9 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
-     * @inherit
+     * Render paymill form view
+     * 
+     * @return string view html
      */
     public function renderPaymentView()
     {
@@ -123,18 +121,19 @@ class PaymillExtension extends Twig_Extension
 
         return $this->environment->display('PaymillBundle:Paymill:view.html.twig', array(
             'paymill_form'  =>  $formType->createView(),
+            'paymill_execute_route' =>  $this->paymillControllerRoute,
         ));
     }
 
 
     /**
-     * @inherit
+     * Render paymill scripts view
+     * 
+     * @return string js code needed by Paymill behaviour
      */
     public function renderPaymentScripts()
     {
-        /**
-         * Rendering paymill pay button
-         */
+
         return $this->environment->display('PaymillBundle:Paymill:scripts.html.twig', array(
             'public_key'    =>  $this->publicKey,
         ));
