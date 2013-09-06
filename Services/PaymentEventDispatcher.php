@@ -62,8 +62,8 @@ class PaymentEventDispatcher
     public function notifyPaymentReady(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
-        $paymentDoneEvent = new PaymentReadyEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_READY, $paymentDoneEvent);
+        $paymentReadyEvent = new PaymentReadyEvent($cartWrapper, $orderWrapper, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_READY, $paymentReadyEvent);
 
         return $this;
     }
@@ -139,8 +139,8 @@ class PaymentEventDispatcher
     public function notifyPaymentOrderCreated(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
     {
 
-        $paymentFailEvent = new PaymentOrderCreatedEvent($cartWrapper, $orderWrapper, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_CREATED, $paymentFailEvent);
+        $paymentOrderCreatedEvent = new PaymentOrderCreatedEvent($cartWrapper, $orderWrapper, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_CREATED, $paymentOrderCreatedEvent);
 
         return $this;
     }
