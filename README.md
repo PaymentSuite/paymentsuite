@@ -1,5 +1,12 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/befactory/PaymentCoreBundle/badges/quality-score.png?s=daabfb5e5091a3adddb4b48bd5ebe55a7a0bbf56)](https://scrutinizer-ci.com/g/befactory/PaymentCoreBundle/)
 
+> Info. This Bundle is currently in progress and tested.  
+> If you are interested in using this bundle, please star it and will recieve last notices.  
+> All help will be very grateful.  
+> I am at your disposal.  
+>   
+> [@mmoreram](https://github.com/mmoreram)
+
 Payment Suite for Symfony
 -----
 
