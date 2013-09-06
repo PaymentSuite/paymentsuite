@@ -22,7 +22,6 @@ services:
         arguments:
             paymill.public.key: %paymill.public.key%
             paymill.controller.route: %paymill.controller.route%
-            payment.active: %paymill.active%
             form.factory: @form.factory
         tags:
             - { name: twig.extension }

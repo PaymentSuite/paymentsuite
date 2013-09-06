@@ -33,7 +33,6 @@ class PaymillExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('paymill.active', $config['active']);
         $container->setParameter('paymill.private.key', $config['private_key']);
         $container->setParameter('paymill.public.key', $config['public_key']);
         $container->setParameter('paymill.controller.route', $config['controller_route']);

@@ -139,7 +139,7 @@ class PaymillMethod implements PaymentMethodInterface
      */
     public function setCreditCartNumber($creditCartNumber)
     {
-        $this->creditCartNumber = $this->creditCartNumber;
+        $this->creditCartNumber = $creditCartNumber;
 
         return $this;
     }

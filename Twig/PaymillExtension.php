@@ -26,14 +26,6 @@ class PaymillExtension extends Twig_Extension
 {
 
     /**
-     * @var boolean
-     *
-     * Payment method is defined
-     */
-    protected $enabled;
-
-
-    /**
      * @var FormFactory
      *
      * Form factory
@@ -68,15 +60,14 @@ class PaymillExtension extends Twig_Extension
     /**
      * Construct method
      *
-     * @param string $publicKey Public key
-     * @param boolean $enabled      Return if module is enabled
-     * @param string  $paymentRoute Payment route
+     * @param string      $publicKey       Public key
+     * @param string      $controllerRoute Controller route
+     * @param FormFactory $formFactory     Form factory
      */
-    public function __construct($publicKey, $paymillControllerRoute, $enabled, FormFactory $formFactory)
+    public function __construct($publicKey, $paymillControllerRoute, FormFactory $formFactory)
     {
         $this->publicKey = $publicKey;
         $this->paymillControllerRoute = $paymillControllerRoute;
-        $this->enabled = $enabled;
         $this->formFactory = $formFactory;
     }
 
