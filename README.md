@@ -9,10 +9,20 @@ Table of contents
 -----
 1. [About Payment Suite](#about-payment-suite)
 2. [PaymentBridgeBundle](#paymentbridgebundle)
-    * [CartWrapper](#cart-wrapper)
-    * [OrderWrapper](#order-wrapper)
-    * [PaymentMethod](#payment-method)
-    * [Manager](#manager)
+    * [Cart Wrapper](#cart-wrapper)
+    * [Order Wrapper](#order-wrapper)
+    * [Payment Method](#payment-method)
+    * [Payment Event Dispatcher](#payment-event-dispatcher)
+3. [Events](#events)
+    * [Payment Ready Event](#payment-ready-event)
+    * [Payment Done Event](#payment-done-event)
+    * [Payment Success Event](#payment-success-event)
+    * [Payment Fail Event](#payment-fail-event)
+    * [Payment Order Created Event](#payment-order-created-event)
+4. [Platforms](#platforms)
+    * [Paypal Bundle](#paypal-bundle)
+    * [Paymill Bundle](#paymill-bundle)
+    * [Sermepa Bundle](#sermepa-bundle)
 
 
 # About Payment Suite
@@ -203,7 +213,9 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
         return $this->paymentMethod;
     }
 
-### Payment Ready Event
+# Events
+
+## Payment Ready Event
 
     /**
      * This event is thrown when a payment is ready to be processed
@@ -217,7 +229,7 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 > En este momento, getOrderWrapper debería devolver un wrapper con un order `null` ya que tan solo el cart está construido y available.
 > Una posible utilidad podría ser la creación inmediato de un Order en un estado "ready_to_pay".
 
-### Payment Done Event
+## Payment Done Event
 
     /**
      * This event is thrown when a payment is paid, no matter the result
@@ -231,7 +243,7 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 > Es posible que en algunos casos, en este momento y posteriormente, tengamos ya un order creado ( por ejemplo en pagos por transferencia ), asi que en cada una de las plataformas, se tendrá que gestionar estos casos.
 > Una posible utilidad podría ser el control de intentos de pago por parte del usuario, sin importar el resultado de tal acción.
 
-### Payment Success Event
+## Payment Success Event
 
     /**
      * This event is thrown when a payment is paid succesfuly
@@ -245,7 +257,7 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 > Su principal utilidad es la creación de un order a partir del Cart pagado.
 > La responsabilidad del core del ecommerce debería ser inyectar el nuevo Order al servicio `payment.order.wrapper`, para que tanto la plataforma de pago como los futuros eventos contengan ya el Order creado y puedan acceder a sus datos compartidos.
 
-### Payment Fail Event
+## Payment Fail Event
 
     /**
      * This event is thrown when a payment can't be paid for any reason
@@ -255,7 +267,7 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
      */
     const PAYMENT_FAIL = 'payment.fail';
 
-### Payment Order Created Event
+## Payment Order Created Event
 
     /**
      * This event is thrown when a payment can't be paid for any reason
@@ -267,3 +279,5 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 
 > En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
 > Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.
+
+# Platforms
