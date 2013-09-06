@@ -35,7 +35,7 @@ De todas formas, tenemos que tener en cuenta que de alguna forma u otra, cualqui
 
 Por ello, cada ecommerce deberá crear un Bundle propio que hará de puente entre su modelo y el nivel de abstracción del Payment Suite. En este Bundle deberá, tan solo, definir dos servicios. Por nomenclatura, este bundle deberá llamarse PaymentBridgeBundle.
 
-## CartWrapper
+## Cart Wrapper
 
 Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
 
@@ -84,7 +84,7 @@ Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada un
         public function getCartId();
     }
 
-## OrderWrapper
+## Order Wrapper
 
 El otro servicio es exactamente el mismo pero para acceder a ciertos valores referentes a Order. Su nombre **debe** ser `payment.order.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.  
 
@@ -140,7 +140,7 @@ El otro servicio es exactamente el mismo pero para acceder a ciertos valores ref
         public function getOrderId();
     }
 
-## PaymentMethod
+## Payment Method
 
 Cada una de las plataformas debe identificarse de forma individual, así como pasar una serie de datos específicas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Befactory\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el método de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos específicos, será posible.
 
@@ -171,15 +171,13 @@ Cada una de las plataformas debe identificarse de forma individual, así como pas
         public function getAmount();
     }
 
-## PaymentEventDispatcher
+## Payment Event Dispatcher
 
 Toda plataforma necesita un core de proceso especíco encargado de toda la lógica de negocio. Este debe ser el encargado de lanzar todos los eventos disponibles del core. Es para esto que PaymentCore dispone de un servicio público específico para hacer dispatch de algunos eventos.  
 
 Por definición, toda plataforma debería, en algún momento u otro lanzar todos y cada uno de los eventos, por si algun subscriber necesita realizar alguna operación relacionada con tal evento.  
 
 Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos extienden de un abstracto común, por lo que en realidad, todos tienen disponibles los mismos objetos.
-
-    
 
     /**
      * Get Cart Wrapper
