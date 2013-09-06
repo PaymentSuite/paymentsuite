@@ -1,3 +1,5 @@
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/befactory/PaymillBundle/badges/quality-score.png?s=5235ee24261574e120cd0644ae11ec7bf87a624f)](https://scrutinizer-ci.com/g/befactory/PaymillBundle/)
+
 Paymill Platform in Payment Suite for Symfony
 -----
 
