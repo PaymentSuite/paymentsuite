@@ -20,7 +20,7 @@
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "1.14.*@dev",
         "paymill/paymill": "2.1.0",
-        "befactory/payment-core-bundle": "dev-master
+        "befactory/payment-core-bundle": "dev-master"
     },
     "target-dir": "Befactory/PaymillBundle",
     "autoload": {
