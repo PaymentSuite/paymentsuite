@@ -12,7 +12,7 @@ Payment Suite for Symfony
 
 Payment Suite para Symfony2 es un conjunto de herramientas para unificar todas las plataformas de pago en un solo modelo de eventos.  
 
-Se basa en un sistema de clases abstractas y interfaces para que sea lo mas f�cil posible a�adir nuevas plataformas sin que el usuario final tenga que a�adir l�gica extra en su ecommerce.  
+Se basa en un sistema de clases abstractas y interfaces para que sea lo mas fácil posible añadir nuevas plataformas sin que el usuario final tenga que añadir lógica extra en su ecommerce.  
 
 Table of contents
 -----
@@ -36,17 +36,17 @@ Table of contents
 
 # About Payment Suite
 
-La Suite de Payment mantiene desde el primer momento un �ndice de acoplamiento completamente nulo con el ecommerce, ya que es completamente transparente al modelo y la implementaci�n de este. Esto hace que sea un c�digo muy testeable unitariamente y muy f�cil de entender a nivel abstracto.  
+La Suite de Payment mantiene desde el primer momento un índice de acoplamiento completamente nulo con el ecommerce, ya que es completamente transparente al modelo y la implementación de este. Esto hace que sea un código muy testeable unitariamente y muy fácil de entender a nivel abstracto.  
 
-De todas formas, tenemos que tener en cuenta que de alguna forma u otra, cualquier plataforma de pago tiene que tener acceso a algunos datos del modelo del ecommerce, todos relacionados con el Cart o el Order generado a trav�s del Cart.  
+De todas formas, tenemos que tener en cuenta que de alguna forma u otra, cualquier plataforma de pago tiene que tener acceso a algunos datos del modelo del ecommerce, todos relacionados con el Cart o el Order generado a través del Cart.  
 
 # PaymentBridgeBundle
 
-Por ello, cada ecommerce deber� crear un Bundle propio que har� de puente entre su modelo y el nivel de abstracci�n del Payment Suite. En este Bundle deber�, tan solo, definir dos servicios. Por nomenclatura, este bundle deber� llamarse PaymentBridgeBundle.
+Por ello, cada ecommerce deberá crear un Bundle propio que hará de puente entre su modelo y el nivel de abstracción del Payment Suite. En este Bundle deberá, tan solo, definir dos servicios. Por nomenclatura, este bundle deberá llamarse PaymentBridgeBundle.
 
 ## Cart Wrapper
 
-Uno de los servicios que debe implementar PaymentBridgeBundle es el que a�ada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
+Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
 
     <?php
 
@@ -151,7 +151,7 @@ El otro servicio es exactamente el mismo pero para acceder a ciertos valores ref
 
 ## Payment Method
 
-Cada una de las plataformas debe identificarse de forma individual, as� como pasar una serie de datos espec�ficas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Befactory\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el m�todo de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos espec�ficos, ser� posible.
+Cada una de las plataformas debe identificarse de forma individual, así como pasar una serie de datos específicas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Befactory\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el método de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos específicos, será posible.
 
     <!php
 
@@ -182,11 +182,11 @@ Cada una de las plataformas debe identificarse de forma individual, as� como p
 
 ## Payment Event Dispatcher
 
-Toda plataforma necesita un core de proceso espec�co encargado de toda la l�gica de negocio. Este debe ser el encargado de lanzar todos los eventos disponibles del core. Es para esto que PaymentCore dispone de un servicio p�blico espec�fico para hacer dispatch de algunos eventos.  
+Toda plataforma necesita un core de proceso especíco encargado de toda la lógica de negocio. Este debe ser el encargado de lanzar todos los eventos disponibles del core. Es para esto que PaymentCore dispone de un servicio público específico para hacer dispatch de algunos eventos.  
 
-Por definici�n, toda plataforma deber�a, en alg�n momento u otro lanzar todos y cada uno de los eventos, por si algun subscriber necesita realizar alguna operaci�n relacionada con tal evento.  
+Por definición, toda plataforma debería, en algún momento u otro lanzar todos y cada uno de los eventos, por si algun subscriber necesita realizar alguna operación relacionada con tal evento.  
 
-Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos extienden de un abstracto com�n, por lo que en realidad, todos tienen disponibles los mismos objetos.
+Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos extienden de un abstracto común, por lo que en realidad, todos tienen disponibles los mismos objetos.
 
     /**
      * Get Cart Wrapper
@@ -233,8 +233,8 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
      */
     const PAYMENT_READY = 'payment.ready';
 
-> En este momento, getOrderWrapper deber�a devolver un wrapper con un order `null` ya que tan solo el cart est� construido y available.
-> Una posible utilidad podr�a ser la creaci�n inmediato de un Order en un estado "ready_to_pay".
+> En este momento, getOrderWrapper debería devolver un wrapper con un order `null` ya que tan solo el cart está construido y available.
+> Una posible utilidad podría ser la creación inmediato de un Order en un estado "ready_to_pay".
 
 ## Payment Done Event
 
@@ -247,8 +247,8 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
     const PAYMENT_DONE = 'payment.done';
 
 > Este evento se lanza siempre que un pago ha sido registrado, haya sido correcto o rejected.
-> Es posible que en algunos casos, en este momento y posteriormente, tengamos ya un order creado ( por ejemplo en pagos por transferencia ), asi que en cada una de las plataformas, se tendr� que gestionar estos casos.
-> Una posible utilidad podr�a ser el control de intentos de pago por parte del usuario, sin importar el resultado de tal acci�n.
+> Es posible que en algunos casos, en este momento y posteriormente, tengamos ya un order creado ( por ejemplo en pagos por transferencia ), asi que en cada una de las plataformas, se tendrá que gestionar estos casos.
+> Una posible utilidad podría ser el control de intentos de pago por parte del usuario, sin importar el resultado de tal acción.
 
 ## Payment Success Event
 
@@ -260,9 +260,9 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
      */
     const PAYMENT_SUCCESS = 'payment.success';
 
-> En principio, la transacci�n ha sido correcta.
-> Su principal utilidad es la creaci�n de un order a partir del Cart pagado.
-> La responsabilidad del core del ecommerce deber�a ser inyectar el nuevo Order al servicio `payment.order.wrapper`, para que tanto la plataforma de pago como los futuros eventos contengan ya el Order creado y puedan acceder a sus datos compartidos.
+> En principio, la transacción ha sido correcta.
+> Su principal utilidad es la creación de un order a partir del Cart pagado.
+> La responsabilidad del core del ecommerce debería ser inyectar el nuevo Order al servicio `payment.order.wrapper`, para que tanto la plataforma de pago como los futuros eventos contengan ya el Order creado y puedan acceder a sus datos compartidos.
 
 ## Payment Fail Event
 
@@ -284,7 +284,7 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
      */
     const PAYMENT_ORDER_CREATED = 'payment.order.created';
 
-> En este punto, el servicio `payment.order.wrapper` deber�a contener una referencia real al order generado por el sistema
-> Una posible utilidad podr�a ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el m�todo de pago aplicado.
+> En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
+> Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.
 
 # Platforms
