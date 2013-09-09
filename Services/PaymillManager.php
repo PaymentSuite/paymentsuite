@@ -5,26 +5,26 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymillBundle\Services;
+namespace Mmoreram\PaymillBundle\Services;
 
 use Services_Paymill_Transactions;
-use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
-use Befactory\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Befactory\PaymentCoreBundle\Exception\PaymentException;
-use Befactory\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
-use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
-use Befactory\PaymentCoreBundle\PaymentCoreEvents;
-use Befactory\PaymillBundle\PaymillMethod;
+use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
+use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
+use Mmoreram\PaymillBundle\PaymillMethod;
 
 /**
  * Paymill manager

@@ -5,20 +5,20 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymillBundle\Controller;
+namespace Mmoreram\PaymillBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use Befactory\PaymentCoreBundle\Exception\PaymentException;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Befactory\PaymillBundle\PaymillMethod;
+use Mmoreram\PaymillBundle\PaymillMethod;
 
 
 /**

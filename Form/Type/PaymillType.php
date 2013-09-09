@@ -5,17 +5,17 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymillBundle\Form\Type;
+namespace Mmoreram\PaymillBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Befactory\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
 
 /**
  * Type for a shop edit profile form

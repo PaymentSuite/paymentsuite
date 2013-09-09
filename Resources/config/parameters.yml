@@ -1,7 +1,7 @@
 parameters:
 
     paymill.api.endpoint: "https://api.paymill.com/v2/"
-    paymill.form.type.class: "Befactory\\PaymillBundle\\Form\\Type\\PaymillType"
-    paymill.manager.class: "Befactory\\PaymillBundle\\Services\\PaymillManager"
-    paymill.twig.extension.class: "Befactory\\PaymillBundle\\Twig\\PaymillExtension"
-    paymill.routes.loader.class: "Befactory\\PaymillBundle\\Router\\PaymillRoutesLoader"
+    paymill.form.type.class: "Mmoreram\\PaymillBundle\\Form\\Type\\PaymillType"
+    paymill.manager.class: "Mmoreram\\PaymillBundle\\Services\\PaymillManager"
+    paymill.twig.extension.class: "Mmoreram\\PaymillBundle\\Twig\\PaymillExtension"
+    paymill.routes.loader.class: "Mmoreram\\PaymillBundle\\Router\\PaymillRoutesLoader"

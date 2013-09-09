@@ -5,13 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymillBundle;
+namespace Mmoreram\PaymillBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -11,7 +11,7 @@
 Paymill Platform in Payment Suite for Symfony
 -----
 
-Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definición de eventos está ubicada en la documentación de [PaymentCoreBundle](https://github.com/befactory/PaymentCoreBundle), así como todo lo necesario para trabajar con la suite de pago.
+Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definición de eventos está ubicada en la documentación de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), así como todo lo necesario para trabajar con la suite de pago.
 
 Table of contents
 -----
@@ -22,7 +22,7 @@ Table of contents
 4.  [Customize](#customize)
 
 
-# Installing [PaymillBundle](https://github.com/befactory/PaymillBundle)
+# Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
 
 You have to add require line into you composer.json file
 
@@ -30,7 +30,7 @@ You have to add require line into you composer.json file
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
         ...
-        "befactory/paymill-bundle": "dev-master"
+        "mmoreram/paymill-bundle": "dev-master"
     },
 
 Then you have to use composer to update your project dependencies
@@ -41,8 +41,8 @@ And register the bundle in your appkernel.php file
 
     return array(
         // ...
-        new Befactory\PaymentCoreBundle\PaymentCoreBundle(),
-        new Befactory\PaymillBundle\PaymillBundle(),
+        new Mmoreram\PaymentCoreBundle\PaymentCoreBundle(),
+        new Mmoreram\PaymillBundle\PaymillBundle(),
         // ...
     );
 
@@ -109,4 +109,4 @@ PaymillBundle gives you all form view as requested by the payment module.
 
 `paymill_render()` only print form in a simple way.  
 
-As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `Befactory/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
+As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `Mmoreram/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.

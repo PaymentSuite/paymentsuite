@@ -1,13 +1,13 @@
 {
-    "name": "befactory/paymill-bundle",
+    "name": "mmoreram/paymill-bundle",
     "type": "symfony-bundle",
-    "description": "Paymill Bundle, part of Befactory Payment Suite",
+    "description": "Paymill Bundle, part of Mmoreram Payment Suite",
     "keywords": ["paymill", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
-            "email": "marc.morera@befactory.com"
+            "email": "yuhu@mmoreram.com"
         }
     ],
     "require": {
@@ -22,8 +22,8 @@
         "paymill/paymill": "2.1.0",
         "mmoreram/payment-core-bundle": "dev-master"
     },
-    "target-dir": "Befactory/PaymillBundle",
+    "target-dir": "Mmoreram/PaymillBundle",
     "autoload": {
-        "psr-0": { "Befactory\\PaymillBundle": "" }
+        "psr-0": { "Mmoreram\\PaymillBundle": "" }
     }
 }
