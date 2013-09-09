@@ -11,7 +11,7 @@
 Paymill Platform in Payment Suite for Symfony
 -----
 
-Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definición de eventos está ubicada en la documentación de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), así como todo lo necesario para trabajar con la suite de pago.
+Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definiciï¿½n de eventos estï¿½ ubicada en la documentaciï¿½n de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), asï¿½ como todo lo necesario para trabajar con la suite de pago.
 
 Table of contents
 -----
@@ -53,8 +53,8 @@ Configure the PaymillBundle configuration in your `config.yml`
     paymill:
 
         # paymill keys
-        public_key: 565850481284e8b680af3d2538f08d55
-        private_key: b5dc2f10fd2a314ee92ece9293feae95
+        public_key: XXXXXXXXXXXX
+        private_key: XXXXXXXXXXXX
 
         # By default, controller route is /payment/paymill/execute
         controller_route: /my/custom/route
