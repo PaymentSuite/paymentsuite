@@ -5,18 +5,18 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Tests\Event;
+namespace Mmoreram\PaymentCoreBundle\Tests\Event;
 
-use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
 
 /**
- * Tests Befactory\PaymentCoreBundle\Event\PaymentDoneEvent class
+ * Tests Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent class
  */
 class PaymentDoneEventTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,9 +59,9 @@ class PaymentDoneEventTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->cartWrapper = $this->getMock('\Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
-        $this->orderWrapper = $this->getMock('\Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface');
-        $this->paymentMethod = $this->getMock('\Befactory\PaymentCoreBundle\PaymentMethodInterface');
+        $this->cartWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
+        $this->orderWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface');
+        $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
         $this->event = new PaymentDoneEvent($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
     }
 

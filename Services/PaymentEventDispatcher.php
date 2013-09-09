@@ -5,25 +5,25 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Services;
+namespace Mmoreram\PaymentCoreBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
-use Befactory\PaymentCoreBundle\PaymentMethodInterface;
-use Befactory\PaymentCoreBundle\Event\PaymentReadyEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentDoneEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentFailEvent;
-use Befactory\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
-use Befactory\PaymentCoreBundle\PaymentCoreEvents;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use Mmoreram\PaymentCoreBundle\Event\PaymentReadyEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
+use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
 
 /**
  * Payment event dispatcher.

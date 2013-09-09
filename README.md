@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/befactory/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/befactory/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/befactory/PaymentCoreBundle/badges/quality-score.png?s=daabfb5e5091a3adddb4b48bd5ebe55a7a0bbf56)](https://scrutinizer-ci.com/g/befactory/PaymentCoreBundle/)
+[![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=daabfb5e5091a3adddb4b48bd5ebe55a7a0bbf56)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
 
 > Info. This Bundle is currently in progress and tested.  
 > If you are interested in using this bundle, please star it and will recieve last notices.  
@@ -46,11 +46,11 @@ Por ello, cada ecommerce deberá crear un Bundle propio que hará de puente entr
 
 ## Cart Wrapper
 
-Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
+Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
 
     <?php
 
-    namespace Befactory\PaymentCoreBundle\Services\interfaces;
+    namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
 
     /**
      * Interface for CartWrapper
@@ -95,11 +95,11 @@ Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada u
 
 ## Order Wrapper
 
-El otro servicio es exactamente el mismo pero para acceder a ciertos valores referentes a Order. Su nombre **debe** ser `payment.order.wrapper` y debe implementar a `Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.  
+El otro servicio es exactamente el mismo pero para acceder a ciertos valores referentes a Order. Su nombre **debe** ser `payment.order.wrapper` y debe implementar a `Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.  
 
     <?php
 
-    namespace Befactory\PaymentCoreBundle\Services\interfaces;
+    namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
 
     /**
      * Interface for OrderWrapper
@@ -151,11 +151,11 @@ El otro servicio es exactamente el mismo pero para acceder a ciertos valores ref
 
 ## Payment Method
 
-Cada una de las plataformas debe identificarse de forma individual, así como pasar una serie de datos específicas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Befactory\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el método de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos específicos, será posible.
+Cada una de las plataformas debe identificarse de forma individual, así como pasar una serie de datos específicas para que el proyecto tenga acceso a los datos de pagos. Esta clase debe implementar `Mmoreram\PaymentCoreBundle\PaymentMethodInterface` aunque puede contener tantos datos internos como permita el método de pago. De esta forma, si la propia plataforma implementa eventos propios y se requiere acceso a ciertos datos específicos, será posible.
 
     <!php
 
-    namespace Befactory\PaymentCoreBundle;
+    namespace Mmoreram\PaymentCoreBundle;
 
 
     /**

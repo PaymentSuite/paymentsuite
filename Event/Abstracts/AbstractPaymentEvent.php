@@ -5,17 +5,17 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Event\Abstracts;
+namespace Mmoreram\PaymentCoreBundle\Event\Abstracts;
 
-use Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
-use Befactory\PaymentCoreBundle\PaymentMethodInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

@@ -5,19 +5,19 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Tests\Services;
+namespace Mmoreram\PaymentCoreBundle\Tests\Services;
 
-use Befactory\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Befactory\PaymentCoreBundle\PaymentCoreEvents;
+use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
 
 /**
- * Tests Befactory\PaymentCoreBundle\Services\PaymentEventDispatcher class
+ * Tests Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher class
  */
 class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,9 +68,9 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->cartWrapper = $this->getMock('\Befactory\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
-        $this->orderWrapper = $this->getMock('\Befactory\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface');
-        $this->paymentMethod = $this->getMock('\Befactory\PaymentCoreBundle\PaymentMethodInterface');
+        $this->cartWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
+        $this->orderWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface');
+        $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
     }
 
 
@@ -82,7 +82,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_READY), $this->isInstanceOf('Befactory\PaymentCoreBundle\Event\PaymentReadyEvent'));
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_READY), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentReadyEvent'));
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
@@ -97,7 +97,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_DONE), $this->isInstanceOf('Befactory\PaymentCoreBundle\Event\PaymentDoneEvent'));
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_DONE), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent'));
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentDone($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
@@ -112,7 +112,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_SUCCESS), $this->isInstanceOf('Befactory\PaymentCoreBundle\Event\PaymentSuccessEvent'));
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_SUCCESS), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent'));
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
@@ -127,7 +127,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_FAIL), $this->isInstanceOf('Befactory\PaymentCoreBundle\Event\PaymentFailEvent'));
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_FAIL), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent'));
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentFail($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
@@ -142,7 +142,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_CREATED), $this->isInstanceOf('Befactory\PaymentCoreBundle\Event\PaymentOrderCreatedEvent'));
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_CREATED), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent'));
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);

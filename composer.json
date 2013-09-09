@@ -1,13 +1,13 @@
 {
-    "name": "befactory/payment-core-bundle",
+    "name": "mmoreram/payment-core-bundle",
     "type": "symfony-bundle",
-    "description": "Payment Core Bundle, part and core of Befactory Payment Suite",
-    "keywords": ["payment", "ecommerce", "befactory"],
+    "description": "Payment Core Bundle, part and core of Mmoreram Payment Suite",
+    "keywords": ["payment", "ecommerce", "mmoreram"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
-            "email": "marc.morera@mmoreram.com"
+            "email": "yuhu@mmoreram.com"
         }
     ],
     "require": {
@@ -17,8 +17,8 @@
         "symfony/http-kernel": ">=2.2",
         "symfony/dependency-injection": ">=2.2"
     },
-    "target-dir": "Befactory/PaymentCoreBundle",
+    "target-dir": "Mmoreram/PaymentCoreBundle",
     "autoload": {
-        "psr-0": { "Befactory\\PaymentCoreBundle": "" }
+        "psr-0": { "Mmoreram\\PaymentCoreBundle": "" }
     }
 }

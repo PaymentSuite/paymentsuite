@@ -1,6 +1,6 @@
 /* TEAM */            
-Creator : Befactory team
-Contact: mmoreram at befactory dot com
+Creator : Mmoreram team
+Contact: mmoreram at mmoreram dot com
 Twitter: mmoreram                   
 Location: Barcelona, Catalunya, Catalunya.
 

@@ -5,15 +5,15 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <marc.morera@befactory.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Befactory 2013
+ * Mmoreram 2013
  */
 
-namespace Befactory\PaymentCoreBundle\Exception;
+namespace Mmoreram\PaymentCoreBundle\Exception;
 
-use Befactory\PaymentCoreBundle\Exception\PaymentException;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * PaymentAmountsNotMatchException
