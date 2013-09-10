@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymentCoreBundle for Symfony2
+ * PaymentCoreBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymentCoreBundle\Event\Abstracts;
@@ -52,7 +52,7 @@ abstract class AbstractPaymentEvent extends Event
      * Construct method
      *
      * @param CartWrapperInterface   $cartWrapper   Cart Wrapper
-     * @param OrderWrapperInterface  $orderWr
+     * @param OrderWrapperInterface  $orderWrapper  Order wrapper
      * @param PaymentMethodInterface $paymentMethod Payment method
      */
     public function __construct(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)

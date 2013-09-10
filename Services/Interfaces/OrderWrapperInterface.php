@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymentCoreBundle for Symfony2
+ * PaymentCoreBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymentCoreBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
@@ -22,7 +22,7 @@ interface OrderWrapperInterface
     /**
      * Set order to OrderWrapper
      *
-     * @var Object $order Order element
+     * @param Object $order Order element
      */
     public function setOrder($order);
 

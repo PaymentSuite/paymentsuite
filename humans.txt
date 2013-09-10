@@ -1,6 +1,6 @@
 /* TEAM */            
-Creator : Mmoreram team
-Contact: mmoreram at mmoreram dot com
+Creator : Marc Morera
+Contact: yuhu at mmoreram dot com
 Twitter: mmoreram                   
 Location: Barcelona, Catalunya, Catalunya.
 
