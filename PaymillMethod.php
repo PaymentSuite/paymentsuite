@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymillBundle for Symfony2
+ * PaymillBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymillBundle;
@@ -23,7 +23,9 @@ class PaymillMethod implements PaymentMethodInterface
 {
 
     /**
-     * @inherit
+     * Get Paymill method name
+     * 
+     * @return string Payment name
      */
     public function getPaymentName()
     {
@@ -211,7 +213,7 @@ class PaymillMethod implements PaymentMethodInterface
     /**
      * set Credit cart expiration month
      *
-     * @param $creditCartExpirationMonth
+     * @param integer $creditCartExpirationMonth Credit cart expiration month
      *
      * @return PaymillMethod self Object
      */

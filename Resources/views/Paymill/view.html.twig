@@ -1,5 +1,7 @@
 {% block payment_form %}
 
-    {{ form_widget(paymill_form, { action: url(paymill_execute_route), method: "post" } ) }}
+    <div id="paymill-payment-error"></div>
+
+    {{ form(paymill_form, { action: url(paymill_execute_route), method: "post", attr: { 'id': 'paymill_form' } }) }}
 
 {% endblock payment_form %}

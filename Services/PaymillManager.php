@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymillBundle for Symfony2
+ * PaymillBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymillBundle\Services;
@@ -38,7 +38,7 @@ class PaymillManager
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
-    
+
 
     /**
      * @var string

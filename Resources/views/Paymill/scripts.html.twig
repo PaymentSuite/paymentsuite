@@ -7,34 +7,37 @@
     /**
      * Validation for paymill payment
      */
-    $("#payment-form").submit(function(){
+    $("#paymill_form").submit(function(){
+
+        $("#paymill_view_submit").attr("disabled", "disabled");
+
         //join all cc numbers in one
-        var cc = $('#cc-number-1').val()+$('#cc-number-2').val()+$('#cc-number-3').val()+$('#cc-number-4').val();
-        var cardholder = $('#cc-owner').val();
-        var expiry_month = $('#cc-expiration-month').val();
-        var expiry_year = $('#cc-expiration-year').val();
-        var cvv = $('#cc-cvv').val();
+        var cc = $('#paymill_view_credit_cart_1').val() + $('#paymill_view_credit_cart_2').val() + $('#paymill_view_credit_cart_3').val() + $('#paymill_view_credit_cart_4').val();
+        var cardholder = $('#paymill_view_credit_cart_owner').val();
+        var expiry_month = $('#paymill_view_credit_cart_expiration_month').val();
+        var expiry_year = $('#paymill_view_credit_cart_expiration_year').val();
+        var cvv = $('#paymill_view_credit_cart_security').val();
 
         var errors = new Array();
         var okCardNumber = paymill.validateCardNumber(cc);
         if (!okCardNumber) {
-            $('#card-number-error').html('{{ '_Card_number_invalid'|trans|e('js') }}');
+            $('#paymill-payment-error').html('Card number invalid');
         } else {
-            $('#card-number-error').html('');
+            $('#paymill-payment-error').html('');
         }
 
         var okExpiy = paymill.validateExpiry(expiry_month, expiry_year);
         if (!okExpiy) {
-            $('#card-expiry-error').html('{{ '_Card_expiry_invalid'|trans|e('js')}}');
+            $('#paymill-payment-error').html('Card expiry invalid');
         } else {
-            $('#card-expiry-error').html('');
+            $('#paymill-payment-error').html('');
         }
 
         var okCvc = paymill.validateCvc(cvv);
         if (!okCvc) {
-            $('#card-cvc-error').html('{{ '_Card_cvc_invalid'|trans|e('js')}}');
+            $('#paymill-payment-error').html('Card CVC invalid');
         } else {
-            $('#card-cvc-error').html('');
+            $('#paymill-payment-error').html('');
         }
 
         if (okCardNumber && okExpiy && okCvc) {
@@ -43,7 +46,7 @@
                 exp_month: expiry_month,
                 exp_year: expiry_year,
                 cvc: cvv,
-                amount_int: $('#total-int').val(),
+                amount_int: $('#paymill_view_amount').val(),
                 currency: 'EUR',
                 cardholder: cardholder
             },  paymillResponseHandler);
@@ -60,24 +63,25 @@
 
         if (error) {
 
-            // Shows the error above the form
-            $('#payment-error')
-                .find('.alert')
-                .html(error.apierror)
-                .end()
-                .show();
+            $('#paymill-payment-error').html(error.apierror);
+            $("#paymill_view_submit").removeAttr("disabled");
 
-            //reactivate submit button
-            $(".submit-button").removeAttr("disabled");
-            $("#payment_shadow").remove();
-            $("#payment_overlay").remove();
         } else {
 
-            $('#payment-error').hide();
+            $('#paymill-payment-error').hide();
             $('#paymill_view_api_token').val(result.token);
-            var form = $("#payment-form");
-
-            return form.get(0).submit();
+            $("#paymill_form").get(0).submit();
         }
     }
+
+    $('#paymill_view_credit_cart_1').val('4111');
+    $('#paymill_view_credit_cart_2').val('1111');
+    $('#paymill_view_credit_cart_3').val('1111');
+    $('#paymill_view_credit_cart_4').val('1111');
+    $('#paymill_view_credit_cart_owner').val('Leonardo Dantés');
+    $('#paymill_view_credit_cart_expiration_month').val('12');
+    $('#paymill_view_credit_cart_expiration_year').val('2015');
+    $('#paymill_view_credit_cart_security').val(123);
+    
+
 </script>

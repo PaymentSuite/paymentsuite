@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymillBundle for Symfony2
+ * PaymillBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymillBundle\Twig;
@@ -17,6 +17,8 @@ use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_SimpleFilter;
+
+use Mmoreram\PaymillBundle\Router\PaymillRoutesLoader;
 
 /**
  * Text utilities extension
@@ -50,24 +52,14 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
-     * @var string
-     * 
-     * Paymill controller route
-     */
-    private $paymillControllerRoute;
-
-
-    /**
      * Construct method
      *
-     * @param string      $publicKey       Public key
-     * @param string      $controllerRoute Controller route
-     * @param FormFactory $formFactory     Form factory
+     * @param string      $publicKey   Public key
+     * @param FormFactory $formFactory Form factory
      */
-    public function __construct($publicKey, $paymillControllerRoute, FormFactory $formFactory)
+    public function __construct($publicKey, FormFactory $formFactory)
     {
         $this->publicKey = $publicKey;
-        $this->paymillControllerRoute = $paymillControllerRoute;
         $this->formFactory = $formFactory;
     }
 
@@ -112,7 +104,7 @@ class PaymillExtension extends Twig_Extension
 
         return $this->environment->display('PaymillBundle:Paymill:view.html.twig', array(
             'paymill_form'  =>  $formType->createView(),
-            'paymill_execute_route' =>  $this->paymillControllerRoute,
+            'paymill_execute_route' =>  PaymillRoutesLoader::ROUTE_NAME,
         ));
     }
 

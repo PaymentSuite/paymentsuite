@@ -1,18 +1,18 @@
 <?php
 
 /**
- * BeFactory PaymillBundle for Symfony2
+ * PaymillBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymillBundle\Router;
- 
+
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -57,7 +57,7 @@ class PaymillRoutesLoader implements LoaderInterface
     {
         $this->controllerRoute = $controllerRoute;
     }
-     
+
 
     /**
      * Loads a resource.
@@ -75,9 +75,9 @@ class PaymillRoutesLoader implements LoaderInterface
 
             throw new \RuntimeException('Do not add this loader twice');
         }
-         
+
         $routes = new RouteCollection();
-        $routes->add(self::ROUTE_NAME , new Route($this->controllerRoute, array(
+        $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
             '_controller'   =>  'PaymillBundle:Paymill:execute',
         )));
 
@@ -85,7 +85,7 @@ class PaymillRoutesLoader implements LoaderInterface
 
         return $routes;
     }
- 
+
 
     /**
      * Returns true if this class supports the given resource.
@@ -99,7 +99,7 @@ class PaymillRoutesLoader implements LoaderInterface
     {
         return 'extra' === $type;
     }
- 
+
 
     /**
      * Gets the loader resolver.
@@ -109,7 +109,7 @@ class PaymillRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
- 
+
 
     /**
      * Sets the loader resolver.

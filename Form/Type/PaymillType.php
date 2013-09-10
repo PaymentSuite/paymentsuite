@@ -1,14 +1,14 @@
 <?php
 
 /**
- * BeFactory PaymillBundle for Symfony2
+ * PaymillBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
- * Mmoreram 2013
+ * Marc Morera 2013
  */
 
 namespace Mmoreram\PaymillBundle\Form\Type;
@@ -90,7 +90,8 @@ class PaymillType extends AbstractType
             ))
             ->add('payment_processer', 'hidden', array(
                 'data'  =>  'paymill_processer'
-            ));
+            ))
+            ->add('submit', 'submit');
     }
 
 

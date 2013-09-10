@@ -11,7 +11,7 @@
 Paymill Platform in Payment Suite for Symfony
 -----
 
-Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definici�n de eventos est� ubicada en la documentaci�n de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), as� como todo lo necesario para trabajar con la suite de pago.
+Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definición de eventos está ubicada en la documentación de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), así como todo lo necesario para trabajar con la suite de pago.
 
 Table of contents
 -----
