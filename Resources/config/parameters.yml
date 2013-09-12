@@ -1,0 +1,7 @@
+parameters:
+
+#    paymill.api.endpoint: "https://api.paymill.com/v2/"
+    dineromail.form.type.class: "Dpujadas\\DineromailBundle\\Form\\Type\\DineromailType"
+    dineromail.manager.class: "Dpujadas\\DineromailBundle\\Services\\DineromailManager"
+    dineromail.twig.extension.class: "Dpujadas\\DineromailBundle\\Twig\\DineromailExtension"
+    dineromail.routes.loader.class: "Dpujadas\\DineromailBundle\\Router\\DineromailRoutesLoader"

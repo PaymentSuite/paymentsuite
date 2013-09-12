@@ -1,0 +1,9 @@
+{% block payment_form %}
+
+    <ul id="dineromail_payment_error">
+
+    </ul>
+
+    {{ form(dineromail_form, { action: url(dineromail_execute_route), method: "post", attr: { 'id': 'dineromail_form' } }) }}
+
+{% endblock payment_form %}

@@ -1,0 +1,29 @@
+services:
+
+    dineromail.form.type:
+        class: %dineromail.form.type.class%
+        arguments:
+            payment.cart.wrapper: @payment.cart.wrapper
+        tags:
+            - { name: form.type, alias: dineromail_view }
+
+    dineromail.manager:
+        class: %dineromail.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.cart.wrapper: @payment.cart.wrapper
+            payment.order.wrapper: @payment.order.wrapper
+
+    dineromail.twig.extension:
+        class: %dineromail.twig.extension.class%
+        arguments:
+            form.factory: @form.factory
+        tags:
+            - { name: twig.extension }
+
+    dineromail.routes.loader:
+        class: %dineromail.routes.loader.class%
+        arguments:
+            dineromail.controller.route: %dineromail.controller.route%
+        tags:
+            - { name: routing.loader }
