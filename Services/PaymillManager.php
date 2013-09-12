@@ -142,11 +142,8 @@ class PaymillManager
             $this->apiEndPoint
         );
         $transaction = $transactionsObject->create($params);
-
-        $paymentMethod
-            ->setTransactionId($transaction['id'])
-            ->setTransactionStatus($transaction['status']);
-
+var_dump($transaction);
+die();
         /**
          * Payment paid done
          *
@@ -159,7 +156,6 @@ class PaymillManager
          */
         if (empty($transaction['status']) || $transaction['status'] != 'closed') {
 
-
             /**
              * Payment paid failed
              *
@@ -169,6 +165,10 @@ class PaymillManager
 
             throw new PaymentException;
         }
+
+        $paymentMethod
+            ->setTransactionId($transaction['id'])
+            ->setTransactionStatus($transaction['status']);
 
 
         /**

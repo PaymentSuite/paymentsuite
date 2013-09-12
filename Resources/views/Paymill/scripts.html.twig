@@ -18,7 +18,7 @@
         var expiry_year = $('#paymill_view_credit_cart_expiration_year').val();
         var cvv = $('#paymill_view_credit_cart_security').val();
 
-        var $paymill_payment_error = $('#paymill-payment-error');
+        var $paymill_payment_error = $('#paymill_payment_error');
         $paymill_payment_error.html('');
 
         var okCardNumber = paymill.validateCardNumber(cc);
@@ -47,7 +47,7 @@
                 exp_year: expiry_year,
                 cvc: cvv,
                 amount_int: $('#paymill_view_amount').val(),
-                currency: {{ currency }},
+                currency: "{{ currency }}",
                 cardholder: cardholder
             },  paymillResponseHandler);
         } else {
@@ -66,7 +66,7 @@
 
         if (error) {
 
-            $('#paymill-payment-error').html(error.apierror);
+            $('#paymill_payment_error').html(error.apierror);
             $("#paymill_view_submit").removeAttr("disabled");
 
         } else {
