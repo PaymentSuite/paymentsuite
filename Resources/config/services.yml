@@ -22,6 +22,7 @@ services:
         arguments:
             paymill.public.key: %paymill.public.key%
             form.factory: @form.factory
+            paymill.currency: %paymill.currency%
         tags:
             - { name: twig.extension }
 

@@ -52,15 +52,25 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
+     * @var string
+     * 
+     * Currency
+     */
+    private $currency;
+
+
+    /**
      * Construct method
      *
      * @param string      $publicKey   Public key
      * @param FormFactory $formFactory Form factory
+     * @param string      $currency    Currency
      */
-    public function __construct($publicKey, FormFactory $formFactory)
+    public function __construct($publicKey, FormFactory $formFactory, $currency)
     {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
+        $this->currency = $currency;
     }
 
 
@@ -112,13 +122,17 @@ class PaymillExtension extends Twig_Extension
     /**
      * Render paymill scripts view
      * 
+     * @param string $currency Currency
+     * 
      * @return string js code needed by Paymill behaviour
      */
-    public function renderPaymentScripts()
+    public function renderPaymentScripts($currency = null)
     {
+        $currency = $currency ?: $this->currency;
 
         return $this->environment->display('PaymillBundle:Paymill:scripts.html.twig', array(
             'public_key'    =>  $this->publicKey,
+            'currency'      =>  $currency,
         ));
     }
 

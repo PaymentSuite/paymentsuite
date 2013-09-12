@@ -59,6 +59,9 @@ Configure the PaymillBundle configuration in your `config.yml`
         # By default, controller route is /payment/paymill/execute
         controller_route: /my/custom/route
 
+        # Currency value. By default EUR
+        currency: EUR
+
         # Configuration for payment success redirection
         #
         # Route defines which route will redirect if payment successes
@@ -102,6 +105,16 @@ PaymillBundle gives you all form view as requested by the payment module.
         {{ parent() }}
 
         {{ paymill_scripts() }}
+
+    {% endblock foot_script %}
+
+`paymill_scripts()` first parameter is currency value. By default, this bundle will use currency defined in configuration, but if is set in this method, will use this one.
+
+    {% block foot_script %}
+
+        {{ parent() }}
+
+        {{ paymill_scripts('USD') }}
 
     {% endblock foot_script %}
 
