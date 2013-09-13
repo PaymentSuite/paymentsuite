@@ -97,7 +97,7 @@ class PaymillRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'extra' === $type;
+        return 'paymill' === $type;
     }
 
 

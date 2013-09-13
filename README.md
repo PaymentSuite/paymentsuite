@@ -18,8 +18,9 @@ Table of contents
 
 1.  [Installing PaymillBundle](#installing-paymillbundle)
 2.  [Configuration](#configuration)
-3.  [Display](#display)
-4.  [Customize](#customize)
+3.  [Router](#router)
+4.  [Display](#display)
+5.  [Customize](#customize)
 
 
 # Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
@@ -83,6 +84,16 @@ Configure the PaymillBundle configuration in your `config.yml`
             route: cart_view
             cart_append: false
             cart_append_field: cart_id
+
+# Router
+
+PaymillBundle allows developer to specify the route of controller where paymill payment is processed.  
+By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.  
+Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file  
+
+    paymill_payment_routes:
+        resource: .
+        type: paymill
 
 # Display
 
