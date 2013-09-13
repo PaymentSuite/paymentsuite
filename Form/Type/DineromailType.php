@@ -50,6 +50,7 @@ class DineromailType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        die("ERROR");
         $builder
             ->add('amount', 'hidden', array(
                 'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100

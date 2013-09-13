@@ -18,6 +18,8 @@ services:
         class: %dineromail.twig.extension.class%
         arguments:
             form.factory: @form.factory
+            payment.cart.wrapper: @payment.cart.wrapper
+            dineromail.config: %dineromail.config%
         tags:
             - { name: twig.extension }
 

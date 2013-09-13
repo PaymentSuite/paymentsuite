@@ -32,6 +32,19 @@ class DineromailExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('dineromail.controller.route', $config['controller_route']);
+        $container->setParameter('dineromail.config', array(
+            'merchant' => $config['merchant'],
+            'country_id' => $config['country_id'],
+            'seller_name' => $config['seller_name'],
+            'language' => $config['language'],
+            'currency' => $config['currency'],
+            'payment_method_available' => $config['payment_method_available'],
+            'header_image' => $config['header_image'],
+        ));
+        //$container->setParameter('dineromail.', $config['']);
+
 /*
         $container->setParameter('paymill.private.key', $config['private_key']);
         $container->setParameter('paymill.public.key', $config['public_key']);

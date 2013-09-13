@@ -38,7 +38,15 @@ class DineromailController extends Controller
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->create('dineromail_view');
+        $form = $this->get('form.factory')->createNamedBuilder(null, 'form', $defaultData)
+            ->add('amount', 'hidden', array(
+                'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
+            ))
+            ->add('payment_processer', 'hidden', array(
+                'data'  =>  'paymill_processer'
+            ))
+            ->add('submit', 'submit');
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
