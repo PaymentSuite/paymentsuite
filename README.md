@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=daabfb5e5091a3adddb4b48bd5ebe55a7a0bbf56)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+[![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
 
 > Info. This Bundle is currently in progress and tested.  
 > If you are interested in using this bundle, please star it and will recieve last notices.  
@@ -17,36 +17,71 @@ Se basa en un sistema de clases abstractas y interfaces para que sea lo mas fác
 Table of contents
 -----
 1. [About Payment Suite](#about-payment-suite)
-2. [PaymentBridgeBundle](#paymentbridgebundle)
+2. [Available Payment Platforms](#available-payment-platforms)
+3. [PaymentBridgeBundle](#paymentbridgebundle)
     * [Cart Wrapper](#cart-wrapper)
     * [Order Wrapper](#order-wrapper)
     * [Payment Method](#payment-method)
     * [Payment Event Dispatcher](#payment-event-dispatcher)
-3. [Events](#events)
+4. [Events](#events)
     * [Payment Ready Event](#payment-ready-event)
     * [Payment Done Event](#payment-done-event)
     * [Payment Success Event](#payment-success-event)
     * [Payment Fail Event](#payment-fail-event)
     * [Payment Order Created Event](#payment-order-created-event)
-4. [Platforms](#platforms)
+5. [Platforms](#platforms)
     * [Paypal Bundle](#paypal-bundle)
     * [Paymill Bundle](#paymill-bundle)
     * [Sermepa Bundle](#sermepa-bundle)
+6. [Contribute](#contribute)
 
 
 # About Payment Suite
 
-La Suite de Payment mantiene desde el primer momento un índice de acoplamiento completamente nulo con el ecommerce, ya que es completamente transparente al modelo y la implementación de este. Esto hace que sea un código muy testeable unitariamente y muy fácil de entender a nivel abstracto.  
+The Symfony2 Payment Suite is just a way to implement any payment platform for Symfony2 based Ecommerces, with a common structure. Your project will simply need to listen to a few events, so the method of payment will be fully transparent.
 
-De todas formas, tenemos que tener en cuenta que de alguna forma u otra, cualquier plataforma de pago tiene que tener acceso a algunos datos del modelo del ecommerce, todos relacionados con el Cart o el Order generado a través del Cart.  
+    + Payment platforms
+    - Headaches
+    = Code
+    + Time
+
+The philosophy that leads us to do this project is simply no need to repeat in every project the same lines of code ( yes, we love OpenSource ). We want every ecommerce based in Symfony2 to meet us, to join us and to contribute with new platforms.
+
+This project belongs to everyone, for everyone. Take a look at [Contribute](#contribute] point.
+
+# Available Payment Platforms
+
+## [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+* Travis-CI - [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)
+* Packagist - [https://packagist.org/packages/mmoreram/payment-core-bundle](https://packagist.org/packages/mmoreram/payment-core-bundle)
+* KnpBundles - 
+
+## [PaymillBundle](https://github.com/mmoreram/PaymillBundle) - [Paymill](https://www.paymill.com)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+* Packagist - [https://packagist.org/packages/mmoreram/paymill-bundle](https://packagist.org/packages/mmoreram/paymill-bundle)
+* KnpBundles - 
+
+## Being Developed
+
+* PaypalBundle
+* PayUBundle
+* SermepaBundle
+* Transference
+* Stripe
+
 
 # PaymentBridgeBundle
 
-Por ello, cada ecommerce deberá crear un Bundle propio que hará de puente entre su modelo y el nivel de abstracción del Payment Suite. En este Bundle deberá, tan solo, definir dos servicios. Por nomenclatura, este bundle deberá llamarse PaymentBridgeBundle.
+As Payment Suite should be compatible with all ecommerce projects, is built without any kind of acoplation with your model, so you must build ( just once ) a specific bridge bundle to tell Payment Suite where to find some data.
+
+To do this, create a Bundle named PaymentBridgeBundle with some specific classes.
 
 ## Cart Wrapper
 
-Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada una capa a nuestro Cart. Su nombre **debe** ser `payment.cart.wrapper` y debe implementar a `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.  
+One of services this bundle must implement is the Cart Wrapper. This services **must** be named `payment.cart.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.
 
     <?php
 
@@ -95,7 +130,8 @@ Uno de los servicios que debe implementar PaymentBridgeBundle es el que añada u
 
 ## Order Wrapper
 
-El otro servicio es exactamente el mismo pero para acceder a ciertos valores referentes a Order. Su nombre **debe** ser `payment.order.wrapper` y debe implementar a `Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.  
+The other service this bundle must implement is the Order Wrapper. This services **must** be named `payment.order.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.
+
 
     <?php
 
@@ -286,5 +322,3 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 
 > En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
 > Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.
-
-# Platforms
