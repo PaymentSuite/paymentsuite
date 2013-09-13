@@ -113,7 +113,7 @@ class PaymillExtension extends Twig_Extension
         $formType = $this->formFactory->create('paymill_view');
 
         return $this->environment->display('PaymillBundle:Paymill:view.html.twig', array(
-            'paymill_form'  =>  $formType->createView(),
+            'paymill_form'          =>  $formType->createView(),
             'paymill_execute_route' =>  PaymillRoutesLoader::ROUTE_NAME,
         ));
     }

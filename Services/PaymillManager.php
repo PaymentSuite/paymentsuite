@@ -25,6 +25,7 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
 use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
 use Mmoreram\PaymillBundle\PaymillMethod;
+use Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
 
 /**
  * Paymill manager
@@ -41,19 +42,11 @@ class PaymillManager
 
 
     /**
-     * @var string
+     * @var PaymillTransactionWrapper
      *
-     * Paymill public key
+     * Paymill transaction wrapper
      */
-    protected $publicKey;
-
-
-    /**
-     * @var string
-     *
-     * Paymill private key
-     */
-    protected $privateKey;
+    protected $paymillTransactionWrapper;
 
 
     /**
@@ -83,18 +76,16 @@ class PaymillManager
     /**
      * Construct method for paymill manager
      *
-     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param string                 $privateKey             Private key
-     * @param string                 $publicKey              Public key
-     * @param string                 $apiEndPoint            Api end point
-     * @param CartWrapperInterface   $cartWrapper            Cart wrapper
-     * @param OrderWrapperInterface  $orderWrapper           Order wrapper
+     * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
+     * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill transaction wrapper
+     * @param string                    $apiEndPoint               Api end point
+     * @param CartWrapperInterface      $cartWrapper               Cart wrapper
+     * @param OrderWrapperInterface     $orderWrapper              Order wrapper
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, $privateKey, $publicKey, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->publicKey = $publicKey;
-        $this->privateKey = $privateKey;
+        $this->paymillTransactionWrapper = $paymillTransactionWrapper;
         $this->apiEndPoint = $apiEndPoint;
         $this->cartWrapper = $cartWrapper;
         $this->orderWrapper = $orderWrapper;
@@ -137,11 +128,9 @@ class PaymillManager
             'description' => $this->cartWrapper->getCartDescription(),
         );
 
-        $transactionsObject = new Services_Paymill_Transactions(
-            $this->privateKey,
-            $this->apiEndPoint
-        );
-        $transaction = $transactionsObject->create($params);
+        $transaction = $this
+            ->paymillTransactionWrapper
+            ->create($params);
 
         /**
          * Payment paid done

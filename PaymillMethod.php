@@ -42,6 +42,14 @@ class PaymillMethod implements PaymentMethodInterface
 
 
     /**
+     * @var currency
+     * 
+     * Payment currency
+     */
+    private $currency;
+
+
+    /**
      * @var string
      *
      * Credit Cart number
@@ -129,6 +137,32 @@ class PaymillMethod implements PaymentMethodInterface
     public function getAmount()
     {
         return $this->amount;
+    }
+
+
+    /**
+     * set currency
+     * 
+     * @param string $currency Currency
+     * 
+     * @return PaymillMethod self Object
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+
+    /**
+     * Get currency
+     *
+     * @return string Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 
 

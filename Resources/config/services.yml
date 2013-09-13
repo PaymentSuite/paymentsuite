@@ -7,12 +7,18 @@ services:
         tags:
             - { name: form.type, alias: paymill_view }
 
+    paymill.transaction.wrapper
+        class: %paymill.transaction.wrapper.class%
+        arguments:
+            paymill.private.key: %paymill.private.key%
+            paymill.public.key: %paymill.public.key%
+
+
     paymill.manager:
         class: %paymill.manager.class%
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
-            paymill.private.key: %paymill.private.key%
-            paymill.public.key: %paymill.public.key%
+            payment.transaction.wrapper: @paymill.transaction.wrapper
             paymill.api.endpoint: %paymill.api.endpoint%
             payment.cart.wrapper: @payment.cart.wrapper
             payment.order.wrapper: @payment.order.wrapper
