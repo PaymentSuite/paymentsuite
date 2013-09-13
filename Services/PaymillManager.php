@@ -142,8 +142,7 @@ class PaymillManager
             $this->apiEndPoint
         );
         $transaction = $transactionsObject->create($params);
-var_dump($transaction);
-die();
+
         /**
          * Payment paid done
          *
