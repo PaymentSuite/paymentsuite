@@ -1,0 +1,6 @@
+parameters:
+    stripe.api.endpoint: "https://api.stripe.com/"
+    stripe.form.type.class: "dpcat237\\StripeBundle\\Form\\Type\\StripeType"
+    stripe.manager.class: "dpcat237\\StripeBundle\\Services\\StripeManager"
+    stripe.twig.extension.class: "dpcat237\\StripeBundle\\Twig\\StripeExtension"
+    stripe.routes.loader.class: "dpcat237\\StripeBundle\\Router\\StripeRoutesLoader"

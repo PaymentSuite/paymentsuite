@@ -1,0 +1,34 @@
+services:
+    stripe.form.type:
+        class: %stripe.form.type.class%
+        arguments:
+            payment.cart.wrapper: @payment.cart.wrapper
+        tags:
+            - { name: form.type, alias: stripe_view }
+
+    stripe.manager:
+        class: %stripe.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            stripe.private.key: %stripe.private.key%
+            stripe.public.key: %stripe.public.key%
+            stripe.api.endpoint: %stripe.api.endpoint%
+            payment.cart.wrapper: @payment.cart.wrapper
+            payment.currency.wrapper: @payment.currency.wrapper
+            payment.order.wrapper: @payment.order.wrapper
+
+    stripe.twig.extension:
+        class: %stripe.twig.extension.class%
+        arguments:
+            stripe.public.key: %stripe.public.key%
+            form.factory: @form.factory
+            payment.currency.wrapper: @payment.currency.wrapper
+        tags:
+            - { name: twig.extension }
+
+    stripe.routes.loader:
+        class: %stripe.routes.loader.class%
+        arguments:
+            stripe.controller.route: %stripe.controller.route%
+        tags:
+            - { name: routing.loader }
