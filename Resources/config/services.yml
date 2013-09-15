@@ -7,7 +7,7 @@ services:
         tags:
             - { name: form.type, alias: paymill_view }
 
-    paymill.transaction.wrapper
+    paymill.transaction.wrapper:
         class: %paymill.transaction.wrapper.class%
         arguments:
             paymill.private.key: %paymill.private.key%
