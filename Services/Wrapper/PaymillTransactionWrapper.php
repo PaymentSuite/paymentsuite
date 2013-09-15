@@ -38,7 +38,6 @@ class PaymillTransactionWrapper
     public function __construct($privateKey, $publicKey)
     {
         $this->paymillTransaction = new Services_Paymill_Transactions(
-
             $privateKey,
             $apiEndPoint
         );

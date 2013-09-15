@@ -89,7 +89,7 @@ class PaymillManager
      * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill transaction wrapper
      * @param string                    $apiEndPoint               Api end point
      * @param CartWrapperInterface      $cartWrapper               Cart wrapper
-     * @param CurrencyWrapper           $currencyWrapper        Currency wrapper
+     * @param CurrencyWrapper           $currencyWrapper           Currency wrapper
      * @param OrderWrapperInterface     $orderWrapper              Order wrapper
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
@@ -115,7 +115,9 @@ class PaymillManager
      */
     public function processPayment(PaymillMethod $paymentMethod)
     {
-        /// first check that amounts are the same
+        /**
+         * first check that amounts are the same
+         */
         $cartAmount = (float) $this->cartWrapper->getAmount() * 100;
 
         /**
