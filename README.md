@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+[![Payment Suite](http://origin-shields-io.herokuapp.com/payment/suite.png?color=yellow)](https://github.com/mmoreram/PaymentCoreBundle)  ![Payment Suite](http://origin-shields-io.herokuapp.com/Still/maintained.png?color=green)  [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
 
 > Info. This Bundle is currently in progress and tested.  
 > If you are interested in using this bundle, please star it and will recieve last notices.  
@@ -337,3 +337,11 @@ Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos exti
 
 > En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
 > Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.
+
+Contribute
+-----
+
+All code is Symfony2 Code formatted, so every pull request must validate phpcs standards.  
+You should read [Symfony2 coding standards](http://symfony.com/doc/current/contributing/code/standards.html) and install [this](https://github.com/opensky/Symfony2-coding-standard) CodeSniffer to check all code is validated.  
+
+There is also a policy for contributing to this project. All pull request must be all explained step by step, to make us more understandable and easier to merge pull request. All new features must be tested with PHPUnit.
