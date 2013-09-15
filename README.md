@@ -1,3 +1,6 @@
+Payment Suite for Symfony
+-----
+
 [![Payment Suite](http://origin-shields-io.herokuapp.com/payment/suite.png?color=yellow)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://origin-shields-io.herokuapp.com/Still/maintained.png?color=green)]()  [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
 
 > Info. This Bundle is currently in progress and tested.  
@@ -7,15 +10,9 @@
 >   
 > [@mmoreram](https://github.com/mmoreram)
 
-Payment Suite for Symfony
------
-
-Payment Suite para Symfony2 es un conjunto de herramientas para unificar todas las plataformas de pago en un solo modelo de eventos.  
-
-Se basa en un sistema de clases abstractas y interfaces para que sea lo mas fácil posible añadir nuevas plataformas sin que el usuario final tenga que añadir lógica extra en su ecommerce.  
-
 Table of contents
 -----
+
 1. [About Payment Suite](#about-payment-suite)
 2. [Available Payment Platforms](#available-payment-platforms)
 3. [PaymentBridgeBundle](#paymentbridgebundle)
@@ -30,11 +27,7 @@ Table of contents
     * [Payment Success Event](#payment-success-event)
     * [Payment Fail Event](#payment-fail-event)
     * [Payment Order Created Event](#payment-order-created-event)
-5. [Platforms](#platforms)
-    * [Paypal Bundle](#paypal-bundle)
-    * [Paymill Bundle](#paymill-bundle)
-    * [Sermepa Bundle](#sermepa-bundle)
-6. [Contribute](#contribute)
+5. [Contribute](#contribute)
 
 
 # About Payment Suite
