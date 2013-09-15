@@ -8,7 +8,7 @@ Stripe Platform for Symfony Payment Suite
 > All help will be very grateful.  
 > I am at your disposal.  
 >   
-> [@mmoreram](https://github.com/mmoreram)
+> [@dpcat237](https://github.com/dpcat237)
 
 Table of contents
 -----
@@ -25,7 +25,7 @@ Table of contents
 
 Implementation of Stripe payment method for Symfony2 Payment Suite.  Is built following PaymentCore specifications and working with defined events
 
-# Installing [StripeBundle](https://github.com/mmoreram/StripeBundle)
+# Installing [StripeBundle](https://github.com/dpcat237/StripeBundle)
 
 You have to add require line into you composer.json file
 
