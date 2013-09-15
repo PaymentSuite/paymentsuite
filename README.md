@@ -85,7 +85,7 @@ Configure the StripeBundle parameters in your `config.yml`
             cart_append: false
             cart_append_field: cart_id
 
-About Stripe keys you can learn more in [API page](https://stripe.com/docs/tutorials/dashboard#api-keys). And for currency use [ISO 4217 standard](http://en.wikipedia.org/wiki/ISO_4217).
+About Stripe keys you can learn more in [Stripe documentation page](https://stripe.com/docs/tutorials/dashboard#api-keys). And for currency use [ISO 4217 standard](http://en.wikipedia.org/wiki/ISO_4217).
 
 # Router
 
