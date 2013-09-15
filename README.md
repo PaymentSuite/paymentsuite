@@ -23,7 +23,7 @@ Table of contents
 
 This bundle bring you a possibility to make simple payments through [Stripe](https://stripe.com). StripeBundle is payment method for Symfony2 Payment Suite and it's built following [PaymentCore](https://github.com/mmoreram/PaymillBundle) specifications.
 
-# Installing [StripeBundle](https://github.com/dpcat237/StripeBundle)
+# Installing
 
 You have to add next line into you composer.json file.
 
