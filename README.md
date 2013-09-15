@@ -1,3 +1,6 @@
+Paymill Platform for Symfony Payment Suite
+-----
+
 [![Payment Suite](http://origin-shields-io.herokuapp.com/payment/suite.png?color=yellow)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://origin-shields-io.herokuapp.com/Still/maintained.png?color=green)]()  [![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 
 > Info. This Bundle is currently in progress and tested.  
@@ -7,22 +10,20 @@
 >   
 > [@mmoreram](https://github.com/mmoreram)
 
-
-Paymill Platform in Payment Suite for Symfony
------
-
-Plataforma de Paymill para la Suite de Pago de Symfony. Toda la definición de eventos está ubicada en la documentación de [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle), así como todo lo necesario para trabajar con la suite de pago.
-
 Table of contents
 -----
 
-1.  [Installing PaymillBundle](#installing-paymillbundle)
-2.  [Configuration](#configuration)
-3.  [Router](#router)
-4.  [Display](#display)
-5.  [Customize](#customize)
-6.  [Contribute](#contribute)
+1.  [About Paymill Bundle](#about-payment-suite)
+2.  [Installing PaymillBundle](#installing-paymillbundle)
+3.  [Configuration](#configuration)
+4.  [Router](#router)
+5.  [Display](#display)
+6.  [Customize](#customize)
+7.  [Contribute](#contribute)
 
+# About Paymill Bundle
+
+Implementation of Paymill payment method for Symfony2 Payment Suite.  Is built following PaymentCore specifications and working with defined events
 
 # Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
 
