@@ -25,7 +25,7 @@ This bundle bring you a possibility to make simple payments through [Stripe](htt
 
 # Installing [StripeBundle](https://github.com/dpcat237/StripeBundle)
 
-You have to add next line into you composer.json file
+You have to add next line into you composer.json file.
 
     "require": {
         "php": ">=5.3.3",
@@ -34,11 +34,11 @@ You have to add next line into you composer.json file
         "dpcat237/stripe-bundle": "dev-master"
     },
 
-Then you have to use composer to update your project dependencies
+Then you have to use composer to update your project dependencies.
 
     php composer.phar update
 
-And register StripeBundle in your `AppKernel.php` file
+And register StripeBundle in your `AppKernel.php` file.
 
     return array(
         // ...
@@ -53,14 +53,14 @@ Configure the StripeBundle parameters in your `config.yml`
 
     stripe:
 
-        # [stripe keys](https://stripe.com/docs/tutorials/dashboard#api-keys)
+        # stripe keys
         public_key: XXXXXXXXXXXX
         private_key: XXXXXXXXXXXX
 
         # By default, controller route is /payment/stripe/execute
         controller_route: /my/custom/route
 
-        # Currency value. By default EUR (using [ISO 4217 standard](http://en.wikipedia.org/wiki/ISO_4217)).
+        # Currency value. By default EUR.
         currency: EUR
 
         # Configuration for payment success redirection
@@ -85,11 +85,13 @@ Configure the StripeBundle parameters in your `config.yml`
             cart_append: false
             cart_append_field: cart_id
 
+About Stripe keys you can learn more in [API page](https://stripe.com/docs/tutorials/dashboard#api-keys). And for currency use [ISO 4217 standard](http://en.wikipedia.org/wiki/ISO_4217).
+
 # Router
 
 StripeBundle allows developer to specify the route of controller where stripe payment is processed.  
 By default, this value is `/payment/stripe/execute` but this value can be changed in configuration file.  
-Anyway StripeBundle's routes must be parsed by the framework, so these lines must be included into routing.yml file
+Anyway StripeBundle's routes must be parsed by the framework, so these lines must be included into `routing.yml` file.
 
     stripe_payment_routes:
         resource: .
@@ -124,7 +126,8 @@ StripeBundle gives you all form view as requested by the payment module.
 
 `stripe_render()` just print a basic form.
 
-As every project need its own form design, you can overwrite default form located in `app/Resources/StripeBundle/views/Stripe/view.html.twig`.
+As every project need its own form design, you can overwrite default form located in: `app/Resources/StripeBundle/views/Stripe/view.html.twig`
+
 
 
 Contribute
