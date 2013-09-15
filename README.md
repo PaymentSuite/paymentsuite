@@ -20,6 +20,7 @@ Table of contents
 2. [Available Payment Platforms](#available-payment-platforms)
 3. [PaymentBridgeBundle](#paymentbridgebundle)
     * [Cart Wrapper](#cart-wrapper)
+    * [Currency](#currency)
     * [Order Wrapper](#order-wrapper)
     * [Payment Method](#payment-method)
     * [Payment Event Dispatcher](#payment-event-dispatcher)
@@ -60,7 +61,7 @@ This project belongs to everyone, for everyone. Take a look at [Contribute](#con
 
 ## [PaymillBundle](https://github.com/mmoreram/PaymillBundle) - [Paymill](https://www.paymill.com)
 
-* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 * Packagist - [https://packagist.org/packages/mmoreram/paymill-bundle](https://packagist.org/packages/mmoreram/paymill-bundle)
 * KnpBundles - 
 
@@ -126,7 +127,20 @@ One of services this bundle must implement is the Cart Wrapper. This services **
          * @return integer
          */
         public function getCartId();
+
+
+        /**
+         * Return cart currency
+         * 
+         * @return string Currency
+         */
+        public function getCurrency();
     }
+
+## Currency
+
+All payment platforms will use your cart currency to pay. Code `ISO 4217` will be used for currencies as specified [here](http://www.iso.org/iso/home/standards/currency_codes.htm).  
+Every payment platform will implement its own internal code conversion if needed.
 
 ## Order Wrapper
 

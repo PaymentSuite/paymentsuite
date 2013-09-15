@@ -33,7 +33,7 @@ class PaymentCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('payment_core.currency', $config['currency']);
+        $container->setParameter('payment.default.currency', $config['currency']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

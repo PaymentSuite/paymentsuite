@@ -20,12 +20,14 @@ use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
  */
 class CurrencyWrapper
 {
+
     /**
      * @var string
      *
      * Currency code
      */
     private $currency;
+
 
     /**
      * Construct method
@@ -35,13 +37,9 @@ class CurrencyWrapper
      */
     public function __construct($currency, CartWrapperInterface $cartWrapper)
     {
-        //if defined dynamic currency take it from wrapper, if not from
-        if (method_exists($cartWrapper, "getCurrency")) {
-            $this->setCurrency($cartWrapper->getCurrency());
-        } else {
-            $this->setCurrency($currency);
-        }
+        $this->currency = $cartWrapper->getCurrency() ?: $currency;
     }
+
 
     /**
      * Return set currency
@@ -58,9 +56,13 @@ class CurrencyWrapper
      * Set currency
      *
      * @param string $currency currency code
+     * 
+     * @return CurrencyWrapper self Object
      */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
+        return $this;
     }
 }

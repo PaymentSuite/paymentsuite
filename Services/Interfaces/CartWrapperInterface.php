@@ -52,4 +52,12 @@ interface CartWrapperInterface
      * @return integer
      */
     public function getCartId();
+
+
+    /**
+     * Return cart currency
+     * 
+     * @return string Currency
+     */
+    public function getCurrency();
 }
