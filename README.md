@@ -62,9 +62,6 @@ Configure the PaymillBundle configuration in your `config.yml`
         # By default, controller route is /payment/paymill/execute
         controller_route: /my/custom/route
 
-        # Currency value. By default EUR
-        currency: EUR
-
         # Configuration for payment success redirection
         #
         # Route defines which route will redirect if payment successes
