@@ -19,6 +19,7 @@ use Twig_SimpleFunction;
 use Twig_SimpleFilter;
 
 use Mmoreram\PaymillBundle\Router\PaymillRoutesLoader;
+use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
 
 /**
  * Text utilities extension
@@ -52,9 +53,9 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
-     * @var string
+     * @var CurrencyWrapper
      * 
-     * Currency
+     * Currency wrapper
      */
     private $currency;
 
@@ -62,11 +63,11 @@ class PaymillExtension extends Twig_Extension
     /**
      * Construct method
      *
-     * @param string      $publicKey   Public key
-     * @param FormFactory $formFactory Form factory
-     * @param string      $currency    Currency
+     * @param string          $publicKey   Public key
+     * @param FormFactory     $formFactory Form factory
+     * @param CurrencyWrapper $currency    Currency wrapper
      */
-    public function __construct($publicKey, FormFactory $formFactory, $currency)
+    public function __construct($publicKey, FormFactory $formFactory, CurrencyWrapper $currency)
     {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
@@ -126,13 +127,11 @@ class PaymillExtension extends Twig_Extension
      * 
      * @return string js code needed by Paymill behaviour
      */
-    public function renderPaymentScripts($currency = null)
+    public function renderPaymentScripts()
     {
-        $currency = $currency ?: $this->currency;
-
         return $this->environment->display('PaymillBundle:Paymill:scripts.html.twig', array(
             'public_key'    =>  $this->publicKey,
-            'currency'      =>  $currency,
+            'currency'      =>  $this->currency->getCurrency(),
         ));
     }
 

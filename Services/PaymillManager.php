@@ -20,6 +20,7 @@ use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
+use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
 use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
@@ -66,6 +67,14 @@ class PaymillManager
 
 
     /**
+     * @var CurrencyWrapper
+     *
+     * Currency wrapper
+     */
+    protected $currencyWrapper;
+
+
+    /**
      * @var OrderWrapperInterface
      *
      * Order wrapper interface
@@ -80,14 +89,16 @@ class PaymillManager
      * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill transaction wrapper
      * @param string                    $apiEndPoint               Api end point
      * @param CartWrapperInterface      $cartWrapper               Cart wrapper
+     * @param CurrencyWrapper           $currencyWrapper        Currency wrapper
      * @param OrderWrapperInterface     $orderWrapper              Order wrapper
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymillTransactionWrapper = $paymillTransactionWrapper;
         $this->apiEndPoint = $apiEndPoint;
         $this->cartWrapper = $cartWrapper;
+        $this->currencyWrapper = $currencyWrapper;
         $this->orderWrapper = $orderWrapper;
     }
 
@@ -123,7 +134,7 @@ class PaymillManager
          */
         $params = array(
             'amount' => intval($cartAmount),
-            'currency' => 'EUR',
+            'currency' => $this->currencyWrapper->getCurrency(),
             'token' => $paymentMethod->getApiToken(),
             'description' => $this->cartWrapper->getCartDescription(),
         );

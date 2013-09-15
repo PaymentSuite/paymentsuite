@@ -21,6 +21,7 @@ services:
             payment.transaction.wrapper: @paymill.transaction.wrapper
             paymill.api.endpoint: %paymill.api.endpoint%
             payment.cart.wrapper: @payment.cart.wrapper
+            payment.currency.wrapper: @payment.currency.wrapper
             payment.order.wrapper: @payment.order.wrapper
 
     paymill.twig.extension:
@@ -28,7 +29,7 @@ services:
         arguments:
             paymill.public.key: %paymill.public.key%
             form.factory: @form.factory
-            paymill.currency: %paymill.currency%
+            payment.currency.wrapper: @payment.currency.wrapper
         tags:
             - { name: twig.extension }
 
