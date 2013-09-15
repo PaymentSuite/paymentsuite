@@ -1,5 +1,11 @@
 services:
 
+    payment.currency.wrapper:
+        class: Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper
+        arguments:
+            currency: %payment_core.currency%
+            payment.cart.wrapper: @payment.cart.wrapper
+
     payment.event.dispatcher:
         class: %payment.event.dispatcher.class%
         arguments:
