@@ -6,12 +6,16 @@ services:
         tags:
             - { name: form.type, alias: stripe_view }
 
+    stripe.transaction.wrapper:
+        class: %stripe.transaction.wrapper.class%
+        arguments:
+            stripe.private.key: %stripe.private.key%
+
     stripe.manager:
         class: %stripe.manager.class%
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
-            stripe.private.key: %stripe.private.key%
-            stripe.public.key: %stripe.public.key%
+            stripe.transaction.wrapper: @stripe.transaction.wrapper
             stripe.api.endpoint: %stripe.api.endpoint%
             payment.cart.wrapper: @payment.cart.wrapper
             payment.currency.wrapper: @payment.currency.wrapper

@@ -25,6 +25,7 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
 use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
+use dpcat237\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
 use dpcat237\StripeBundle\StripeMethod;
 use Stripe;
 use Stripe_Charge;
@@ -43,19 +44,11 @@ class StripeManager
 
 
     /**
-     * @var string
+     * @var StripeTransactionWrapper
      *
-     * Stripe public key
+     * Transaction wrapper
      */
-    protected $publicKey;
-
-
-    /**
-     * @var string
-     *
-     * Stripe private key
-     */
-    protected $privateKey;
+    protected $transactionWrapper;
 
 
     /**
@@ -93,19 +86,17 @@ class StripeManager
     /**
      * Construct method for stripe manager
      *
-     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param string                 $privateKey             Private key
-     * @param string                 $publicKey              Public key
-     * @param string                 $apiEndPoint            Api end point
-     * @param CartWrapperInterface   $cartWrapper            Cart wrapper
-     * @param CurrencyWrapper        $currencyWrapper        Currency wrapper
-     * @param OrderWrapperInterface  $orderWrapper           Order wrapper
+     * @param PaymentEventDispatcher   $paymentEventDispatcher Event dispatcher
+     * @param StripeTransactionWrapper $transactionWrapper     Transaction wrapper
+     * @param string                   $apiEndPoint            Api end point
+     * @param CartWrapperInterface     $cartWrapper            Cart wrapper
+     * @param CurrencyWrapper          $currencyWrapper        Currency wrapper
+     * @param OrderWrapperInterface    $orderWrapper           Order wrapper
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, $privateKey, $publicKey, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, StripeTransactionWrapper $transactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->publicKey = $publicKey;
-        $this->privateKey = $privateKey;
+        $this->transactionWrapper = $transactionWrapper;
         $this->apiEndPoint = $apiEndPoint;
         $this->cartWrapper = $cartWrapper;
         $this->currencyWrapper = $currencyWrapper;
@@ -153,14 +144,7 @@ class StripeManager
             'currency' => strtolower($this->currencyWrapper->getCurrency()),
         );
 
-        try {
-        Stripe::setApiKey($this->privateKey);
-        $charge = Stripe_Charge::create($chargeParams);
-        $transaction = json_decode($charge, true);
-
-        } catch (\Exception $e) {
-            throw new PaymentException;
-        }
+        $transaction = $this->transactionWrapper->create($chargeParams);
 
         /**
          * Payment paid done
