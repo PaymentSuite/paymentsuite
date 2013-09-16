@@ -17,7 +17,7 @@ Table of contents
 2. [Install Payment Environment](#install-payment-environment)
 3. [Create Payment Method](#create-payment-method)
 4. [Available Payment Platforms](#available-payment-platforms)
-5. [Contribute](Resources/docs/contribute.md)
+5. [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 
 
 About Payment Suite
@@ -71,11 +71,3 @@ Available Payment Platforms
 * SermepaBundle
 * Transference
 * Google Checkout
-
-
-Contribute
-=====
-
-All code is Symfony2 Code formatted, so every pull request must be validated with [phpcs standards](http://symfony.com/doc/current/contributing/code/standards.html) which you can install [following these steps](https://github.com/opensky/Symfony2-coding-standard).
-
-There is also a policy for contributing to this project. All pull request must be all explained step by step, to make for contributors more understandable and easier to merge the pull request. All new features must be tested with [PHPUnit](http://symfony.com/doc/current/book/testing.html).
