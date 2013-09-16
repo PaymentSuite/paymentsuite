@@ -14,18 +14,21 @@ Table of contents
 -----
 
 1.  [About Paymill Bundle](#about-payment-suite)
-2.  [Installing PaymillBundle](#installing-paymillbundle)
-3.  [Configuration](#configuration)
-4.  [Router](#router)
-5.  [Display](#display)
-6.  [Customize](#customize)
-7.  [Contribute](#contribute)
+2.  [Installing Payment Environment](#installing-payment-environment)
+3.  [Installing PaymillBundle](#installing-paymillbundle)
+4.  [Configuration](#configuration)
+5.  [Router](#router)
+6.  [Display](#display)
+7.  [Customize](#customize)
+8.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 
-# About Paymill Bundle
+About Paymill Bundle
+=====
 
 Implementation of Paymill payment method for Symfony2 Payment Suite.  Is built following PaymentCore specifications and working with defined events
 
-# Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
+Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
+=====
 
 You have to add require line into you composer.json file
 
@@ -49,7 +52,13 @@ And register the bundle in your appkernel.php file
         // ...
     );
 
-# Configuration
+Installing Payment Environment
+=====
+
+PaymillBundle works using an standard, defined in PaymentCoreBundle. You will find [here](http://github.com/mmoreram/PaymentCoreBundle) everything about how to configure your environment to work with this suite
+
+Configuration
+=====
 
 Configure the PaymillBundle configuration in your `config.yml`
 
@@ -84,7 +93,8 @@ Configure the PaymillBundle configuration in your `config.yml`
             cart_append: false
             cart_append_field: cart_id
 
-# Router
+Router
+=====
 
 PaymillBundle allows developer to specify the route of controller where paymill payment is processed.  
 By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.  
@@ -94,7 +104,8 @@ Anyway, the bundle routes must be parsed by the framework, so these lines must b
         resource: .
         type: paymill
 
-# Display
+Display
+=====
 
 Once your Paymill is installed and well configured, you need to place your payment form.  
 
@@ -128,17 +139,9 @@ PaymillBundle gives you all form view as requested by the payment module.
 
     {% endblock foot_script %}
 
-# Customize
+Customize
+=====
 
 `paymill_render()` only print form in a simple way.  
 
 As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `Mmoreram/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
-
-
-Contribute
------
-
-All code is Symfony2 Code formatted, so every pull request must validate phpcs standards.  
-You should read [Symfony2 coding standards](http://symfony.com/doc/current/contributing/code/standards.html) and install [this](https://github.com/opensky/Symfony2-coding-standard) CodeSniffer to check all code is validated.  
-
-There is also a policy for contributing to this project. All pull request must be all explained step by step, to make us more understandable and easier to merge pull request. All new features must be tested with PHPUnit.
