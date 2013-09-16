@@ -4,6 +4,6 @@
 
     </ul>
 
-    {{ form(dineromail_form, { action: url(dineromail_execute_route), method: "post", attr: { 'id': 'dineromail_form' } }) }}
+    {{ form(dineromail_form, { action: "https://checkout.dineromail.com/CheckOut", method: "post", attr: { 'id': 'dineromail_form' } }) }}
 
 {% endblock payment_form %}

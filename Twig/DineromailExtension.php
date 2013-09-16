@@ -108,6 +108,8 @@ class DineromailExtension extends Twig_Extension
      */
     public function renderPaymentView()
     {
+        return $this->environment->display('DineromailBundle:Dineromail:payment.html.twig');
+
         $formType = $this->formFactory->createNamedBuilder(null, 'form')
             ->add('amount', 'hidden', array(
                 'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
