@@ -13,7 +13,7 @@ Paymill Platform for Symfony Payment Suite
 Table of contents
 -----
 
-1.  [About Paymill Bundle](#about-payment-suite)
+1.  [About Paymill Bundle](#about-payment-bundle)
 2.  [Installing Payment Environment](#installing-payment-environment)
 3.  [Installing PaymillBundle](#installing-paymillbundle)
 4.  [Configuration](#configuration)
@@ -27,7 +27,12 @@ About Paymill Bundle
 
 Implementation of Paymill payment method for Symfony2 Payment Suite.  Is built following PaymentCore specifications and working with defined events
 
-Installing [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
+Installing Payment Environment
+=====
+
+PaymillBundle works using an standard, defined in PaymentCoreBundle. You will find [here](http://github.com/mmoreram/PaymentCoreBundle) everything about how to configure your environment to work with this suite
+
+Installing [Paymill Bundle](https://github.com/mmoreram/PaymillBundle)
 =====
 
 You have to add require line into you composer.json file
@@ -51,11 +56,6 @@ And register the bundle in your appkernel.php file
         new Mmoreram\PaymillBundle\PaymillBundle(),
         // ...
     );
-
-Installing Payment Environment
-=====
-
-PaymillBundle works using an standard, defined in PaymentCoreBundle. You will find [here](http://github.com/mmoreram/PaymentCoreBundle) everything about how to configure your environment to work with this suite
 
 Configuration
 =====
