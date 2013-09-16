@@ -51,11 +51,7 @@ For basic methods of PaymentMethod class you have to implement `Mmoreram\Payment
 
 ## Payment Event Dispatcher
 
-Toda plataforma necesita un core de proceso especíco encargado de toda la lógica de negocio. Este debe ser el encargado de lanzar todos los eventos disponibles del core. Es para esto que PaymentCore dispone de un servicio público específico para hacer dispatch de algunos eventos.
-
-Por definición, toda plataforma debería, en algún momento u otro lanzar todos y cada uno de los eventos, por si algun subscriber necesita realizar alguna operación relacionada con tal evento.
-
-Cada uno de los eventos recibe un objeto event distinto, aunque todos ellos extienden de un abstracto común, por lo que en realidad, todos tienen disponibles los mismos objetos.
+Each platform need specific part to be in charge about some logic of process. PaymentEventDispatcher is public dispatcher of payment events. As all events extend from same class, they will return the same object.
 
     /**
      * Get Cart Wrapper

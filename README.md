@@ -46,13 +46,6 @@ You can collaborate with this project and create new Payment methods [following 
 
 # Available Payment Platforms
 
-## [PaymentCoreBundle](https://github.com/mmoreram/PaymentCoreBundle)
-
-* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
-* Travis-CI - [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)
-* Packagist - [https://packagist.org/packages/mmoreram/payment-core-bundle](https://packagist.org/packages/mmoreram/payment-core-bundle)
-* KnpBundles -
-
 ## [PaymillBundle](https://github.com/mmoreram/PaymillBundle) - [Paymill](https://www.paymill.com)
 
 * Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
