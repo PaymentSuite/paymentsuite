@@ -28,7 +28,7 @@ The Symfony 2 Payment Suite is just a way to implement any payment platform for 
     + Payment platforms
     - Headaches
     = Code
-    + Time
+    + Time, Life
 
 The philosophy that leads us to do this project is simply no need to repeat in every project the same lines of code ( yes, we love OpenSource ). We want every E-commerces based in Symfony 2 to meet us, to join us and contribute to new platform.
 
