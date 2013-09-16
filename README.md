@@ -1,7 +1,7 @@
 Payment Suite for Symfony
 -----
 
-[![Payment Suite](http://raw.github.com/mmoreram/PaymentCoreBundle/master/Resources/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://raw.github.com/mmoreram/PaymentCoreBundle/master/Resources/public/images/still-maintained.png)]()  [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+[![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/still-maintained.png)]()  [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
 
 > Info. This Bundle is under development but already functional and partially tested.
 > If you are interested in using this bundle, please star it and will receive last notices.
@@ -71,3 +71,11 @@ Available Payment Platforms
 * SermepaBundle
 * Transference
 * Google Checkout
+
+
+Contribute
+=====
+
+All code is Symfony2 Code formatted, so every pull request must be validated with [phpcs standards](http://symfony.com/doc/current/contributing/code/standards.html) which you can install [following these steps](https://github.com/opensky/Symfony2-coding-standard).
+
+There is also a policy for contributing to this project. All pull request must be all explained step by step, to make for contributors more understandable and easier to merge the pull request. All new features must be tested with [PHPUnit](http://symfony.com/doc/current/book/testing.html).
