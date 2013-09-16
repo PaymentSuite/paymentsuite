@@ -136,4 +136,6 @@ Another necessary service to implement is Order Wrapper. This services **must** 
 
 ## Payment Event Listener
 
-You can create Event listener to subscribe to Payment process events.
+You can create Event listener to subscribe to Payment process events.  
+
+In fact, this will be the way to manage your cart and your order in every payment stage.
