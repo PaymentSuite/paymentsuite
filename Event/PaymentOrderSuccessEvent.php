@@ -16,9 +16,9 @@ namespace Mmoreram\PaymentCoreBundle\Event;
 use Mmoreram\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 /**
- * Event for payment ready
+ * Event for payment success
  */
-class PaymentReadyEvent extends AbstractPaymentEvent
+class PaymentOrderSuccessEvent extends AbstractPaymentEvent
 {
 
 }

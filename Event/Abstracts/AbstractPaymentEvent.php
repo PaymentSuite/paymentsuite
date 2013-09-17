@@ -13,8 +13,7 @@
 
 namespace Mmoreram\PaymentCoreBundle\Event\Abstracts;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -25,19 +24,11 @@ abstract class AbstractPaymentEvent extends Event
 {
 
     /**
-     * @var CartWrapper
+     * @var PaymentBridgeInterface
      *
-     * Cart wrapper
+     * Payment Bridge
      */
-    private $cartWrapper;
-
-
-    /**
-     * @var OrderWrapper
-     *
-     * Order Wrapper
-     */
-    private $orderWrapper;
+    private $paymentBridge;
 
 
     /**
@@ -51,37 +42,24 @@ abstract class AbstractPaymentEvent extends Event
     /**
      * Construct method
      *
-     * @param CartWrapperInterface   $cartWrapper   Cart Wrapper
-     * @param OrderWrapperInterface  $orderWrapper  Order wrapper
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method
      */
-    public function __construct(CartWrapperInterface $cartWrapper, OrderWrapperInterface $orderWrapper, PaymentMethodInterface $paymentMethod)
+    public function __construct(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
-        $this->cartWrapper = $cartWrapper;
-        $this->orderWrapper = $orderWrapper;
+        $this->paymentBridge = $paymentBridge;
         $this->paymentMethod = $paymentMethod;
-    }
-
-
-    /**
-     * Get Cart Wrapper
-     *
-     * @return CartWrapperInterface Cart Wrapper
-     */
-    public function getCartWrapper()
-    {
-        return $this->cartWrapper;
     }
 
 
     /**
      * Get Order Wrapper
      *
-     * @return OrderWrapperInterface Order wrapper
+     * @return PaymentBridgeInterface Payment Bridge
      */
-    public function getOrderWrapper()
+    public function getPaymentBridge()
     {
-        return $this->orderWrapper;
+        return $this->paymentBridge;
     }
 
 

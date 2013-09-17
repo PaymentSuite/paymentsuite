@@ -22,14 +22,6 @@ class CurrencyWrapperTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var string
-     * 
-     * Default currency value
-     */
-    const DEFAULT_CURRENCY = 'EUR';
-
-
-    /**
      * @var CartWrapper
      *
      * Cart Wrapper
@@ -42,37 +34,21 @@ class CurrencyWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->cartWrapper = $this->getMock('Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
+        $this->cartWrapper = $this->getMock('Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
     }
 
 
     /**
      * Testing Cart wrapper currency definition
      */
-    public function testCartWrapperCurrency()
-    {
-        $this->cartWrapper
-            ->expects($this->once())
-            ->method('getCurrency')
-            ->will($this->returnValue(null));
-
-        $currencyWrapper = new CurrencyWrapper(self::DEFAULT_CURRENCY, $this->cartWrapper);
-
-        $this->assertEquals(self::DEFAULT_CURRENCY, $currencyWrapper->getCurrency());
-    }
-
-
-    /**
-     * Testing Cart wrapper currency definition
-     */
-    public function testDefaultCurrency()
+    public function testPaymentBridgeCurrency()
     {
         $this->cartWrapper
             ->expects($this->once())
             ->method('getCurrency')
             ->will($this->returnValue('USD'));
 
-        $currencyWrapper = new CurrencyWrapper(self::DEFAULT_CURRENCY, $this->cartWrapper);
+        $currencyWrapper = new CurrencyWrapper($this->cartWrapper);
 
         $this->assertEquals('USD', $currencyWrapper->getCurrency());
     }

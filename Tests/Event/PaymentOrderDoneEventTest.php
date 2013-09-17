@@ -13,16 +13,16 @@
 
 namespace Mmoreram\PaymentCoreBundle\Tests\Event;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
 
 /**
- * Tests Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent class
+ * Tests Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent class
  */
-class PaymentFailEventTest extends \PHPUnit_Framework_TestCase
+class PaymentOrderDoneEventTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var PaymentFailEvent
+     * @var PaymentOrderDoneEvent
      *
      * Object to test
      */
@@ -30,19 +30,11 @@ class PaymentFailEventTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @var CartWrapper
-     *
-     * Cart wrapper
-     */
-    private $cartWrapper;
-
-
-    /**
-     * @var OrderWrapper
+     * @var PaymentBridge
      *
      * Order Wrapper
      */
-    private $orderWrapper;
+    private $paymentBridge;
 
 
     /**
@@ -59,10 +51,9 @@ class PaymentFailEventTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->cartWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface');
-        $this->orderWrapper = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface');
+        $this->paymentBridge = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
         $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
-        $this->event = new PaymentFailEvent($this->cartWrapper, $this->orderWrapper, $this->paymentMethod);
+        $this->event = new PaymentOrderDoneEvent($this->paymentBridge, $this->paymentMethod);
     }
 
 
@@ -76,20 +67,11 @@ class PaymentFailEventTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Testing getCartWrapper
+     * Testing getPaymentBridge
      */
-    public function testGetCartWrapper()
+    public function testGetPaymentBridge()
     {
-        $this->assertEquals($this->cartWrapper, $this->event->getCartWrapper());
-    }
-
-
-    /**
-     * Testing getOrderWrapper
-     */
-    public function testGetOrderWrapper()
-    {
-        $this->assertEquals($this->orderWrapper, $this->event->getOrderWrapper());
+        $this->assertEquals($this->paymentBridge, $this->event->getPaymentBridge());
     }
 
 
@@ -100,4 +82,5 @@ class PaymentFailEventTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->paymentMethod, $this->event->getPaymentMethod());
     }
+
 }

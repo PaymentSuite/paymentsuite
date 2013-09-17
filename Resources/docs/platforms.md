@@ -67,11 +67,11 @@ Each platform need specific part to be in charge about some logic of process. Pa
     /**
      * Get Order Wrapper
      *
-     * @return OrderWrapperInterface Order wrapper
+     * @return PaymentBridgeInterface Payment Bridge
      */
-    public function getOrderWrapper()
+    public function getPaymentBridge()
     {
-        return $this->orderWrapper;
+        return $this->paymentBridge;
     }
 
 
@@ -93,12 +93,12 @@ Each platform need specific part to be in charge about some logic of process. Pa
      * This event is thrown when a payment is ready to be processed
      *
      * event.name : payment.ready
-     * event.class : PaymentReadyEvent
+     * event.class : PaymentOrderReadyEvent
      *
      */
     const PAYMENT_READY = 'payment.ready';
 
-> En este momento, getOrderWrapper debería devolver un wrapper con un order `null` ya que tan solo el cart está construido y available.
+> En este momento, getPaymentBridge debería devolver un wrapper con un order `null` ya que tan solo el cart está construido y available.
 > Una posible utilidad podría ser la creación inmediato de un Order en un estado "ready_to_pay".
 
 ## Payment Done Event
@@ -121,7 +121,7 @@ Each platform need specific part to be in charge about some logic of process. Pa
      * This event is thrown when a payment is paid succesfuly
      *
      * event.name : payment.success
-     * event.class : PaymentSuccessEvent
+     * event.class : PaymentOrderSuccessEvent
      */
     const PAYMENT_SUCCESS = 'payment.success';
 
@@ -135,7 +135,7 @@ Each platform need specific part to be in charge about some logic of process. Pa
      * This event is thrown when a payment can't be paid for any reason
      *
      * event.name : payment.fail
-     * event.class : PaymentFailEvent
+     * event.class : PaymentOrderFailEvent
      */
     const PAYMENT_FAIL = 'payment.fail';
 

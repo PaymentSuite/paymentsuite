@@ -34,12 +34,4 @@ interface PaymentMethodInterface
      * @return string
      */
     public function getAmount();
-
-
-    /**
-     * Return  payment amount
-     * 
-     * @return string
-     */
-    public function getCurrency();
 }

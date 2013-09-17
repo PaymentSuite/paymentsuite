@@ -13,7 +13,7 @@
 
 namespace Mmoreram\PaymentCoreBundle\Services\Wrapper;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Cart to order service
@@ -32,12 +32,11 @@ class CurrencyWrapper
     /**
      * Construct method
      *
-     * @param string               $currency    currency param
-     * @param CartWrapperInterface $cartWrapper cart wrapper, necessary to take dynamic currency
+     * @param PaymentBridgeInterface $paymentBridgeInterface cart wrapper, necessary to take dynamic currency
      */
-    public function __construct($currency, CartWrapperInterface $cartWrapper)
+    public function __construct(PaymentBridgeInterface $paymentBridgeInterface)
     {
-        $this->currency = $cartWrapper->getCurrency() ?: $currency;
+        $this->currency = $paymentBridgeInterface->getCurrency();
     }
 
 
@@ -49,20 +48,5 @@ class CurrencyWrapper
     public function getCurrency()
     {
         return $this->currency;
-    }
-
-
-    /**
-     * Set currency
-     *
-     * @param string $currency currency code
-     * 
-     * @return CurrencyWrapper self Object
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-
-        return $this;
     }
 }

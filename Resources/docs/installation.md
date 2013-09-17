@@ -78,7 +78,7 @@ Every payment method will implement his internal code conversion if needed.
 
 ## Order Wrapper
 
-Another necessary service to implement is Order Wrapper. This services **must** be named `payment.order.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface`.
+Another necessary service to implement is Order Wrapper. This services **must** be named `payment.order.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface`.
 
 
     <?php
@@ -86,13 +86,13 @@ Another necessary service to implement is Order Wrapper. This services **must** 
     namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
 
     /**
-     * Interface for OrderWrapper
+     * Interface for PaymentBridge
      */
-    interface OrderWrapperInterface
+    interface PaymentBridgeInterface
     {
 
         /**
-         * Set order to OrderWrapper
+         * Set order to PaymentBridge
          *
          * @var Object $order Order element
          */

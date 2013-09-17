@@ -14,13 +14,19 @@
 namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
 
 /**
- * Interface for OrderWrapper
+ * Interface for PaymentBridge
  */
-interface OrderWrapperInterface
+interface PaymentBridgeInterface
 {
 
     /**
-     * Set order to OrderWrapper
+     * Order zone
+     * 
+     * Brings all needed order information
+     */
+
+    /**
+     * Set order to PaymentBridge
      *
      * @param Object $order Order element
      */
@@ -59,4 +65,27 @@ interface OrderWrapperInterface
      * @return integer
      */
     public function getOrderId();
+
+
+    /**
+     * Common methods
+     */
+
+
+    /**
+     * Get payment currency
+     * 
+     * @return string
+     */
+    public function getCurrency();
+
+
+    /**
+     * Get extra data
+     * 
+     * Each payment platform should define what extra data is needed to be implemented
+     * 
+     * @return array Hash object with needed data
+     */
+    public function getExtraData();
 }
