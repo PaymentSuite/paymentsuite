@@ -1,5 +1,5 @@
 Paymill Platform for Symfony Payment Suite
------
+=====
 
 [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/still-maintained.png)]()  [![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)  [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 
@@ -11,7 +11,7 @@ Paymill Platform for Symfony Payment Suite
 > [@mmoreram](https://github.com/mmoreram)
 
 Table of contents
------
+=====
 
 1.  [About Paymill Bundle](#about-payment-bundle)
 2.  [Installing Payment Environment](#installing-payment-environment)
@@ -23,17 +23,17 @@ Table of contents
 8.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 
 About Paymill Bundle
-=====
+-----
 
 Implementation of Paymill payment method for Symfony2 Payment Suite.  Is built following PaymentCore specifications and working with defined events
 
 Installing Payment Environment
-=====
+-----
 
 PaymillBundle works using an standard, defined in PaymentCoreBundle. You will find [here](http://github.com/mmoreram/PaymentCoreBundle) everything about how to configure your environment to work with this suite
 
 Installing [Paymill Bundle](https://github.com/mmoreram/PaymillBundle)
-=====
+-----
 
 You have to add require line into you composer.json file
 
@@ -58,7 +58,7 @@ And register the bundle in your appkernel.php file
     );
 
 Configuration
-=====
+-----
 
 Configure the PaymillBundle configuration in your `config.yml`
 
@@ -94,7 +94,7 @@ Configure the PaymillBundle configuration in your `config.yml`
             cart_append_field: cart_id
 
 Router
-=====
+-----
 
 PaymillBundle allows developer to specify the route of controller where paymill payment is processed.  
 By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.  
@@ -105,7 +105,7 @@ Anyway, the bundle routes must be parsed by the framework, so these lines must b
         type: paymill
 
 Display
-=====
+-----
 
 Once your Paymill is installed and well configured, you need to place your payment form.  
 
@@ -140,7 +140,7 @@ PaymillBundle gives you all form view as requested by the payment module.
     {% endblock foot_script %}
 
 Customize
-=====
+-----
 
 `paymill_render()` only print form in a simple way.  
 
