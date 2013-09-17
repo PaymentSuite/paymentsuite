@@ -16,7 +16,7 @@ To do this, create a Bundle named PaymentBridgeBundle with next classes.
 
 ## Cart Wrapper
 
-Cart Wrapper is one of necessary services to implement. This services **must** be named `payment.cart.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.
+Cart Wrapper is one of necessary [services](http://symfony.com/doc/current/book/service_container.html) to implement. This services **must** be named `payment.cart.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.
 
     <?php
 
