@@ -144,10 +144,10 @@ Each platform need specific part to be in charge about some logic of process. Pa
     /**
      * This event is thrown when a payment can't be paid for any reason
      *
-     * event.name : payment.order.created
+     * event.name : payment.order.load
      * event.class : PaymentOrderCreatedEvent
      */
-    const PAYMENT_ORDER_CREATED = 'payment.order.created';
+    const PAYMENT_ORDER_CREATED = 'payment.order.load';
 
 > En este punto, el servicio `payment.order.wrapper` debería contener una referencia real al order generado por el sistema
 > Una posible utilidad podría ser el log de toda Order creada, relacionando en base de datos, el identificador de este con el método de pago aplicado.
