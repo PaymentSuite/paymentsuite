@@ -15,7 +15,7 @@ namespace Mmoreram\PaymillBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * Type for a shop edit profile form
@@ -24,21 +24,21 @@ class PaymillType extends AbstractType
 {
 
     /**
-     * @var CartWrapperInterface
+     * @var PaymentBridgeInterface
      *
      * Cart Wrapper
      */
-    private $cartWrapper;
+    private $paymentBridge;
 
 
     /**
      * Formtype construct method
      *
-     * @param CartWrapperInterface $cartWrapper Cart wrapper
+     * @param PaymentBridgeInterface $paymentBridge Payment bridge
      */
-    public function __construct(CartWrapperInterface $cartWrapper)
+    public function __construct(PaymentBridgeInterface $paymentBridge)
     {
-        $this->cartWrapper = $cartWrapper;
+        $this->paymentBridge = $paymentBridge;
     }
 
 
@@ -83,7 +83,7 @@ class PaymillType extends AbstractType
                 'max_length' => 4,
             ))
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
+                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
             ))
             ->add('api_token', 'hidden', array(
                 'data'  =>  ''

@@ -32,14 +32,14 @@ class PaymillTransactionWrapper
     /**
      * Construct method for paymill transaction wrapper
      *
-     * @param string $privateKey Private key
-     * @param string $publicKey  Public key
+     * @param string $privateKey  Private key
+     * @param string $apiEndpoint Api endpoint
      */
-    public function __construct($privateKey, $publicKey)
+    public function __construct($privateKey, $apiEndpoint)
     {
         $this->paymillTransaction = new Services_Paymill_Transactions(
             $privateKey,
-            $apiEndPoint
+            $apiEndpoint
         );
     }
 

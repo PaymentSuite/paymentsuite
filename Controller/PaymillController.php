@@ -47,7 +47,6 @@ class PaymillController extends Controller
 
             $paymentMethod = new PaymillMethod;
             $paymentMethod
-                ->setAmount((float) $data['amount'])
                 ->setApiToken($data['api_token'])
                 ->setCreditCartNumber($data['credit_cart_1'] . $data['credit_cart_2'] . $data['credit_cart_3'] . $data['credit_cart_4'])
                 ->setCreditCartOwner($data['credit_cart_owner'])
@@ -58,12 +57,11 @@ class PaymillController extends Controller
             try {
                 $this
                     ->get('paymill.manager')
-                    ->processPayment($paymentMethod);
+                    ->processPayment($paymentMethod, $data['amount']);
 
                 $redirectUrl = $this->container->getParameter('paymill.success.route');
                 $redirectAppend = $this->container->getParameter('paymill.success.order.append');
                 $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
-                $redirectAppendValue = $this->get('payment.order.wrapper')->getOrderId();
 
             } catch (PaymentException $e) {
 
@@ -71,9 +69,8 @@ class PaymillController extends Controller
                  * Must redirect to fail route
                  */
                 $redirectUrl = $this->container->getParameter('paymill.fail.route');
-                $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
-                $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
-                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
+                $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
+                $redirectAppendField = $this->container->getParameter('paymill.fail.order.field');
 
                 throw $e;
             }
@@ -83,14 +80,13 @@ class PaymillController extends Controller
              * If form is not valid, fail return page
              */
             $redirectUrl = $this->container->getParameter('paymill.fail.route');
-            $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
-            $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
-            $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
+            $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
+            $redirectAppendField = $this->container->getParameter('paymill.fail.order.field');
         }
 
         $redirectData   = $redirectAppend
                         ? array(
-                            $redirectAppendField => $redirectAppendValue,
+                            $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
                         )
                         : array();
 

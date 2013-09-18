@@ -14,8 +14,7 @@
 namespace Mmoreram\PaymillBundle\Services;
 
 use Services_Paymill_Transactions;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
@@ -51,84 +50,60 @@ class PaymillManager
 
 
     /**
-     * @var string
+     * @var PaymentBridgeInterface
      *
-     * Paymill api ednpoint
+     * Payment bridge interface
      */
-    protected $apiEndPoint;
-
-
-    /**
-     * @var CartWrapperInterface
-     *
-     * Cart wrapper interface
-     */
-    protected $cartWrapper;
-
-
-    /**
-     * @var CurrencyWrapper
-     *
-     * Currency wrapper
-     */
-    protected $currencyWrapper;
-
-
-    /**
-     * @var OrderWrapperInterface
-     *
-     * Order wrapper interface
-     */
-    protected $orderWrapper;
+    protected $paymentBridge;
 
 
     /**
      * Construct method for paymill manager
      *
      * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill transaction wrapper
+     * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill Transaction wrapper
      * @param string                    $apiEndPoint               Api end point
-     * @param CartWrapperInterface      $cartWrapper               Cart wrapper
-     * @param CurrencyWrapper           $currencyWrapper           Currency wrapper
-     * @param OrderWrapperInterface     $orderWrapper              Order wrapper
+     * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, PaymentBridgeInterface $paymentBridge)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymillTransactionWrapper = $paymillTransactionWrapper;
-        $this->apiEndPoint = $apiEndPoint;
-        $this->cartWrapper = $cartWrapper;
-        $this->currencyWrapper = $currencyWrapper;
-        $this->orderWrapper = $orderWrapper;
+        $this->paymentBridge = $paymentBridge;
     }
 
 
     /**
      * Tries to process a payment through Paymill
      *
-     * @param PaymillMethod $paymentMethod
+     * @param PaymillMethod $paymentMethod Payment method
+     * @param float         $amount        Amount
      *
      * @throws PaymentAmountsNotMatchException
      * @throws PaymentException
      *
      * @return PaymillManager Self object
      */
-    public function processPayment(PaymillMethod $paymentMethod)
+    public function processPayment(PaymillMethod $paymentMethod, $amount)
     {
-        /**
-         * first check that amounts are the same
-         */
-        $cartAmount = (float) $this->cartWrapper->getAmount() * 100;
+        /// first check that amounts are the same
+        $cartAmount = (float) $this->paymentBridge->getAmount() * 100;
 
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($paymentMethod->getAmount() - $cartAmount) > 0.00001) {
+        if (abs($amount - $cartAmount) > 0.00001) {
 
             throw new PaymentAmountsNotMatchException;
         }
 
-        $this->paymentEventDispatcher->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+
+        /**
+         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * 
+         * So, $this->paymentBridge->getOrder() must return an object
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
 
         /**
          * Validate the order in the module
@@ -136,9 +111,9 @@ class PaymillManager
          */
         $params = array(
             'amount' => intval($cartAmount),
-            'currency' => $this->currencyWrapper->getCurrency(),
+            'currency' => $this->paymentBridge->getCurrency(),
             'token' => $paymentMethod->getApiToken(),
-            'description' => $this->cartWrapper->getCartDescription(),
+            'description' => $this->paymentBridge->getOrderDescription(),
         );
 
         $transaction = $this
@@ -150,7 +125,7 @@ class PaymillManager
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentDone($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
         /**
          * when a transaction is successful, it is marked as 'closed'
@@ -162,7 +137,7 @@ class PaymillManager
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentFail($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
             throw new PaymentException;
         }
@@ -177,17 +152,7 @@ class PaymillManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $paymentMethod);
-
-
-        /**
-         * Notifies Payment
-         *
-         * This event os thrown when Order is created already
-         *
-         * At this point, order MUST be created
-         */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
         return $this;
     }

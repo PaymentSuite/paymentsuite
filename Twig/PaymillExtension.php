@@ -19,7 +19,7 @@ use Twig_SimpleFunction;
 use Twig_SimpleFilter;
 
 use Mmoreram\PaymillBundle\Router\PaymillRoutesLoader;
-use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension
@@ -53,25 +53,25 @@ class PaymillExtension extends Twig_Extension
 
 
     /**
-     * @var CurrencyWrapper
+     * @var PaymentBridgeInterfaces
      * 
-     * Currency wrapper
+     * Payment Bridge
      */
-    private $currencyWrapper;
+    private $paymentBridgeInterface;
 
 
     /**
      * Construct method
      *
-     * @param string          $publicKey       Public key
-     * @param FormFactory     $formFactory     Form factory
-     * @param CurrencyWrapper $currencyWrapper Currency wrapper
+     * @param string                 $publicKey              Public key
+     * @param FormFactory            $formFactory            Form factory
+     * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge
      */
-    public function __construct($publicKey, FormFactory $formFactory, CurrencyWrapper $currencyWrapper)
+    public function __construct($publicKey, FormFactory $formFactory, PaymentBridgeInterface $paymentBridgeInterface)
     {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
-        $this->currencyWrapper = $currencyWrapper;
+        $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
 
 
@@ -129,7 +129,7 @@ class PaymillExtension extends Twig_Extension
     {
         return $this->environment->display('PaymillBundle:Paymill:scripts.html.twig', array(
             'public_key'    =>  $this->publicKey,
-            'currency'      =>  $this->currencyWrapper->getCurrency(),
+            'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
 

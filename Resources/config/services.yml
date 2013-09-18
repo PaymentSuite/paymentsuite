@@ -3,7 +3,7 @@ services:
     paymill.form.type:
         class: %paymill.form.type.class%
         arguments:
-            payment.cart.wrapper: @payment.cart.wrapper
+            payment.bridge: @payment.bridge
         tags:
             - { name: form.type, alias: paymill_view }
 
@@ -11,7 +11,7 @@ services:
         class: %paymill.transaction.wrapper.class%
         arguments:
             paymill.private.key: %paymill.private.key%
-            paymill.public.key: %paymill.public.key%
+            paymill.api.endpoint: %paymill.api.endpoint%
 
 
     paymill.manager:
@@ -19,17 +19,14 @@ services:
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
             payment.transaction.wrapper: @paymill.transaction.wrapper
-            paymill.api.endpoint: %paymill.api.endpoint%
-            payment.cart.wrapper: @payment.cart.wrapper
-            payment.currency.wrapper: @payment.currency.wrapper
-            payment.order.wrapper: @payment.order.wrapper
+            payment.bridge: @payment.bridge
 
     paymill.twig.extension:
         class: %paymill.twig.extension.class%
         arguments:
             paymill.public.key: %paymill.public.key%
             form.factory: @form.factory
-            payment.currency.wrapper: @payment.currency.wrapper
+            payment.bridge: @payment.bridge
         tags:
             - { name: twig.extension }
 

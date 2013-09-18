@@ -42,8 +42,8 @@ class PaymillExtension extends Extension
         $container->setParameter('paymill.success.order.field', $config['payment_success']['order_append_field']);
 
         $container->setParameter('paymill.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('paymill.fail.cart.append', $config['payment_fail']['cart_append']);
-        $container->setParameter('paymill.fail.cart.field', $config['payment_fail']['cart_append_field']);
+        $container->setParameter('paymill.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('paymill.fail.order.field', $config['payment_fail']['order_append_field']);
 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

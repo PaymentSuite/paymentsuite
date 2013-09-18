@@ -34,22 +34,6 @@ class PaymillMethod implements PaymentMethodInterface
 
 
     /**
-     * @var float
-     *
-     * Paymill amount
-     */
-    private $amount;
-
-
-    /**
-     * @var currency
-     * 
-     * Payment currency
-     */
-    private $currency;
-
-
-    /**
      * @var string
      *
      * Credit Cart number
@@ -111,33 +95,6 @@ class PaymillMethod implements PaymentMethodInterface
      * Transaction status
      */
     private $transactionStatus;
-
-
-
-    /**
-     * set amount
-     *
-     * @param float $amount Amount
-     *
-     * @return PaymillMethod self Object
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-
-    /**
-     * Get amount
-     *
-     * @return float amount
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
 
 
     /**
