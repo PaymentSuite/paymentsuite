@@ -1,8 +1,0 @@
-services:
-
-    payment.core.currency_extension:
-        class: Mmoreram\PaymentCoreBundle\Twig\CurrencyExtension
-        arguments:
-            payment.currency.wrapper: @payment.currency.wrapper
-        tags:
-            - { name: twig.extension }

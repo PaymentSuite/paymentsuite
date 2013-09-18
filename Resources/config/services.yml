@@ -1,10 +1,5 @@
 services:
 
-    payment.currency.wrapper:
-        class: %payment.currency.wrapper.class%
-        arguments:
-            payment.bridge: @payment.bridge
-
     payment.event.dispatcher:
         class: %payment.event.dispatcher.class%
         arguments:
