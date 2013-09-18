@@ -26,12 +26,4 @@ interface PaymentMethodInterface
      * @return string
      */
     public function getPaymentName();
-
-
-    /**
-     * Return type of payment name
-     *
-     * @return string
-     */
-    public function getAmount();
 }

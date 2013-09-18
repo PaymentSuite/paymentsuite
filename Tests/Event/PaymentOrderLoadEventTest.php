@@ -13,16 +13,16 @@
 
 namespace Mmoreram\PaymentCoreBundle\Tests\Event;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
 
 /**
- * Tests Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent class
+ * Tests Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent class
  */
-class PaymentOrderCreatedEventTest extends \PHPUnit_Framework_TestCase
+class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var PaymentOrderCreatedEvent
+     * @var PaymentOrderLoadEvent
      *
      * Object to test
      */
@@ -53,7 +53,7 @@ class PaymentOrderCreatedEventTest extends \PHPUnit_Framework_TestCase
 
         $this->paymentBridge = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
         $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
-        $this->event = new PaymentOrderCreatedEvent($this->paymentBridge, $this->paymentMethod);
+        $this->event = new PaymentOrderLoadEvent($this->paymentBridge, $this->paymentMethod);
     }
 
 

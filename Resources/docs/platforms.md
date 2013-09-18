@@ -8,7 +8,7 @@ Create Payment Method
     * [Payment Done Event](#payment-done-event)
     * [Payment Success Event](#payment-success-event)
     * [Payment Fail Event](#payment-fail-event)
-    * [Payment Order Created Event](#payment-order-created-event)
+    * [Payment Order Load Event](#payment-order-created-event)
 
 ## Payment Method
 
@@ -139,13 +139,13 @@ Each platform need specific part to be in charge about some logic of process. Pa
      */
     const PAYMENT_FAIL = 'payment.fail';
 
-## Payment Order Created Event
+## Payment Order Load Event
 
     /**
      * This event is thrown when a payment can't be paid for any reason
      *
      * event.name : payment.order.load
-     * event.class : PaymentOrderCreatedEvent
+     * event.class : PaymentOrderLoadEvent
      */
     const PAYMENT_ORDER_CREATED = 'payment.order.load';
 

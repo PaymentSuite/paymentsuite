@@ -71,6 +71,12 @@ interface PaymentBridgeInterface
      * Common methods
      */
 
+    /**
+     * Get payment amount
+     * 
+     * @return float
+     */
+    public function getAmount();
 
     /**
      * Get payment currency

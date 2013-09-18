@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
@@ -52,16 +52,16 @@ class PaymentEventDispatcher
     /**
      * Notifies when order must be created
      *
-     * @param PaymentBridgeInterface  $paymentBridge  Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
      * @return PaymentEventDispatcher self Object
      */
-    public function notifyPaymentOrderCreated(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
+    public function notifyPaymentOrderLoad(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
 
-        $paymentOrderCreatedEvent = new PaymentOrderCreatedEvent($paymentBridge, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_LOAD, $paymentOrderCreatedEvent);
+        $paymentOrderLoadEvent = new PaymentOrderLoadEvent($paymentBridge, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_LOAD, $paymentOrderLoadEvent);
 
         return $this;
     }
@@ -72,7 +72,7 @@ class PaymentEventDispatcher
      *
      * It doesn't matters if process its been success or failed
      *
-     * @param PaymentBridgeInterface  $paymentBridge  Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
      * @return PaymentEventDispatcher self Object
@@ -80,7 +80,7 @@ class PaymentEventDispatcher
     public function notifyPaymentOrderDone(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
         $paymentDoneEvent = new PaymentOrderDoneEvent($paymentBridge, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_DONE, $paymentDoneEvent);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_DONE, $paymentOrderDoneEvent);
 
         return $this;
     }
@@ -89,7 +89,7 @@ class PaymentEventDispatcher
     /**
      * Notifies when payment process is done and succeded.
      *
-     * @param PaymentBridgeInterface  $paymentBridge  Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
      * @return PaymentEventDispatcher self Object
@@ -97,8 +97,8 @@ class PaymentEventDispatcher
     public function notifyPaymentOrderSuccess(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
 
-        $PaymentOrderSuccessEvent = new PaymentOrderSuccessEvent($paymentBridge, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_SUCCESS, $PaymentOrderSuccessEvent);
+        $paymentOrderSuccessEvent = new PaymentOrderSuccessEvent($paymentBridge, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_SUCCESS, $paymentOrderSuccessEvent);
 
         return $this;
     }
@@ -107,7 +107,7 @@ class PaymentEventDispatcher
     /**
      * Notifies when payment is done and failed
      *
-     * @param PaymentBridgeInterface  $paymentBridge  Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Patment method
      *
      * @return PaymentEventDispatcher self Object
@@ -115,8 +115,8 @@ class PaymentEventDispatcher
     public function notifyPaymentOrderFail(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
 
-        $PaymentOrderFailEvent = new PaymentOrderFailEvent($paymentBridge, $paymentMethod);
-        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_FAIL, $PaymentOrderFailEvent);
+        $paymentOrderFailEvent = new PaymentOrderFailEvent($paymentBridge, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_FAIL, $paymentOrderFailEvent);
 
         return $this;
     }

@@ -23,7 +23,7 @@ class PaymentCoreEvents
      * This event is thrown when an order must be created.
      *
      * event.name : payment.order.load
-     * event.class : PaymentOrderCreatedEvent
+     * event.class : PaymentOrderLoadEvent
      */
     const PAYMENT_ORDER_LOAD = 'payment.order.load';
 

@@ -18,7 +18,7 @@ use Mmoreram\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 /**
  * Event for order created
  */
-class PaymentOrderCreatedEvent extends AbstractPaymentEvent
+class PaymentOrderLoadEvent extends AbstractPaymentEvent
 {
 
 }
