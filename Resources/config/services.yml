@@ -3,7 +3,7 @@ services:
     dineromail.form.type:
         class: %dineromail.form.type.class%
         arguments:
-            payment.cart.wrapper: @payment.cart.wrapper
+            payment.bridge: @payment.bridge
         tags:
             - { name: form.type, alias: dineromail_view }
 
@@ -11,14 +11,13 @@ services:
         class: %dineromail.manager.class%
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
-            payment.cart.wrapper: @payment.cart.wrapper
-            payment.order.wrapper: @payment.order.wrapper
+            payment.bridge: @payment.bridge
 
     dineromail.twig.extension:
         class: %dineromail.twig.extension.class%
         arguments:
             form.factory: @form.factory
-            payment.cart.wrapper: @payment.cart.wrapper
+            payment.bridge: @payment.bridge
             dineromail.config: %dineromail.config%
         tags:
             - { name: twig.extension }
@@ -27,5 +26,6 @@ services:
         class: %dineromail.routes.loader.class%
         arguments:
             dineromail.controller.route: %dineromail.controller.route%
+            dineromail.controller.process.route: %dineromail.controller.process.route%
         tags:
             - { name: routing.loader }

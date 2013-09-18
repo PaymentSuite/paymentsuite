@@ -13,6 +13,8 @@
 
 namespace Dpujadas\DineromailBundle\Controller;
 
+use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +28,18 @@ use Dpujadas\DineromailBundle\DineromailMethod;
  */
 class DineromailController extends Controller
 {
+
+    public function processAction(Request $request)
+    {
+        $paymentMethod = new DineromailMethod();
+        /** @var PaymentBridgeInterface $paymentBridge  */
+        $paymentBridge = $this->get('payment.bridge');
+
+        /** @var PaymentEventDispatcher $eventDispatcher  */
+        $eventDispatcher = $this->get('payment.event.dispatcher');
+        $eventDispatcher->notifyPaymentOrderLoaded($paymentBridge, $paymentMethod);
+
+    }
 
     /**
      * Payment execution

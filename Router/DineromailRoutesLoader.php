@@ -31,6 +31,7 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     const ROUTE_NAME = 'dineromail_execute';
 
+    const ROUTE_PROCESS_NAME = 'dineromail_process';
 
     /**
      * @var string
@@ -38,6 +39,11 @@ class DineromailRoutesLoader implements LoaderInterface
      * Execution controller route
      */
     private $controllerRoute;
+
+    /**
+     *  @var string
+     */
+    private $controllerProcessRoute;
 
 
     /**
@@ -53,9 +59,10 @@ class DineromailRoutesLoader implements LoaderInterface
      * 
      * @param string $controllerRoute Controller route
      */
-    public function __construct($controllerRoute)
+    public function __construct($controllerRoute, $controllerProcessRoute)
     {
         $this->controllerRoute = $controllerRoute;
+        $this->controllerProcessRoute = $controllerProcessRoute;
     }
 
 
@@ -77,9 +84,16 @@ class DineromailRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
+
         $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
-            '_controller'   =>  'DineromailBundle:Dineromail:execute',
+                '_controller'   =>  'DineromailBundle:Dineromail:execute',
         )));
+
+        $routes->add(self::ROUTE_PROCESS_NAME, new Route($this->controllerProcessRoute, array(
+                '_controller'   =>  'DineromailBundle:Dineromail:process',
+        )));
+
+
 
         $this->loaded = true;
 

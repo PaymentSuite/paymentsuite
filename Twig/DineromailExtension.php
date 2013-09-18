@@ -19,7 +19,7 @@ use Twig_SimpleFunction;
 use Twig_SimpleFilter;
 
 use Dpujadas\DineromailBundle\Router\DineromailRoutesLoader;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension
@@ -41,7 +41,7 @@ class DineromailExtension extends Twig_Extension
      *
      * Cart object proxy
      */
-    protected $cartWrapper;
+    protected $bridge;
 
 
     /**
@@ -65,10 +65,10 @@ class DineromailExtension extends Twig_Extension
      *
      * @param FormFactory $formFactory Form factory
      */
-    public function __construct(FormFactory $formFactory, CartWrapperInterface $cartWrapper, array $dineromailConfig)
+    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $bridge, array $dineromailConfig)
     {
         $this->formFactory = $formFactory;
-        $this->cartWrapper = $cartWrapper;
+        $this->bridge = $bridge;
         $this->dineromailConfig = $dineromailConfig;
     }
 

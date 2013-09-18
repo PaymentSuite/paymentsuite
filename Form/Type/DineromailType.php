@@ -28,7 +28,7 @@ class DineromailType extends AbstractType
      *
      * Cart Wrapper
      */
-    private $cartWrapper;
+    private $bridge;
 
 
     /**
@@ -36,9 +36,9 @@ class DineromailType extends AbstractType
      *
      * @param CartWrapperInterface $cartWrapper Cart wrapper
      */
-    public function __construct(CartWrapperInterface $cartWrapper)
+    public function __construct(PaymentBridgeInterface $bridge)
     {
-        $this->cartWrapper = $cartWrapper;
+        $this->bridge = $bridge;
     }
 
 

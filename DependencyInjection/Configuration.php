@@ -63,6 +63,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('controller_route')
                     ->defaultValue('/payment/dineromail/execute')
                 ->end()
+                ->scalarNode('controller_process_route')
+                    ->defaultValue('/payment/dineromail/process')
+                ->end()
             ->end();
 /*
         $rootNode

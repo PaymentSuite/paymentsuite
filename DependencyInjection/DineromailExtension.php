@@ -43,6 +43,7 @@ class DineromailExtension extends Extension
             'payment_method_available' => $config['payment_method_available'],
             'header_image' => $config['header_image'],
         ));
+        $container->setParameter('dineromail.controller.process.route', $config['controller_process_route']);
         //$container->setParameter('dineromail.', $config['']);
 
 /*
