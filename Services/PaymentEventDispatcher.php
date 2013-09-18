@@ -79,7 +79,7 @@ class PaymentEventDispatcher
      */
     public function notifyPaymentOrderDone(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
     {
-        $paymentDoneEvent = new PaymentOrderDoneEvent($paymentBridge, $paymentMethod);
+        $paymentOrderDoneEvent = new PaymentOrderDoneEvent($paymentBridge, $paymentMethod);
         $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_DONE, $paymentOrderDoneEvent);
 
         return $this;
