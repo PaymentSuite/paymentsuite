@@ -1,9 +1,5 @@
-{% block payment_form %}
-
-    <ul id="dineromail_payment_error">
-
-    </ul>
-
-    {{ form(dineromail_form, { action: "https://checkout.dineromail.com/CheckOut", method: "post", attr: { 'id': 'dineromail_form' } }) }}
-
-{% endblock payment_form %}
+{{ form(form) }}
+<script language="JavaScript" type="text/javascript">
+    var form = document.forms[0];
+    //form.submit();
+</script>

@@ -21,25 +21,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dpujadas\DineromailBundle\DineromailMethod;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 
 /**
  * DineromailController
+ *
  */
 class DineromailController extends Controller
 {
-
-    public function processAction(Request $request)
-    {
-        $paymentMethod = new DineromailMethod();
-        /** @var PaymentBridgeInterface $paymentBridge  */
-        $paymentBridge = $this->get('payment.bridge');
-
-        /** @var PaymentEventDispatcher $eventDispatcher  */
-        $eventDispatcher = $this->get('payment.event.dispatcher');
-        $eventDispatcher->notifyPaymentOrderLoaded($paymentBridge, $paymentMethod);
-
-    }
+//    /**
+//     * @param Request $request
+//     *
+//     */
+//    public function processAction(Request $request)
+//    {
+//        $orderId=$request->get('id_order');
+//        $order = $this->getDoctrine()
+//            ->getRepository('BaseEcommerceCoreBundle:Order')
+//            ->find($orderId);
+//        if ($order->getUser()->getId() != $request->get('id_user')) {
+//
+//        }
+//        $this->redirect();
+//    }
 
     /**
      * Payment execution
@@ -52,70 +57,76 @@ class DineromailController extends Controller
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->createNamedBuilder(null, 'form', $defaultData)
+        $paymentMethod = new DineromailMethod;
+        $bridge = $this->get('payment.bridge');
+        $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($bridge, $paymentMethod);
+
+        $orderId = $bridge->getOrderId();
+        $orderIdRouteField = $this->container->getParameter('dineromail.success.order.field');
+
+
+        $dineromailSuccessUrl = $this->generateUrl(
+            $this->container->getParameter('dineromail.success.route'), array($orderIdRouteField => $orderId), UrlGenerator::ABSOLUTE_URL
+        );
+
+        $dineromailFailUrl = $this->generateUrl(
+            $this->container->getParameter('dineromail.fail.route'), array($orderIdRouteField => $orderId), UrlGenerator::ABSOLUTE_URL
+        );
+
+        $form = $this->get('form.factory')->createNamedBuilder(null, 'form')
+            ->setAction('https://checkout.dineromail.com/CheckOut')
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
+                'data'  =>  number_format($bridge->getAmount(), 2) * 100
             ))
-            ->add('payment_processer', 'hidden', array(
-                'data'  =>  'paymill_processer'
+            ->add('merchant', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.merchant')
             ))
-            ->add('submit', 'submit');
+            ->add('country_id', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.country_id')
+            ))
+            ->add('seller_name', 'hidden', array(
+                'data'  =>   $this->container->getParameter('dineromail.config.seller_name')
+            ))
+            ->add('transaction_id', 'hidden', array(
+                'data'  =>  $bridge->getOrderId().'#'.date('Ymdhis')
+            ))
+            ->add('language', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.language')
+            ))
+            ->add('currency', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.currency')
+            ))
+            ->add('payment_method_available', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.payment_method_available')
+            ))
+            ->add('buyer_name', 'hidden', array(
+                'data'  =>  $bridge->getExtraData()['buyer_name']
+            ))
+            ->add('buyer_lastname', 'hidden', array(
+                'data'  =>  $bridge->getExtraData()['buyer_lastname']
+            ))
+            ->add('buyer_email', 'hidden', array(
+                'data'  =>  $bridge->getExtraData()['buyer_email']
+            ))
+            ->add('buyer_phone', 'hidden', array(
+                'data'  =>  $bridge->getExtraData()['buyer_phone']
+            ))
+            ->add('header_image', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.header_image')
+            ))
+            ->add('ok_url', 'hidden', array(
+                'data'  =>  $dineromailSuccessUrl
+            ))
+            ->add('error_url', 'hidden', array(
+                'data'  =>  $dineromailFailUrl
+            ))
+            ->add('pending_url', 'hidden', array(
+                'data'  =>  $dineromailSuccessUrl
+            ))
+            ->getForm();
 
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-
-            $data = $form->getData();
-
-            $paymentMethod = new PaymillMethod;
-            $paymentMethod
-                ->setAmount((float) $data['amount'])
-                ->setApiToken($data['api_token'])
-                ->setCreditCartNumber($data['credit_cart_1'] . $data['credit_cart_2'] . $data['credit_cart_3'] . $data['credit_cart_4'])
-                ->setCreditCartOwner($data['credit_cart_owner'])
-                ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
-                ->setCreditCartExpirationYear($data['credit_cart_expiration_year'])
-                ->setCreditCartSecurity($data['credit_cart_security']);
-
-            try {
-                $this
-                    ->get('paymill.manager')
-                    ->processPayment($paymentMethod);
-
-                $redirectUrl = $this->container->getParameter('paymill.success.route');
-                $redirectAppend = $this->container->getParameter('paymill.success.order.append');
-                $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
-                $redirectAppendValue = $this->get('payment.order.wrapper')->getOrderId();
-
-            } catch (PaymentException $e) {
-
-                /**
-                 * Must redirect to fail route
-                 */
-                $redirectUrl = $this->container->getParameter('paymill.fail.route');
-                $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
-                $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
-                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
-
-                throw $e;
-            }
-        } else {
-
-            /**
-             * If form is not valid, fail return page
-             */
-            $redirectUrl = $this->container->getParameter('paymill.fail.route');
-            $redirectAppend = $this->container->getParameter('paymill.fail.cart.append');
-            $redirectAppendField = $this->container->getParameter('paymill.fail.cart.field');
-            $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
-        }
-
-        $redirectData   = $redirectAppend
-                        ? array(
-                            $redirectAppendField => $redirectAppendValue,
-                        )
-                        : array();
-
-        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+        return $this->render('DineromailBundle:Dineromail:view.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

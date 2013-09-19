@@ -34,16 +34,22 @@ class DineromailExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('dineromail.controller.route', $config['controller_route']);
-        $container->setParameter('dineromail.config', array(
-            'merchant' => $config['merchant'],
-            'country_id' => $config['country_id'],
-            'seller_name' => $config['seller_name'],
-            'language' => $config['language'],
-            'currency' => $config['currency'],
-            'payment_method_available' => $config['payment_method_available'],
-            'header_image' => $config['header_image'],
-        ));
+        $container->setParameter('dineromail.config.merchant', $config['merchant']);
+        $container->setParameter('dineromail.config.country_id', $config['country_id']);
+        $container->setParameter('dineromail.config.seller_name', $config['seller_name']);
+        $container->setParameter('dineromail.config.language', $config['language']);
+        $container->setParameter('dineromail.config.currency', $config['currency']);
+        $container->setParameter('dineromail.config.payment_method_available', $config['payment_method_available']);
+        $container->setParameter('dineromail.config.header_image', $config['header_image']);
         $container->setParameter('dineromail.controller.process.route', $config['controller_process_route']);
+
+        $container->setParameter('dineromail.success.route', $config['payment_success']['route']);
+        $container->setParameter('dineromail.success.order.append', $config['payment_success']['order_append']);
+        $container->setParameter('dineromail.success.order.field', $config['payment_success']['order_append_field']);
+
+        $container->setParameter('dineromail.fail.route', $config['payment_fail']['route']);
+        $container->setParameter('dineromail.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('dineromail.fail.order.field', $config['payment_fail']['order_append_field']);
         //$container->setParameter('dineromail.', $config['']);
 
 /*

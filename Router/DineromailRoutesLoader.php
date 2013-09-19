@@ -86,10 +86,10 @@ class DineromailRoutesLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
-                '_controller'   =>  'DineromailBundle:Dineromail:execute',
+                '_controller'   =>  'DineromailBundle:Dineromail:execute'
         )));
 
-        $routes->add(self::ROUTE_PROCESS_NAME, new Route($this->controllerProcessRoute, array(
+       $routes->add(self::ROUTE_PROCESS_NAME, new Route($this->controllerProcessRoute, array(
                 '_controller'   =>  'DineromailBundle:Dineromail:process',
         )));
 
