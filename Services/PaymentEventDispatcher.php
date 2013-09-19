@@ -13,7 +13,7 @@
 
 namespace Mmoreram\PaymentCoreBundle\Services;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -31,7 +31,7 @@ class PaymentEventDispatcher
 {
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      * 
      * Event dispatcher
      */
@@ -41,9 +41,9 @@ class PaymentEventDispatcher
     /**
      * Construct method
      *
-     * @param EventDispatcher $eventDispatcher Event dispatcher
+     * @param EventDispatcherInterface $eventDispatcher Event dispatcher
      */
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }
