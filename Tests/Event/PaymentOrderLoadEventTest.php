@@ -82,5 +82,4 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->paymentMethod, $this->event->getPaymentMethod());
     }
-
 }
