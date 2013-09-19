@@ -16,6 +16,8 @@ namespace Mmoreram\PaymillBundle\Services;
 use Services_Paymill_Transactions;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
@@ -104,6 +106,15 @@ class PaymillManager
          * So, $this->paymentBridge->getOrder() must return an object
          */
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+
+
+        /**
+         * Order Not found Exception must be thrown just here
+         */
+        if (!$this->paymentBridge->getOrder()) {
+
+            throw new PaymentOrderNotFoundException;
+        }
 
         /**
          * Validate the order in the module
