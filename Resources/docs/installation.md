@@ -137,16 +137,12 @@ Payment Service is only necessary [services](http://symfony.com/doc/current/book
 
 
 Then registry this service which **must** be named `payment.bridge` adding next code to `Resources\config\services.yml`.
-
-`
-services:
-    /* ... */
-
-    payment.bridge:
-        class: YourProjectName\PaymentBridgeBundle\Services\PaymentBridge
-`
-
-
+    
+    services:
+        /* ... */
+    
+        payment.bridge:
+            class: YourProjectName\PaymentBridgeBundle\Services\PaymentBridge
 
 ## Payment Event Listener
 
@@ -163,87 +159,82 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
 
-/**
- * Payment event listener
- *
- * This listener is enabled whatever the payment method is.
- */
-class Payment
-{
-
     /**
-     * On payment done event
+     * Payment event listener
      *
-     * @param PaymentOrderDoneEvent $paymentOrderDoneEvent Payment Order Done event
+     * This listener is enabled whatever the payment method is.
      */
-    public function onPaymentDone(PaymentOrderDoneEvent $paymentOrderDoneEvent)
+    class Payment
     {
-        /*
-         * Your code for this event
+    
+        /**
+         * On payment done event
+         *
+         * @param PaymentOrderDoneEvent $paymentOrderDoneEvent Payment Order Done event
          */
-    }
-
-
-    /**
-     * On payment load event
-     *
-     * @param PaymentOrderLoadEvent $paymentOrderLoadEvent Payment Order Load event
-     */
-    public function onPaymentLoad(PaymentOrderLoadEvent $paymentOrderLoadEvent)
-    {
-        /*
-         * Your code for this event
+        public function onPaymentDone(PaymentOrderDoneEvent $paymentOrderDoneEvent)
+        {
+            /*
+             * Your code for this event
+             */
+        }
+    
+    
+        /**
+         * On payment load event
+         *
+         * @param PaymentOrderLoadEvent $paymentOrderLoadEvent Payment Order Load event
          */
-    }
-
-
-    /**
-     * On payment success event
-     *
-     * @param PaymentOrderSuccessEvent $paymentOrderSuccessEvent Payment Order Success event
-     */
-    public function onPaymentSuccess(PaymentOrderSuccessEvent $paymentOrderSuccessEvent)
-    {
-        /*
-         * Your code for this event
+        public function onPaymentLoad(PaymentOrderLoadEvent $paymentOrderLoadEvent)
+        {
+            /*
+             * Your code for this event
+             */
+        }
+    
+    
+        /**
+         * On payment success event
+         *
+         * @param PaymentOrderSuccessEvent $paymentOrderSuccessEvent Payment Order Success event
          */
-    }
-
-
-    /**
-     * On payment fail event
-     *
-     * @param PaymentOrderFailEvent $paymentOrderFailEvent Payment Order Fail event
-     */
-    public function onPaymentFail(PaymentOrderFailEvent $paymentOrderFailEvent)
-    {
-        /*
-         * Your code for this event
+        public function onPaymentSuccess(PaymentOrderSuccessEvent $paymentOrderSuccessEvent)
+        {
+            /*
+             * Your code for this event
+             */
+        }
+    
+    
+        /**
+         * On payment fail event
+         *
+         * @param PaymentOrderFailEvent $paymentOrderFailEvent Payment Order Fail event
          */
+        public function onPaymentFail(PaymentOrderFailEvent $paymentOrderFailEvent)
+        {
+            /*
+             * Your code for this event
+             */
+        }
     }
-} ?>
 
 
 Also you need registry listener for the events in `Resources\config\services.yml` adding next code.
 
-`
-services:
-    /* ... */
+    services:
+        /* ... */
+    
+        payment.event.listener:
+            class: YourProjectName\PaymentBridgeBundle\EventListener\Payment
+            arguments:
+                entity.manager: "@doctrine.orm.entity_manager"
+                mailer: @mailer
+            tags:
+                - { name: kernel.event_listener, event: payment.order.done, method: onPaymentDone }
+                - { name: kernel.event_listener, event: payment.order.load, method: onPaymentLoad }
+                - { name: kernel.event_listener, event: payment.order.success, method: onPaymentSuccess }
+                - { name: kernel.event_listener, event: payment.order.fail, method: onPaymentFail }
 
-    payment.event.listener:
-        class: YourProjectName\PaymentBridgeBundle\EventListener\Payment
-        arguments:
-            entity.manager: "@doctrine.orm.entity_manager"
-            mailer: @mailer
-        tags:
-            - { name: kernel.event_listener, event: payment.order.done, method: onPaymentDone }
-            - { name: kernel.event_listener, event: payment.order.load, method: onPaymentLoad }
-            - { name: kernel.event_listener, event: payment.order.success, method: onPaymentSuccess }
-            - { name: kernel.event_listener, event: payment.order.fail, method: onPaymentFail }
-`
-
-
-## Note
-
-- **Currency**: All payment platforms will use your cart currency to pay. You have to use [currency code](http://en.wikipedia.org/wiki/ISO_4217) following [ISO 4217 standard](http://www.iso.org/iso/home/standards/currency_codes.htm).
-Every payment method will implement his internal code conversion if needed.
+> All payment platforms will use your cart **currency** to pay. You have to use [currency code](http://en.wikipedia.org/wiki/ISO_4217) following [ISO 4217 standard](http://www.iso.org/iso/home/standards/currency_codes.htm).  
+> Every payment method will implement his internal code conversion if needed.
