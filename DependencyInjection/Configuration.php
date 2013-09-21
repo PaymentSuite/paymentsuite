@@ -31,13 +31,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('payment_core');
 
-        $rootNode
-            ->children()
-                ->scalarNode('default_currency')
-                    ->defaultValue('EUR')
-                ->end()
-            ->end();
-
         return $treeBuilder;
     }
 }
