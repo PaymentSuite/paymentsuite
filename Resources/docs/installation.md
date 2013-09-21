@@ -12,117 +12,49 @@ Install PaymentCoreBundle
 
 As Payment Suite should be compatible with all E-commerces projects, it's built without any kind of attachment with your model, so you must build (just once) a specific bridge bundle to tell Payment Suite where to find some data.
 
-To do this, create a Bundle named PaymentBridgeBundle with next classes.
+To do this, [create a Bundle](http://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_bundle.html) named PaymentBridgeBundle with next classes.
 
-## Cart Wrapper
+## Payment Service
 
-Cart Wrapper is one of necessary [services](http://symfony.com/doc/current/book/service_container.html) to implement. This services **must** be named `payment.cart.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface`.
-
-    <?php
-
-    namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
-
-    /**
-     * Interface for CartWrapper
-     */
-    interface CartWrapperInterface
-    {
-
-        /**
-         * Return current cart amount.
-         *
-         * This is an interface.
-         * Each project must implement this interface with current customer cart
-         *
-         * @return float Cart amount
-         */
-        public function getAmount();
-
-
-        /**
-         * Get cart
-         *
-         * @return Object Cart object
-         */
-        public function getCart();
-
-
-        /**
-         * Return order description
-         *
-         * @return string
-         */
-        public function getCartDescription();
-
-
-        /**
-         * Return cart id
-         *
-         * @return integer
-         */
-        public function getCartId();
-
-
-        /**
-         * Return cart currency
-         *
-         * @return string Currency
-         */
-        public function getCurrency();
-    }
-
-## Currency
-
-All payment platforms will use your cart currency to pay. You have to use [currency code](http://en.wikipedia.org/wiki/ISO_4217) following [ISO 4217 standard](http://www.iso.org/iso/home/standards/currency_codes.htm).
-Every payment method will implement his internal code conversion if needed.
-
-## Order Wrapper
-
-Another necessary service to implement is Order Wrapper. This services **must** be named `payment.order.wrapper`, and **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface`.
-
+Payment Service is only necessary [services](http://symfony.com/doc/current/book/service_container.html) to implement. First create next class of this service which **must** implements `Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface`.
 
     <?php
 
-    namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
+    namespace YourProjectName\PaymentCoreBundle\Services\interfaces;
 
-    /**
-     * Interface for PaymentBridge
-     */
-    interface PaymentBridgeInterface
+    use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+
+    class PaymentBridge implements PaymentBridgeInterface
     {
 
         /**
-         * Set order to PaymentBridge
+         * @var Order
+         *
+         * Order object
+         */
+        private $order;
+
+
+        /**
+         * Set order to OrderWrapper
          *
          * @var Object $order Order element
          */
-        public function setOrder($order);
+        public function setOrder($order)
+        {
+            $this->order = $order;
+        }
 
 
         /**
-         * Get order
+         * Return order
          *
-         * @return Object Order object
+         * @return Object order
          */
-        public function getOrder();
-
-
-        /**
-         * Get order given an identifier
-         *
-         * @param integer $orderId Order identifier, usually defined as primary key or unique key
-         *
-         * @return Object Order object
-         */
-        public function findOrder($orderId);
-
-
-        /**
-         * Return order description
-         *
-         * @return string
-         */
-        public function getOrderDescription();
+        public function getOrder()
+        {
+            return $this->order;
+        }
 
 
         /**
@@ -130,12 +62,188 @@ Another necessary service to implement is Order Wrapper. This services **must** 
          *
          * @return integer
          */
-        public function getOrderId();
-    }
+        public function getOrderDescription()
+        {
+            return '';
+        }
+
+
+        /**
+         * Return order identifier value
+         *
+         * @return integer
+         */
+        public function getOrderId()
+        {
+            return $this->order->getId();
+        }
+
+
+        /**
+         * Given an id, find Order
+         *
+         * @return Object order
+         */
+        public function findOrder($orderId)
+        {
+            /*
+            * Your code to get Order
+            */
+
+            return $this->order;
+        }
+
+
+        /**
+         * Get currency
+         *
+         * @return string
+         */
+        public function getCurrency()
+        {
+            /*
+            * Set your static or dynamic currency
+            */
+
+            return 'USD';
+        }
+
+
+        /**
+         * Get amount
+         *
+         * @return integer
+         */
+        public function getAmount()
+        {
+            /*
+            * Return payment amount (in cents)
+            */
+
+            return $amount;
+        }
+
+
+        /**
+         * Get extra data
+         *
+         * @return array
+         */
+        public function getExtraData()
+        {
+            return array();
+        }
+    } ?>
+
+
+Then registry this service which **must** be named `payment.bridge` adding next code to `Resources\config\services.yml`.
+
+`
+services:
+    /* ... */
+
+    payment.bridge:
+        class: YourProjectName\PaymentBridgeBundle\Services\PaymentBridge
+`
+
 
 
 ## Payment Event Listener
 
-You can create Event listener to subscribe to Payment process events.  
+You can [create an Event Listener](http://symfony.com/doc/current/cookbook/service_container/event_listener.html) to subscribe to Payment process events.
 
-In fact, this will be the way to manage your cart and your order in every payment stage.
+In fact, this will be the way to manage your cart and your order in every payment stage. To do this you must create next class with all only needed to your project methods.
+
+<?php
+
+namespace YourProjectName\PaymentBridgeBundle\EventListener;
+
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
+
+/**
+ * Payment event listener
+ *
+ * This listener is enabled whatever the payment method is.
+ */
+class Payment
+{
+
+    /**
+     * On payment done event
+     *
+     * @param PaymentOrderDoneEvent $paymentOrderDoneEvent Payment Order Done event
+     */
+    public function onPaymentDone(PaymentOrderDoneEvent $paymentOrderDoneEvent)
+    {
+        /*
+         * Your code for this event
+         */
+    }
+
+
+    /**
+     * On payment load event
+     *
+     * @param PaymentOrderLoadEvent $paymentOrderLoadEvent Payment Order Load event
+     */
+    public function onPaymentLoad(PaymentOrderLoadEvent $paymentOrderLoadEvent)
+    {
+        /*
+         * Your code for this event
+         */
+    }
+
+
+    /**
+     * On payment success event
+     *
+     * @param PaymentOrderSuccessEvent $paymentOrderSuccessEvent Payment Order Success event
+     */
+    public function onPaymentSuccess(PaymentOrderSuccessEvent $paymentOrderSuccessEvent)
+    {
+        /*
+         * Your code for this event
+         */
+    }
+
+
+    /**
+     * On payment fail event
+     *
+     * @param PaymentOrderFailEvent $paymentOrderFailEvent Payment Order Fail event
+     */
+    public function onPaymentFail(PaymentOrderFailEvent $paymentOrderFailEvent)
+    {
+        /*
+         * Your code for this event
+         */
+    }
+} ?>
+
+
+Also you need registry listener for the events in `Resources\config\services.yml` adding next code.
+
+`
+services:
+    /* ... */
+
+    payment.event.listener:
+        class: YourProjectName\PaymentBridgeBundle\EventListener\Payment
+        arguments:
+            entity.manager: "@doctrine.orm.entity_manager"
+            mailer: @mailer
+        tags:
+            - { name: kernel.event_listener, event: payment.order.done, method: onPaymentDone }
+            - { name: kernel.event_listener, event: payment.order.load, method: onPaymentLoad }
+            - { name: kernel.event_listener, event: payment.order.success, method: onPaymentSuccess }
+            - { name: kernel.event_listener, event: payment.order.fail, method: onPaymentFail }
+`
+
+
+## Note
+
+- **Currency**: All payment platforms will use your cart currency to pay. You have to use [currency code](http://en.wikipedia.org/wiki/ISO_4217) following [ISO 4217 standard](http://www.iso.org/iso/home/standards/currency_codes.htm).
+Every payment method will implement his internal code conversion if needed.
