@@ -81,23 +81,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      * 
      * Cart Wrapper object
      */
-    private $cartWrapper;
-
-
-    /**
-     * @var CurrencyWrapper
-     * 
-     * Currency Wrapper
-     */
-    private $currencyWrapper;
-
-
-    /**
-     * @var OrderWrapper
-     * 
-     * Order Wrapper object
-     */
-    private $orderWrapper;
+    private $paymentBridge;
 
 
     /**
@@ -114,19 +98,8 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->cartWrapper = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->currencyWrapper = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getCurrency'))
-            ->getMock();
-
-        $this->orderWrapper = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface')
+        $this->paymentBridge = $this
+            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -145,7 +118,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->paymillManager = new PaymillManager($this->paymentEventDispatcher, $this->paymillTransactionWrapper, '', $this->cartWrapper, $this->currencyWrapper, $this->orderWrapper);
+        $this->paymillManager = new PaymillManager($this->paymentEventDispatcher, $this->paymillTransactionWrapper, $this->paymentBridge);
     }
 
 
@@ -157,16 +130,15 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     public function testDifferentAmounts()
     {
         $this
-            ->paymillMethod
-            ->expects($this->once())
-            ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT * 100));
-
-        $this
-            ->cartWrapper
+            ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
             ->will($this->returnValue(500));
+
+        $this
+            ->paymentBridge
+            ->expects($this->any())
+            ->method('getOrder');
 
         $this
             ->paymentEventDispatcher
@@ -193,7 +165,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderCreated');
 
-        $this->paymillManager->processPayment($this->paymillMethod);
+        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
     }
 
 
@@ -207,41 +179,45 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymillMethod
             ->expects($this->once())
-            ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT * 100));
-
-        $this
-            ->paymillMethod
-            ->expects($this->once())
             ->method('getApiToken')
             ->will($this->returnValue(self::API_TOKEN));
 
         $this
-            ->paymillMethod
-            ->expects($this->any())
-            ->method('setTransactionId');
+            ->paymentBridge
+            ->expects($this->once())
+            ->method('getOrder')
+            ->will($this->returnValue(1));
 
         $this
             ->paymillMethod
             ->expects($this->any())
-            ->method('setTransactionStatus');
+            ->method('setTransactionId')
+            ->with($this->equalTo('123'))
+            ->will($this->returnValue($this->paymillMethod));
 
         $this
-            ->currencyWrapper
+            ->paymillMethod
+            ->expects($this->any())
+            ->method('setTransactionStatus')
+            ->with($this->equalTo('closed'))
+            ->will($this->returnValue($this->paymillMethod));
+
+        $this
+            ->paymentBridge
             ->expects($this->once())
             ->method('getCurrency')
             ->will($this->returnValue(self::CURRENCY));
 
         $this
-            ->cartWrapper
+            ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
             ->will($this->returnValue(self::CART_AMOUNT));
 
         $this
-            ->cartWrapper
+            ->paymentBridge
             ->expects($this->once())
-            ->method('getCartDescription')
+            ->method('getOrderDescription')
             ->will($this->returnValue(self::CART_DESCRIPTION));
 
         $this
@@ -262,32 +238,27 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentReady')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderLoad')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentDone')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderDone')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentFail')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderFail')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->any())
-            ->method('notifyPaymentSuccess');
+            ->method('notifyPaymentOrderSuccess');
 
-        $this
-            ->paymentEventDispatcher
-            ->expects($this->any())
-            ->method('notifyPaymentOrderCreated');
-
-        $this->paymillManager->processPayment($this->paymillMethod);
+        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
     }
 
 
@@ -300,45 +271,45 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymillMethod
             ->expects($this->once())
-            ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT * 100));
-
-        $this
-            ->paymillMethod
-            ->expects($this->once())
             ->method('getApiToken')
             ->will($this->returnValue(self::API_TOKEN));
 
         $this
-            ->paymillMethod
+            ->paymentBridge
             ->expects($this->once())
+            ->method('getOrder')
+            ->will($this->returnValue(1));
+
+        $this
+            ->paymillMethod
+            ->expects($this->any())
             ->method('setTransactionId')
             ->with($this->equalTo('123'))
             ->will($this->returnValue($this->paymillMethod));
 
         $this
             ->paymillMethod
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('setTransactionStatus')
             ->with($this->equalTo('closed'))
             ->will($this->returnValue($this->paymillMethod));
 
         $this
-            ->currencyWrapper
+            ->paymentBridge
             ->expects($this->once())
             ->method('getCurrency')
             ->will($this->returnValue(self::CURRENCY));
 
         $this
-            ->cartWrapper
+            ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
             ->will($this->returnValue(self::CART_AMOUNT));
 
         $this
-            ->cartWrapper
+            ->paymentBridge
             ->expects($this->once())
-            ->method('getCartDescription')
+            ->method('getOrderDescription')
             ->will($this->returnValue(self::CART_DESCRIPTION));
 
         $this
@@ -356,35 +327,29 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
                 'id'        =>  '123'
             )));
 
-        $this
+         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentReady')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderLoad')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentDone')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderDone')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->any())
-            ->method('notifyPaymentFail');
+            ->method('notifyPaymentOrderFail');
 
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
-            ->method('notifyPaymentSuccess')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
+            ->method('notifyPaymentOrderSuccess')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
-        $this
-            ->paymentEventDispatcher
-            ->expects($this->once())
-            ->method('notifyPaymentOrderCreated')
-            ->with($this->equalTo($this->cartWrapper), $this->equalTo($this->orderWrapper), $this->equalTo($this->paymillMethod));
-
-        $this->paymillManager->processPayment($this->paymillMethod);
+        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
     }
 }

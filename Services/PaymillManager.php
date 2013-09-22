@@ -89,12 +89,12 @@ class PaymillManager
     public function processPayment(PaymillMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $cartAmount = (float) $this->paymentBridge->getAmount() * 100;
+        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
 
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($amount - $cartAmount) > 0.00001) {
+        if (abs($amount - $paymentBridgeAmount) > 0.00001) {
 
             throw new PaymentAmountsNotMatchException;
         }
@@ -121,7 +121,7 @@ class PaymillManager
          * params for paymill interaction
          */
         $params = array(
-            'amount' => intval($cartAmount),
+            'amount' => intval($paymentBridgeAmount),
             'currency' => $this->paymentBridge->getCurrency(),
             'token' => $paymentMethod->getApiToken(),
             'description' => $this->paymentBridge->getOrderDescription(),
