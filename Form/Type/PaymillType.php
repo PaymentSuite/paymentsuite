@@ -51,6 +51,10 @@ class PaymillType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
+            /**
+             * Credit cart number
+             */
             ->add('credit_cart_1', 'text', array(
                 'required' => true,
                 'max_length' => 4,
@@ -67,9 +71,17 @@ class PaymillType extends AbstractType
                 'required' => true,
                 'max_length' => 4,
             ))
+
+            /**
+             * Cart Owner
+             */
             ->add('credit_cart_owner', 'text', array(
                 'required' => true,
             ))
+
+            /**
+             * Credit cart expiration
+             */
             ->add('credit_cart_expiration_month', 'choice', array(
                 'required' => true,
                 'choices' => array_combine(range(1, 12), range(1, 12)),
@@ -78,10 +90,18 @@ class PaymillType extends AbstractType
                 'required' => true,
                 'choices' => array_combine(range(2013, 2025), range(2013, 2025)),
             ))
+
+            /**
+             * Credit cart security
+             */
             ->add('credit_cart_security', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))
+
+            /**
+             * Some hidden fields
+             */
             ->add('amount', 'hidden', array(
                 'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
             ))
