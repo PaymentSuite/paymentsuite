@@ -131,6 +131,23 @@ class PaymillManager
             ->paymillTransactionWrapper
             ->create($params);
 
+        $this->processTransaction($transaction, $paymentMethod);
+
+        return $this;
+    }
+
+
+    /**
+     * Given a paymillTransaction response, as an array, prform desired operations
+     * 
+     * @param array         $transaction   Transaction
+     * @param PaymillMethod $paymentMethod Payment method
+     *
+     * @return PaymillManager Self object
+     */
+    private function processTransaction(array $transaction, PaymillMethod $paymentMethod)
+    {
+
         /**
          * Payment paid done
          *
@@ -153,6 +170,12 @@ class PaymillManager
             throw new PaymentException;
         }
 
+
+        /**
+         * Adding to PaymentMethod transaction information
+         * 
+         * This information is only available in PaymentOrderSuccess event
+         */
         $paymentMethod
             ->setTransactionId($transaction['id'])
             ->setTransactionStatus($transaction['status']);
