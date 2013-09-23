@@ -73,6 +73,7 @@ class DineromailController extends Controller
             $this->container->getParameter('dineromail.fail.route'), array($orderIdRouteField => $orderId), UrlGenerator::ABSOLUTE_URL
         );
 
+        $extraData = $bridge->getExtraData();
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form')
             ->setAction('https://checkout.dineromail.com/CheckOut')
             ->add('amount', 'hidden', array(
@@ -103,13 +104,13 @@ class DineromailController extends Controller
                 'data'  =>  $this->container->getParameter('dineromail.config.url_redirect_enabled')
             ))
             ->add('buyer_name', 'hidden', array(
-                'data'  =>  $bridge->getExtraData()['buyer_name']
+                'data'  =>  $extraData['buyer_name']
             ))
             ->add('buyer_lastname', 'hidden', array(
-                'data'  =>  $bridge->getExtraData()['buyer_lastname']
+                'data'  =>  $extraData['buyer_lastname']
             ))
             ->add('buyer_email', 'hidden', array(
-                'data'  =>  $bridge->getExtraData()['buyer_email']
+                'data'  =>  $extraData['buyer_email']
             ))
             ->add('buyer_phone', 'hidden', array(
                 'data'  =>  $bridge->getExtraData()['buyer_phone']
@@ -126,7 +127,7 @@ class DineromailController extends Controller
             ->add('pending_url', 'hidden', array(
                 'data'  =>  $dineromailSuccessUrl
             ));
-        foreach ($bridge->getExtraData()['items'] as $item) {
+        foreach ($extraData['items'] as $item) {
             foreach ($item as $k => $v) {
                 $form->add($k, 'hidden', array('data' => $v));
             }
