@@ -1,0 +1,5 @@
+parameters:
+
+    transference.method.wrapper.class: "Mmoreram\\TransferenceBundle\\Services\\Wrapper\\TransferenceMethodWrapper"
+    transference.manager.class: "Mmoreram\\TransferenceBundle\\Services\\TransferenceManager"
+    transference.routes.loader.class: "Mmoreram\\TransferenceBundle\\Router\\TransferenceRoutesLoader"

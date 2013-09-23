@@ -1,0 +1,18 @@
+services:
+
+    transference.method.wrapper:
+        class: %transference.method.wrapper.class%
+
+    transference.manager:
+        class: %transference.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            transference.method.wrapper: @transference.method.wrapper
+            payment.bridge: @payment.bridge
+
+    transference.routes.loader:
+        class: %transference.routes.loader.class%
+        arguments:
+            transference.controller.route: %transference.controller.route%
+        tags:
+            - { name: routing.loader }
