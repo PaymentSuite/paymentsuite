@@ -86,7 +86,8 @@ class DineromailRoutesLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
-                '_controller'   =>  'DineromailBundle:Dineromail:execute'
+                '_controller'   =>  'DineromailBundle:Dineromail:execute',
+                'subdomain' => 'shop.fancyboxdev.'
         )));
 
        $routes->add(self::ROUTE_PROCESS_NAME, new Route($this->controllerProcessRoute, array(

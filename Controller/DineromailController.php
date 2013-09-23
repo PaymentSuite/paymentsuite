@@ -99,6 +99,9 @@ class DineromailController extends Controller
             ->add('payment_method_available', 'hidden', array(
                 'data'  =>  $this->container->getParameter('dineromail.config.payment_method_available')
             ))
+            ->add('url_redirect_enabled', 'hidden', array(
+                'data'  =>  $this->container->getParameter('dineromail.config.url_redirect_enabled')
+            ))
             ->add('buyer_name', 'hidden', array(
                 'data'  =>  $bridge->getExtraData()['buyer_name']
             ))
@@ -122,11 +125,16 @@ class DineromailController extends Controller
             ))
             ->add('pending_url', 'hidden', array(
                 'data'  =>  $dineromailSuccessUrl
-            ))
-            ->getForm();
+            ));
+        foreach ($bridge->getExtraData()['items'] as $item) {
+            foreach ($item as $k => $v) {
+                $form->add($k, 'hidden', array('data' => $v));
+            }
+
+        }
 
         return $this->render('DineromailBundle:Dineromail:view.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->getForm()->createView(),
         ));
     }
 }

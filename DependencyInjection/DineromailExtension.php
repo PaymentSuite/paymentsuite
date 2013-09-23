@@ -33,7 +33,6 @@ class DineromailExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('dineromail.controller.route', $config['controller_route']);
         $container->setParameter('dineromail.config.merchant', $config['merchant']);
         $container->setParameter('dineromail.config.country_id', $config['country_id']);
         $container->setParameter('dineromail.config.seller_name', $config['seller_name']);
@@ -41,6 +40,8 @@ class DineromailExtension extends Extension
         $container->setParameter('dineromail.config.currency', $config['currency']);
         $container->setParameter('dineromail.config.payment_method_available', $config['payment_method_available']);
         $container->setParameter('dineromail.config.header_image', $config['header_image']);
+        $container->setParameter('dineromail.config.url_redirect_enabled', $config['url_redirect_enabled']);
+        $container->setParameter('dineromail.controller.route', $config['controller_route']);
         $container->setParameter('dineromail.controller.process.route', $config['controller_process_route']);
 
         $container->setParameter('dineromail.success.route', $config['payment_success']['route']);
