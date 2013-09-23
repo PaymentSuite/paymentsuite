@@ -13,21 +13,14 @@
 
 namespace Mmoreram\PaymillBundle\Services;
 
-use Services_Paymill_Transactions;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-
-use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
-use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
-use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
-use Mmoreram\PaymillBundle\PaymillMethod;
 use Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
+use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use Mmoreram\PaymillBundle\PaymillMethod;
+use Services_Paymill_Transactions;
 
 /**
  * Paymill manager
@@ -81,10 +74,11 @@ class PaymillManager
      * @param PaymillMethod $paymentMethod Payment method
      * @param float         $amount        Amount
      *
-     * @throws PaymentAmountsNotMatchException
-     * @throws PaymentException
-     *
      * @return PaymillManager Self object
+     *
+     * @throws PaymentAmountsNotMatchException
+     * @throws PaymentOrderNotFoundException
+     * @throws PaymentException
      */
     public function processPayment(PaymillMethod $paymentMethod, $amount)
     {
@@ -106,7 +100,6 @@ class PaymillManager
          * So, $this->paymentBridge->getOrder() must return an object
          */
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
-
 
         /**
          * Order Not found Exception must be thrown just here
@@ -144,6 +137,8 @@ class PaymillManager
      * @param PaymillMethod $paymentMethod Payment method
      *
      * @return PaymillManager Self object
+     * 
+     * @throws PaymentException
      */
     private function processTransaction(array $transaction, PaymillMethod $paymentMethod)
     {
