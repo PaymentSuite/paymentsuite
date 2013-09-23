@@ -1,5 +1,5 @@
 parameters:
 
-    transference.method.wrapper.class: "Mmoreram\\TransferenceBundle\\Services\\Wrapper\\TransferenceMethodWrapper"
-    transference.manager.class: "Mmoreram\\TransferenceBundle\\Services\\TransferenceManager"
-    transference.routes.loader.class: "Mmoreram\\TransferenceBundle\\Router\\TransferenceRoutesLoader"
+    bankwire.method.wrapper.class: "Mmoreram\\BankwireBundle\\Services\\Wrapper\\BankwireMethodWrapper"
+    bankwire.manager.class: "Mmoreram\\BankwireBundle\\Services\\BankwireManager"
+    bankwire.routes.loader.class: "Mmoreram\\BankwireBundle\\Router\\BankwireRoutesLoader"

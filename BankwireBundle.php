@@ -11,15 +11,15 @@
  * David Pujadas 2013
  */
 
-namespace Mmoreram\TransferenceBundle;
+namespace Mmoreram\BankwireBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 
 /**
- * Transference payment bundle
+ * Bankwire payment bundle
  */
-class TransferenceBundle extends Bundle
+class BankwireBundle extends Bundle
 {
 
 }

@@ -1,18 +1,18 @@
 services:
 
-    transference.method.wrapper:
-        class: %transference.method.wrapper.class%
+    bankwire.method.wrapper:
+        class: %bankwire.method.wrapper.class%
 
-    transference.manager:
-        class: %transference.manager.class%
+    bankwire.manager:
+        class: %bankwire.manager.class%
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
-            transference.method.wrapper: @transference.method.wrapper
+            bankwire.method.wrapper: @bankwire.method.wrapper
             payment.bridge: @payment.bridge
 
-    transference.routes.loader:
-        class: %transference.routes.loader.class%
+    bankwire.routes.loader:
+        class: %bankwire.routes.loader.class%
         arguments:
-            transference.controller.route: %transference.controller.route%
+            bankwire.controller.route: %bankwire.controller.route%
         tags:
             - { name: routing.loader }

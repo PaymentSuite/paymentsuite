@@ -1,28 +1,28 @@
 <?php
 
 /**
- * TransferenceBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package TransferenceBundle
+ * @package BankwireBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\TransferenceBundle\Services;
+namespace Mmoreram\BankwireBundle\Services;
 
-use Mmoreram\TransferenceBundle\Services\Wrapper\TransferenceMethodWrapper;
+use Mmoreram\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 
 /**
- * Transference manager
+ * Bankwire manager
  */
-class TransferenceManager
+class BankwireManager
 {
 
     /**
@@ -34,11 +34,11 @@ class TransferenceManager
 
 
     /**
-     * @var TransferenceTransactionWrapper
+     * @var BankwireTransactionWrapper
      *
-     * Transference transaction wrapper
+     * Bankwire transaction wrapper
      */
-    protected $transferenceMethodWrapper;
+    protected $bankwireMethodWrapper;
 
 
     /**
@@ -50,24 +50,24 @@ class TransferenceManager
 
 
     /**
-     * Construct method for transference manager
+     * Construct method for bankwire manager
      *
      * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param TransferenceMethodWrapper $transferenceMethodWrapper Transference method wrapper
+     * @param BankwireMethodWrapper $bankwireMethodWrapper Bankwire method wrapper
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, TransferenceMethodWrapper $transferenceMethodWrapper, PaymentBridgeInterface $paymentBridge)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, BankwireMethodWrapper $bankwireMethodWrapper, PaymentBridgeInterface $paymentBridge)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->transferenceMethodWrapper = $transferenceMethodWrapper;
+        $this->bankwireMethodWrapper = $bankwireMethodWrapper;
         $this->paymentBridge = $paymentBridge;
     }
 
 
     /**
-     * Tries to process a payment through Transference
+     * Tries to process a payment through Bankwire
      *
-     * @return TransferenceManager Self object
+     * @return BankwireManager Self object
      *
      * @throws PaymentOrderNotFoundException
      */
@@ -78,7 +78,7 @@ class TransferenceManager
          * 
          * So, $this->paymentBridge->getOrder() must return an object
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->transferenceMethodWrapper->getTransferenceMethod());
+        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
 
         /**
          * Order Not found Exception must be thrown just here
@@ -97,7 +97,7 @@ class TransferenceManager
      * 
      * @param integer $orderId Id from order to validate
      * 
-     * @return TransferenceManager self Object
+     * @return BankwireManager self Object
      *
      * @throws PaymentOrderNotFoundException
      */

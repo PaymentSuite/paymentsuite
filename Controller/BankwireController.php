@@ -1,26 +1,26 @@
 <?php
 
 /**
- * TransferenceBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package TransferenceBundle
+ * @package BankwireBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\TransferenceBundle\Controller;
+namespace Mmoreram\BankwireBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 /**
- * TransferenceController
+ * BankwireController
  */
-class TransferenceController extends Controller
+class BankwireController extends Controller
 {
 
     /**
@@ -33,12 +33,12 @@ class TransferenceController extends Controller
     public function executeAction()
     {
         $this
-            ->get('transference.manager')
+            ->get('bankwire.manager')
             ->processPayment();
 
-        $redirectUrl = $this->container->getParameter('transference.success.route');
-        $redirectAppend = $this->container->getParameter('transference.success.order.append');
-        $redirectAppendField = $this->container->getParameter('transference.success.order.field');
+        $redirectUrl = $this->container->getParameter('bankwire.success.route');
+        $redirectAppend = $this->container->getParameter('bankwire.success.order.append');
+        $redirectAppendField = $this->container->getParameter('bankwire.success.order.field');
 
         $redirectData   = $redirectAppend
                         ? array(

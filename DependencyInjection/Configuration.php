@@ -1,17 +1,17 @@
 <?php
 
 /**
- * TransferenceBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package TransferenceBundle
+ * @package BankwireBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\TransferenceBundle\DependencyInjection;
+namespace Mmoreram\BankwireBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -27,12 +27,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('transference');
+        $rootNode = $treeBuilder->root('bankwire');
 
         $rootNode
             ->children()
                 ->scalarNode('controller_route')
-                    ->defaultValue('/payment/transference/execute')
+                    ->defaultValue('/payment/bankwire/execute')
                 ->end()
                 ->arrayNode('payment_success')
                     ->children()

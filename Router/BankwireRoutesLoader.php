@@ -1,17 +1,17 @@
 <?php
 
 /**
- * TransferenceBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package TransferenceBundle
+ * @package BankwireBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\TransferenceBundle\Router;
+namespace Mmoreram\BankwireBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -19,9 +19,9 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Transference router
+ * Bankwire router
  */
-class TransferenceRoutesLoader implements LoaderInterface
+class BankwireRoutesLoader implements LoaderInterface
 {
 
     /**
@@ -29,7 +29,7 @@ class TransferenceRoutesLoader implements LoaderInterface
      * 
      * Execution route name
      */
-    const ROUTE_EXECUTE_NAME = 'transference_execute';
+    const ROUTE_EXECUTE_NAME = 'bankwire_execute';
 
 
     /**
@@ -79,7 +79,7 @@ class TransferenceRoutesLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         $routes->add(self::ROUTE_EXECUTE_NAME, new Route($this->controllerExecuteRoute, array(
-            '_controller'   =>  'TransferenceBundle:Transference:execute',
+            '_controller'   =>  'BankwireBundle:Bankwire:execute',
         )));
 
         $this->loaded = true;
@@ -98,7 +98,7 @@ class TransferenceRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'transference' === $type;
+        return 'bankwire' === $type;
     }
 
 

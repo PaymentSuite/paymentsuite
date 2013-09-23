@@ -1,34 +1,34 @@
 <?php
 
 /**
- * TransferenceBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package TransferenceBundle
+ * @package BankwireBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\TransferenceBundle;
+namespace Mmoreram\BankwireBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**
- * TransferenceMethod class
+ * BankwireMethod class
  */
-class TransferenceMethod implements PaymentMethodInterface
+class BankwireMethod implements PaymentMethodInterface
 {
 
     /**
-     * Get Transference method name
+     * Get Bankwire method name
      * 
      * @return string Payment name
      */
     public function getPaymentName()
     {
-        return 'Transference';
+        return 'Bankwire';
     }
 }

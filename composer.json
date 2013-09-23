@@ -1,8 +1,8 @@
 {
-    "name": "mmoreram/transference-bundle",
+    "name": "mmoreram/bankwire-bundle",
     "type": "symfony-bundle",
-    "description": "Transference Bundle, part of Mmoreram Payment Suite",
-    "keywords": ["transference", "payment", "ecommerce"],
+    "description": "Bankwire Bundle, part of Mmoreram Payment Suite",
+    "keywords": ["bankwire", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
@@ -19,8 +19,8 @@
         "symfony/dependency-injection": ">=2.2.3",
         "mmoreram/payment-core-bundle": "dev-master"
     },
-    "target-dir": "Mmoreram/TransferenceBundle",
+    "target-dir": "Mmoreram/BankwireBundle",
     "autoload": {
-        "psr-0": { "Mmoreram\\TransferenceBundle": "" }
+        "psr-0": { "Mmoreram\\BankwireBundle": "" }
     }
 }
