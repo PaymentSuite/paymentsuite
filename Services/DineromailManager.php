@@ -51,8 +51,8 @@ class DineromailManager
     /**
      * Construct method for dineromail manager
      *
-     * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher,  PaymentBridgeInterface $paymentBridge)
     {
