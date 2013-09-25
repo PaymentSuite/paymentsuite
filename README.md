@@ -52,23 +52,31 @@ Our goal is to implement all payment platforms in our system. You can collaborat
 Available Payment Platforms
 -----
 
-### [PaymillBundle](https://github.com/mmoreram/PaymillBundle) - [Paymill](https://www.paymill.com)
+### [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
 
 * Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 * Travis-CI - [![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)
-* Packagist - [https://packagist.org/packages/mmoreram/paymill-bundle](https://packagist.org/packages/mmoreram/paymill-bundle)
+* Packagist - [mmoreram/paymill-bundle](https://packagist.org/packages/mmoreram/paymill-bundle)
 
-### [StripeBundle](https://github.com/dpcat237/StripeBundle) - [Stripe](https://stripe.com/)
+### [StripeBundle](https://github.com/dpcat237/StripeBundle)
 
 * Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/badges/quality-score.png?s=10dab38a47f5ca4c11a2de2e4f1237555c5e8660)](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/)
 * Travis-CI - [![Build Status](https://travis-ci.org/dpcat237/StripeBundle.png?branch=master)](https://travis-ci.org/dpcat237/StripeBundle)
-* Packagist - [https://packagist.org/packages/dpcat237/stripe-bundle](https://packagist.org/packages/dpcat237/stripe-bundle)
+* Packagist - [dpcat237/stripe-bundle](https://packagist.org/packages/dpcat237/stripe-bundle)
+
+### [BankWireBundle](https://github.com/mmoreram/BankwireBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/badges/quality-score.png?s=f5ae2404f5f37bf187dece44f2cc19a0b2f774d2)](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/)
+* Packagist - [mmoreram/bankwire-bundle](https://packagist.org/packages/mmoreram/bankwire-bundle)
+
+### [DineromailBundle](https://github.com/mmoreram/DineroMailBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/badges/quality-score.png?s=b56ed7f3a43fd7543777ec9beac26a30891fcf43)](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/)
+* Packagist - [mmoreram/dineromail-bundle](https://packagist.org/packages/mmoreram/dineromail-bundle)
 
 ### Being Developed
 
 * PaypalBundle
 * PayUBundle
-* DineroMail Chile
 * SermepaBundle
-* Transference
 * Google Checkout
