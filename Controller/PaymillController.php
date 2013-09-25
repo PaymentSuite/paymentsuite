@@ -48,11 +48,11 @@ class PaymillController extends Controller
             $paymentMethod = new PaymillMethod;
             $paymentMethod
                 ->setApiToken($data['api_token'])
-                ->setCreditCartNumber($data['credit_cart_1'] . $data['credit_cart_2'] . $data['credit_cart_3'] . $data['credit_cart_4'])
-                ->setCreditCartOwner($data['credit_cart_owner'])
-                ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
-                ->setCreditCartExpirationYear($data['credit_cart_expiration_year'])
-                ->setCreditCartSecurity($data['credit_cart_security']);
+                ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])
+                ->setCreditCardOwner($data['credit_card_owner'])
+                ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
+                ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
+                ->setCreditCardSecurity($data['credit_card_security']);
 
             try {
                 $this

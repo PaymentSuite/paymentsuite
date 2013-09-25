@@ -27,7 +27,7 @@ class PaymillType extends AbstractType
     /**
      * @var PaymentBridgeInterface
      *
-     * Cart Wrapper
+     * Card Wrapper
      */
     private $paymentBridge;
 
@@ -76,48 +76,48 @@ class PaymillType extends AbstractType
             ->setMethod('POST')
 
             /**
-             * Credit cart number
+             * Credit card number
              */
-            ->add('credit_cart_1', 'text', array(
+            ->add('credit_card_1', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))
-            ->add('credit_cart_2', 'text', array(
+            ->add('credit_card_2', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))
-            ->add('credit_cart_3', 'text', array(
+            ->add('credit_card_3', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))
-            ->add('credit_cart_4', 'text', array(
+            ->add('credit_card_4', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))
 
             /**
-             * Cart Owner
+             * Card Owner
              */
-            ->add('credit_cart_owner', 'text', array(
+            ->add('credit_card_owner', 'text', array(
                 'required' => true,
             ))
 
             /**
-             * Credit cart expiration
+             * Credit card expiration
              */
-            ->add('credit_cart_expiration_month', 'choice', array(
+            ->add('credit_card_expiration_month', 'choice', array(
                 'required' => true,
                 'choices' => array_combine(range(1, 12), range(1, 12)),
             ))
-            ->add('credit_cart_expiration_year', 'choice', array(
+            ->add('credit_card_expiration_year', 'choice', array(
                 'required' => true,
                 'choices' => array_combine(range(2013, 2025), range(2013, 2025)),
             ))
 
             /**
-             * Credit cart security
+             * Credit card security
              */
-            ->add('credit_cart_security', 'text', array(
+            ->add('credit_card_security', 'text', array(
                 'required' => true,
                 'max_length' => 4,
             ))

@@ -12,11 +12,11 @@
         $("#paymill_view_submit").attr("disabled", "disabled");
 
         //join all cc numbers in one
-        var cc = $('#paymill_view_credit_cart_1').val() + $('#paymill_view_credit_cart_2').val() + $('#paymill_view_credit_cart_3').val() + $('#paymill_view_credit_cart_4').val();
-        var cardholder = $('#paymill_view_credit_cart_owner').val();
-        var expiry_month = $('#paymill_view_credit_cart_expiration_month').val();
-        var expiry_year = $('#paymill_view_credit_cart_expiration_year').val();
-        var cvv = $('#paymill_view_credit_cart_security').val();
+        var cc = $('#paymill_view_credit_card_1').val() + $('#paymill_view_credit_card_2').val() + $('#paymill_view_credit_card_3').val() + $('#paymill_view_credit_card_4').val();
+        var cardholder = $('#paymill_view_credit_card_owner').val();
+        var expiry_month = $('#paymill_view_credit_card_expiration_month').val();
+        var expiry_year = $('#paymill_view_credit_card_expiration_year').val();
+        var cvv = $('#paymill_view_credit_card_security').val();
 
         var $paymill_payment_error = $('#paymill_payment_error');
         $paymill_payment_error.html('');

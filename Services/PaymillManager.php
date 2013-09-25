@@ -94,7 +94,7 @@ class PaymillManager
 
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a card, and placed in PaymentBridge
          * 
          * So, $this->paymentBridge->getOrder() must return an object
          */

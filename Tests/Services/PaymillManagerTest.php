@@ -39,7 +39,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var integer
      * 
-     * Cart amount
+     * Card amount
      */
     const CART_AMOUNT = 10;
 
@@ -47,9 +47,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var string
      * 
-     * Cart description
+     * Card description
      */
-    const CART_DESCRIPTION = 'This is my cart description';
+    const CART_DESCRIPTION = 'This is my card description';
 
 
     /**
@@ -77,9 +77,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @var CartWrapper
+     * @var CardWrapper
      * 
-     * Cart Wrapper object
+     * Card Wrapper object
      */
     private $paymentBridge;
 

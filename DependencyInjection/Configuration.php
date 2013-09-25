@@ -68,7 +68,7 @@ class Configuration implements ConfigurationInterface
                             ->defaultTrue()
                         ->end()
                         ->scalarNode('order_append_field')
-                            ->defaultValue('cart_id')
+                            ->defaultValue('card_id')
                         ->end()
                     ->end()
                 ->end()

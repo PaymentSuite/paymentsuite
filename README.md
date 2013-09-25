@@ -74,24 +74,24 @@ Configure the PaymillBundle configuration in your `config.yml`
         # Configuration for payment success redirection
         #
         # Route defines which route will redirect if payment successes
-        # If order_append is true, Bundle will append cart identifier into route
+        # If order_append is true, Bundle will append card identifier into route
         #    taking order_append_field value as parameter name and
         #    PaymentOrderWrapper->getOrderId() value
         payment_success:
-            route: cart_thanks
+            route: card_thanks
             order_append: true
             order_append_field: order_id
 
         # Configuration for payment fail redirection
         #
         # Route defines which route will redirect if payment fails
-        # If cart_append is true, Bundle will append cart identifier into route
-        #    taking cart_append_field value as parameter name and
-        #    PaymentCartWrapper->getCartId() value
+        # If card_append is true, Bundle will append card identifier into route
+        #    taking card_append_field value as parameter name and
+        #    PaymentCardWrapper->getCardId() value
         payment_fail:
-            route: cart_view
-            cart_append: false
-            cart_append_field: cart_id
+            route: card_view
+            card_append: false
+            card_append_field: card_id
 
 Router
 -----
