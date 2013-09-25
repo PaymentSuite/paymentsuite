@@ -1,13 +1,13 @@
 {
-    "name": "dpujadas/dineromail-bundle",
+    "name": "mmoreram/dineromail-bundle",
     "type": "symfony-bundle",
     "description": "DineroMail Bundle, part of Mmoreram Payment Suite",
     "keywords": ["dineromail", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name": "David Pujadas",
-            "email": "dpujadas@gmail.com"
+            "name": "Marc Morera",
+            "email": "yuhu@mmoreram.com"
         }
     ],
     "require": {
@@ -21,8 +21,8 @@
         "twig/twig": "~1.11",
         "mmoreram/payment-core-bundle": "dev-master"
     },
-    "target-dir": "Dpujadas/DineromailBundle",
+    "target-dir": "Mmoreram/DineromailBundle",
     "autoload": {
-        "psr-0": { "Dpujadas\\DineromailBundle": "" }
+        "psr-0": { "Mmoreram\\DineromailBundle": "" }
     }
 }

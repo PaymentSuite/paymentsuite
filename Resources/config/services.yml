@@ -1,9 +1,17 @@
 services:
 
-    dineromail.form.type:
-        class: %dineromail.form.type.class%
+    dineromail.form.type.wrapper:
+        class: %dineromail.form.type.wrapper.class%
         arguments:
+            form.factory: @form.factory
             payment.bridge: @payment.bridge
+            dineromail.api.endpoint: %dineromail.api.endpoint%
+            dineromail.merchant: %dineromail.merchant%
+            dineromail.seller_name: %dineromail.seller_name%
+            dineromail.header_image: %dineromail.header_image%
+            dineromail.url_redirect_enabled: %dineromail.url_redirect_enabled%
+            dineromail.payment_methods_available: %dineromail.payment_methods_available%
+            dineromail.country: %dineromail.country%
         tags:
             - { name: form.type, alias: dineromail_view }
 
@@ -12,15 +20,6 @@ services:
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
             payment.bridge: @payment.bridge
-
-#    dineromail.twig.extension:
-#        class: %dineromail.twig.extension.class%
-#        arguments:
-#          form.factory: @form.factory
-#          payment.bridge: @payment.bridge
-#          dineromail.config: %dineromail.config%
-#        tags:
-#          - { name: twig.extension }
 
     dineromail.routes.loader:
         class: %dineromail.routes.loader.class%

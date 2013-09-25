@@ -5,13 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author David Pujadas <dpujadas@gmail.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package DineromailBundle
  *
- * David Pujadas 2013
+ * Marc Morera 2013
  */
 
-namespace Dpujadas\DineromailBundle;
+namespace Mmoreram\DineromailBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

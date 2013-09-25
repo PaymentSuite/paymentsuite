@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Dpujadas\DineromailBundle\Services;
+namespace Mmoreram\DineromailBundle\Services;
 
 use Services_Dineromail_Transactions;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -25,7 +25,7 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
 use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
-use Dpujadas\DineromailBundle\DineromailMethod;
+use Mmoreram\DineromailBundle\DineromailMethod;
 
 /**
  * Dineromail manager

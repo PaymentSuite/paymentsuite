@@ -28,7 +28,7 @@ Installing Payment Environment
 
 DineroMailBundle works using an standard, defined in PaymentCoreBundle. You will find [here](http://github.com/mmoreram/PaymentCoreBundle) everything about how to configure your environment to work with this suite
 
-Installing [DineroMail Bundle](https://github.com/dpujadas/DineroMailBundle)
+Installing [DineroMail Bundle](https://github.com/mmoreram/DineroMailBundle)
 =====
 
 You have to add require line into you composer.json file
@@ -37,7 +37,7 @@ You have to add require line into you composer.json file
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
         ...
-        "dpujadas/dineromail-bundle": "dev-master"
+        "mmoreram/dineromail-bundle": "dev-master"
     },
 
 Then you have to use composer to update your project dependencies
@@ -49,6 +49,6 @@ And register the bundle in your appkernel.php file
     return array(
         // ...
         new Mmoreram\PaymentCoreBundle\PaymentCoreBundle(),
-        new Dpujadas\DineroMailBundle\DineroMailBundle(),
+        new Mmoreram\DineroMailBundle\DineroMailBundle(),
         // ...
     );

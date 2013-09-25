@@ -5,21 +5,19 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author David Pujadas <dpujadas@gmail.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package DineromailBundle
  *
- * David Pujadas 2013
+ * Marc Morera 2013
  */
 
-namespace Dpujadas\DineromailBundle\DependencyInjection;
+namespace Mmoreram\DineromailBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
 class Configuration implements ConfigurationInterface
 {
@@ -30,13 +28,14 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('dineromail');
+
         $rootNode
             ->children()
                 ->scalarNode('merchant')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
-                ->scalarNode('country_id')
+                ->scalarNode('country')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
@@ -48,21 +47,18 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
-                ->scalarNode('currency')
+                ->arrayNode('payment_methods_available')
                     ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('payment_method_available')
-                    ->isRequired()
-                    ->cannotBeEmpty()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('scalar')
+                    ->end()
                 ->end()
                 ->scalarNode('header_image')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('url_redirect_enabled')
-                    ->isRequired()
-                    ->cannotBeEmpty()
+                    ->defaultTrue()
                 ->end()
                 ->scalarNode('controller_route')
                     ->defaultValue('/payment/dineromail/execute')
@@ -99,53 +95,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end();
-/*
-        $rootNode
-            ->children()
-                ->scalarNode('public_key')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('private_key')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('controller_route')
-                    ->defaultValue('/payment/paymill/execute')
-                ->end()
-                ->scalarNode('currency')
-                    ->defaultValue('EUR')
-                ->end()
-                ->arrayNode('payment_success')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('payment_fail')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->booleanNode('cart_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('cart_append_field')
-                            ->defaultValue('cart_id')
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-*/
+
         return $treeBuilder;
     }
 }

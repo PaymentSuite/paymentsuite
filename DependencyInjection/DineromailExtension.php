@@ -5,13 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author David Pujadas <dpujadas@gmail.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package DineromailBundle
  *
- * David Pujadas 2013
+ * Marc Morera 2013
  */
 
-namespace Dpujadas\DineromailBundle\DependencyInjection;
+namespace Mmoreram\DineromailBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -32,17 +32,16 @@ class DineromailExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('dineromail.config.merchant', $config['merchant']);
-        $container->setParameter('dineromail.config.country_id', $config['country_id']);
-        $container->setParameter('dineromail.config.seller_name', $config['seller_name']);
-        $container->setParameter('dineromail.config.language', $config['language']);
-        $container->setParameter('dineromail.config.currency', $config['currency']);
-        $container->setParameter('dineromail.config.payment_method_available', $config['payment_method_available']);
-        $container->setParameter('dineromail.config.header_image', $config['header_image']);
-        $container->setParameter('dineromail.config.url_redirect_enabled', $config['url_redirect_enabled']);
         $container->setParameter('dineromail.controller.route', $config['controller_route']);
         $container->setParameter('dineromail.controller.process.route', $config['controller_process_route']);
+
+        $container->setParameter('dineromail.merchant', $config['merchant']);
+        $container->setParameter('dineromail.country', $config['country']);
+        $container->setParameter('dineromail.seller_name', $config['seller_name']);
+        $container->setParameter('dineromail.language', $config['language']);
+        $container->setParameter('dineromail.payment_methods_available', $config['payment_methods_available']);
+        $container->setParameter('dineromail.url_redirect_enabled', $config['url_redirect_enabled']);
+        $container->setParameter('dineromail.header_image', $config['header_image']);
 
         $container->setParameter('dineromail.success.route', $config['payment_success']['route']);
         $container->setParameter('dineromail.success.order.append', $config['payment_success']['order_append']);
@@ -51,22 +50,7 @@ class DineromailExtension extends Extension
         $container->setParameter('dineromail.fail.route', $config['payment_fail']['route']);
         $container->setParameter('dineromail.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('dineromail.fail.order.field', $config['payment_fail']['order_append_field']);
-        //$container->setParameter('dineromail.', $config['']);
 
-/*
-        $container->setParameter('paymill.private.key', $config['private_key']);
-        $container->setParameter('paymill.public.key', $config['public_key']);
-        $container->setParameter('paymill.controller.route', $config['controller_route']);
-        $container->setParameter('paymill.currency', $config['currency']);
-
-        $container->setParameter('paymill.success.route', $config['payment_success']['route']);
-        $container->setParameter('paymill.success.order.append', $config['payment_success']['order_append']);
-        $container->setParameter('paymill.success.order.field', $config['payment_success']['order_append_field']);
-
-        $container->setParameter('paymill.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('paymill.fail.cart.append', $config['payment_fail']['cart_append']);
-        $container->setParameter('paymill.fail.cart.field', $config['payment_fail']['cart_append_field']);
-*/
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

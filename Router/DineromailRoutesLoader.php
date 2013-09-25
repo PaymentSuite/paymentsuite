@@ -5,13 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author David Pujadas <dpujadas@gmail.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package DineromailBundle
  *
- * David Pujadas 2013
+ * Marc Morera 2013
  */
 
-namespace Dpujadas\DineromailBundle\Router;
+namespace Mmoreram\DineromailBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -31,7 +31,14 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     const ROUTE_NAME = 'dineromail_execute';
 
+
+    /**
+     * @var string
+     * 
+     * Process url. For callbacks
+     */
     const ROUTE_PROCESS_NAME = 'dineromail_process';
+
 
     /**
      * @var string
@@ -39,6 +46,7 @@ class DineromailRoutesLoader implements LoaderInterface
      * Execution controller route
      */
     private $controllerRoute;
+
 
     /**
      *  @var string
@@ -57,7 +65,8 @@ class DineromailRoutesLoader implements LoaderInterface
     /**
      * Construct method
      * 
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute        Controller route
+     * @param string $controllerProcessRoute Process controller route
      */
     public function __construct($controllerRoute, $controllerProcessRoute)
     {
