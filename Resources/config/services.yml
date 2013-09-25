@@ -3,7 +3,9 @@ services:
     paymill.form.type:
         class: %paymill.form.type.class%
         arguments:
+            router: @router
             payment.bridge: @payment.bridge
+            paymill.controller.route.name: %paymill.controller.route.name%
         tags:
             - { name: form.type, alias: paymill_view }
 
@@ -33,6 +35,7 @@ services:
     paymill.routes.loader:
         class: %paymill.routes.loader.class%
         arguments:
+            paymill.controller.route.name: %paymill.controller.route.name%
             paymill.controller.route: %paymill.controller.route%
         tags:
             - { name: routing.loader }

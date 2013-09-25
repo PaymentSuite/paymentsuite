@@ -16,6 +16,7 @@ namespace Mmoreram\PaymillBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use Symfony\Component\Routing\Router;
 
 /**
  * Type for a shop edit profile form
@@ -32,13 +33,33 @@ class PaymillType extends AbstractType
 
 
     /**
+     * @var Router
+     * 
+     * Router instance
+     */
+    private $router;
+
+
+    /**
+     * @var string
+     * 
+     * Execution route name
+     */
+    private $controllerRouteName;
+
+
+    /**
      * Formtype construct method
      *
-     * @param PaymentBridgeInterface $paymentBridge Payment bridge
+     * @param Router                 $router              Router instance
+     * @param PaymentBridgeInterface $paymentBridge       Payment bridge
+     * @param string                 $controllerRouteName Controller route name
      */
-    public function __construct(PaymentBridgeInterface $paymentBridge)
+    public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
     {
         $this->paymentBridge = $paymentBridge;
+        $this->router = $router;
+        $this->controllerRouteName = $controllerRouteName;
     }
 
 
@@ -51,6 +72,8 @@ class PaymillType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction($this->router->generate($this->controllerRouteName, array(), true))
+            ->setMethod('POST')
 
             /**
              * Credit cart number

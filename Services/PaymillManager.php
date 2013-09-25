@@ -57,7 +57,6 @@ class PaymillManager
      *
      * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
      * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill Transaction wrapper
-     * @param string                    $apiEndPoint               Api end point
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, PaymentBridgeInterface $paymentBridge)

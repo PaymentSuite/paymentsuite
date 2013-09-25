@@ -33,7 +33,7 @@ class PaymillExtension extends Twig_Extension
      *
      * Form factory
      */
-    protected $formFactory;
+    private $formFactory;
 
 
     /**
@@ -115,7 +115,6 @@ class PaymillExtension extends Twig_Extension
 
         return $this->environment->display('PaymillBundle:Paymill:view.html.twig', array(
             'paymill_form'          =>  $formType->createView(),
-            'paymill_execute_route' =>  PaymillRoutesLoader::ROUTE_NAME,
         ));
     }
 

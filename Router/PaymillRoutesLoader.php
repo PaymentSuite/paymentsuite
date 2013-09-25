@@ -29,7 +29,7 @@ class PaymillRoutesLoader implements LoaderInterface
      * 
      * Execution route name
      */
-    const ROUTE_NAME = 'paymill_execute';
+    private $controllerRouteName;
 
 
     /**
@@ -51,10 +51,12 @@ class PaymillRoutesLoader implements LoaderInterface
     /**
      * Construct method
      * 
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRouteName Controller route name
+     * @param string $controllerRoute     Controller route
      */
-    public function __construct($controllerRoute)
+    public function __construct($controllerRouteName, $controllerRoute)
     {
+        $this->controllerRouteName = $controllerRouteName;
         $this->controllerRoute = $controllerRoute;
     }
 
@@ -77,7 +79,7 @@ class PaymillRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-        $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
+        $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
             '_controller'   =>  'PaymillBundle:Paymill:execute',
         )));
 

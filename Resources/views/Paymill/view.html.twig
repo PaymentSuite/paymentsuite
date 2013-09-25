@@ -1,9 +1,7 @@
 {% block payment_form %}
 
-    <ul id="paymill_payment_error">
+    <ul id="paymill_payment_error"></ul>
 
-    </ul>
-
-    {{ form(paymill_form, { action: url(paymill_execute_route), method: "post", attr: { 'id': 'paymill_form' } }) }}
+    {{ form(paymill_form, { attr: { id: 'paymill_form' }} ) }}
 
 {% endblock payment_form %}
