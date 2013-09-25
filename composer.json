@@ -1,0 +1,28 @@
+{
+    "name": "scastells/pagosonline-bundle",
+    "type": "symfony-bundle",
+    "description": "PagosOnline Bundle, part of Mmoreram Payment Suite",
+    "keywords": ["pagosonline", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santi Castells",
+            "email": "dpujadas@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "mmoreram/payment-core-bundle": "dev-master"
+    },
+    "target-dir": "Scastells/pagosonlineBundle",
+    "autoload": {
+        "psr-0": { "Scastells\\pagosonlineBundle": "" }
+    }
+}
