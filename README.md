@@ -1,4 +1,4 @@
-DineroMail Platform for Chile for Symfony Payment Suite
+DineroMail Platform for Symfony Payment Suite
 -----
 
 [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)  [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/still-maintained.png)]()  
