@@ -21,8 +21,8 @@
         "twig/twig": "~1.11",
         "mmoreram/payment-core-bundle": "dev-master"
     },
-    "target-dir": "Scastells/pagosonlineBundle",
+    "target-dir": "Scastells/PagosonlineBundle",
     "autoload": {
-        "psr-0": { "Scastells\\pagosonlineBundle": "" }
+        "psr-0": { "Scastells\\PagosonlineBundle": "" }
     }
 }
