@@ -131,9 +131,6 @@ class PaymillType extends AbstractType
             ->add('api_token', 'hidden', array(
                 'data'  =>  ''
             ))
-            ->add('payment_processer', 'hidden', array(
-                'data'  =>  'paymill_processer'
-            ))
             ->add('submit', 'submit');
     }
 
