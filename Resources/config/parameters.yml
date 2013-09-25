@@ -1,6 +1,9 @@
 parameters:
 
     dineromail.api.endpoint: "https://checkout.dineromail.com/CheckOut"
+    dineromail.controller.route.name: "dineromail_execute"
+    dineromail.controller.process.route.name: "dineromail_process"
+
     dineromail.form.type.wrapper.class: "Mmoreram\\DineromailBundle\\Services\\Wrapper\\DineromailTypeWrapper"
     dineromail.manager.class: "Mmoreram\\DineromailBundle\\Services\\DineromailManager"
     dineromail.routes.loader.class: "Mmoreram\\DineromailBundle\\Router\\DineromailRoutesLoader"

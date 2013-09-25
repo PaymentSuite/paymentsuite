@@ -49,9 +49,27 @@ class DineromailRoutesLoader implements LoaderInterface
 
 
     /**
-     *  @var string
+     * @var string
+     * 
+     * Execution controller route name
+     */
+    private $controllerRouteName;
+
+
+    /**
+     * @var string
+     * 
+     * Process controller route
      */
     private $controllerProcessRoute;
+
+
+    /**
+     * @var string
+     * 
+     * Process controller route name
+     */
+    private $controllerProcessRouteName;
 
 
     /**
@@ -65,13 +83,17 @@ class DineromailRoutesLoader implements LoaderInterface
     /**
      * Construct method
      * 
-     * @param string $controllerRoute        Controller route
-     * @param string $controllerProcessRoute Process controller route
+     * @param string $controllerRoute            Controller route
+     * @param string $controllerRouteName        Controller route name
+     * @param string $controllerProcessRoute     Process controller route
+     * @param string $controllerProcessRouteName Process controller route name
      */
-    public function __construct($controllerRoute, $controllerProcessRoute)
+    public function __construct($controllerRoute, $controllerRouteName, $controllerProcessRoute, $controllerProcessRouteName)
     {
         $this->controllerRoute = $controllerRoute;
+        $this->controllerRouteName = $controllerRouteName;
         $this->controllerProcessRoute = $controllerProcessRoute;
+        $this->controllerProcessRouteName = $controllerProcessRouteName;
     }
 
 
@@ -94,11 +116,11 @@ class DineromailRoutesLoader implements LoaderInterface
 
         $routes = new RouteCollection();
 
-        $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
+        $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
                 '_controller'   =>  'DineromailBundle:Dineromail:execute',
         )));
 
-       $routes->add(self::ROUTE_PROCESS_NAME, new Route($this->controllerProcessRoute, array(
+       $routes->add($this->controllerProcessRouteName, new Route($this->controllerProcessRoute, array(
                 '_controller'   =>  'DineromailBundle:Dineromail:process',
         )));
 

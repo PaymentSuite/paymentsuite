@@ -25,6 +25,8 @@ services:
         class: %dineromail.routes.loader.class%
         arguments:
             dineromail.controller.route: %dineromail.controller.route%
+            dineromail.controller.route.name: %dineromail.controller.route.name%
             dineromail.controller.process.route: %dineromail.controller.process.route%
+            dineromail.controller.process.route.name: %dineromail.controller.process.route.name%
         tags:
             - { name: routing.loader }
