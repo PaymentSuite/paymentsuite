@@ -13,12 +13,12 @@ DineroMail Platform for Symfony Payment Suite
 Table of contents
 -----
 
-1.  [About Paymill Bundle](#about-dineromail-bundle)
+1.  [About DineroMail Bundle](#about-dineromail-bundle)
 2.  [Installing Payment Environment](#installing-payment-environment)
 3.  [Installing DineroMail Bundle](#installing-dineromail-bundle)
 8.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 
-About Paymill Bundle
+About DineroMail Bundle
 =====
 
 Implementation of DineroMail payment method for Chile for Symfony2 Payment Suite. Is built following PaymentCore specifications and working with defined events

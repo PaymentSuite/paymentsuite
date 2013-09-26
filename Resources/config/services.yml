@@ -15,12 +15,6 @@ services:
         tags:
             - { name: form.type, alias: dineromail_view }
 
-    dineromail.manager:
-        class: %dineromail.manager.class%
-        arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            payment.bridge: @payment.bridge
-
     dineromail.routes.loader:
         class: %dineromail.routes.loader.class%
         arguments:
