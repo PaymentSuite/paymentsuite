@@ -42,6 +42,14 @@
 
 namespace Scastells\PagosonlineBundle\Lib;
 
+use DOMElement;
+use DOMText;
+use DOMXPath;
+use Exception;
+use XMLSecEnc;
+use XMLSecurityDSig;
+use XMLSecurityKey;
+
 require('xmlseclibs.php');
 
 class WSSESoap {
