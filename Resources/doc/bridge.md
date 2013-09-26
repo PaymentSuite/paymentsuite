@@ -10,9 +10,9 @@ Install PaymentCoreBundle
 
 # About PaymentBridgeBundle
 
-As Payment Suite should be compatible with all E-commerces projects, it's built without any kind of attachment with your model, so you must build (just once) a specific bridge bundle to tell Payment Suite where to find some data.
+As Payment Suite should be compatible with all E-commerces projects, it's built without any kind of attachment with your model, so you must build (just once) a specific bridge bundle to tell Payment Suite where to find some data.  
 
-To do this, [create a Bundle](http://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_bundle.html) named PaymentBridgeBundle with next classes.
+For this proposal, [create a Bundle](http://symfony.com/doc/current/bundles/SensioGeneratorBundle/commands/generate_bundle.html) named PaymentBridgeBundle with following features.
 
 ## Payment Service
 
@@ -150,14 +150,14 @@ You can [create an Event Listener](http://symfony.com/doc/current/cookbook/servi
 
 In fact, this will be the way to manage your cart and your order in every payment stage. To do this you must create next class with all only needed to your project methods.
 
-<?php
+    <?php
 
-namespace YourProjectName\PaymentBridgeBundle\EventListener;
+    namespace YourProjectName\PaymentBridgeBundle\EventListener;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
+    use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
+    use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
+    use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
+    use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
 
     /**
      * Payment event listener
@@ -165,14 +165,14 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
      * This listener is enabled whatever the payment method is.
      */
     class Payment
-    {
+    {    
     
         /**
-         * On payment done event
+         * On payment load event
          *
-         * @param PaymentOrderDoneEvent $paymentOrderDoneEvent Payment Order Done event
+         * @param PaymentOrderLoadEvent $paymentOrderLoadEvent Payment Order Load event
          */
-        public function onPaymentDone(PaymentOrderDoneEvent $paymentOrderDoneEvent)
+        public function onPaymentLoad(PaymentOrderLoadEvent $paymentOrderLoadEvent)
         {
             /*
              * Your code for this event
@@ -181,11 +181,24 @@ use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
     
     
         /**
-         * On payment load event
+         * On payment created event
          *
-         * @param PaymentOrderLoadEvent $paymentOrderLoadEvent Payment Order Load event
+         * @param PaymentOrderCreatedEvent $paymentOrderCreatedEvent Payment Order Created event
          */
-        public function onPaymentLoad(PaymentOrderLoadEvent $paymentOrderLoadEvent)
+        public function onPaymentCreated(PaymentOrderCreatedEvent $paymentOrderCreatedEvent)
+        {
+            /*
+             * Your code for this event
+             */
+        }
+
+    
+        /**
+         * On payment done event
+         *
+         * @param PaymentOrderDoneEvent $paymentOrderDoneEvent Payment Order Done event
+         */
+        public function onPaymentDone(PaymentOrderDoneEvent $paymentOrderDoneEvent)
         {
             /*
              * Your code for this event
@@ -232,6 +245,7 @@ Also you need registry listener for the events in `Resources\config\services.yml
                 mailer: @mailer
             tags:
                 - { name: kernel.event_listener, event: payment.order.done, method: onPaymentDone }
+                - { name: kernel.event_listener, event: payment.order.created, method: onPaymentCreated }
                 - { name: kernel.event_listener, event: payment.order.load, method: onPaymentLoad }
                 - { name: kernel.event_listener, event: payment.order.success, method: onPaymentSuccess }
                 - { name: kernel.event_listener, event: payment.order.fail, method: onPaymentFail }

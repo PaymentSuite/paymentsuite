@@ -40,7 +40,7 @@ Install Payment Environment
 
 First of all, you need to understand how your project will comunicate with all payment methods, defining just a few things, and just subscribing to some events.
 
-For this purpose, you have to define a new Bundle in you project, named `PaymentBridgeBundle`. You can [follow this guide](Resources/doc/installation.md).  
+For this purpose, you have to define a new Bundle in you project, named `PaymentBridgeBundle`. You can [follow this guide](Resources/doc/bridge.md) for better comprehension of this Bundle.  
 
 
 Create Payment Method

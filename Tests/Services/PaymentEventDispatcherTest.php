@@ -81,6 +81,21 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Testing notifyPaymentOrderCreated
+     */
+    public function testNotifyPaymentOrderCreated()
+    {
+        $this->eventDispatcher
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_CREATED), $this->isInstanceOf('Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent'));
+
+        $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
+        $paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->paymentMethod);
+    }
+
+
+    /**
      * Testing notifyPaymentDone
      */
     public function testNotifyPaymentOrderDone()

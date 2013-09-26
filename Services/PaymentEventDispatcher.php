@@ -19,6 +19,7 @@ use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
+use Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
@@ -62,6 +63,24 @@ class PaymentEventDispatcher
 
         $paymentOrderLoadEvent = new PaymentOrderLoadEvent($paymentBridge, $paymentMethod);
         $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_LOAD, $paymentOrderLoadEvent);
+
+        return $this;
+    }
+
+
+    /**
+     * Notifies when order must be created
+     *
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentMethodInterface $paymentMethod Patment method
+     *
+     * @return PaymentEventDispatcher self Object
+     */
+    public function notifyPaymentOrderCreated(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
+    {
+
+        $paymentOrderCreatedEvent = new PaymentOrderCreatedEvent($paymentBridge, $paymentMethod);
+        $this->eventDispatcher->dispatch(PaymentCoreEvents::PAYMENT_ORDER_CREATED, $paymentOrderCreatedEvent);
 
         return $this;
     }

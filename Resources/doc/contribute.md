@@ -11,4 +11,3 @@ Contributors
 
 * Marc Morera - @mmoreram
 * Denys Pasishnyi - @dpcat237
-* David Pujadas - @dpujadas

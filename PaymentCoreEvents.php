@@ -29,6 +29,15 @@ class PaymentCoreEvents
 
 
     /**
+     * This event is thrown when an order must be created.
+     *
+     * event.name : payment.order.created
+     * event.class : PaymentOrderCreatedEvent
+     */
+    const PAYMENT_ORDER_CREATED = 'payment.order.created';
+
+
+    /**
      * This event is thrown when an order is paid, no matter the result
      *
      * event.name : payment.order.done
