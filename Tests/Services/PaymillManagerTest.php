@@ -143,27 +143,27 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymentEventDispatcher
             ->expects($this->any())
-            ->method('notifyPaymentReady');
-
-        $this
-            ->paymentEventDispatcher
-            ->expects($this->any())
-            ->method('notifyPaymentDone');
-
-        $this
-            ->paymentEventDispatcher
-            ->expects($this->any())
-            ->method('notifyPaymentFail');
-
-        $this
-            ->paymentEventDispatcher
-            ->expects($this->any())
-            ->method('notifyPaymentSuccess');
+            ->method('notifyPaymentOrderLoad');
 
         $this
             ->paymentEventDispatcher
             ->expects($this->any())
             ->method('notifyPaymentOrderCreated');
+
+        $this
+            ->paymentEventDispatcher
+            ->expects($this->any())
+            ->method('notifyPaymentOrderDone');
+
+        $this
+            ->paymentEventDispatcher
+            ->expects($this->any())
+            ->method('notifyPaymentOrderFail');
+
+        $this
+            ->paymentEventDispatcher
+            ->expects($this->any())
+            ->method('notifyPaymentOrderSuccess');
 
         $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
     }
@@ -239,6 +239,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderLoad')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
+
+        $this
+            ->paymentEventDispatcher
+            ->expects($this->once())
+            ->method('notifyPaymentOrderCreated')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this
@@ -331,6 +337,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderLoad')
+            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
+
+        $this
+            ->paymentEventDispatcher
+            ->expects($this->once())
+            ->method('notifyPaymentOrderCreated')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
         $this

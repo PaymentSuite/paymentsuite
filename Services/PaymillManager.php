@@ -108,6 +108,12 @@ class PaymillManager
             throw new PaymentOrderNotFoundException;
         }
 
+
+        /**
+         * Order exists right here
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
+
         /**
          * Validate the order in the module
          * params for paymill interaction
