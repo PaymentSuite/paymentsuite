@@ -61,9 +61,9 @@ class DineromailController extends Controller
         /**
          * Loading success route for returning from dineroMail
          */
-        $redirectSuccessUrl = $this->container->getParameter('paymill.success.route');
-        $redirectSuccessAppend = $this->container->getParameter('paymill.success.order.append');
-        $redirectSuccessAppendField = $this->container->getParameter('paymill.success.order.field');
+        $redirectSuccessUrl = $this->container->getParameter('dineromail.success.route');
+        $redirectSuccessAppend = $this->container->getParameter('dineromail.success.order.append');
+        $redirectSuccessAppendField = $this->container->getParameter('dineromail.success.order.field');
 
         $redirectSuccessData    = $redirectSuccessAppend
                                 ? array(
@@ -77,9 +77,9 @@ class DineromailController extends Controller
         /**
          * Loading fail route for returning from dineroMail
          */
-        $redirectFailUrl = $this->container->getParameter('paymill.fail.route');
-        $redirectFailAppend = $this->container->getParameter('paymill.fail.order.append');
-        $redirectFailAppendField = $this->container->getParameter('paymill.fail.order.field');
+        $redirectFailUrl = $this->container->getParameter('dineromail.fail.route');
+        $redirectFailAppend = $this->container->getParameter('dineromail.fail.order.append');
+        $redirectFailAppendField = $this->container->getParameter('dineromail.fail.order.field');
 
         $redirectFailData    = $redirectFailAppend
                                 ? array(
