@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosOnlineBundle\DependencyInjection;
+namespace Scastells\PagosonlineBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,15 +13,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('pagosonline');
 
         $rootNode
-            /*->children()
-                ->scalarNode('public_key')
-                ->isRequired()
-                ->cannotBeEmpty()
-            ->end()
-                ->scalarNode('private_key')
-                ->isRequired()
-                ->cannotBeEmpty()
-            ->end()*/
+        ->children()
             ->scalarNode('controller_route')
                 ->defaultValue('/payment/pagosonline/execute')
             ->end()
@@ -49,10 +41,11 @@ class Configuration implements ConfigurationInterface
                         ->defaultTrue()
                     ->end()
                     ->scalarNode('order_append_field')
-                        ->defaultValue('cart_id')
+                        ->defaultValue('order_id')
                     ->end()
                 ->end()
             ->end()
+        ->end()
         ->end();
 
         return $treeBuilder;

@@ -1,14 +1,15 @@
 <?php
 
-namespace Scastells\PagosOnlineBundle\Form\Type;
+namespace Scastells\PagosonlineBundle\Form\Type;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use Symfony\Component\Routing\Router;
 
-class PagosOnlineType extends AbstractType
+class PagosonlineType extends AbstractType
 {
+
     /*
      * @var PaymentBridgeInterface
      *
@@ -18,24 +19,47 @@ class PagosOnlineType extends AbstractType
 
 
     /**
+     * @var Router
+     *
+     * Router instance
+     */
+    private $router;
+
+
+    /**
+     * @var string
+     *
+     * Execution route name
+     */
+    private $controllerRouteName;
+
+
+    /**
      * Formtype construct method
      *
+     * @param \Symfony\Component\Routing\Router $router
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
+     * @param string $controllerRouteName
+     * @internal param \Symfony\Component\Routing\Router $router
      */
-    public function __construct(PaymentBridgeInterface $paymentBridge)
+    public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
     {
         $this->paymentBridge = $paymentBridge;
+        $this->router = $router;
+        $this->controllerRouteName = $controllerRouteName;
     }
 
 
-    public function buildFrom(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction($this->router->generate($this->controllerRouteName, array(), true))
+            ->setMethod('POST')
 
             /**
              * Credit card type
              */
-            ->add('card_exp_month', 'choice', array(
+            ->add('card_type', 'choice', array(
                 'required' => true,
                 'choices' => array(
                     'VISA' => 'Visa','AMEX' => 'Amex','DINNERS' => 'Diners', 'MASTERCARD' => 'Mastercard'
@@ -91,9 +115,6 @@ class PagosOnlineType extends AbstractType
              */
             ->add('amount', 'hidden', array(
                 'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
-            ))
-            ->add('payment_processer', 'hidden', array(
-                'data'  =>  'paymill_processer'
             ))
             ->add('submit', 'submit');
     }
