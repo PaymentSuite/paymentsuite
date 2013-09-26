@@ -94,6 +94,11 @@ class DineromailManager
         }
 
         /**
+         * Order exists right here
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->paymentMethod);
+
+        /**
          * Validate the order in the module
          * params for paymill interaction
          */
