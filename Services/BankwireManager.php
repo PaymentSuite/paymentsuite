@@ -88,6 +88,12 @@ class BankwireManager
             throw new PaymentOrderNotFoundException;
         }
 
+
+        /**
+         * Order exists right here
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
+
         return $this;
     }
 
