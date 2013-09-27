@@ -21,12 +21,15 @@ interface PaymentBridgeInterface
 
     /**
      * Order zone
-     * 
+     *
      * Brings all needed order information
      */
 
     /**
      * Set order to PaymentBridge
+     *
+     * Given an order ( this object is not hinted, so every project must have its own order )
+     * we store it locally.
      *
      * @param Object $order Order element
      */
@@ -36,27 +39,21 @@ interface PaymentBridgeInterface
     /**
      * Get order
      *
+     * Return object stored as order
+     *
      * @return Object Order object
      */
     public function getOrder();
 
 
     /**
-     * Get order given an identifier
-     * 
+     * Get order given an identifier and stores locally
+     *
      * @param integer $orderId Order identifier, usually defined as primary key or unique key
      *
      * @return Object Order object
      */
     public function findOrder($orderId);
-
-
-    /**
-     * Return order description
-     *
-     * @return string
-     */
-    public function getOrderDescription();
 
 
     /**
@@ -73,14 +70,14 @@ interface PaymentBridgeInterface
 
     /**
      * Get payment amount
-     * 
+     *
      * @return float
      */
     public function getAmount();
 
     /**
      * Get payment currency
-     * 
+     *
      * @return string
      */
     public function getCurrency();
@@ -88,9 +85,9 @@ interface PaymentBridgeInterface
 
     /**
      * Get extra data
-     * 
+     *
      * Each payment platform should define what extra data is needed to be implemented
-     * 
+     *
      * @return array Hash object with needed data
      */
     public function getExtraData();
