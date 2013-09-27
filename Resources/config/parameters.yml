@@ -7,3 +7,4 @@ parameters:
     paymill.manager.class: "Mmoreram\\PaymillBundle\\Services\\PaymillManager"
     paymill.twig.extension.class: "Mmoreram\\PaymillBundle\\Twig\\PaymillExtension"
     paymill.routes.loader.class: "Mmoreram\\PaymillBundle\\Router\\PaymillRoutesLoader"
+    paymill.validator.extradata.class: "Mmoreram\\PaymillBundle\\Validator\\PaymillExtraDataValidator"

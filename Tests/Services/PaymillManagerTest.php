@@ -41,7 +41,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      * 
      * Card amount
      */
-    const CART_AMOUNT = 10;
+    const ORDER_AMOUNT = 10;
 
 
     /**
@@ -49,7 +49,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      * 
      * Card description
      */
-    const CART_DESCRIPTION = 'This is my card description';
+    const ORDER_DESCRIPTION = 'This is my card description';
 
 
     /**
@@ -165,7 +165,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
     }
 
 
@@ -212,23 +212,25 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::ORDER_AMOUNT));
 
         $this
             ->paymentBridge
             ->expects($this->once())
-            ->method('getOrderDescription')
-            ->will($this->returnValue(self::CART_DESCRIPTION));
+            ->method('getExtraData')
+            ->will($this->returnValue(array(
+                'order_description' =>  self::ORDER_DESCRIPTION
+            )));
 
         $this
             ->paymillTransactionWrapper
             ->expects($this->once())
             ->method('create')
             ->with($this->equalTo(array(
-                'amount' => self::CART_AMOUNT * 100,
+                'amount' => self::ORDER_AMOUNT * 100,
                 'currency' => self::CURRENCY,
                 'token' => self::API_TOKEN,
-                'description' => self::CART_DESCRIPTION
+                'description' => self::ORDER_DESCRIPTION
             )))
             ->will($this->returnValue(array(
                 'status'    =>  'something_different_to_closed',
@@ -264,7 +266,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
     }
 
 
@@ -310,23 +312,25 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::ORDER_AMOUNT));
 
         $this
             ->paymentBridge
             ->expects($this->once())
-            ->method('getOrderDescription')
-            ->will($this->returnValue(self::CART_DESCRIPTION));
+            ->method('getExtraData')
+            ->will($this->returnValue(array(
+                'order_description' =>  self::ORDER_DESCRIPTION
+            )));
 
         $this
             ->paymillTransactionWrapper
             ->expects($this->once())
             ->method('create')
             ->with($this->equalTo(array(
-                'amount' => self::CART_AMOUNT * 100,
+                'amount' => self::ORDER_AMOUNT * 100,
                 'currency' => self::CURRENCY,
                 'token' => self::API_TOKEN,
-                'description' => self::CART_DESCRIPTION
+                'description' => self::ORDER_DESCRIPTION
             )))
             ->will($this->returnValue(array(
                 'status'    =>  'closed',
@@ -362,6 +366,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->method('notifyPaymentOrderSuccess')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::CART_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
     }
 }

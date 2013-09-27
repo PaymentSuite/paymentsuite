@@ -39,3 +39,10 @@ services:
             paymill.controller.route: %paymill.controller.route%
         tags:
             - { name: routing.loader }
+
+    paymill.validator.extradata:
+        class: %paymill.validator.extradata.class%
+        arguments:
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: validate }

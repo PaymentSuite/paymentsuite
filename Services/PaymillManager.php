@@ -118,11 +118,12 @@ class PaymillManager
          * Validate the order in the module
          * params for paymill interaction
          */
+        $extraData = $this->paymentBridge->getExtraData();
         $params = array(
             'amount' => intval($paymentBridgeAmount),
             'currency' => $this->paymentBridge->getCurrency(),
             'token' => $paymentMethod->getApiToken(),
-            'description' => $this->paymentBridge->getOrderDescription(),
+            'description' => $extraData['order_description'],
         );
 
         $transaction = $this
