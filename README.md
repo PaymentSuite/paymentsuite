@@ -52,6 +52,22 @@ Our goal is to implement all payment platforms in our system. You can collaborat
 Available Payment Platforms
 -----
 
+### [AuthorizenetBundle](https://github.com/dpcat237/AuthorizenetBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/badges/quality-score.png?s=43290e459683b8b94de1e695ca851a6451ab1b50)](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/)
+* Travis-CI - [![Build Status](https://api.travis-ci.org/dpcat237/AuthorizenetBundle.png?branch=master)](https://travis-ci.org/dpcat237/AuthorizenetBundle)
+* Packagist - [dpcat237/authorizenet-bundle](https://packagist.org/packages/dpcat237/authorizenet-bundle)
+
+### [BankWireBundle](https://github.com/mmoreram/BankwireBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/badges/quality-score.png?s=f5ae2404f5f37bf187dece44f2cc19a0b2f774d2)](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/)
+* Packagist - [mmoreram/bankwire-bundle](https://packagist.org/packages/mmoreram/bankwire-bundle)
+
+### [DineromailBundle](https://github.com/mmoreram/DineroMailBundle)
+
+* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/badges/quality-score.png?s=b56ed7f3a43fd7543777ec9beac26a30891fcf43)](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/)
+* Packagist - [mmoreram/dineromail-bundle](https://packagist.org/packages/mmoreram/dineromail-bundle)
+
 ### [PaymillBundle](https://github.com/mmoreram/PaymillBundle)
 
 * Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
@@ -64,15 +80,6 @@ Available Payment Platforms
 * Travis-CI - [![Build Status](https://travis-ci.org/dpcat237/StripeBundle.png?branch=master)](https://travis-ci.org/dpcat237/StripeBundle)
 * Packagist - [dpcat237/stripe-bundle](https://packagist.org/packages/dpcat237/stripe-bundle)
 
-### [BankWireBundle](https://github.com/mmoreram/BankwireBundle)
-
-* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/badges/quality-score.png?s=f5ae2404f5f37bf187dece44f2cc19a0b2f774d2)](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/)
-* Packagist - [mmoreram/bankwire-bundle](https://packagist.org/packages/mmoreram/bankwire-bundle)
-
-### [DineromailBundle](https://github.com/mmoreram/DineroMailBundle)
-
-* Scrutinizer - [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/badges/quality-score.png?s=b56ed7f3a43fd7543777ec9beac26a30891fcf43)](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/)
-* Packagist - [mmoreram/dineromail-bundle](https://packagist.org/packages/mmoreram/dineromail-bundle)
 
 ### Being Developed
 
