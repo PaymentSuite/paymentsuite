@@ -1,0 +1,37 @@
+services:
+    authorizenet.form.type:
+        class: %authorizenet.form.type.class%
+        arguments:
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: form.type, alias: authorizenet_view }
+
+    authorizenet.transaction.wrapper:
+        class: %authorizenet.transaction.wrapper.class%
+        arguments:
+            authorizenet.api.endpoint.test: %authorizenet.api.endpoint.test%
+            authorizenet.api.endpoint.live: %authorizenet.api.endpoint.live%
+            authorizenet.test.mode: %authorizenet.test.mode%
+
+    authorizenet.manager:
+        class: %authorizenet.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            authorizenet.transaction.wrapper: @authorizenet.transaction.wrapper
+            payment.bridge: @payment.bridge
+            authorizenet.login.id: %authorizenet.login.id%
+            authorizenet.tran.key: %authorizenet.tran.key%
+
+    authorizenet.twig.extension:
+        class: %authorizenet.twig.extension.class%
+        arguments:
+            form.factory: @form.factory
+        tags:
+            - { name: twig.extension }
+
+    authorizenet.routes.loader:
+        class: %authorizenet.routes.loader.class%
+        arguments:
+            authorizenet.controller.route: %authorizenet.controller.route%
+        tags:
+            - { name: routing.loader }

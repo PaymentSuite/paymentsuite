@@ -1,0 +1,8 @@
+parameters:
+    authorizenet.api.endpoint.test: "https://test.authorize.net/gateway/transact.dll"
+    authorizenet.api.endpoint.live: "https://secure.authorize.net/gateway/transact.dll"
+    authorizenet.form.type.class: "dpcat237\\AuthorizenetBundle\\Form\\Type\\AuthorizenetType"
+    authorizenet.transaction.wrapper.class: "dpcat237\\AuthorizenetBundle\\Services\\Wrapper\\AuthorizenetTransactionWrapper"
+    authorizenet.manager.class: "dpcat237\\AuthorizenetBundle\\Services\\AuthorizenetManager"
+    authorizenet.twig.extension.class: "dpcat237\\AuthorizenetBundle\\Twig\\AuthorizenetExtension"
+    authorizenet.routes.loader.class: "dpcat237\\AuthorizenetBundle\\Router\\AuthorizenetRoutesLoader"
