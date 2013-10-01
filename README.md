@@ -9,7 +9,7 @@ Table of contents
 -----
 
 1.  [Installing Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
-2.  [Installing PaymillBundle](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
+2.  [Installing DineroMail](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
 3.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 4.  [Configuration](#configuration)
 5.  [Extra Data](#extra-data)
@@ -18,9 +18,9 @@ Table of contents
 Configuration
 -----
 
-Configure the PaymillBundle configuration in your `config.yml`
+Configure the DineroMail configuration in your `config.yml`
 
-    paymill:
+    dineromail:
 
         # some specific payment cnfig
         merchant: XXXXXXXXXX
@@ -35,7 +35,7 @@ Configure the PaymillBundle configuration in your `config.yml`
             - cl_magna
             - cl_presto
 
-        # By default, controller route is /payment/paymill/execute
+        # By default, controller route is /payment/dineromail/execute
         controller_route: /my/custom/route
 
         # Controller process route, by default /payment/dineromail/process/{id_order}
