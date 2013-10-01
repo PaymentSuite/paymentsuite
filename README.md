@@ -1,4 +1,4 @@
-Paymill Platform for Symfony Payfony Payment Suite
+PaymillBundle - PayFony
 =====
 
 [![Payment Suite](http://mmoreram.github.io/PaymentCoreBundle/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)
@@ -7,7 +7,7 @@ Paymill Platform for Symfony Payfony Payment Suite
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 
 Table of contents
-=====
+-----
 
 1.  [Installing Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
 2.  [Installing PaymillBundle](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
