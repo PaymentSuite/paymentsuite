@@ -13,6 +13,7 @@ Table of contents
 3.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
 4.  [Configuration](#configuration)
 5.  [Extra Data](#extra-data)
+6.  [Router](#router)
 
 Configuration
 -----
