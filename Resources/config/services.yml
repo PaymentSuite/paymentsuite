@@ -24,3 +24,10 @@ services:
             dineromail.controller.process.route.name: %dineromail.controller.process.route.name%
         tags:
             - { name: routing.loader }
+
+    dineromail.validator.extradata:
+        class: %dineromail.validator.extradata.class%
+        arguments:
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: validate }
