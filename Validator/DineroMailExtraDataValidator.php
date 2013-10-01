@@ -1,17 +1,17 @@
 <?php
 
 /**
- * PaymillBundle for Symfony2
+ * DineromailBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymillBundle
+ * @package DineromailBundle
  *
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Validator;
+namespace Mmoreram\DineromailBundle\Validator;
 
 use Mmoreram\PaymentCoreBundle\Services\Abstracts\AbstractPaymentExtraDataValidator;
 
