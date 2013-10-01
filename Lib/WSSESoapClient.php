@@ -11,7 +11,6 @@ class WSSESoapClient extends \SoapClient
     {
         $this->user = $user;
         $this->pass = $pass;
-
         parent::__construct($url);
     }
 
@@ -30,4 +29,3 @@ class WSSESoapClient extends \SoapClient
     }
 
 }
-

@@ -10,6 +10,7 @@ use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Scastells\PagosonlineBundle\PagosonlineMethod;
 use Scastells\PagosonlineBundle\Lib\WSSESoap;
+use Scastells\PagosonlineBundle\Lib\WSSESoapClient;
 
 /**
  * Pagosonline manager
@@ -33,17 +34,56 @@ class PagosonlineManager
      */
     protected $paymentBridge;
 
+    /**
+     * @var string
+     *
+     * user pagosonline
+     */
+    private $userId;
+
+
+    /**
+     * @var string
+     *
+     * wsdl pagosonline
+     */
+    private $wsdl;
+
+
+    /**
+     * @var string
+     *
+     * password pagosonline
+     */
+    private $password;
+
+
+    /**
+     * @var account
+     *
+     * account pagosonlie
+     */
+    private $accountId;
+
 
     /**
      * Construct method for pagosonline manager
      *
-     * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param $userId
+     * @param $wsdl
+     * @param $password
+     * @param $accountId
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $userId, $password, $accountId, $wsdl)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
+        $this->userId = $userId;
+        $this->password = $password;
+        $this->accountId = $accountId;
+        $this->wsdl = $wsdl;
     }
 
 
@@ -88,22 +128,52 @@ class PagosonlineManager
             throw new PaymentOrderNotFoundException;
         }
 
-        /**
-         * Validate the order in the module
-         * params for pagosonline interaction
-         */
-        $params = array(
-            'amount' => intval($paymentBridgeAmount),
-            'currency' => $this->paymentBridge->getCurrency(),
-            'token' => $paymentMethod->getApiToken(),
-            'description' => $this->paymentBridge->getOrderDescription(),
-        );
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
 
-        $transaction = $this
-            ->pagosonlineTransactionWrapper
-            ->create($params);
+        $extraData = $this->paymentBridge->getExtraData();
 
-        $this->processTransaction($transaction, $paymentMethod);
+        $object_ws = new \stdClass();
+        $object_ws->cuentaId = $this->accountId;
+        $object_ws->referencia = $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
+        $object_ws->descripcion = $this->paymentBridge->getOrderDescription();
+        $object_ws->valor = $this->paymentBridge->getAmount();
+        $object_ws->iva = $extraData['vat'];
+        $object_ws->baseDevolucionIva = $extraData['refund_vat'];
+        $object_ws->isoMoneda4217 = $this->paymentBridge->getCurrency();
+        $object_ws->numeroCuotas = $paymentMethod->getCardQuota();
+        $object_ws->nombreComprador = $extraData['customer_firstname'].$extraData['customer_lastname'];
+        $object_ws->emailComprador = $extraData['customer_email'];
+        $object_ws->franquicia = $paymentMethod->getCardType();
+        $object_ws->numero = $paymentMethod->getCardNum();
+        $object_ws->codigoSeguridad = $paymentMethod->getCardSecurity();
+        $object_ws->nombreTarjetaHabiente = $paymentMethod->getCardName();
+        $object_ws->fechaExpiracion = $paymentMethod->getCardExpYear() .'/'. $paymentMethod->getCardExpMonth();
+        $object_ws->validarModuloAntiFraude = true;
+        $object_ws->reportarPaginaConfirmacion = false;
+        //Antifraude
+        $object_ws->ciudadCorrespondencia = $extraData['language'];
+        $object_ws->cookie = $paymentMethod->getCookie();
+        $object_ws->direccionCorrespondencia = $extraData['correspondence_address'];
+        $object_ws->ipComprador = $paymentMethod->getClientIp();
+        $object_ws->paisCorrespondencia = 'CO';//$extraData['language'];
+        $object_ws->userAgent = $paymentMethod->getUserAgent();
+
+        $client = new WSSESoapClient($this->wsdl, $this->userId, $this->password);
+
+        $autWS = $client->solicitarAutorizacion($object_ws);
+
+        /* $params = array(
+             'amount'     =>  intval($paymentBridgeAmount),
+             'currency'  =>  $this->paymentBridge->getCurrency(),
+             'token'     =>  $paymentMethod->getApiToken(),
+             'description' => $this->paymentBridge->getOrderDescription(),
+         );
+
+         $transaction = $this
+             ->pagosonlineTransactionWrapper
+             ->create($params);
+        */
+         $this->processTransaction($autWS, $paymentMethod);
 
         return $this;
     }
@@ -112,14 +182,14 @@ class PagosonlineManager
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
      *
-     * @param array         $transaction   Transaction
+     * @param array         $autWS
      * @param PaymillMethod $paymentMethod Payment method
      *
-     * @return PaymillManager Self object
+     * @return PagosonlineManager Self object
      *
      * @throws PaymentException
      */
-    private function processTransaction(array $transaction, PaymillMethod $paymentMethod)
+    private function processTransaction($autWS, PagosonlineMethod $paymentMethod)
     {
 
         /**
@@ -132,7 +202,7 @@ class PagosonlineManager
         /**
          * when a transaction is successful, it is marked as 'closed'
          */
-        if (empty($transaction['status']) || $transaction['status'] != 'closed') {
+        if (in_array($autWS->codigoRespuesta, array('15','994','9999'))) {
 
             /**
              * Payment paid failed
@@ -141,7 +211,7 @@ class PagosonlineManager
              */
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
-            throw new PaymentException;
+            //throw new PaymentException;
         }
 
 
@@ -150,17 +220,16 @@ class PagosonlineManager
          *
          * This information is only available in PaymentOrderSuccess event
          */
-        $paymentMethod
-            ->setTransactionId($transaction['id'])
-            ->setTransactionStatus($transaction['status']);
-
+        //set transaction id
 
         /**
          * Payment paid successfully
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        if ($autWS->codigoRespuesta == 1) {
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        }
 
         return $this;
     }

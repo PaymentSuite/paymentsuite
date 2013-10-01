@@ -13,7 +13,6 @@ class PagosonlineExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
         $container->setParameter('pagosonline.controller.route', $config['controller_route']);
 
         $container->setParameter('pagosonline.success.route', $config['payment_success']['route']);
@@ -27,7 +26,7 @@ class PagosonlineExtension extends Extension
         $container->setParameter('pagosonline.user_id', $config['user_id']);
         $container->setParameter('pagosonline.password', $config['password']);
         $container->setParameter('pagosonline.account_id', $config['account_id']);
-        $container->setParameter('wsdl_url', $config['wsdl_url']);
+        $container->setParameter('pagosonline.wsdl_url', $config['wsdl_url']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

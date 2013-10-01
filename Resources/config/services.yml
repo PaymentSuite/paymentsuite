@@ -14,6 +14,10 @@ services:
             arguments:
                 payment.event.dispatcher: @payment.event.dispatcher
                 payment.bridge: @payment.bridge
+                pagosonline.user_id: %pagosonline.user_id%
+                pagosonline.password: %pagosonline.password%
+                pagosonline.account_id: %pagosonline.account_id%
+                pagosonline.wsdl_url: %pagosonline.wsdl_url%
 
     pagosonline.twig.extension:
         class: %pagosonline.twig.extension.class%
@@ -28,5 +32,6 @@ services:
         arguments:
           pagosonline.controller.route.name: %pagosonline.controller.route.name%
           pagosonline.controller.route: %pagosonline.controller.route%
+          container: @service_container
         tags:
             - { name: routing.loader }

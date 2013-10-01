@@ -114,7 +114,7 @@ class PagosonlineType extends AbstractType
              * Some hidden fields
              */
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
+                'data'  =>  $this->paymentBridge->getAmount() * 100
             ))
             ->add('submit', 'submit');
     }
