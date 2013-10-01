@@ -38,7 +38,6 @@ class DineromailExtension extends Extension
         $container->setParameter('dineromail.merchant', $config['merchant']);
         $container->setParameter('dineromail.country', $config['country']);
         $container->setParameter('dineromail.seller_name', $config['seller_name']);
-        $container->setParameter('dineromail.language', $config['language']);
         $container->setParameter('dineromail.payment_methods_available', $config['payment_methods_available']);
         $container->setParameter('dineromail.url_redirect_enabled', $config['url_redirect_enabled']);
         $container->setParameter('dineromail.header_image', $config['header_image']);
