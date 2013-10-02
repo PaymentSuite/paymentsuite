@@ -42,6 +42,14 @@ class DineromailMethod implements PaymentMethodInterface
 
 
     /**
+     * @var string
+     *
+     * dineromail transactionid
+     */
+    private $dineromailTransactionId;
+
+
+    /**
      * set amount
      *
      * @param float $amount Amount
@@ -64,6 +72,27 @@ class DineromailMethod implements PaymentMethodInterface
     public function getAmount()
     {
         return $this->amount;
+    }
+
+
+    /**
+     * @param string $dineromailTransactionId
+     *
+     * @return $this
+     */
+    public function setDineromailTransactionId($dineromailTransactionId)
+    {
+        $this->dineromailTransactionId = $dineromailTransactionId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDineromailTransactionId()
+    {
+        return $this->dineromailTransactionId;
     }
 
 }

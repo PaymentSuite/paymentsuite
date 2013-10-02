@@ -57,6 +57,8 @@ class DineromailController extends Controller
             throw new PaymentOrderNotFoundException;
         }
 
+        $dineromailTransactionId = $paymentBridge->getOrderId() . '#' . date('Ymdhis');
+        $paymentMethod->setDineromailTransactionId($dineromailTransactionId);
 
         /**
          * Loading success route for returning from dineroMail
@@ -89,12 +91,14 @@ class DineromailController extends Controller
 
         $failRoute = $this->generateUrl($redirectFailUrl, $redirectFailData, true);
 
+        $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
+
         /**
          * Build form
          */
         $formView = $this
             ->get('dineromail.form.type.wrapper')
-            ->buildForm($successRoute, $failRoute)
+            ->buildForm($successRoute, $failRoute, $dineromailTransactionId)
             ->getForm()
             ->createView();
 

@@ -130,12 +130,13 @@ class DineromailTypeWrapper
     /**
      * Builds form given success and fail urls
      * 
-     * @param string $dineromailSuccessUrl Success route url
-     * @param string $dineromailFailUrl    Fail route url
+     * @param string $dineromailSuccessUrl      Success route url
+     * @param string $dineromailFailUrl         Fail route url
+     * @param string $dineromailTransactionId   Transaction Id
      * 
      * @return Form
      */
-    public function buildForm($dineromailSuccessUrl, $dineromailFailUrl)
+    public function buildForm($dineromailSuccessUrl, $dineromailFailUrl, $dineromailTransactionId)
     {
         $extraData = $this->paymentBridge->getExtraData();
         $formBuilder = $this
@@ -176,7 +177,7 @@ class DineromailTypeWrapper
                 'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
             ))
             ->add('transaction_id', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getOrderId() . '#' . date('Ymdhis')
+                'data'  =>  $dineromailTransactionId
             ))
             ->add('currency', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getCurrency(),
