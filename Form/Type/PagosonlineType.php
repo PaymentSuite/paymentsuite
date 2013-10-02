@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class PagosonlineType extends AbstractType
 {
@@ -49,9 +50,9 @@ class PagosonlineType extends AbstractType
         $this->controllerRouteName = $controllerRouteName;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->setAction($this->router->generate($this->controllerRouteName, array(), true))
             ->setMethod('POST')
@@ -84,10 +85,11 @@ class PagosonlineType extends AbstractType
 
             /**
              * Credit card expiration
+             * pagosonline need the values of the select month with this format: 01 02 03...12
              */
             ->add('card_exp_month', 'choice', array(
                 'required' => true,
-                'choices' => array_combine(range(1, 12), range(1, 12)),
+                'choices' => array_combine(array_map(function($v){return str_pad($v, 2, '0', STR_PAD_LEFT);},range(1,12)), range(1, 12)),
             ))
             ->add('card_exp_year', 'choice', array(
                 'required' => true,

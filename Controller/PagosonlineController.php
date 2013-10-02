@@ -28,9 +28,12 @@ class PagosonlineController extends Controller
         $form = $this->get('form.factory')->create('pagosonline_view');
         $form->handleRequest($request);
 
+
         if ($form->isValid()) {
 
             $data = $form->getData();
+
+
             $paymentMethod = new PagosonlineMethod();
             $paymentMethod
                 ->setCardType($data['card_type'])
@@ -42,7 +45,7 @@ class PagosonlineController extends Controller
                 ->setCardQuota($data['card_cuotas'])
                 ->setUserAgent($_SERVER['HTTP_USER_AGENT'])
                 ->setClientIp($this->getRequest()->getClientIp())
-                ->setCookie($this->getRequest()->cookies->get('PHPSESSID'));
+                ->setCookie($paymentMethod->getPaymentName());
             try{
                 $this->get('pagosonline.manager')
                     ->processPayment($paymentMethod, $data['amount']);
@@ -56,17 +59,20 @@ class PagosonlineController extends Controller
                 /**
                  * Must redirect to fail route
                  */
-
                 $redirectUrl = $this->container->getParameter('pagosonline.fail.route');
                 $redirectAppend = $this->container->getParameter('pagosonline.fail.order.append');
                 $redirectAppendField = $this->container->getParameter('pagosonline.fail.order.field');
-
-                throw $e;
             }
 
 
+        } else {
 
-
+            /**
+             * If form is not valid, fail return page
+             */
+            $redirectUrl = $this->container->getParameter('pagosonline.fail.route');
+            $redirectAppend = $this->container->getParameter('pagosonline.fail.order.append');
+            $redirectAppendField = $this->container->getParameter('pagosonline.fail.order.field');
         }
 
         $redirectData   = $redirectAppend
@@ -74,7 +80,6 @@ class PagosonlineController extends Controller
                 $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
             )
             : array();
-
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

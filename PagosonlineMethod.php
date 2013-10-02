@@ -107,8 +107,64 @@ class PagosonlineMethod implements PaymentMethodInterface
      *
      * cookie
      */
-
     private $cookie;
+
+
+    /**
+     * @var string
+     *
+     * pagosonline transactionid
+     */
+    private $pagosonlineTransactionId;
+
+
+    /**
+     * @var string
+     *
+     * pagosonline reference
+     */
+
+    private $pagosonlineReference;
+
+    /**
+     * @param string $pagosonlineTransactionId
+     *
+     * @return $this
+     */
+    public function setPagosonlineTransactionId($pagosonlineTransactionId)
+    {
+        $this->pagosonlineTransactionId = $pagosonlineTransactionId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPagosonlineTransactionId()
+    {
+        return $this->pagosonlineTransactionId;
+    }
+
+    /**
+     * @param string $pagosonlineReference
+     *
+     * @return $this
+     */
+    public function setPagosonlineReference($pagosonlineReference)
+    {
+        $this->pagosonlineReference = $pagosonlineReference;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPagosonlineReference()
+    {
+        return $this->pagosonlineReference;
+    }
 
     /**
      * @param float $amount

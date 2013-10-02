@@ -103,7 +103,6 @@ class PagosonlineManager
     {
         /// first check that amounts are the same
         $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
-
         /**
          * If both amounts are different, execute Exception
          */
@@ -151,29 +150,20 @@ class PagosonlineManager
         $object_ws->validarModuloAntiFraude = true;
         $object_ws->reportarPaginaConfirmacion = false;
         //Antifraude
-        $object_ws->ciudadCorrespondencia = $extraData['language'];
+        $object_ws->ciudadCorrespondencia = $extraData['correspondence_city'];
         $object_ws->cookie = $paymentMethod->getCookie();
         $object_ws->direccionCorrespondencia = $extraData['correspondence_address'];
         $object_ws->ipComprador = $paymentMethod->getClientIp();
-        $object_ws->paisCorrespondencia = 'CO';//$extraData['language'];
+        $object_ws->paisCorrespondencia =  'CO';
         $object_ws->userAgent = $paymentMethod->getUserAgent();
 
         $client = new WSSESoapClient($this->wsdl, $this->userId, $this->password);
 
         $autWS = $client->solicitarAutorizacion($object_ws);
 
-        /* $params = array(
-             'amount'     =>  intval($paymentBridgeAmount),
-             'currency'  =>  $this->paymentBridge->getCurrency(),
-             'token'     =>  $paymentMethod->getApiToken(),
-             'description' => $this->paymentBridge->getOrderDescription(),
-         );
-
-         $transaction = $this
-             ->pagosonlineTransactionWrapper
-             ->create($params);
-        */
-         $this->processTransaction($autWS, $paymentMethod);
+        $paymentMethod->setPagosonlineTransactionId($autWS->transaccionId);
+        $paymentMethod->setPagosonlineReference($autWS->referencia);
+        $this->processTransaction($autWS, $paymentMethod);
 
         return $this;
     }
@@ -183,7 +173,7 @@ class PagosonlineManager
      * Given a paymillTransaction response, as an array, prform desired operations
      *
      * @param array         $autWS
-     * @param PaymillMethod $paymentMethod Payment method
+     * @param PagosonlineMethod $paymentMethod Payment method
      *
      * @return PagosonlineManager Self object
      *
@@ -198,20 +188,26 @@ class PagosonlineManager
          * Paid process has ended ( No matters result )
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
-
         /**
-         * when a transaction is successful, it is marked as 'closed'
+         * if pagosonline return code 15 o 9994 the order status is pendeing
          */
-        if (in_array($autWS->codigoRespuesta, array('15','994','9999'))) {
+        if (in_array($autWS->codigoRespuesta, array('15','9994'))) {
 
             /**
              * Payment paid failed
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
-            //throw new PaymentException;
+
+        } elseif ($autWS->codigoRespuesta == 1) {
+
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+
+        } else {
+
+            throw new PaymentException;
         }
 
 
@@ -227,9 +223,6 @@ class PagosonlineManager
          *
          * Paid process has ended successfully
          */
-        if ($autWS->codigoRespuesta == 1) {
-            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
-        }
 
         return $this;
     }
