@@ -13,7 +13,7 @@ Table of contents
 2. [Install Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
 3. [Create Payment Method](https://gist.github.com/mmoreram/6662484#file-create-platform-md)
 4. [Available Payment Platforms](https://gist.github.com/mmoreram/6813270#file-available-platforms-md)
-5. [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/doc/contribute.md)
+5. [Contribute](https://gist.github.com/mmoreram/6813203#file-contribute-payfony-md)
 
 
 About Payment Suite
