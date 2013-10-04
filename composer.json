@@ -1,0 +1,29 @@
+{
+    "name": "scastells/pagosonline-gateway-bundle",
+    "type": "symfony-bundle",
+    "description": "Pagosonlie gateway Bundle, part of Mmoreram Payment Suite",
+    "keywords": ["pagosonline", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santi Catells",
+            "email": "santi.castells@fancybox.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+
+        "mmoreram/payment-core-bundle": "1.0.1"
+    },
+    "target-dir": "Scastells/PagosonlineGatewayBundle",
+    "autoload": {
+        "psr-0": { "Scastells\\PagosonlineGatewayBundle": "" }
+    }
+}

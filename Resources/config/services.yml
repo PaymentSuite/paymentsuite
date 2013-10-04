@@ -1,0 +1,21 @@
+services:
+
+    pagosonlinegateway.form.type.wrapper:
+        class: %pagosonlinegateway.form.type.wrapper.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+            pagosonlinegateway.user_id: %pagosonlinegateway.user_id%
+            pagosonlinegateway.key: %pagosonlinegateway.key%
+            pagosonlinegateway.test: %pagosonlinegateway.test%
+            pagosonlinegateway.gateway: %pagosonlinegateway.gateway%
+        tags:
+            - { name: form.type, alias: pagosonlinegateway_view }
+
+    dineromail.routes.loader:
+        class: %pagosonlinegateway.routes.loader.class%
+        arguments:
+            pagosonlinegateway.controller.route: %pagosonlinegateway.controller.route%
+            pagosonlinegateway.controller.route.name: %pagosonlinegateway.controller.route.name%
+        tags:
+            - { name: routing.loader }
