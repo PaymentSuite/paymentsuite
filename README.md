@@ -10,7 +10,7 @@ Table of contents
 
 1.  [Installing Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
 2.  [Installing BankWireBundle](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
-3.  [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
+3.  [Contribute](https://gist.github.com/mmoreram/6813203#file-contribute-payfony-md)
 4.  [Configuration](#configuration)
 5.  [Router](#router)
 
