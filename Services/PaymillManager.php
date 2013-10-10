@@ -179,8 +179,8 @@ class PaymillManager
          */
         $paymentMethod
             ->setTransactionId($transaction['id'])
-            ->setTransactionStatus($transaction['status']);
-
+            ->setTransactionStatus($transaction['status'])
+            ->setTransaction($transaction);
 
         /**
          * Payment paid successfully

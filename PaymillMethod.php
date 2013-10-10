@@ -98,6 +98,14 @@ class PaymillMethod implements PaymentMethodInterface
 
 
     /**
+     * @var array
+     *
+     * Transaction
+     */
+    private $transaction;
+
+
+    /**
      * set currency
      * 
      * @param string $currency Currency
@@ -328,6 +336,32 @@ class PaymillMethod implements PaymentMethodInterface
     public function getTransactionStatus()
     {
         return $this->transactionStatus;
+    }
+
+
+    /**
+     * Set Transaction
+     * 
+     * @param array $transaction Transaction
+     * 
+     * @return PaymillMethod self Object
+     */
+    public function setTransaction(array $transaction)
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+
+    /**
+     * Get transaction
+     * 
+     * @return array Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
     }
 
 }
