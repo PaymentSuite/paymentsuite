@@ -1,6 +1,8 @@
 parameters:
 
-    pagosonlinegateway.gateway: "https://gateway.pagosonline.net/apps/gateway/index.html"
-    pagosnlinegateway.controller.route.name: "pagosonlinegateway_execute"
-    pagosnlinegateway.form.type.wrapper.class: "Scastells\\PagosonlineGatewayBundle\\Services\\Wrapper\\PagosonlineGatewayTypeWrapper"
-    pagosnlinegateway.routes.loader.class: "Scastells\\PagosonlineGatewayBundle\\Router\\PagosonlineGatewayRoutesLoader"
+    pagosonline_gateway.gateway: "https://gateway.pagosonline.net/apps/gateway/index.html"
+    pagosonline_gateway.controller.route.name: "pagosonline_gateway_execute"
+    pagosonline_gateway.controller.route.confirmation.name: "pagosonline_gateway_confirmation"
+    pagosonline_gateway.controller.route.response.name: "pagosonline_gateway_response"
+    pagosonline_gateway.form.type.wrapper.class: "Scastells\\PagosonlineGatewayBundle\\Services\\Wrapper\\PagosonlineGatewayTypeWrapper"
+    pagosonline_gateway.routes.loader.class: "Scastells\\PagosonlineGatewayBundle\\Router\\PagosonlineGatewayRoutesLoader"

@@ -1,21 +1,25 @@
 services:
 
-    pagosonlinegateway.form.type.wrapper:
-        class: %pagosonlinegateway.form.type.wrapper.class%
+    pagosonline_gateway.form.type.wrapper:
+        class: %pagosonline_gateway.form.type.wrapper.class%
         arguments:
             form.factory: @form.factory
             payment.bridge: @payment.bridge
-            pagosonlinegateway.user_id: %pagosonlinegateway.user_id%
-            pagosonlinegateway.key: %pagosonlinegateway.key%
-            pagosonlinegateway.test: %pagosonlinegateway.test%
-            pagosonlinegateway.gateway: %pagosonlinegateway.gateway%
+            pagosonline_gateway.user_id: %pagosonline_gateway.user_id%
+            pagosonline_gateway.key: %pagosonline_gateway.key%
+            pagosonline_gateway.test: %pagosonline_gateway.test%
+            pagosonline_gateway.gateway: %pagosonline_gateway.gateway%
         tags:
             - { name: form.type, alias: pagosonlinegateway_view }
 
-    dineromail.routes.loader:
-        class: %pagosonlinegateway.routes.loader.class%
+    pagosonline_gateway.routes.loader:
+        class: %pagosonline_gateway.routes.loader.class%
         arguments:
-            pagosonlinegateway.controller.route: %pagosonlinegateway.controller.route%
-            pagosonlinegateway.controller.route.name: %pagosonlinegateway.controller.route.name%
+            pagosonline_gateway.controller.route: %pagosonline_gateway.controller.route%
+            pagosonline_gateway.controller.route.name: %pagosonline_gateway.controller.route.name%
+            pagosonline_gateway.controller.route.confirmation: %pagosonline_gateway.controller.route.confirmation%
+            pagosonline_gateway.controller.route.confirmation.name: %pagosonline_gateway.controller.route.confirmation.name%
+            pagosonline_gateway.controller.route.response: %pagosonline_gateway.controller.route.response%
+            pagosonline_gateway.controller.route.response.name: %pagosonline_gateway.controller.route.response.name%
         tags:
             - { name: routing.loader }

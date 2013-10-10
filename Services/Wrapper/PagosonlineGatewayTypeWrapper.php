@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * PagosonlineGatewayBundle manager
  */
-class PagosonlineGatewayBundleTypeWrapper
+class PagosonlineGatewayTypeWrapper
 {
 
     /**
@@ -71,6 +71,14 @@ class PagosonlineGatewayBundleTypeWrapper
 
 
     /**
+     * @var string
+     *
+     * url pagosonline gateway response
+     */
+    private $response;
+
+
+    /**
      * Formtype construct method
      *
      * @param FormFactory $formFactory Form factory
@@ -79,14 +87,15 @@ class PagosonlineGatewayBundleTypeWrapper
      * @param $userId user id
      * @param $test test environment
      * @param $gateway url gateway pagosonline
+     * @param $confirmation url confirmation order status
      *
      */
-    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $key, $userId, $test, $gateway)
+    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $userId, $key, $test, $gateway)
     {
         $this->formFactory = $formFactory;
         $this->paymentBridge = $paymentBridge;
-        $this->key = $key;
         $this->userId = $userId;
+        $this->key = $key;
         $this->test = $test;
         $this->gateway = $gateway;
     }
@@ -94,18 +103,26 @@ class PagosonlineGatewayBundleTypeWrapper
 
     /**
      * Builds form given success and fail urls
-     * 
-     * @param string $pagosonlineGatewaySuccessUrl      Success route url
-     * @param string $pagosonlineGatewayFailUrl         Fail route url
      *
      * @return Form
      */
-    public function buildForm($pagosonlineGatewaySuccessUrl, $pagosonlineGatewayFailUrl)
+    public function buildForm($successRoute, $confirmRoute, $failRoute)
     {
+
         $extraData = $this->paymentBridge->getExtraData();
         $formBuilder = $this
             ->formFactory
             ->createNamedBuilder(null);
+
+        //$signature = $this->key.'~'.$this->userId.'~'.$this->paymentBridge->getOrderID().'~'.$this->paymentBridge->getAmount().'~'.$this->paymentBridge->getCurrency();
+        $key = $this->key;
+        $userId = $this->userId;
+        $orderId = $this->paymentBridge->getOrderId() . '#' . date('Ymdhis');
+        $amount = $this->paymentBridge->getAmount();
+        $currency = $this->paymentBridge->getCurrency();
+
+        $signature = "$key~$userId~$orderId~$amount~$currency";
+        $signatureHash = md5($signature);
 
         $formBuilder
             ->setAction($this->gateway)
@@ -114,100 +131,65 @@ class PagosonlineGatewayBundleTypeWrapper
             /**
              * Parameters injected by construct
              */
-            ->add('userId', 'hidden', array(
+            ->add('usuarioId', 'hidden', array(
                 'data'  =>  $this->userId,
             ))
-            ->add('OrderId', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getOrderId(),
+            ->add('firma', 'hidden', array(
+                'data'  =>  $signatureHash,
             ))
-            ->add('seller_name', 'hidden', array(
-                'data'  =>   $this->sellerName,
+            ->add('refVenta', 'hidden', array(
+                'data'  =>  $orderId,
             ))
-            ->add('payment_method_available', 'hidden', array(
-                'data'  =>  implode(';', $this->paymentMethodsAvailable),
+            ->add('extra1', 'hidden', array(
+                'data'  =>  'pagosonlinegateway',
             ))
-            ->add('url_redirect_enabled', 'hidden', array(
-                'data'  =>  intval($this->urlRedirectEnabled),
+            ->add('extra2', 'hidden', array(
+                'data'  => $this->paymentBridge->getOrder()->getCart()->getId(),
             ))
-            ->add('header_image', 'hidden', array(
-                'data'  =>  $this->headerImage,
+            ->add('descripcion', 'hidden', array(
+                'data'  =>  'description',
             ))
-
-
             /**
              * Payment bridge data
              */
-            ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
+            ->add('valor', 'hidden', array(
+                'data'  =>  $this->paymentBridge->getAmount()
             ))
-
-            ->add('currency', 'hidden', array(
+            ->add('moneda', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getCurrency(),
             ))
-
+            ->add('lng', 'hidden', array(
+                'data'  =>  $extraData['language'],
+            ))
+            ->add('iva', 'hidden', array(
+                'data'  =>  $extraData['refund_vat'],
+            ))
+            ->add('baseDevolucionIva', 'hidden', array(
+                'data'  =>  $extraData['refund_vat'],
+            ))
 
             /**
              * Extra data
              */
-            ->add('buyer_name', 'hidden', array(
-                'data'  =>  $extraData['customer_firstname'],
+            ->add('url_respuesta', 'hidden', array(
+                'data'  =>  $failRoute,
             ))
-            ->add('buyer_lastname', 'hidden', array(
-                'data'  =>  $extraData['customer_lastname'],
+            ->add('url_confirmacion', 'hidden', array(
+                'data'  => $confirmRoute,
             ))
-            ->add('buyer_email', 'hidden', array(
+            ->add('prueba', 'hidden', array(
+                'data'  =>  $this->test,
+            ))
+            ->add('emailComprador', 'hidden', array(
                 'data'  =>  $extraData['customer_email'],
             ))
-            ->add('buyer_phone', 'hidden', array(
-                'data'  =>  $extraData['customer_phone'],
+            ->add('paisEnvio', 'hidden', array(
+                'data'  =>  'CO',
             ))
-            ->add('language', 'hidden', array(
-                'data'  =>  $extraData['language'],
+            ->add('Submit', 'hidden', array(
+                'data'  =>  'Pagar',
             ))
-
-
-            /**
-             * Options injected in method
-             */
-            ->add('ok_url', 'hidden', array(
-                'data'  =>  $dineromailSuccessUrl,
-            ))
-            ->add('error_url', 'hidden', array(
-                'data'  =>  $dineromailFailUrl,
-            ))
-            ->add('pending_url', 'hidden', array(
-                'data'  =>  $dineromailSuccessUrl,
-            ));
-
-
-        $iteration = 1;
-
-        /**
-         * Every item defined in the PaymentBridge is added as a simple field
-         */
-        foreach ($extraData['dinero_mail_items'] as $key => $dineroMailItem) {
-
-            $formBuilder
-                ->add('item_name_' . $iteration, 'hidden', array(
-                    'data'  =>  $dineroMailItem['name'],
-                ))
-                ->add('item_quantity_' . $iteration, 'hidden', array(
-                    'data'  =>  $dineroMailItem['quantity'],
-                ))
-
-                /**
-                 * ammount... 
-                 */
-                ->add('item_ammount_' . $iteration, 'hidden', array(
-                    'data'  =>  $dineroMailItem['amount'],
-                ))
-                ->add('item_currency_' . $iteration, 'hidden', array(
-                    'data'  =>  $this->paymentBridge->getCurrency(),
-                ));
-
-            $iteration++;
-        }
-
+            ;
         return $formBuilder;
     }
 

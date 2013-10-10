@@ -1,17 +1,15 @@
 <?php
 
 /**
- * DineromailBundle for Symfony2
+ * PagosonlineGatewayBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
- * @package DineromailBundle
+ * @package PagosonlineGatewayBundle
  *
- * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle\DependencyInjection;
+namespace Scastells\PagosonlineGatewayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -27,7 +25,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pagosonlinegateway');
+        $rootNode = $treeBuilder->root('pagosonline_gateway');
 
         $rootNode
             ->children()
@@ -43,15 +41,14 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
-                ->scalarNode('gateway')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('url_redirect_enabled')
-                    ->defaultTrue()
-                ->end()
                 ->scalarNode('controller_route')
                     ->defaultValue('/payment/pagosonlinegateway/execute')
+                ->end()
+                ->scalarNode('controller_route_confirmation')
+                    ->defaultValue('/payment/pagosonlinegateway/confirmation')
+                ->end()
+                ->scalarNode('controller_route_response')
+                    ->defaultValue('/payment/pagosonlinegateway/response')
                 ->end()
                 ->arrayNode('payment_success')
                     ->children()

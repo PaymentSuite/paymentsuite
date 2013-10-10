@@ -1,25 +1,23 @@
 <?php
 
 /**
- * DineromailBundle for Symfony2
+ * PagosonlineGatewayBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
- * @package DineromailBundle
+ * @package PagosonlineGatewayBundle
  *
- * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle;
+namespace Scastells\PagosonlineGatewayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 
 /**
- * Dineromail payment bundle
+ * PagosonlineGateway payment bundle
  */
-class DineromailBundle extends Bundle
+class PagosonlineGatewayBundle extends Bundle
 {
 
 }

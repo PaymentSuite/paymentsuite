@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle;
+namespace Scastells\PagosonlineGatewayBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 
@@ -19,7 +19,7 @@ use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 /**
  * DineromailMethod class
  */
-class DineromailMethod implements PaymentMethodInterface
+class PagosonlineGatewayMethod implements PaymentMethodInterface
 {
 
     /**
@@ -29,7 +29,7 @@ class DineromailMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'Dineromail';
+        return 'PagosonlineGateway';
     }
 
 
@@ -39,14 +39,6 @@ class DineromailMethod implements PaymentMethodInterface
      * Dineromail amount
      */
     private $amount;
-
-
-    /**
-     * @var string
-     *
-     * dineromail transactionid
-     */
-    private $dineromailTransactionId;
 
 
     /**
@@ -74,25 +66,5 @@ class DineromailMethod implements PaymentMethodInterface
         return $this->amount;
     }
 
-
-    /**
-     * @param string $dineromailTransactionId
-     *
-     * @return $this
-     */
-    public function setDineromailTransactionId($dineromailTransactionId)
-    {
-        $this->dineromailTransactionId = $dineromailTransactionId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDineromailTransactionId()
-    {
-        return $this->dineromailTransactionId;
-    }
 
 }

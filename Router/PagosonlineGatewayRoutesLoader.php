@@ -38,6 +38,37 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
     private $controllerRouteName;
 
 
+    /**
+     * @var string
+     *
+     * Execution controller route confirmation
+     */
+    private $controllerRouteConfirmation;
+
+
+    /**
+     * @var string
+     *
+     * Execution controller route confirmation name
+     */
+    private $controllerRouteConfirmationName;
+
+
+    /**
+     * @var string
+     *
+     * Execution controller route response
+     */
+    private $controllerRouteResponse;
+
+
+    /**
+     * @var string
+     *
+     * Execution controller route  response name
+     */
+    private $controllerRouteResponseName;
+
 
     /**
      * @var boolean
@@ -49,15 +80,22 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
 
     /**
      * Construct method
-     * 
-     * @param string $controllerRoute            Controller route
-     * @param string $controllerRouteName        Controller route name
      *
+     * @param string $controllerRoute Controller route
+     * @param string $controllerRouteName Controller route name
+     * @param $controllerRouteConfirmation Controller route
+     * @param $controllerRouteConfirmationName Controller route name
+     * @param $controllerRouteResponse Controller route
+     * @param $controllerRouteResponseName Controller route name
      */
-    public function __construct($controllerRoute, $controllerRouteName)
+    public function __construct($controllerRoute, $controllerRouteName, $controllerRouteConfirmation, $controllerRouteConfirmationName, $controllerRouteResponse, $controllerRouteResponseName)
     {
         $this->controllerRoute = $controllerRoute;
         $this->controllerRouteName = $controllerRouteName;
+        $this->controllerRouteConfirmation = $controllerRouteConfirmation;
+        $this->controllerRouteConfirmationName = $controllerRouteConfirmationName;
+        $this->controllerRouteResponse = $controllerRouteResponse;
+        $this->controllerRouteResponseName = $controllerRouteResponseName;
     }
 
 
@@ -81,9 +119,16 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
-                '_controller'   =>  'PagosonlineGatewayBundle:Dineromail:execute',
+                '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:execute',
         )));
 
+        $routes->add($this->controllerRouteConfirmationName, new Route($this->controllerRouteConfirmation, array(
+            '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:confirmation',
+        )));
+
+        $routes->add($this->controllerRouteResponseName, new Route($this->controllerRouteResponse, array(
+            '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:response',
+        )));
         $this->loaded = true;
 
         return $routes;
@@ -100,7 +145,7 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'pagosonlinegateway' === $type;
+        return 'pagosonline_gateway' === $type;
     }
 
 
