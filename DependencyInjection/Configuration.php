@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('payment_core');
+        $treeBuilder->root('payment_core');
 
         return $treeBuilder;
     }

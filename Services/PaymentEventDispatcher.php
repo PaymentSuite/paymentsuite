@@ -15,7 +15,6 @@ namespace Mmoreram\PaymentCoreBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
