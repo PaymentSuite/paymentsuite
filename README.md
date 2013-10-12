@@ -5,6 +5,7 @@ Payment Suite for Symfony
 [![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/still-maintained.png)]()
 [![Build Status](https://travis-ci.org/mmoreram/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymentCoreBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/badges/quality-score.png?s=0be5ab01885ab241a3b5a871dbc1164c5bcb75b2)](https://scrutinizer-ci.com/g/mmoreram/PaymentCoreBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d/mini.png)](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d)
 
 Table of contents
 =====
