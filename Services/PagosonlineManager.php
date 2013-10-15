@@ -199,17 +199,11 @@ class PagosonlineManager
 
         $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction', get_object_vars($autWS));
         /**
-         * if pagosonline return code 15 o 9994 the order status is pendeing
+         * if pagosonline return code 15 o 9994 the order status is pending
          */
         if (in_array($autWS->codigoRespuesta, array('15','9994'))) {
 
-            /**
-             * Payment paid failed
-             *
-             * Paid process has ended failed
-             */
-            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
-
+            //payment is still pending nothing to do
 
         } elseif ($autWS->codigoRespuesta == 1) {
 
@@ -217,6 +211,7 @@ class PagosonlineManager
 
         } else {
 
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
             throw new PaymentException;
         }
 
