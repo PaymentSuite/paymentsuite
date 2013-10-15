@@ -18,6 +18,7 @@ services:
                 pagosonline.password: %pagosonline.password%
                 pagosonline.account_id: %pagosonline.account_id%
                 pagosonline.wsdl_url: %pagosonline.wsdl_url%
+                logger: @logger
 
     pagosonline.twig.extension:
         class: %pagosonline.twig.extension.class%

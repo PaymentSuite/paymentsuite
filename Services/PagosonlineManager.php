@@ -65,6 +65,11 @@ class PagosonlineManager
      */
     private $accountId;
 
+    /**
+     * @var logger
+     *
+     */
+    private $logger;
 
     /**
      * Construct method for pagosonline manager
@@ -75,8 +80,9 @@ class PagosonlineManager
      * @param $wsdl
      * @param $password
      * @param $accountId
+     * @param $logger
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $userId, $password, $accountId, $wsdl)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $userId, $password, $accountId, $wsdl, $logger)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
@@ -84,6 +90,7 @@ class PagosonlineManager
         $this->password = $password;
         $this->accountId = $accountId;
         $this->wsdl = $wsdl;
+        $this->logger = $logger;
     }
 
 
@@ -160,6 +167,7 @@ class PagosonlineManager
         $client = new WSSESoapClient($this->wsdl, $this->userId, $this->password);
 
         $autWS = $client->solicitarAutorizacion($object_ws);
+        $this->logger->addInfo($paymentMethod->getPaymentName(), get_object_vars($object_ws));
 
         $paymentMethod->setPagosonlineTransactionId($autWS->transaccionId);
         $paymentMethod->setPagosonlineReference($autWS->referencia);
@@ -188,6 +196,8 @@ class PagosonlineManager
          * Paid process has ended ( No matters result )
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+
+        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction', get_object_vars($autWS));
         /**
          * if pagosonline return code 15 o 9994 the order status is pendeing
          */
@@ -210,20 +220,9 @@ class PagosonlineManager
             throw new PaymentException;
         }
 
-
         /**
-         * Adding to PaymentMethod transaction information
-         *
-         * This information is only available in PaymentOrderSuccess event
+         * Log the response of gateway
          */
-        //set transaction id
-
-        /**
-         * Payment paid successfully
-         *
-         * Paid process has ended successfully
-         */
-
         return $this;
     }
 }
