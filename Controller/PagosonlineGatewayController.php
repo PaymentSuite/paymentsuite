@@ -112,16 +112,15 @@ class PagosonlineGatewayController extends Controller
      */
     public function confirmationAction(Request $request)
     {
-        //$request->request
-        $signature = $request->query->get('firma');
-        $status_pol = $request->query->get('estado_pol');
-        $currency = $request->query->get('moneda');
-        $value = $request->query->get('valor');
-        $orderRef = $request->query->get('ref_venta');
-        $userId = $request->query->get('usuario_id');
+        $signature = $request->request->get('firma');
+        $status_pol = $request->request->get('estado_pol');
+        $currency = $request->request->get('moneda');
+        $value = $request->request->get('valor');
+        $orderRef = $request->request->get('ref_venta');
+        $userId = $request->request->get('usuario_id');
         $key = $this->container->getParameter('pagosonline_gateway.key');
         $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$status_pol);
-        $referencePol = $request->query->get('ref_pol');
+        $referencePol = $request->request->get('ref_pol');
 
         $paymentBridge = $this->get('payment.bridge');
 
