@@ -14,9 +14,12 @@ namespace Scastells\PagosonlineGatewayBundle\Controller;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Scastells\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -71,36 +74,27 @@ class PagosonlineGatewayController extends Controller
 
         $successRoute = $this->generateUrl($redirectSuccessUrl, $redirectSuccessData, true);
 
-
-        /**
-         * Loading fail route for returning from pagosonline_gateway
-         */
-        $redirectFailUrl = $this->container->getParameter('pagosonline_gateway.fail.route');
-        $redirectFailAppend = $this->container->getParameter('pagosonline_gateway.fail.order.append');
-        $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
-
-        $redirectFailData    = $redirectFailAppend
-                                ? array(
-                                    $redirectFailAppendField => $this->get('payment.bridge')->getOrderId(),
-                                )
-                                : array();
-
-        $failRoute = $this->generateUrl($redirectFailUrl, $redirectFailData, true);
-
+        $paymentMethod->setReference($paymentBridge->getOrderId() . '#' . date('Ymdhis'));
         $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 
+        /*
+         * url send to pagosonline
+         */
         $redirectResponseUrl = $this->container->getParameter('pagosonline_gateway.controller.route.response.name');
 
         $responseRoute = $this->generateUrl($redirectResponseUrl, array(), true);
+
+        $redirectConfirmUrl = $this->container->getParameter('pagosonline_gateway.controller.route.confirmation.name');
+
+        $confirmRoute = $this->generateUrl($redirectConfirmUrl, array(), true);
         /**
          * Build form
          */
         $formView = $this
             ->get('pagosonline_gateway.form.type.wrapper')
-            ->buildForm($successRoute, $responseRoute, $failRoute)
+            ->buildForm($responseRoute, $confirmRoute)
             ->getForm($successRoute)
             ->createView();
-
         return array(
 
             'pagosonline_gateway_form' => $formView,
@@ -115,47 +109,59 @@ class PagosonlineGatewayController extends Controller
      *
      * @return RedirectResponse
      *
-     * @Template()
      */
     public function confirmationAction(Request $request)
     {
-        $signature = $request->request->get('firma');
-        $status_pol = $request->request->get('estado_pol');
-        $currency = $request->request->get('moneda');
-        $value = $request->request->get('valor');
-        $orderId = $request->request->get('ref_venta');
-        $userId = $request->request->get('usuario_id');
+        //$request->request
+        $signature = $request->query->get('firma');
+        $status_pol = $request->query->get('estado_pol');
+        $currency = $request->query->get('moneda');
+        $value = $request->query->get('valor');
+        $orderRef = $request->query->get('ref_venta');
+        $userId = $request->query->get('usuario_id');
         $key = $this->container->getParameter('pagosonline_gateway.key');
-        $signatureHash = md5($key.'~'.$userId.'~'.$orderId.'~'.$value.'~'.$currency.'~'.$status_pol);
+        $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$status_pol);
+        $referencePol = $request->query->get('ref_pol');
 
         $paymentBridge = $this->get('payment.bridge');
-        $paymentMethod = new PagosonlineGatewayMethod();
 
+        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')->find($orderRef);
+        $trans->getOrder()->getId();
+
+        //save values
+        $paymentMethod = new PagosonlineGatewayMethod();
+        $paymentMethod->setPagosonlineGatewayTransactionId($referencePol);
+        $paymentMethod->setPagosonlineGatewayReference($referencePol);
+        $paymentMethod->setReference($orderRef);
+        $paymentMethod->setStatus($status_pol);
+        $order = $paymentBridge->findOrder($trans->getOrder()->getId());
+        $paymentBridge->setOrder($order);
         if (strtoupper($signatureHash) == $signature) {
             if ($status_pol == 4) {
-
-                $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccessEvent($paymentBridge, $paymentMethod);
+                $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
             } elseif ($status_pol == 5 || $status_pol == 6) {
-
-                $this->get('payment.event.dispatcher')->notifyPaymentOrderFailEvent($paymentBridge, $paymentMethod);
+                $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             }
         }
-
+        return new Response();
     }
 
     /**
-     * Payment reponse
+     * Payment response
      *
      * @param Request $request Request element
      *
      * @return RedirectResponse
      *
-     * @Template()
      */
     public function responseAction(Request $request)
     {
-        $status_pol = $request->request->get('estado_pol');
+
+        $status_pol = $request->get('estado_pol');
+        $orderRef = $request->get('ref_venta');
+        $order = explode('#',$orderRef);
+        $orderId = $order[0];
 
         if($status_pol == 5 || $status_pol == 6) { //canceled OR rejected
 
@@ -164,7 +170,7 @@ class PagosonlineGatewayController extends Controller
             $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
             $redirectData    = $redirectFailAppend
                 ? array(
-                    $redirectFailAppendField => $this->get('payment.bridge')->getOrderId(),
+                    $redirectFailAppendField => $orderId,
                 )
                 : array();
 
@@ -176,7 +182,7 @@ class PagosonlineGatewayController extends Controller
 
             $redirectData    = $redirectSuccessAppend
                 ? array(
-                    $redirectSuccessAppendField => $this->get('payment.bridge')->getOrderId(),
+                    $redirectSuccessAppendField => $orderId,
                 )
                 : array();
         }

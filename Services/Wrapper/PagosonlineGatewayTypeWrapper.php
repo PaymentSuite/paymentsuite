@@ -106,7 +106,7 @@ class PagosonlineGatewayTypeWrapper
      *
      * @return Form
      */
-    public function buildForm($successRoute, $confirmRoute, $failRoute)
+    public function buildForm($responseRoute, $confirmRoute)
     {
 
         $extraData = $this->paymentBridge->getExtraData();
@@ -172,7 +172,7 @@ class PagosonlineGatewayTypeWrapper
              * Extra data
              */
             ->add('url_respuesta', 'hidden', array(
-                'data'  =>  $failRoute,
+                'data'  =>  $responseRoute,
             ))
             ->add('url_confirmacion', 'hidden', array(
                 'data'  => $confirmRoute,
