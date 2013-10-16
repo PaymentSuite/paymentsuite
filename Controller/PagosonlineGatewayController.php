@@ -124,8 +124,8 @@ class PagosonlineGatewayController extends Controller
 
         $paymentBridge = $this->get('payment.bridge');
 
-        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')->find($orderRef);
-        $trans->getOrder()->getId();
+        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
+                ->findBy(array('reference' => $orderRef));
 
         //save values
         $paymentMethod = new PagosonlineGatewayMethod();
@@ -135,11 +135,17 @@ class PagosonlineGatewayController extends Controller
         $paymentMethod->setStatus($status_pol);
         $order = $paymentBridge->findOrder($trans->getOrder()->getId());
         $paymentBridge->setOrder($order);
+
+        $polStates = array(4,7,12,10,14,15);
+
         if (strtoupper($signatureHash) == $signature) {
-            if ($status_pol == 4) {
+            
+            if (in_array($status_pol, $polStates)) {
+                
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
-            } elseif ($status_pol == 5 || $status_pol == 6) {
+            } else {
+                
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             }
         }
@@ -157,23 +163,15 @@ class PagosonlineGatewayController extends Controller
     public function responseAction(Request $request)
     {
 
-        $status_pol = $request->get('estado_pol');
-        $orderRef = $request->get('ref_venta');
-        $order = explode('#',$orderRef);
-        $orderId = $order[0];
+        $status_pol = $request->query->get('estado_pol');
+        $orderRef = $request->query->get('ref_venta');
+                
+        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
+                ->findBy(array('reference' => $orderRef));
 
-        if($status_pol == 5 || $status_pol == 6) { //canceled OR rejected
+        $polStates = array(4,7,12,10,14,15);
 
-            $redirectUrl = $this->container->getParameter('pagosonline_gateway.fail.route');
-            $redirectFailAppend = $this->container->getParameter('pagosonline_gateway.fail.order.append');
-            $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
-            $redirectData    = $redirectFailAppend
-                ? array(
-                    $redirectFailAppendField => $orderId,
-                )
-                : array();
-
-        } elseif($status_pol ==  4) {
+        if (in_array($status_pol, $polStates)) {
 
             $redirectUrl = $this->container->getParameter('pagosonline_gateway.success.route');
             $redirectSuccessAppend = $this->container->getParameter('pagosonline_gateway.success.order.append');
@@ -181,7 +179,17 @@ class PagosonlineGatewayController extends Controller
 
             $redirectData    = $redirectSuccessAppend
                 ? array(
-                    $redirectSuccessAppendField => $orderId,
+                    $redirectSuccessAppendField => $trans[0]->getOrder()->getId(),
+                )
+                : array();
+        } else {
+
+            $redirectUrl = $this->container->getParameter('pagosonline_gateway.fail.route');
+            $redirectFailAppend = $this->container->getParameter('pagosonline_gateway.fail.order.append');
+            $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
+            $redirectData    = $redirectFailAppend
+                ? array(
+                    $redirectFailAppendField => $trans[0]->getOrder()->getId(),
                 )
                 : array();
         }
