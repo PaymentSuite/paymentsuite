@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Scastells\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
 use Symfony\Component\HttpFoundation\Response;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * PagosonlineGatewayController
@@ -108,6 +108,8 @@ class PagosonlineGatewayController extends Controller
      * @param Request $request Request element
      *
      * @return RedirectResponse
+     *
+     * @Route(schemes={"http"})
      *
      */
     public function confirmationAction(Request $request)
