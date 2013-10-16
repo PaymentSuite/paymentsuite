@@ -127,8 +127,7 @@ class PagosonlineGatewayController extends Controller
         $paymentBridge = $this->get('payment.bridge');
 
         $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
-                ->findBy(array('reference' => $orderRef));
-
+                ->findOneBy(array('reference' => $orderRef));
         //save values
         $paymentMethod = new PagosonlineGatewayMethod();
         $paymentMethod->setPagosonlineGatewayTransactionId($referencePol);
@@ -169,7 +168,7 @@ class PagosonlineGatewayController extends Controller
         $orderRef = $request->query->get('ref_venta');
                 
         $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
-                ->findBy(array('reference' => $orderRef));
+                ->findOneBy(array('reference' => $orderRef));
 
         $polStates = array(4,7,12,10,14,15);
 
@@ -181,7 +180,7 @@ class PagosonlineGatewayController extends Controller
 
             $redirectData    = $redirectSuccessAppend
                 ? array(
-                    $redirectSuccessAppendField => $trans[0]->getOrder()->getId(),
+                    $redirectSuccessAppendField => $trans->getOrder()->getId(),
                 )
                 : array();
         } else {
@@ -191,7 +190,7 @@ class PagosonlineGatewayController extends Controller
             $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
             $redirectData    = $redirectFailAppend
                 ? array(
-                    $redirectFailAppendField => $trans[0]->getOrder()->getId(),
+                    $redirectFailAppendField => $trans->getOrder()->getId(),
                 )
                 : array();
         }
