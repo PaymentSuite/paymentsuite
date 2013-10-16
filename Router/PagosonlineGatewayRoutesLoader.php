@@ -123,8 +123,8 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
         )));
 
         $routes->add($this->controllerRouteConfirmationName, new Route($this->controllerRouteConfirmation, array(
-            '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:confirmation',
-        )));
+            '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:confirmation'
+        ), array(), array(), '', array('http')));
 
         $routes->add($this->controllerRouteResponseName, new Route($this->controllerRouteResponse, array(
             '_controller'   =>  'PagosonlineGatewayBundle:PagosonlineGateway:response',
