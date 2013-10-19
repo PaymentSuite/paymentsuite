@@ -97,7 +97,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var PaymentBridgeInterface
-     * 
+     *
      * Payment bridge object
      */
     private $paymentBridgeInterface;
@@ -194,8 +194,10 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymentBridge
             ->expects($this->once())
-            ->method('getOrderDescription')
-            ->will($this->returnValue(self::CART_DESCRIPTION));
+            ->method('getExtraData')
+            ->will($this->returnValue(array(
+                'order_description' =>  self::CART_DESCRIPTION
+            )));
 
         $postValues = array(
             "x_login"			=> self::LOGIN_ID,
@@ -317,8 +319,10 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->paymentBridge
             ->expects($this->once())
-            ->method('getOrderDescription')
-            ->will($this->returnValue(self::CART_DESCRIPTION));
+            ->method('getExtraData')
+            ->will($this->returnValue(array(
+                'order_description' =>  self::CART_DESCRIPTION
+            )));
 
         $postValues = array(
             "x_login"			=> self::LOGIN_ID,

@@ -132,6 +132,7 @@ class AuthorizenetManager
          * Validate the order in the module
          * params for authorizenet interaction
          */
+        $extraData = $this->paymentBridge->getExtraData();
         $postValues = array(
             "x_login"			=> $this->loginId,
             "x_tran_key"		=> $this->tranKey,
@@ -147,7 +148,7 @@ class AuthorizenetManager
             "x_exp_date"		=> $paymentMethod->getCreditCartExpirationMonth().$paymentMethod->getCreditCartExpirationYear(),
 
             "x_amount"			=> $cartAmount,
-            "x_description"		=> $this->paymentBridge->getOrderDescription(),
+            "x_description"		=> $extraData['order_description'],
         );
 
         $this->chargeParams = $this->convertPostValues($postValues);
