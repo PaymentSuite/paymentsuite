@@ -1,0 +1,7 @@
+parameters:
+
+    banwire.controller.route.name: "banwire_execute"
+    banwire.form.type.class: "Scastells\\BanwireBundle\\Form\\Type\\BanwireType"
+    banwire.manager.class: "Scastells\\BanwireBundle\\Services\\BanwireManager"
+    banwire.twig.extension.class: "Scastells\\BanwireBundle\\Twig\\BanwireExtension"
+    banwire.routes.loader.class: "Scastells\\BanwireBundle\\Router\\BanwireRoutesLoader"

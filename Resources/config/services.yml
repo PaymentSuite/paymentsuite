@@ -1,0 +1,35 @@
+services:
+
+    banwire.form.type:
+        class: %banwire.form.type.class%
+        arguments:
+            router: @router
+            payment.bridge: @payment.bridge
+            banwire.controller.route.name: %banwire.controller.route.name%
+        tags:
+            - { name: form.type, alias: banwire_view }
+
+    banwire.manager:
+            class: %banwire.manager.class%
+            arguments:
+                payment.event.dispatcher: @payment.event.dispatcher
+                payment.bridge: @payment.bridge
+                banwire.user: %banwire.user%
+                banwire.api: %banwire.api%
+                logger: @logger
+
+    banwire.twig.extension:
+        class: %banwire.twig.extension.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: twig.extension }
+
+    banwire.routes.loader:
+        class: %banwire.routes.loader.class%
+        arguments:
+          banwire.controller.route.name: %banwire.controller.route.name%
+          banwire.controller.route: %banwire.controller.route%
+        tags:
+            - { name: routing.loader }
