@@ -55,7 +55,7 @@ class BanwireManager
     private $logger;
 
     /**
-     * Construct method for pagosonline manager
+     * Construct method for banwire manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
