@@ -94,6 +94,13 @@ class BankwireManager
          */
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
 
+        /**
+         * Payment paid done
+         *
+         * Paid process has ended ( No matters result )
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
+        
         return $this;
     }
 
@@ -121,13 +128,6 @@ class BankwireManager
 
             throw new PaymentOrderNotFoundException;
         }
-
-        /**
-         * Payment paid done
-         *
-         * Paid process has ended ( No matters result )
-         */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
         /**
          * Payment paid successfully
