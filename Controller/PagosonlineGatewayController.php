@@ -135,11 +135,10 @@ class PagosonlineGatewayController extends Controller
         $order = $paymentBridge->findOrder($trans->getOrder()->getId());
         $paymentBridge->setOrder($order);
 
-        $polStates = array(4,7,12,10,14,15);
 
         if (strtoupper($signatureHash) == $signature) {
             
-            if (in_array($status_pol, $polStates)) {
+            if ($status_pol == 4) {
                 
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
