@@ -112,6 +112,9 @@ class PagosonlineGatewayController extends Controller
      */
     public function confirmationAction(Request $request)
     {
+        $paymentMethod = new PagosonlineGatewayMethod();
+        $paymentBridge = $this->get('payment.bridge');
+
         $signature = $request->request->get('firma');
         $status_pol = $request->request->get('estado_pol');
         $currency = $request->request->get('moneda');
@@ -122,12 +125,24 @@ class PagosonlineGatewayController extends Controller
         $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$status_pol);
         $referencePol = $request->request->get('ref_pol');
 
-        $paymentBridge = $this->get('payment.bridge');
+        $infoLog = array(
+            'firma'         => $signature,
+            'estado_pol'    => $status_pol,
+            'moneda'        => $currency,
+            'valor'         => $value,
+            'ref_venda'     => $orderRef,
+            'usuario_id'    => $userId,
+            'hash'          => $signatureHash,
+            'ref_pol'       => $referencePol,
+            'action'        => 'confirmationAction'
+        );
+
+        $this->get('logger')->addInfo($paymentMethod->getPaymentName(), $infoLog);
 
         $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
                 ->findOneBy(array('reference' => $orderRef));
         //save values
-        $paymentMethod = new PagosonlineGatewayMethod();
+
         $paymentMethod->setPagosonlineGatewayTransactionId($referencePol);
         $paymentMethod->setPagosonlineGatewayReference($referencePol);
         $paymentMethod->setReference($orderRef);
@@ -136,7 +151,7 @@ class PagosonlineGatewayController extends Controller
         $paymentBridge->setOrder($order);
 
 
-        if (strtoupper($signatureHash) == $signature) {
+       if (strtoupper($signatureHash) == $signature) {
             
             if ($status_pol == 4) {
                 
@@ -146,7 +161,7 @@ class PagosonlineGatewayController extends Controller
                 
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             }
-        }
+       }
         return new Response();
     }
 
