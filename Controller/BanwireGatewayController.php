@@ -177,7 +177,20 @@ class BanwireGatewayController extends controller
                     )
                     : array();
             }
-            return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+
+        } else {
+
+            $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
+
+            $redirectUrl = $this->container->getParameter('banwire_gateway.fail.route');
+            $redirectFailAppend = $this->container->getParameter('banwire_gateway.fail.order.append');
+            $redirectFailAppendField = $this->container->getParameter('banwire_gateway.fail.order.field');
+            $redirectData    = $redirectFailAppend
+                ? array(
+                    $redirectFailAppendField => $trans->getOrder()->getId(),
+                )
+                : array();
         }
+        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }
