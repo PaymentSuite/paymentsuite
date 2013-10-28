@@ -87,7 +87,6 @@ class PagosonlineGatewayTypeWrapper
      * @param $userId user id
      * @param $test test environment
      * @param $gateway url gateway pagosonline
-     * @param $confirmation url confirmation order status
      *
      */
     public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $userId, $key, $test, $gateway)
