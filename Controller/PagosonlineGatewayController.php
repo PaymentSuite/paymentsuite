@@ -182,9 +182,7 @@ class PagosonlineGatewayController extends Controller
         $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
                 ->findOneBy(array('reference' => $orderRef));
 
-        $polStates = array(4,7,12,10,14,15);
-
-        if (in_array($status_pol, $polStates)) {
+        if ($status_pol == 4) {
 
             $redirectUrl = $this->container->getParameter('pagosonline_gateway.success.route');
             $redirectSuccessAppend = $this->container->getParameter('pagosonline_gateway.success.order.append');
