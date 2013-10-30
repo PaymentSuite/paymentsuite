@@ -71,8 +71,6 @@ class PaymillController extends Controller
                 $redirectUrl = $this->container->getParameter('paymill.fail.route');
                 $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
                 $redirectAppendField = $this->container->getParameter('paymill.fail.order.field');
-
-                throw $e;
             }
         } else {
 
