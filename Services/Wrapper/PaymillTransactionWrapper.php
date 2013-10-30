@@ -13,7 +13,9 @@
 
 namespace Mmoreram\PaymillBundle\Services\Wrapper;
 
-use Services_Paymill_Transactions;
+use Paymill\Request;
+use Paymill\Models\Request\Transaction;
+use Paymill\Services\PaymillException;
 
 /**
  * Paymill transaction wrapper
@@ -22,11 +24,9 @@ class PaymillTransactionWrapper
 {
 
     /**
-     * @var Services_Paymill_Transactions
-     * 
-     * Paymill Transaction
+     * @var string Paymill private API key
      */
-    private $paymillTransaction;
+    private $apiKey;
 
 
     /**
@@ -37,24 +37,34 @@ class PaymillTransactionWrapper
      */
     public function __construct($privateKey, $apiEndpoint)
     {
-        $this->paymillTransaction = new Services_Paymill_Transactions(
-            $privateKey,
-            $apiEndpoint
-        );
+        $this->apiKey = $privateKey;
     }
 
 
     /**
      * Create new Transaction with a set of params
-     * 
-     * @param array $params Set of params
-     * 
-     * @return array Result of transaction
+     *
+     * @param $amount      amount as int (ex: 4200 for 42.00)
+     * @param $currency    currency code (EUR, USD...)
+     * @param $token       transaction token
+     * @param $description transaction description (optional, default "")
+     *
+     * @return mixed
+     *
+     * @throws PaymillException if transaction creation fails
      */
-    public function create(array $params)
+    public function create($amount, $currency, $token, $description = "")
     {
-        return $this
-            ->paymillTransaction
-            ->create($params);
+        $service = new Request($this->apiKey);
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)
+            ->setCurrency($currency)
+            ->setToken($token)
+            ->setDescription($description);
+
+        $response = $service->create($transaction);
+
+        //response here has to be a Transaction object
+        return $response;
     }
 }

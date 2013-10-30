@@ -20,6 +20,8 @@ use Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymillBundle\PaymillMethod;
+use Paymill\Models\Response\Transaction;
+use Paymill\Services\PaymillException;
 use Services_Paymill_Transactions;
 
 /**
@@ -30,7 +32,7 @@ class PaymillManager
 
     /**
      * @var PaymentEventDispatcher
-     * 
+     *
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
@@ -95,7 +97,7 @@ class PaymillManager
 
         /**
          * At this point, order must be created given a card, and placed in PaymentBridge
-         * 
+         *
          * So, $this->paymentBridge->getOrder() must return an object
          */
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
@@ -126,9 +128,16 @@ class PaymillManager
             'description' => $extraData['order_description'],
         );
 
-        $transaction = $this
-            ->paymillTransactionWrapper
-            ->create($params);
+        try {
+            $transaction = $this
+                ->paymillTransactionWrapper
+                ->create($params['amount'], $params['currency'], $params['token'], $params['description']);
+        } catch (PaymillException $e) {
+            //create 'failed' transaction
+            $transaction = new Transaction();
+            $transaction->setStatus('failed');
+            $transaction->setDescription($e->getCode().' '.$e->getMessage());
+        }
 
         $this->processTransaction($transaction, $paymentMethod);
 
@@ -138,15 +147,15 @@ class PaymillManager
 
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
-     * 
-     * @param array         $transaction   Transaction
-     * @param PaymillMethod $paymentMethod Payment method
+     *
+     * @param Paymill\Models\Response\Transaction   $transaction   Transaction
+     * @param PaymillMethod                         $paymentMethod Payment method
      *
      * @return PaymillManager Self object
-     * 
+     *
      * @throws PaymentException
      */
-    private function processTransaction(array $transaction, PaymillMethod $paymentMethod)
+    private function processTransaction(Transaction $transaction, PaymillMethod $paymentMethod)
     {
 
         /**
@@ -159,13 +168,15 @@ class PaymillManager
         /**
          * when a transaction is successful, it is marked as 'closed'
          */
-        if (empty($transaction['status']) || $transaction['status'] != 'closed') {
+        $transactionStatus = $transaction->getStatus();
+        if (empty($transactionStatus) || $transactionStatus != 'closed') {
 
             /**
              * Payment paid failed
              *
              * Paid process has ended failed
              */
+            $paymentMethod->setTransaction($transaction);
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
             throw new PaymentException;
@@ -174,12 +185,12 @@ class PaymillManager
 
         /**
          * Adding to PaymentMethod transaction information
-         * 
+         *
          * This information is only available in PaymentOrderSuccess event
          */
         $paymentMethod
-            ->setTransactionId($transaction['id'])
-            ->setTransactionStatus($transaction['status'])
+            ->setTransactionId($transaction->getId())
+            ->setTransactionStatus($transactionStatus)
             ->setTransaction($transaction);
 
         /**
