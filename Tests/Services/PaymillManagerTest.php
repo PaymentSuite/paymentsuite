@@ -93,6 +93,14 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @var Transaction class
+     *
+     * Paymill Transaction response class
+     */
+    private $paymillResponseTransaction;
+
+
+    /**
      * Setup method
      */
     public function setUp()
@@ -106,7 +114,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this->paymillTransactionWrapper = $this
             ->getMockBuilder('Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock();           
 
         $this->paymentEventDispatcher = $this
             ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher')
@@ -115,6 +123,11 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->paymillMethod = $this
             ->getMockBuilder('Mmoreram\PaymillBundle\PaymillMethod')
+            ->disableOriginalConstructor()
+            ->getMock(); 
+
+        $this->paymillResponseTransaction = $this
+            ->getMockBuilder('Paymill\Models\Response\Transaction')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -222,20 +235,22 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
                 'order_description' =>  self::ORDER_DESCRIPTION
             )));
 
+        $this->paymillResponseTransaction
+            ->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue('failed'));
+
         $this
             ->paymillTransactionWrapper
             ->expects($this->once())
             ->method('create')
-            ->with($this->equalTo(array(
-                'amount' => self::ORDER_AMOUNT * 100,
-                'currency' => self::CURRENCY,
-                'token' => self::API_TOKEN,
-                'description' => self::ORDER_DESCRIPTION
-            )))
-            ->will($this->returnValue(array(
-                'status'    =>  'something_different_to_closed',
-                'id'        =>  '123'
-            )));
+            ->with(
+                $this->equalTo(self::ORDER_AMOUNT * 100), 
+                $this->equalTo(self::CURRENCY), 
+                $this->equalTo(self::API_TOKEN), 
+                $this->equalTo(self::ORDER_DESCRIPTION)
+            )
+            ->will($this->returnValue($this->paymillResponseTransaction));
 
         $this
             ->paymentEventDispatcher
@@ -322,20 +337,28 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
                 'order_description' =>  self::ORDER_DESCRIPTION
             )));
 
+
+        $this->paymillResponseTransaction
+            ->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue('closed'));
+
+        $this->paymillResponseTransaction
+            ->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(123));
+
         $this
             ->paymillTransactionWrapper
             ->expects($this->once())
             ->method('create')
-            ->with($this->equalTo(array(
-                'amount' => self::ORDER_AMOUNT * 100,
-                'currency' => self::CURRENCY,
-                'token' => self::API_TOKEN,
-                'description' => self::ORDER_DESCRIPTION
-            )))
-            ->will($this->returnValue(array(
-                'status'    =>  'closed',
-                'id'        =>  '123'
-            )));
+            ->with(
+                $this->equalTo(self::ORDER_AMOUNT * 100), 
+                $this->equalTo(self::CURRENCY), 
+                $this->equalTo(self::API_TOKEN), 
+                $this->equalTo(self::ORDER_DESCRIPTION)
+            )
+            ->will($this->returnValue($this->paymillResponseTransaction));
 
          $this
             ->paymentEventDispatcher
