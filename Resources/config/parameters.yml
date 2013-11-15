@@ -1,0 +1,7 @@
+parameters:
+
+    safetypay.controller.route.name: "safetypay_execute"
+    safetypay.controller.route.success.name: "safetypay_success"
+    safetypay.controller.route.fail.name: "safetypay_fail"
+    safetypay.routes.loader.class: "Scastells\\SafetypayBundle\\Router\\SafetypayRoutesLoader"
+    safetypay.manager.class: "Scastells\\SafetypayBundle\\Services\\SafetypayManager"

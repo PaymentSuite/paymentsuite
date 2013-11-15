@@ -1,0 +1,32 @@
+services:
+
+    safetypay.form.type.wrapper:
+        class: %safetypay.form.type.wrapper.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+            key: %safetypay.key%
+            signature: %safetypay.signature%
+            signature: %safetypay.signature%
+
+        tags:
+            - { name: form.type, alias: safetypay_view }
+
+    safetypay.routes.loader:
+        class: %safetypay.routes.loader.class%
+        arguments:
+            safetypay.controller.route: %safetypay.controller.route%
+            safetypay.controller.route.name: %safetypay.controller.route.name%
+            safetypay.controller.route.success: %safetypay.controller.route.success%
+            safetypay.controller.route.success.name: %safetypay.controller.route.success.name%
+            safetypay.controller.route.fail: %safetypay.controller.route.fail%
+            safetypay.controller.route.fail.name: %safetypay.controller.route.fail.name%
+
+        tags:
+            - { name: routing.loader }
+
+    safetypay.manager:
+      class: %safetypay.manager.class%
+      arguments:
+          safetypay.token: %safetypay.token%
+          pagosonline.signature: %safetypay.signature%
