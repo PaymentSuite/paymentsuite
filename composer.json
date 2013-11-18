@@ -23,6 +23,6 @@
     },
     "target-dir": "Scastells/DineromailApiBundle",
     "autoload": {
-        "psr-0": { "Scastells\\DineromailAPiBundle": "" }
+        "psr-0": { "Scastells\\DineromailApiBundle": "" }
     }
 }

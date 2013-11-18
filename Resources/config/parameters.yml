@@ -1,0 +1,7 @@
+parameters:
+
+    dineromail-api.controller.route.name: "dineromail-api_execute"
+    dineromail-api.form.type.class: "Scastells\\DineromailApiBundle\\Form\\Type\\DineromailApiType"
+    dineromail-api.manager.class: "Scastells\\DineromailApiBundle\\Services\\DineromailApiManager"
+    dineromail-api.twig.extension.class: "Scastells\\DineromailApiBundle\\Twig\\DineromailApiExtension"
+    dineromail-api.routes.loader.class: "Scastells\\DineromailApiBundle\\Router\\DineromailApiRoutesLoader"
