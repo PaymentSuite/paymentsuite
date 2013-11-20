@@ -90,7 +90,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @var string
      *
-     * dienromail transactionid
+     * dineromail transactionid
      */
     private $dineromailApiTransactionId;
 

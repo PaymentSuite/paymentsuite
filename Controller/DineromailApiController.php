@@ -32,7 +32,6 @@ class DineromailApiController extends Controller
 
             $data = $form->getData();
 
-
             $paymentMethod = new DineromailApiMethod();
             $paymentMethod
                 ->setCardType($data['card_type'])
@@ -43,21 +42,21 @@ class DineromailApiController extends Controller
                 ->setCardSecurity($data['card_ccv2'])
                 ->setCardQuota($data['card_quotas']);
             try{
-                $this->get('dineromail-api.manager')
+                $this->get('dineromail_api.manager')
                     ->processPayment($paymentMethod, $data['amount']);
 
-                $redirectUrl = $this->container->getParameter('dineromail-api.success.route');
-                $redirectAppend = $this->container->getParameter('dineromail-api.success.order.append');
-                $redirectAppendField = $this->container->getParameter('dineromail-api.success.order.field');
+                $redirectUrl = $this->container->getParameter('dineromail_api.success.route');
+                $redirectAppend = $this->container->getParameter('dineromail_api.success.order.append');
+                $redirectAppendField = $this->container->getParameter('dineromail_api.success.order.field');
 
             } catch (PaymentException $e) {
 
                 /**
                  * Must redirect to fail route
                  */
-                $redirectUrl = $this->container->getParameter('dineromail-api.fail.route');
-                $redirectAppend = $this->container->getParameter('dineromail-api.fail.order.append');
-                $redirectAppendField = $this->container->getParameter('dineromail-api.fail.order.field');
+                $redirectUrl = $this->container->getParameter('dineromail_api.fail.route');
+                $redirectAppend = $this->container->getParameter('dineromail_api.fail.order.append');
+                $redirectAppendField = $this->container->getParameter('dineromail_api.fail.order.field');
             }
 
 
@@ -66,9 +65,9 @@ class DineromailApiController extends Controller
             /**
              * If form is not valid, fail return page
              */
-            $redirectUrl = $this->container->getParameter('dineromail-api.fail.route');
-            $redirectAppend = $this->container->getParameter('dineromail-api.fail.order.append');
-            $redirectAppendField = $this->container->getParameter('dineromail-api.fail.order.field');
+            $redirectUrl = $this->container->getParameter('dineromail_api.fail.route');
+            $redirectAppend = $this->container->getParameter('dineromail_api.fail.order.append');
+            $redirectAppendField = $this->container->getParameter('dineromail_api.fail.order.field');
         }
 
         $redirectData   = $redirectAppend

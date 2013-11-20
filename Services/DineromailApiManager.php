@@ -42,7 +42,7 @@ class DineromailApiManager
     /**
      * @var string
      *
-     * user dienromailapi
+     * user dineromailapi
      */
     private $apiUserName;
 
@@ -50,14 +50,14 @@ class DineromailApiManager
     /**
      * @var string
      *
-     * url api dienromailapi
+     * url api dineromailapi
      */
     private $apiPassword;
 
     /**
      * @var string
      *
-     * url api dienromailapi ns
+     * url api dineromailapi ns
      */
     private $apiNs;
 
@@ -65,7 +65,7 @@ class DineromailApiManager
     /**
      * @var string
      *
-     * url api dienromailapi prefix
+     * url api dineromailapi prefix
      */
     private $apiPrefix;
 
@@ -77,7 +77,14 @@ class DineromailApiManager
     private $logger;
 
     /**
-     * Construct method for dienromailapi manager
+     * @var string
+     *
+     * string wsdl soapClient
+     */
+    private $wsdl;
+
+    /**
+     * Construct method for dineromailapi manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
@@ -86,8 +93,9 @@ class DineromailApiManager
      * @param $logger
      * @param $ns
      * @param $apiPrefix
+     * @param $wsdl
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $apiUserName, $apiPassword, $logger, $ns, $apiPrefix)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $apiUserName, $apiPassword, $logger, $ns, $apiPrefix, $wsdl)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
@@ -96,6 +104,7 @@ class DineromailApiManager
         $this->logger = $logger;
         $this->apiNs = $ns;
         $this->apiPrefix = $apiPrefix;
+        $this->wsdl = $wsdl;
     }
 
 
@@ -141,15 +150,16 @@ class DineromailApiManager
 
         $extraData = $this->paymentBridge->getExtraData();
 
-        //params to send dienromailapi api
+        //params to send dineromailapi api
 
         $cardYear = substr($paymentMethod->getCardExpYear(), -2);
-        $cardExp = str_pad(Tools::getValue('card_exp_month'), 2, '0', STR_PAD_LEFT) . '/' . $cardYear;
+        $cardExp = str_pad($paymentMethod->getCardExpMonth(), 2, '0', STR_PAD_LEFT) . '/' . $cardYear;
 
-        $item= array();
+        $items = array();
         $buyer = array ();
-        foreach ($extraData['dinero_mail_items'] as $key => $dineroMailApiItem) {
-            $item[] = array(
+
+        foreach ($extraData['dinero_mail_api_items'] as $key => $dineroMailApiItem) {
+            $items[]= array(
                 'Amount'        => $dineroMailApiItem['amount'],
                 'Currency'      => $this->paymentBridge->getCurrency(),
                 'Code'          => '',
@@ -175,7 +185,7 @@ class DineromailApiManager
             'Holder'            => $paymentMethod->getCardName(),
             'ExpirationDate'    => $cardExp,
             'SecurityCode'      => $paymentMethod->getCardSecurity(),
-            'DocumentNumber'    => '1234567', //@TODO this can not be null, get customer document number
+            'DocumentNumber'    => '1234567', //@TODO this can not be null, set customer document number in AR??
             'Address'           => '',
             'AddressNumber'     => '',
             'AddressComplement' => '',
@@ -186,7 +196,7 @@ class DineromailApiManager
             'Country'           => ''
         );
 
-        $result  = $this->processSoap($item, $buyer,$creditCard, $paymentMethod->getCardType());
+        $result  = $this->processSoap($items, $buyer,$creditCard, $paymentMethod->getCardType());
 
         $this->processTransaction($result, $paymentMethod);
 
@@ -194,14 +204,14 @@ class DineromailApiManager
     }
 
     /**
-     * @param array() $item
+     * @param array() $items
      * @param array() $buyer
      * @param array() $creditCard
      * @param string $cardType
      *
      * @return object
      */
-    private function processSoap($item, $buyer, $creditCard, $cardType)
+    private function processSoap($items, $buyer, $creditCard, $cardType)
     {
         $provider = $this->apiPrefix.$cardType;
         $subject = '';
@@ -224,7 +234,12 @@ class DineromailApiManager
                 break;
         }
         $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
-        $stringItems = $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+
+        $stringItems = '';
+        foreach($items as $item){
+            $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+        }
+
         $stringBuyer = $buyer['Name'].$buyer['LastName'].$buyer['Email'].$buyer['Address'].$buyer['Phone'].$buyer['Country'].
             $buyer['City'];
 
@@ -239,13 +254,13 @@ class DineromailApiManager
         $hash = md5($string);
 
         $soapCredentials = $this->soapVar(array('APIUserName' => $this->apiUserName, 'APIPassword' => $this->apiPassword), 'APICredential');
-        $soapItems = $this->soapVar($item, 'Item');
+        $soapItems = $this->soapVar($items, 'Item');
         $soapBuyer = $this->soapVar($buyer,'Buyer');
         $soapCreditCard = $this->soapVar($creditCard,'CreditCard');
 
         $request = array(
             'Credential'            => $soapCredentials,
-            'Crypt'                 => 'false',
+            'Crypt'                 => false,
             'MerchantTransactionId' => $merchantTransactionId,
             'Items'                 => array($soapItems),
             'Buyer'                 => $soapBuyer,
@@ -256,10 +271,10 @@ class DineromailApiManager
             'Hash'                  => $hash
         );
 
-        $this->logger->addInfo('Request Send DineromailApi'.'processTransaction Response', get_object_vars($request));
+        $this->logger->addInfo('Request Send DineromailApi'.'processTransaction Response', $request);
 
         $client = new \SoapClient($this->wsdl, array('trace' => 1, 'exceptions' => 1));
-        return $client->DoPAymentWithCreditCard($request)->DoPaymentWithCreditCardResutl;
+        return $client->DoPAymentWithCreditCard($request)->DoPaymentWithCreditCardResult;
     }
 
 
@@ -285,10 +300,10 @@ class DineromailApiManager
      */
     private function processTransaction($result, DineromailApiMethod $paymentMethod)
     {
-        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction Response', get_object_vars($result));
+        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction Result', get_object_vars($result));
 
         $paymentMethod->setDineromailApiReference($result->MerchantTransactionId);
-        $paymentMethod->setDineromailApiTransactionId($result->TransaccionId);
+        $paymentMethod->setDineromailApiTransactionId($result->TransactionId);
 
         /**
          * Payment paid done

@@ -72,7 +72,7 @@ class DineromailApiExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('dieneromail_api_render', array($this, 'renderPaymentView')),
+            new \Twig_SimpleFunction('dineromail_api_render', array($this, 'renderPaymentView')),
         );
     }
 
@@ -83,7 +83,6 @@ class DineromailApiExtension extends \Twig_Extension
     public function renderPaymentView()
     {
         $formType = $this->formFactory->create('dineromail_api_view');
-
         $this->environment->display('DineromailApiBundle:DineromailApi:view.html.twig', array(
             'dineromail_api_form'          =>  $formType->createView(),
         ));

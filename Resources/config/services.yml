@@ -1,37 +1,38 @@
 services:
 
-    dineromail-api.form.type:
-        class: %dineromail-api.form.type.class%
+    dineromailapi.form.type:
+        class: %dineromail_api.form.type.class%
         arguments:
             router: @router
             payment.bridge: @payment.bridge
-            dineromail-api.controller.route.name: %dineromail-api.controller.route.name%
+            dineromailapi.controller.route.name: %dineromail_api.controller.route.name%
         tags:
-            - { name: form.type, alias: dineromail-api_view }
+            - { name: form.type, alias: dineromail_api_view }
 
-    dineromail-api.manager:
-            class: %dineromail-api.manager.class%
+    dineromailapi.manager:
+            class: %dineromail_api.manager.class%
             arguments:
                 payment.event.dispatcher: @payment.event.dispatcher
                 payment.bridge: @payment.bridge
-                dineromail-api.api_user_name: %dineromail-api.api_user_name%
-                dineromail-api.api_password: %dineromail-api.api_password%
+                dineromail_api.api_user_name: %dineromail_api.api_user_name%
+                dineromail_api.api_password: %dineromail_api.api_password%
                 logger: @logger
-                ns: %dineromail-api.ns%
-                dineromail-api.api_prefix: %dineromail-api.api_prefix%
+                ns: %dineromail_api.ns%
+                dineromail_api.api_prefix: %dineromail_api.api_prefix%
+                dineromail_api.wsdl: %dineromail_api.wsdl_path%
 
-    dineromail-api.twig.extension:
-        class: %dineromail-api.twig.extension.class%
+    dineromailapi.twig.extension:
+        class: %dineromail_api.twig.extension.class%
         arguments:
             form.factory: @form.factory
             payment.bridge: @payment.bridge
         tags:
             - { name: twig.extension }
 
-    dineromail-api.routes.loader:
-        class: %dineromail-api.routes.loader.class%
+    dineromailapi.routes.loader:
+        class: %dineromail_api.routes.loader.class%
         arguments:
-          dineromail-api.controller.route.name: %dineromail-api.controller.route.name%
-          dineromail-api.controller.route: %dineromail-api.controller.route%
+          dineromailapi.controller.route.name: %dineromail_api.controller.route.name%
+          dineromailapi.controller.route: %dineromail_api.controller.route%
         tags:
             - { name: routing.loader }

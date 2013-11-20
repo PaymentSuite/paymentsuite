@@ -13,21 +13,21 @@ class DineromailApiExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('dineromail-api.controller.route', $config['controller_route']);
+        $container->setParameter('dineromail_api.controller.route', $config['controller_route']);
 
-        $container->setParameter('dineromail-api.success.route', $config['payment_success']['route']);
-        $container->setParameter('dineromail-api.success.order.append', $config['payment_success']['order_append']);
-        $container->setParameter('dineromail-api.success.order.field', $config['payment_success']['order_append_field']);
+        $container->setParameter('dineromail_api.success.route', $config['payment_success']['route']);
+        $container->setParameter('dineromail_api.success.order.append', $config['payment_success']['order_append']);
+        $container->setParameter('dineromail_api.success.order.field', $config['payment_success']['order_append_field']);
 
-        $container->setParameter('dineromail-api.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('dineromail-api.fail.order.append', $config['payment_fail']['order_append']);
-        $container->setParameter('dineromail-api.fail.order.field', $config['payment_fail']['order_append_field']);
+        $container->setParameter('dineromail_api.fail.route', $config['payment_fail']['route']);
+        $container->setParameter('dineromail_api.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('dineromail_api.fail.order.field', $config['payment_fail']['order_append_field']);
 
-        $container->setParameter('dineromail-api.wsdl_path', $config['wsdl_path']);
-        $container->setParameter('dineromail-api.ns', $config['ns']);
-        $container->setParameter('dineromail-api.api_user_name', $config['api_user_name']);
-        $container->setParameter('dineromail-api.api_password', $config['api_password']);
-        $container->setParameter('dineromail-api.api_prefix', $config['api_prefix']);
+        $container->setParameter('dineromail_api.wsdl_path', $config['wsdl_path']);
+        $container->setParameter('dineromail_api.ns', $config['ns']);
+        $container->setParameter('dineromail_api.api_user_name', $config['api_user_name']);
+        $container->setParameter('dineromail_api.api_password', $config['api_password']);
+        $container->setParameter('dineromail_api.api_prefix', $config['api_prefix']);
 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
