@@ -218,21 +218,21 @@ class DineromailApiManager
         $message = '';
         $merchantTransactionId =  $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
         //dev_mode
-        switch ($cardType)
-        {
-            case 'VISA': // OK
-                $merchantTransactionId = '1';
-                break;
-            case 'MASTER': // DENIED
-                $merchantTransactionId = '2';
-                break;
-            case 'AMEX': // ERROR
-                $merchantTransactionId = '3';
-                break;
-            default: // ERROR
-                $merchantTransactionId = '4';
-                break;
-        }
+//        switch ($cardType)
+//        {
+//            case 'VISA': // OK
+//                $merchantTransactionId = '1';
+//                break;
+//            case 'MASTER': // DENIED
+//                $merchantTransactionId = '2';
+//                break;
+//            case 'AMEX': // ERROR
+//                $merchantTransactionId = '3';
+//                break;
+//            default: // ERROR
+//                $merchantTransactionId = '4';
+//                break;
+//        }
         $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
         $stringItems = '';
