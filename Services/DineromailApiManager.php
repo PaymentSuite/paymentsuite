@@ -160,40 +160,40 @@ class DineromailApiManager
 
         foreach ($extraData['dinero_mail_api_items'] as $key => $dineroMailApiItem) {
             $items[]= array(
-                'Amount'        => $dineroMailApiItem['amount'],
-                'Currency'      => $this->paymentBridge->getCurrency(),
-                'Code'          => '',
-                'Description'   => $dineroMailApiItem['name'],
-                'Name'          => $dineroMailApiItem['name'],
-                'Quantity'      => $dineroMailApiItem['quantity']
+                'amount'        => $dineroMailApiItem['amount'],
+                'currency'      => $this->paymentBridge->getCurrency(),
+                'code'          => '',
+                'description'   => $dineroMailApiItem['name'],
+                'name'          => $dineroMailApiItem['name'],
+                'quantity'      => $dineroMailApiItem['quantity']
             );
         }
 
         $buyer = array(
-            'Name'      => $extraData['customer_firstname'],
-            'LastName'  => $extraData['customer_lastname'],
-            'Email'     => $extraData['customer_email'],
-            'Address'   => $extraData['correspondence_address'],
-            'Phone'     => $extraData['customer_phone'],
-            'Country'   => $extraData['customer_country'],
-            'City'      => $extraData['correspondence_city']
+            'name'      => $extraData['customer_firstname'],
+            'lastName'  => $extraData['customer_lastname'],
+            'email'     => $extraData['customer_email'],
+            'address'   => $extraData['correspondence_address'],
+            'phone'     => $extraData['customer_phone'],
+            'country'   => $extraData['customer_country'],
+            'city'      => $extraData['correspondence_city']
         );
 
         $creditCard = array(
-            'Installment'       => $paymentMethod->getCardQuota(),
-            'CreditCardNumber'  => $paymentMethod->getCardNum(),
-            'Holder'            => $paymentMethod->getCardName(),
-            'ExpirationDate'    => $cardExp,
-            'SecurityCode'      => $paymentMethod->getCardSecurity(),
-            'DocumentNumber'    => '1234567', //@TODO this can not be null, set customer document number in AR??
-            'Address'           => '',
-            'AddressNumber'     => '',
-            'AddressComplement' => '',
-            'ZipCode'           => '',
-            'Neighborhood'      => '',
-            'City'              => '',
-            'State'             => '',
-            'Country'           => ''
+            'installment'       => $paymentMethod->getCardQuota(),
+            'creditCardNumber'  => $paymentMethod->getCardNum(),
+            'holder'            => $paymentMethod->getCardName(),
+            'expirationDate'    => $cardExp,
+            'securityCode'      => $paymentMethod->getCardSecurity(),
+            'documentNumber'    => '1234567', //@TODO this can not be null, set customer document number in AR??
+            'address'           => '',
+            'addressNumber'     => '',
+            'addressComplement' => '',
+            'zipCode'           => '',
+            'neighborhood'      => '',
+            'city'              => '',
+            'state'             => '',
+            'country'           => ''
         );
 
         $result  = $this->processSoap($items, $buyer,$creditCard, $paymentMethod->getCardType());
@@ -237,16 +237,16 @@ class DineromailApiManager
 
         $stringItems = '';
         foreach($items as $item){
-            $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+            $stringItems .= $item['amount'].$item['code'].$item['currency'].$item['description'].$item['name'].$item['quantity'];
         }
 
-        $stringBuyer = $buyer['Name'].$buyer['LastName'].$buyer['Email'].$buyer['Address'].$buyer['Phone'].$buyer['Country'].
-            $buyer['City'];
+        $stringBuyer = $buyer['name'].$buyer['lastName'].$buyer['email'].$buyer['address'].$buyer['phone'].$buyer['country'].
+            $buyer['city'];
 
-        $stringCreditCard =  $creditCard['Installment'].$creditCard['CreditCardNumber'].$creditCard['Holder'].
-            $creditCard['ExpirationDate'].$creditCard['SecurityCode'].$creditCard['DocumentNumber'].$creditCard['Address'].
-            $creditCard['AddressNumber'].$creditCard['AddressComplement'].$creditCard['ZipCode'].$creditCard['Neighborhood'].
-            $creditCard['City'].$creditCard['State'].$creditCard['Country'];
+        $stringCreditCard =  $creditCard['installment'].$creditCard['creditCardNumber'].$creditCard['holder'].
+            $creditCard['expirationDate'].$creditCard['securityCode'].$creditCard['documentNumber'].$creditCard['address'].
+            $creditCard['addressNumber'].$creditCard['addressComplement'].$creditCard['zipCode'].$creditCard['neighborhood'].
+            $creditCard['city'].$creditCard['state'].$creditCard['country'];
 
         $string = $merchantTransactionId.$uniqueMessageId.$stringItems.$stringBuyer.$stringCreditCard.$provider.$subject.
             $message.$this->apiPassword;
@@ -312,20 +312,19 @@ class DineromailApiManager
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
-
-       if ($result->Status == 'OK' || $result->Status == 'COMPLETED') {
-
-            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
-
-        } else {
-
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
-            throw new PaymentException;
+        switch ($result->Status)
+        {
+            case 'OK':
+            case 'COMPLETED':
+                $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+                break;
+            case 'PENDING':
+                break;
+            default:
+                $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
+                throw new PaymentException;
         }
 
-        /**
-         * Log the response of gateway
-         */
         return $this;
     }
 }

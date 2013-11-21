@@ -63,7 +63,7 @@ class DineromailApiType extends AbstractType
             ->add('card_type', 'choice', array(
                 'required' => true,
                 'choices' => array(
-                    'VISA' => 'Visa', 'MASTERCARD' => 'MasterCard', 'AMEX' => 'American Express', 'ITALCRED' => 'ItalCred',
+                    'VISA' => 'Visa', 'MASTER' => 'MasterCard', 'AMEX' => 'American Express', 'ITALCRED' => 'ItalCred',
                     'TSHOPPING' => 'Tarjeta Shopping', 'TNARANJA' => 'Tarjeta Naranja', 'CABAL' => 'Cabal', 'ARGENCARD' => 'ArgenCard'
                 ),
             ))
