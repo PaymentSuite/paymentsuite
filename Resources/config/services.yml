@@ -20,6 +20,7 @@ services:
                 ns: %dineromail_api.ns%
                 dineromail_api.api_prefix: %dineromail_api.api_prefix%
                 dineromail_api.wsdl: %dineromail_api.wsdl_path%
+                dineromail_api_debug: %dineromail_api_debug%
 
     dineromailapi.twig.extension:
         class: %dineromail_api.twig.extension.class%

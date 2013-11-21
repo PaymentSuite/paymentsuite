@@ -94,8 +94,10 @@ class DineromailApiManager
      * @param $ns
      * @param $apiPrefix
      * @param $wsdl
+     * @param dineromail_api_debug
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $apiUserName, $apiPassword, $logger, $ns, $apiPrefix, $wsdl)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge,
+                                $apiUserName, $apiPassword, $logger, $ns, $apiPrefix, $wsdl, $dineromail_api_debug)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
@@ -105,6 +107,7 @@ class DineromailApiManager
         $this->apiNs = $ns;
         $this->apiPrefix = $apiPrefix;
         $this->wsdl = $wsdl;
+        $this->dineromail_api_debug = $dineromail_api_debug;
     }
 
 
@@ -113,6 +116,7 @@ class DineromailApiManager
      *
      * @param DineromailApiMethod $paymentMethod Payment method
      * @param float $amount Amount
+     * @param env
      *
      * @throws PaymentAmountsNotMatchException
      * @throws PaymentOrderNotFoundException
@@ -156,7 +160,6 @@ class DineromailApiManager
         $cardExp = str_pad($paymentMethod->getCardExpMonth(), 2, '0', STR_PAD_LEFT) . '/' . $cardYear;
 
         $items = array();
-        $buyer = array ();
 
         foreach ($extraData['dinero_mail_api_items'] as $key => $dineroMailApiItem) {
             $items[]= array(
@@ -216,23 +219,32 @@ class DineromailApiManager
         $provider = $this->apiPrefix.$cardType;
         $subject = '';
         $message = '';
-        $merchantTransactionId =  $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
-        //dev_mode
-//        switch ($cardType)
-//        {
-//            case 'VISA': // OK
-//                $merchantTransactionId = '1';
-//                break;
-//            case 'MASTER': // DENIED
-//                $merchantTransactionId = '2';
-//                break;
-//            case 'AMEX': // ERROR
-//                $merchantTransactionId = '3';
-//                break;
-//            default: // ERROR
-//                $merchantTransactionId = '4';
-//                break;
-//        }
+
+        if ($this->dineromail_api_debug) {
+            // this is a debug environment
+            //to debug dineromail API, we use the credit card select
+            //to map success/fail values to pass to the transaction_id
+            //field, which dineromail API uses
+            switch ($cardType)
+            {
+                case 'VISA': // OK
+                    $merchantTransactionId = '1';
+                    break;
+                case 'MASTER': // DENIED
+                    $merchantTransactionId = '2';
+                    break;
+                case 'AMEX': // ERROR
+                    $merchantTransactionId = '3';
+                    break;
+                default: // ERROR
+                    $merchantTransactionId = '4';
+                    break;
+            }
+        } else {
+            $merchantTransactionId =  $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
+        }
+
+
         $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
         $stringItems = '';
@@ -291,7 +303,7 @@ class DineromailApiManager
 
     /**
      *
-     * @param $result soap response
+     * @param $result \soap response
      * @param DineromailApiMethod $paymentMethod Payment method
      *
      * @throws \Mmoreram\PaymentCoreBundle\Exception\PaymentException
