@@ -32,7 +32,7 @@ class SafetypayController extends controller
     {
         $paymentMethod = new SafetypayMethod();
         $paymentBridge = $this->get('payment.bridge');
-        $safetyManager = $this->get('safety.manager');
+       // $safetyManager = $this->get('safetypay.manager');
 
         /**
          * New order from cart must be created right here
@@ -63,6 +63,7 @@ class SafetypayController extends controller
             : array();
 
         $successRoute = $this->generateUrl($redirectSuccessUrl, $redirectSuccessData, true);
+        $safetyPayTransaction = $paymentBridge->getOrderId() . '#' . date('Ymdhis');
         $paymentMethod->setReference($paymentBridge->getOrderId() . '#' . date('Ymdhis'));
         $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 
@@ -83,7 +84,7 @@ class SafetypayController extends controller
          */
         $formView = $this
             ->get('safetypay.form.type.wrapper')
-            ->buildForm($responseRoute, $failRoute)
+            ->buildForm($responseRoute, $failRoute, $safetyPayTransaction)
             ->getForm($successRoute)
             ->createView();
         return array(
@@ -117,13 +118,13 @@ class SafetypayController extends controller
 
 
         $trans = $this->getDoctrine()->getRepository('SafetypayBridgeBundle:SafetypayOrderTransaction')
-            ->findOneBy(array('reference' => $orderId));
+            ->findOneBy(array('order_id' => $orderId));
 
         $order = $paymentBridge->findOrder($trans->getOrder()->getId());
         $paymentBridge->setOrder($order);
         $paymentMethod->setReference($orderId);
 
-        if ($orderId == $trans->getReference()) {
+        if ($orderId == $trans->getSafetyPayTransactionId()) {
 
             $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
@@ -166,14 +167,14 @@ class SafetypayController extends controller
 
 
         $trans = $this->getDoctrine()->getRepository('SafetypayBridgeBundle:SafetypayOrderTransaction')
-            ->findOneBy(array('reference' => $orderId));
+            ->findOneBy(array('order_id' => $orderId));
 
         $order = $paymentBridge->findOrder($trans->getOrder()->getId());
         $paymentBridge->setOrder($order);
         $paymentMethod->setReference($orderId);
 
 
-        if ($orderId == $trans->getReference()) {
+        if ($orderId == $trans->getSafetyPayTransactionId()) {
 
             $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 

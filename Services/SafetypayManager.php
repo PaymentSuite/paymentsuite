@@ -66,7 +66,6 @@ class SafetypayManager
         {
             $stringToConcat .= $aData[rtrim(ltrim($value))];
         }
-
         return hash('sha256', ($pOtherRequestDateTime? '' : $this->requestDateTime.$stringToConcat.$this->signatureKey));
     }
 
@@ -178,6 +177,22 @@ class SafetypayManager
             else
                 return '<span style="color:red;">Error: ' . ($match[0] == '1'?'1, Invalid credentials':'2, Merchant has not sent data') .'</span>';	// return error message
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getresponseFormat()
+    {
+        return $this->responseFormat;
+    }
+
+    /**
+     * @return bool|time|string
+     */
+    public function getRequestDateTime()
+    {
+        return $this->requestDateTime;
     }
 
 

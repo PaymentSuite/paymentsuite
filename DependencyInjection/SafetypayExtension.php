@@ -34,8 +34,8 @@ class SafetypayExtension extends Extension
 
         $container->setParameter('safetypay.key', $config['key']);
         $container->setParameter('safetypay.signature', $config['signature']);
-        $container->setParameter('safetypay.platform', $config['platform']);
         $container->setParameter('safetypay.token', $config['token']);
+        $container->setParameter('safetypay.response.format', $config['response_format']);
         $container->setParameter('safetypay.expiration', $config['expiration']);
         $container->setParameter('safetypay.controller.route.success', $config['controller_route_success']);
         $container->setParameter('safetypay.controller.route.fail', $config['controller_route_fail']);

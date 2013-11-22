@@ -14,6 +14,7 @@ namespace Scastells\SafetypayBundle\Services\Wrapper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use Scastells\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -75,10 +76,10 @@ class SafetypayTypeWrapper
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
      * @param $key
      * @param $signature
-     * @param $safetyPayManager
+     * @param safetypayManager $safetyPayManager
      * @param $expiration
      */
-    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $key, $signature, $safetyPayManager, $expiration)
+    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $key, $signature, safetypayManager $safetyPayManager, $expiration)
     {
         $this->formFactory = $formFactory;
         $this->paymentBridge = $paymentBridge;
@@ -94,29 +95,29 @@ class SafetypayTypeWrapper
      *
      * @param $responseRoute
      * @param $failRoute
+     * @param $safetyPayTransaction
      * @return FormBuilder
      */
-    public function buildForm($responseRoute, $failRoute)
+    public function buildForm($responseRoute, $failRoute, $safetyPayTransaction)
     {
 
         $formBuilder = $this
             ->formFactory
             ->createNamedBuilder(null);
 
-        $orderId = $this->paymentBridge->getOrderId() . '#' . date('Ymdhis');
         $elements = array(
             'Apikey'                => $this->key,
-            'RequestDateTime'       => '',
+            'RequestDateTime'       => $this->safetyPayManager->getRequestDateTime(),
             'CurrencyCode'          => $this->paymentBridge->getCurrency(),
             'Amount'                => $this->paymentBridge->getAmount(),
-            'MerchantReferenceNo'   => $orderId,
+            'MerchantReferenceNo'   => $safetyPayTransaction,
             'Language'              => 'ES',
             'TrackingCode'          => '',
             'ExpirationTime'        => $this->expiration,
             'FilterBy'              => '',
             'TransactionOkURL'      => $responseRoute,
             'TransactionErrorURL'   => $failRoute,
-            'ResponseFormat'        => $this->safetyPayManager->responseFormat
+            'ResponseFormat'        => $this->safetyPayManager->getresponseFormat()
         );
 
         $elements['signature'] = $this->safetyPayManager->getSignature(
@@ -125,30 +126,22 @@ class SafetypayTypeWrapper
             TrackingCode, ExpirationTime, TransactionOkURL,
             TransactionErrorURL'
         );
-
         $urlToken = $this->safetyPayManager->getUrlToken($elements, false);
-
-        //controlar si el geturlToken tiene algun error!!!
+        //var_dump($urlToken);die();
         $urlTokenExploded = explode('?', $urlToken);
         $urlTokenHost = $urlTokenExploded[0];
         $urlTokenParam = $urlTokenExploded[1];
         $urlTokenParamExploded = explode('=', $urlTokenParam);
-
+        //var_dump($urlTokenParamExploded);die();
         $formBuilder
-            ->setAction($this->gateway)
+            ->setAction($urlTokenHost)
             ->setMethod('POST')
 
             /**
              * Parameters injected by construct
              */
-            ->add('urlTokenHost', 'hidden', array(
-                'data'  => $urlTokenHost,
-            ))
-            ->add('urlTokenParamName', 'hidden', array(
-                'data' => $urlTokenParamExploded[0],
-            ))
-            ->add('urlTokenParamValue', 'hidden', array(
-                'data' => $urlTokenParamExploded[1]
+            ->add('TokenID', 'hidden', array(
+                'data' => $urlTokenParamExploded[1],
             ));
 
         return $formBuilder;

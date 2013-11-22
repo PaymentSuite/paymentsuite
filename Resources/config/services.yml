@@ -7,8 +7,8 @@ services:
             payment.bridge: @payment.bridge
             key: %safetypay.key%
             signature: %safetypay.signature%
-            signature: %safetypay.signature%
-
+            safetypay.manager: @safetypay.manager
+            expiration: %safetypay.expiration%
         tags:
             - { name: form.type, alias: safetypay_view }
 
@@ -28,5 +28,6 @@ services:
     safetypay.manager:
       class: %safetypay.manager.class%
       arguments:
+          safetypay.response.format: %safetypay.response.format%
           safetypay.token: %safetypay.token%
           pagosonline.signature: %safetypay.signature%

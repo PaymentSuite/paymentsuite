@@ -5,3 +5,5 @@ parameters:
     safetypay.controller.route.fail.name: "safetypay_fail"
     safetypay.routes.loader.class: "Scastells\\SafetypayBundle\\Router\\SafetypayRoutesLoader"
     safetypay.manager.class: "Scastells\\SafetypayBundle\\Services\\SafetypayManager"
+    safetypay.form.type.wrapper.class: "Scastells\\SafetypayBundle\\Services\\Wrapper\\SafetypayTypeWrapper"
+    safetypay.response.format: XML
