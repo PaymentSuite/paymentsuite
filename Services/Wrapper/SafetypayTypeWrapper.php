@@ -135,7 +135,7 @@ class SafetypayTypeWrapper
 
         if (strpos($urlToken, 'Error') > 0) {
             $urlTokenHost = $failRoute;
-            $urlTokenExploded[1] = 'No Token';
+            $urlTokenParamExploded[1] = 'No Token';
         }
 
         $formBuilder
