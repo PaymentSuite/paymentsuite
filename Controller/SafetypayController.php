@@ -7,10 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Scastells\SafetypayBundle\SafetypayMethod;
-use Symfony\Component\HttpFoundation\Response;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Class SafetypayController
@@ -65,7 +66,7 @@ class SafetypayController extends controller
         $successRoute = $this->generateUrl($redirectSuccessUrl, $redirectSuccessData, true);
         $safetyPayTransaction = $paymentBridge->getOrderId() . '#' . date('Ymdhis');
         $paymentMethod->setReference($paymentBridge->getOrderId() . '#' . date('Ymdhis'));
-        $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
+
 
         /*
          * url send confirmation
@@ -79,14 +80,24 @@ class SafetypayController extends controller
 
         $failRoute = $this->generateUrl($redirectFailUrl, array('order_id' => $this->get('payment.bridge')->getOrderId()), true);
 
+       try {
+
+           $formView = $this
+               ->get('safetypay.form.type.wrapper')
+               ->buildForm($responseRoute, $failRoute, $safetyPayTransaction);
+
+       } catch (PaymentException $e) {
+
+           return $this->redirect($this->generateUrl('cart_fail', array('order_id' => $this->get('payment.bridge')->getOrderId())));
+       }
         /**
          * Build form
          */
-        $formView = $this
-            ->get('safetypay.form.type.wrapper')
-            ->buildForm($responseRoute, $failRoute, $safetyPayTransaction)
+        $formView = $formView
             ->getForm($successRoute)
             ->createView();
+
+        $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
         return array(
 
             'safetypay_form' => $formView,
@@ -107,7 +118,7 @@ class SafetypayController extends controller
         $paymentMethod = new SafetypayMethod();
         $paymentBridge = $this->get('payment.bridge');
 
-        $orderId = $request->request->get('order_id');
+        $orderId = $request->query->get('order_id');
 
         $infoLog = array(
             'order_id'  => $orderId,
@@ -156,8 +167,7 @@ class SafetypayController extends controller
         $paymentMethod = new SafetypayMethod();
         $paymentBridge = $this->get('payment.bridge');
 
-        $orderId = $request->request->get('order_id');
-
+        $orderId = $request->query->get('order_id');
         $infoLog = array(
             'order_id'  => $orderId,
             'action'    => 'SafetyPayFailAction'
@@ -167,14 +177,14 @@ class SafetypayController extends controller
 
 
         $trans = $this->getDoctrine()->getRepository('SafetypayBridgeBundle:SafetypayOrderTransaction')
-            ->findOneBy(array('order_id' => $orderId));
+            ->findOneBy(array('order' => $orderId));
 
         $order = $paymentBridge->findOrder($trans->getOrder()->getId());
         $paymentBridge->setOrder($order);
         $paymentMethod->setReference($orderId);
+        $orderTrans = explode('#', $trans->getSafetyPayTransactionId());
 
-
-        if ($orderId == $trans->getSafetyPayTransactionId()) {
+        if ($orderId == $orderTrans[0]) {
 
             $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
 

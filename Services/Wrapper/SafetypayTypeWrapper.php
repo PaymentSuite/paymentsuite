@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Scastells\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * SafetypayBundle manager
@@ -96,6 +97,7 @@ class SafetypayTypeWrapper
      * @param $responseRoute
      * @param $failRoute
      * @param $safetyPayTransaction
+     * @throws \Mmoreram\PaymentCoreBundle\Exception\PaymentException
      * @return FormBuilder
      */
     public function buildForm($responseRoute, $failRoute, $safetyPayTransaction)
@@ -128,15 +130,14 @@ class SafetypayTypeWrapper
         );
 
         $urlToken = $this->safetyPayManager->getUrlToken($elements, false);
-        $urlTokenExploded = explode('?', $urlToken);
-        $urlTokenHost = $urlTokenExploded[0];
-        $urlTokenParam = $urlTokenExploded[1];
-        $urlTokenParamExploded = explode('=', $urlTokenParam);
-
+        //Token no valid
         if (strpos($urlToken, 'Error') > 0) {
-            $urlTokenHost = $failRoute;
-            $urlTokenParamExploded[1] = 'No Token';
+            throw new PaymentException;
         }
+            $urlTokenExploded = explode('?', $urlToken);
+            $urlTokenHost = $urlTokenExploded[0];
+            $urlTokenParam = $urlTokenExploded[1];
+            $urlTokenParamExploded = explode('=', $urlTokenParam);
 
         $formBuilder
             ->setAction($urlTokenHost)
