@@ -126,13 +126,18 @@ class SafetypayTypeWrapper
             TrackingCode, ExpirationTime, TransactionOkURL,
             TransactionErrorURL'
         );
+
         $urlToken = $this->safetyPayManager->getUrlToken($elements, false);
-        //var_dump($urlToken);die();
         $urlTokenExploded = explode('?', $urlToken);
         $urlTokenHost = $urlTokenExploded[0];
         $urlTokenParam = $urlTokenExploded[1];
         $urlTokenParamExploded = explode('=', $urlTokenParam);
-        //var_dump($urlTokenParamExploded);die();
+
+        if (strpos($urlToken, 'Error') > 0) {
+            $urlTokenHost = $failRoute;
+            $urlTokenExploded[1] = 'No Token';
+        }
+
         $formBuilder
             ->setAction($urlTokenHost)
             ->setMethod('POST')
