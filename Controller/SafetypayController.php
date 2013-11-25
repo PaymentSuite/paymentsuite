@@ -176,7 +176,7 @@ class SafetypayController extends controller
 
         if ($orderId == $trans->getSafetyPayTransactionId()) {
 
-            $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
+            $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
 
             $redirectUrl = $this->container->getParameter('safetypay.fail.route');
             $redirectSuccessAppend = $this->container->getParameter('safetypay.fail.order.append');
