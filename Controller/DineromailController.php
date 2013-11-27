@@ -107,4 +107,37 @@ class DineromailController extends Controller
             'dineromail_form' => $formView,
         );
     }
+
+
+    /**
+     * Payment process
+     *
+     * @param Request $request Request element
+     *
+     * @return Response
+     *
+     * @Method("POST")
+     */
+    public function processAction(Request $request)
+    {
+        $paymentBridge = $this->get('payment.bridge');
+        $paymentMethod = new DineromailMethod();
+
+        if ($notificacion = $request->request->get('Notificacion')) {
+            $xml = simplexml_load_string($notificacion);
+            if ($xml instanceof \SimpleXMLElement) {
+                switch ((string)$xml->tiponotificacion) {
+                    case '1':
+                        foreach ($xml->operaciones->operacion as $oper) {
+                            $details = $this->get('dineromail.manager')->queryTransaction((string)$oper->id);
+                            if ($details instanceof \SimpleXMLElement) {
+                                $this->get('dineromail.manager')->processTransaction($details);
+                            }
+                        }
+                }
+            }
+        }
+
+        return new Response();
+    }
 }

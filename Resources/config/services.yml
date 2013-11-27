@@ -24,3 +24,13 @@ services:
             dineromail.controller.process.route.name: %dineromail.controller.process.route.name%
         tags:
             - { name: routing.loader }
+
+    dineromail.manager:
+            class: %dineromail.manager.class%
+            arguments:
+                payment.event.dispatcher: @payment.event.dispatcher
+                payment.bridge: @payment.bridge
+                dineromail.country: %dineromail.country%
+                dineromail.merchant: %dineromail.merchant%
+                dineromail.ipn_key: %dineromail.ipn_key%
+                logger: @logger
