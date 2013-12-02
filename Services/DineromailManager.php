@@ -152,11 +152,13 @@ class DineromailManager
             case 2: // Accepted
                 $paymentMethod->setDineromailTransactionId($xml->ID);
                 $paymentMethod->setAmount($xml->MONTO);
+                $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
                 $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
                 break;
             case 3: // Denied
                 $paymentMethod->setDineromailTransactionId($xml->ID);
                 $paymentMethod->setAmount($xml->MONTO);
+                $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
                 $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
                 break;
             default:
