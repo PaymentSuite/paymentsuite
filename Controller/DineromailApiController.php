@@ -36,7 +36,7 @@ class DineromailApiController extends Controller
             $paymentMethod
                 ->setCardType($data['card_type'])
                 ->setCardName($data['card_name'])
-                ->setCardNum($data['card_num'])
+                ->setCardNum($data['card_num_1'].$data['card_num_2'].$data['card_num_3'].$data['card_num_4'])
                 ->setCardExpMonth($data['card_exp_month'])
                 ->setCardExpYear($data['card_exp_year'])
                 ->setCardSecurity($data['card_ccv2'])

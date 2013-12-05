@@ -79,11 +79,25 @@ class DineromailApiType extends AbstractType
             /**
              * Credit card number
              */
-            ->add('card_num', 'text', array(
+            ->add('card_num_1', 'text', array(
                 'required' => true,
-                'max_length' => 16,
+                'max_length' => 4,
             ))
 
+            ->add('card_num_2', 'text', array(
+                'required' => true,
+                'max_length' => 4,
+            ))
+
+            ->add('card_num_3', 'text', array(
+                'required' => true,
+                'max_length' => 4,
+            ))
+
+            ->add('card_num_4', 'text', array(
+                'required' => true,
+                'max_length' => 4,
+            ))
             /**
              * Credit card expiration
              */
