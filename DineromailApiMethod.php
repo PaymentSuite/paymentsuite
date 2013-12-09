@@ -119,7 +119,7 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
     public function setDineromailApiTransactionId($dineromailApiTransactionId)
     {
-        $this->banwireTransactionId = $dineromailApiTransactionId;
+        $this->dineromailApiTransactionId = $dineromailApiTransactionId;
 
         return $this;
     }

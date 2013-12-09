@@ -9,6 +9,7 @@ use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Scastells\DineromailApiBundle\DineromailApiMethod;
+use SoapVar;
 
 /**
  * DineroMailAPi manager
@@ -63,7 +64,7 @@ class DineromailApiManager
 
 
     /**
-     * @var string
+     * @var string                           $credit_card
      *
      * url api dineromailapi prefix
      */
@@ -163,40 +164,40 @@ class DineromailApiManager
 
         foreach ($extraData['dinero_mail_api_items'] as $key => $dineroMailApiItem) {
             $items[]= array(
-                'amount'        => $dineroMailApiItem['amount'],
-                'currency'      => $this->paymentBridge->getCurrency(),
-                'code'          => '',
-                'description'   => $dineroMailApiItem['name'],
-                'name'          => $dineroMailApiItem['name'],
-                'quantity'      => $dineroMailApiItem['quantity']
+                'Amount'        => $dineroMailApiItem['amount'],
+                'Currency'      => $this->paymentBridge->getCurrency(),
+                'Code'          => '',
+                'Description'   => '',//$dineroMailApiItem['name'],
+                'Name'          => $dineroMailApiItem['name'],
+                'Quantity'      => $dineroMailApiItem['quantity']
             );
         }
 
         $buyer = array(
-            'name'      => $extraData['customer_firstname'],
-            'lastName'  => $extraData['customer_lastname'],
-            'email'     => $extraData['customer_email'],
-            'address'   => $extraData['correspondence_address'],
-            'phone'     => $extraData['customer_phone'],
-            'country'   => $extraData['customer_country'],
-            'city'      => $extraData['correspondence_city']
+            'Name'      => $extraData['customer_firstname'],
+            'LastName'  => $extraData['customer_lastname'],
+            'Email'     => $extraData['customer_email'],
+            'Address'   => $extraData['correspondence_address'],
+            'Phone'     => $extraData['customer_phone'],
+            'Country'   => $extraData['customer_country'],
+            'City'      => $extraData['correspondence_city']
         );
 
         $creditCard = array(
-            'installment'       => $paymentMethod->getCardQuota(),
-            'creditCardNumber'  => $paymentMethod->getCardNum(),
-            'holder'            => $paymentMethod->getCardName(),
-            'expirationDate'    => $cardExp,
-            'securityCode'      => $paymentMethod->getCardSecurity(),
-            'documentNumber'    => '1234567', //@TODO this can not be null, set customer document number in AR??
-            'address'           => '',
-            'addressNumber'     => '',
-            'addressComplement' => '',
-            'zipCode'           => '',
-            'neighborhood'      => '',
-            'city'              => '',
-            'state'             => '',
-            'country'           => ''
+            'Installment'       => $paymentMethod->getCardQuota(),
+            'CreditCardNumber'  => $paymentMethod->getCardNum(),
+            'Holder'            => $paymentMethod->getCardName(),
+            'ExpirationDate'    => $cardExp,
+            'SecurityCode'      => $paymentMethod->getCardSecurity(),
+            'DocumentNumber'    => '1234567', //@TODO this can not be null, set customer document number in AR??
+            'Address'           => '',
+            'AddressNumber'     => '',
+            'AddressComplement' => '',
+            'ZipCode'           => '',
+            'Neighborhood'      => '',
+            'City'              => '',
+            'State'             => '',
+            'Country'           => ''
         );
 
         $result  = $this->processSoap($items, $buyer,$creditCard, $paymentMethod->getCardType());
@@ -244,29 +245,27 @@ class DineromailApiManager
             $merchantTransactionId =  $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
         }
 
+         $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
-        $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+         $stringItems = '';
+         foreach($items as $item){
+             $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+         }
 
-        $stringItems = '';
-        foreach($items as $item){
-            $stringItems .= $item['amount'].$item['code'].$item['currency'].$item['description'].$item['name'].$item['quantity'];
-        }
-
-        $stringBuyer = $buyer['name'].$buyer['lastName'].$buyer['email'].$buyer['address'].$buyer['phone'].$buyer['country'].
-            $buyer['city'];
-
-        $stringCreditCard =  $creditCard['installment'].$creditCard['creditCardNumber'].$creditCard['holder'].
-            $creditCard['expirationDate'].$creditCard['securityCode'].$creditCard['documentNumber'].$creditCard['address'].
-            $creditCard['addressNumber'].$creditCard['addressComplement'].$creditCard['zipCode'].$creditCard['neighborhood'].
-            $creditCard['city'].$creditCard['state'].$creditCard['country'];
-
-        $string = $merchantTransactionId.$uniqueMessageId.$stringItems.$stringBuyer.$stringCreditCard.$provider.$subject.
+        $stringItems = $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+        $stringBuyer = $buyer['Name'].$buyer['LastName'].$buyer['Email'].$buyer['Address'].$buyer['Phone'].$buyer['Country'].
+            $buyer['City'];
+        $stringCreditCard = $creditCard['Installment'].$creditCard['CreditCardNumber'].$creditCard['Holder'].
+            $creditCard['ExpirationDate'].$creditCard['SecurityCode'].$creditCard['DocumentNumber'].$creditCard['Address'].
+            $creditCard['AddressNumber'].$creditCard['AddressComplement'].$creditCard['ZipCode'].$creditCard['Neighborhood'].
+            $creditCard['City'].$creditCard['State'].$creditCard['Country'];
+        $cadena = $merchantTransactionId.$uniqueMessageId.$stringItems.$stringBuyer.$stringCreditCard.$provider.$subject.
             $message.$this->apiPassword;
+        $hash = MD5($cadena);
 
-        $hash = md5($string);
-
+        $client = new \SoapClient($this->wsdl, array('trace' => 1, 'exceptions' => 1));
         $soapCredentials = $this->soapVar(array('APIUserName' => $this->apiUserName, 'APIPassword' => $this->apiPassword), 'APICredential');
-        $soapItems = $this->soapVar($items, 'Item');
+        $soapItems = $this->soapVar($items[0], 'Item');
         $soapBuyer = $this->soapVar($buyer,'Buyer');
         $soapCreditCard = $this->soapVar($creditCard,'CreditCard');
 
@@ -279,13 +278,12 @@ class DineromailApiManager
             'Provider'              => $provider,
             'CreditCard'            => $soapCreditCard,
             'Subject'               => $subject,
+            'Message'               => $message,
             'UniqueMessageId'       => $uniqueMessageId,
             'Hash'                  => $hash
         );
-
         $this->logger->addInfo('Request Send DineromailApi'.'processTransaction Response', $request);
 
-        $client = new \SoapClient($this->wsdl, array('trace' => 1, 'exceptions' => 1));
         return $client->DoPAymentWithCreditCard($request)->DoPaymentWithCreditCardResult;
     }
 
@@ -293,11 +291,11 @@ class DineromailApiManager
     /**
      * @param $data
      * @param $typeName
-     * @return \SoapVar
+     * @return SoapVar
      */
     private function soapVar($data, $typeName)
     {
-        return new \SoapVar($data, SOAP_ENC_OBJECT, $typeName, $this->apiNs);
+        return new SoapVar($data, SOAP_ENC_OBJECT, $typeName, $this->apiNs);
     }
 
 
