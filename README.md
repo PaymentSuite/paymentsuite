@@ -22,9 +22,10 @@ Configure the DineroMail configuration in your `config.yml`
 
     dineromail:
 
-        # some specific payment cnfig
+        # some specific payment config
         merchant: XXXXXXXXXX
-        country: es
+        ipn_key: XXXXXXXXXX
+        country: 1 # 1 => Argentina, 3 => Chile
         seller_name: MyProject
         header_image: http://my.image/path.jpg
         url_redirect_enabled: true

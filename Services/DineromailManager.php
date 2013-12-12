@@ -95,6 +95,25 @@ class DineromailManager
     /**
      * Checks transaction status
      *
+     * @param string         $transactionId        Transaction Id to check
+     *
+     * @return  DineromailManager   Self object
+     */
+    public function checkTransactionStatus($transactionId)
+    {
+        $details = $this->queryTransaction($transactionId);
+
+        if ($details instanceof \SimpleXMLElement) {
+            $this->processTransaction($details);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Queries transaction info
+     *
      * @param string         $transactionId        Transaction Id
      *
      * @return SimpleXMLElement     TransactionId details if successfull query, null otherwise

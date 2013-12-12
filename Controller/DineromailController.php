@@ -130,11 +130,11 @@ class DineromailController extends Controller
                 switch ((string)$xml->tiponotificacion) {
                     case '1':
                         foreach ($xml->operaciones->operacion as $oper) {
-                            $details = $this->get('dineromail.manager')->queryTransaction((string)$oper->id);
-                            if ($details instanceof \SimpleXMLElement) {
-                                $this->get('dineromail.manager')->processTransaction($details);
-                            }
+                            $this->get('dineromail.manager')->checkTransactionStatus((string)$oper->id);
                         }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
