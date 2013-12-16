@@ -23,10 +23,10 @@ class PagosonlineExtension extends Extension
         $container->setParameter('pagosonline.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('pagosonline.fail.order.field', $config['payment_fail']['order_append_field']);
 
-        $container->setParameter('pagosonline.user_id', $config['user_id']);
-        $container->setParameter('pagosonline.password', $config['password']);
+        //$container->setParameter('pagosonline.user_id', $config['user_id']);
+        //$container->setParameter('pagosonline.password', $config['password']);
         $container->setParameter('pagosonline.account_id', $config['account_id']);
-        $container->setParameter('pagosonline.wsdl_url', $config['wsdl_url']);
+        //$container->setParameter('pagosonline.wsdl_url', $config['wsdl_url']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

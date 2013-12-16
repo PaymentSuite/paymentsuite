@@ -9,8 +9,7 @@ use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Scastells\PagosonlineBundle\PagosonlineMethod;
-use Scastells\PagosonlineBundle\Lib\WSSESoap;
-use Scastells\PagosonlineBundle\Lib\WSSESoapClient;
+use Scastells\PagosonlineCommBundle\Services\PagosonlineCommManager;
 
 /**
  * Pagosonline manager
@@ -35,35 +34,9 @@ class PagosonlineManager
     protected $paymentBridge;
 
     /**
-     * @var string
-     *
-     * user pagosonline
+     * @var PagosonlineConnManager
      */
-    private $userId;
-
-
-    /**
-     * @var string
-     *
-     * wsdl pagosonline
-     */
-    private $wsdl;
-
-
-    /**
-     * @var string
-     *
-     * password pagosonline
-     */
-    private $password;
-
-
-    /**
-     * @var account
-     *
-     * account pagosonlie
-     */
-    private $accountId;
+    protected $pagosonlineComm;
 
     /**
      * @var logger
@@ -72,25 +45,26 @@ class PagosonlineManager
     private $logger;
 
     /**
+     * @var integer
+     */
+    private $accountId;
+
+    /**
      * Construct method for pagosonline manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param $userId
-     * @param $wsdl
-     * @param $password
-     * @param $accountId
      * @param $logger
+     * @param $accountId
+     * @param PagosonlineCommManager $pagosonlineComm
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $userId, $password, $accountId, $wsdl, $logger)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $logger, $accountId, PagosonlineCommManager $pagosonlineComm)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
-        $this->userId = $userId;
-        $this->password = $password;
-        $this->accountId = $accountId;
-        $this->wsdl = $wsdl;
         $this->logger = $logger;
+        $this->accountId = $accountId;
+        $this->pagosonlineComm = $pagosonlineComm;
     }
 
 
@@ -164,9 +138,7 @@ class PagosonlineManager
         $object_ws->paisCorrespondencia =  'CO';
         $object_ws->userAgent = $paymentMethod->getUserAgent();
 
-        $client = new WSSESoapClient($this->wsdl, $this->userId, $this->password);
-
-        $autWS = $client->solicitarAutorizacion($object_ws);
+        $autWS = $this->pagosonlineComm->solicitarAutorizacion($object_ws);
         $this->logger->addInfo($paymentMethod->getPaymentName(), get_object_vars($object_ws));
 
         $paymentMethod->setPagosonlineTransactionId($autWS->transaccionId);
