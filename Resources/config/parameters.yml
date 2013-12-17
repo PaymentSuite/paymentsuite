@@ -6,3 +6,4 @@ parameters:
     pagosonline_gateway.controller.route.response.name: "pagosonline_gateway_response"
     pagosonline_gateway.form.type.wrapper.class: "Scastells\\PagosonlineGatewayBundle\\Services\\Wrapper\\PagosonlineGatewayTypeWrapper"
     pagosonline_gateway.routes.loader.class: "Scastells\\PagosonlineGatewayBundle\\Router\\PagosonlineGatewayRoutesLoader"
+    pagosonline_gateway.manager.class: "Scastells\\PagosonlineGatewayBundle\\Services\\PagosonlineGatewayManager"

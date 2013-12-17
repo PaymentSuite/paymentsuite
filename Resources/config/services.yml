@@ -23,3 +23,12 @@ services:
             pagosonline_gateway.controller.route.response.name: %pagosonline_gateway.controller.route.response.name%
         tags:
             - { name: routing.loader }
+
+    pagosonline_gateway.manager:
+        class: %pagosonline_gateway.manager.class%
+        arguments:
+           payment.event.dispatcher: @payment.event.dispatcher
+           payment.bridge: @payment.bridge
+           logger: @logger
+           pagosonline.account_id: %pagosonline.account_id%
+           pagosonline_comm.manager: @pagosonline_comm.manager
