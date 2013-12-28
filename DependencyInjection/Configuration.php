@@ -1,25 +1,23 @@
 <?php
 
 /**
- * PaypalBundle for Symfony2
+ * PaypalExpressCheckout for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalBundle
+ * @package PaypalExpressCheckout
  *
  * Mickael Andrieu 2013
  */
 
-namespace Mandrieu\PaypalBundle\DependencyInjection;
+namespace PaymentSuite\PaypalExpressCheckout\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
 class Configuration implements ConfigurationInterface
 {
@@ -29,61 +27,29 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('paypal');
+        $rootNode = $treeBuilder->root('paypal_checkout');
 
         $rootNode
             ->children()
-                ->arrayNode('rest_api')
-                    ->children()
-                        ->scalarNode('client_id')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('secret')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
+                ->scalarNode('username')
+                    ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
-                ->arrayNode('http')
-                    ->children()
-                        ->scalarNode('connection_timeout')
-                            ->defaultValue(30)
-                        ->end()
-                        ->scalarNode('retry')
-                            ->defaultValue(1)
-                        ->end()
-                    ->end()
-                ->arrayNode('service')
-                    ->children()
-                        ->scalarNode('mode')
-                            ->defaultValue('sandbox')
-                            ->validate()
-                            ->ifNotInArray(array('sandbox', 'live'))
-                                ->thenInvalid('Invalid mode "%s"')
-                            ->end()
-                        ->end()
-                    ->end()
-                ->arrayNode('log')
-                    ->children()
-                        ->booleanNode('enabled')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('filename')
-                            ->defaultValue('../paypal.log')
-                        ->end()
-                        ->scalarNode('log_level')
-                            ->defaultValue('FINE')
-                            ->validate()
-                            ->ifNotInArray(array('FINE', 'INFO', 'WARN', 'ERROR'))
-                                ->thenInvalid('Invalid log level "%s"')
-                            ->end()
-                        ->end()
-                    ->end()
-
-
+                ->scalarNode('password')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('signature')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->booleanNode('debug')
+                    ->defaultTrue()
+                ->end()
                 ->scalarNode('controller_route')
-                    ->defaultValue('/payment/paypal/execute')
+                    ->defaultValue('/payment/paypal_express_checkout/execute')
                 ->end()
+
                 ->arrayNode('payment_success')
                     ->children()
                         ->scalarNode('route')

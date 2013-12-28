@@ -1,7 +1,7 @@
 {
-    "name": "mickaelandrieu/paypal-bundle",
+    "name": "paymentsuite/paypal-express_checkout-bundle",
     "type": "symfony-bundle",
-    "description": "Paypal Bundle, part of Mmoreram Payment Suite",
+    "description": "Paypal Express Checkout Bundle, part of PaymentSuite Project",
     "keywords": ["paypal", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
+        "ext-curl": "*",
         "symfony/event-dispatcher": ">=2.2.3",
         "symfony/framework-bundle": ">=2.2.3",
         "symfony/form": ">=2.2.3",
@@ -23,14 +24,14 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "paypal/rest-api-sdk-php": "dev-stable",
-        "mmoreram/payment-core-bundle": "1.0.1"
+        "paypal/merchant-sdk-php":"v3.6.106",
+        "paymentsuite/payment-core-bundle": ">=1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "Mandrieu/PaypalBundle",
+    "target-dir": "PaymentSuite/PaypalExpressCheckout",
     "autoload": {
-        "psr-0": { "Mandrieu\\PaypalBundle": "" }
+        "psr-0": { "PaymentSuite\\PaypalExpressCheckout": "" }
     }
 }

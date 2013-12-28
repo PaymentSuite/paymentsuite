@@ -1,41 +1,5 @@
 services:
-
-    paymill.form.type:
-        class: %paymill.form.type.class%
-        arguments:
-            router: @router
-            payment.bridge: @payment.bridge
-            paymill.controller.route.name: %paymill.controller.route.name%
-        tags:
-            - { name: form.type, alias: paymill_view }
-
-    paymill.transaction.wrapper:
-        class: %paymill.transaction.wrapper.class%
-        arguments:
-            paymill.private.key: %paymill.private.key%
-            paymill.api.endpoint: %paymill.api.endpoint%
-
-
-    paymill.manager:
-        class: %paymill.manager.class%
-        arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            payment.transaction.wrapper: @paymill.transaction.wrapper
-            payment.bridge: @payment.bridge
-
-    paymill.twig.extension:
-        class: %paymill.twig.extension.class%
-        arguments:
-            paymill.public.key: %paymill.public.key%
-            form.factory: @form.factory
-            payment.bridge: @payment.bridge
-        tags:
-            - { name: twig.extension }
-
-    paymill.routes.loader:
-        class: %paymill.routes.loader.class%
-        arguments:
-            paymill.controller.route.name: %paymill.controller.route.name%
-            paymill.controller.route: %paymill.controller.route%
+    paypal_express_checkout.routes.loader:
+        class: PaymentSuite\PaypalExpressCheckoutBundle\Router\PaypalExpressCheckoutRoutesLoader
         tags:
             - { name: routing.loader }

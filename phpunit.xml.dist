@@ -12,7 +12,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="PaymillBundle Test Suite">
+        <testsuite name="PaypalExpressCheckout Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>

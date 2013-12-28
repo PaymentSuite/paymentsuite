@@ -1,17 +1,17 @@
 <?php
 
 /**
- * PaypalBundle for Symfony2
+ * PaypalExpressCheckout for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalBundle
+ * @package PaypalExpressCheckout
  *
  * Mickael Andrieu 2013
  */
 
-namespace Mandrieu\PaypalBundle;
+namespace PaymentSuite\PaypalExpressCheckout;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Paypal payment bundle
  */
-class PaypalBundle extends Bundle
+class PaypalExpressCheckoutBundle extends Bundle
 {
 
 }

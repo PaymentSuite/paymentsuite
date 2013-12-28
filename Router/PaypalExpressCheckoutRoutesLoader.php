@@ -1,17 +1,17 @@
 <?php
 
 /**
- * PaypalBundle for Symfony2
+ * PaypalExpressCheckout for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalBundle
+ * @package PaypalExpressCheckout
  *
  * Mickael Andrieu 2013
  */
 
-namespace Mandrieu\PaypalBundle\Router;
+namespace PaymentSuite\PaypalExpressCheckout\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -21,12 +21,12 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Paypal router
  */
-class PaypalRoutesLoader implements LoaderInterface
+class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
 {
 
     /**
      * @var string
-     * 
+     *
      * Execution route name
      */
     private $controllerRouteName;
@@ -34,7 +34,7 @@ class PaypalRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
@@ -42,7 +42,7 @@ class PaypalRoutesLoader implements LoaderInterface
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
@@ -50,7 +50,7 @@ class PaypalRoutesLoader implements LoaderInterface
 
     /**
      * Construct method
-     * 
+     *
      * @param string $controllerRouteName Controller route name
      * @param string $controllerRoute     Controller route
      */
@@ -66,9 +66,9 @@ class PaypalRoutesLoader implements LoaderInterface
      *
      * @param mixed  $resource The resource
      * @param string $type     The resource type
-     * 
+     *
      * @return RouteCollection
-     * 
+     *
      * @throws RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)
@@ -80,7 +80,7 @@ class PaypalRoutesLoader implements LoaderInterface
 
         $routes = new RouteCollection();
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
-            '_controller'   =>  'PaypalBundle:Paypal:execute',
+            '_controller'   =>  'PaypalExpressCheckout:PaypalExpressCheckout:execute',
         )));
 
         $this->loaded = true;
@@ -99,7 +99,7 @@ class PaypalRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'paypal' === $type;
+        return 'paypal_express_checkout' === $type;
     }
 
 

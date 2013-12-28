@@ -1,0 +1,3 @@
+paypal_express_checkout_routes:
+    resource: .
+    type: paypal_express_checkout
