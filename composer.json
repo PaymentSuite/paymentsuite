@@ -1,0 +1,36 @@
+{
+    "name": "mickaelandrieu/paypal-bundle",
+    "type": "symfony-bundle",
+    "description": "Paypal Bundle, part of Mmoreram Payment Suite",
+    "keywords": ["paypal", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name":"Mickael Andrieu",
+            "email": "mickael.andrieu@sensiolabs.com"
+        },
+        {
+            "name": "Marc Morera",
+            "email": "yuhu@mmoreram.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "paypal/rest-api-sdk-php": "dev-stable",
+        "mmoreram/payment-core-bundle": "1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "target-dir": "Mandrieu/PaypalBundle",
+    "autoload": {
+        "psr-0": { "Mandrieu\\PaypalBundle": "" }
+    }
+}
