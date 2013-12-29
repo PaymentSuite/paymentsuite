@@ -1,7 +1,7 @@
 PaymillBundle - PayFony
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade/mini.png)](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606/mini.png)](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606)
 [![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
 [![Latest Stable Version](https://poser.pugx.org/mmoreram/paymill-bundle/v/stable.png)](https://packagist.org/packages/mmoreram/paymill-bundle)
