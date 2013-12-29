@@ -1,4 +1,4 @@
-BankWireBundle - PaymentCoreBundle Suite
+BankWireBundle - PaymentCoreBundle
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d/mini.png)](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d)
