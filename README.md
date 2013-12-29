@@ -1,7 +1,7 @@
 BankWireBundle - PaymentCoreBundle
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d/mini.png)](https://insight.sensiolabs.com/projects/f164e52e-b1bd-4344-b326-4b6be997d94d)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade/mini.png)](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/badges/quality-score.png?s=f5ae2404f5f37bf187dece44f2cc19a0b2f774d2)](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/)
 [![Latest Stable Version](https://poser.pugx.org/mmoreram/bankwire-bundle/v/stable.png)](https://packagist.org/packages/mmoreram/bankwire-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/mmoreram/bankwire-bundle/v/unstable.png)](https://packagist.org/packages/mmoreram/bankwire-bundle)
