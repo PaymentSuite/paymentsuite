@@ -40,36 +40,28 @@ class PaymillController extends Controller
         $form = $this->get('form.factory')->create('paymill_view');
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        try {
+
+            if (!$form->isValid()) {
+
+                throw new PaymentException;
+            }
 
             $data = $form->getData();
-
             $paymentMethod = $this->createPaymillMethod($data);
+            $this
+                ->get('paymill.manager')
+                ->processPayment($paymentMethod, $data['amount']);
 
-            try {
-                $this
-                    ->get('paymill.manager')
-                    ->processPayment($paymentMethod, $data['amount']);
+            $redirectUrl = $this->container->getParameter('paymill.success.route');
+            $redirectAppend = $this->container->getParameter('paymill.success.order.append');
+            $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
 
-                $redirectUrl = $this->container->getParameter('paymill.success.route');
-                $redirectAppend = $this->container->getParameter('paymill.success.order.append');
-                $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
 
-            } catch (PaymentException $e) {
-
-                /**
-                 * Must redirect to fail route
-                 */
-                $redirectUrl = $this->container->getParameter('paymill.fail.route');
-                $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
-                $redirectAppendField = $this->container->getParameter('paymill.fail.order.field');
-
-                throw $e;
-            }
-        } else {
+        } catch (PaymentException $e) {
 
             /**
-             * If form is not valid, fail return page
+             * Must redirect to fail route
              */
             $redirectUrl = $this->container->getParameter('paymill.fail.route');
             $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
