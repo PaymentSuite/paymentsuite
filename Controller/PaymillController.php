@@ -44,7 +44,7 @@ class PaymillController extends Controller
 
             $data = $form->getData();
 
-            $paymillMethod = $this->createPaymillMethod($data);
+            $paymentMethod = $this->createPaymillMethod($data);
 
             try {
                 $this
