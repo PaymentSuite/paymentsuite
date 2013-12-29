@@ -17,7 +17,6 @@ use Mmoreram\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Bankwire manager

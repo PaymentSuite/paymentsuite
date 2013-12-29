@@ -17,11 +17,19 @@
         "symfony/config": ">=2.2.3",
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
-
-        "mmoreram/payment-core-bundle": "1.0.1"
+        "mmoreram/payment-core-bundle": ">=1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
     },
     "target-dir": "Mmoreram/BankwireBundle",
     "autoload": {
         "psr-0": { "Mmoreram\\BankwireBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
