@@ -42,8 +42,8 @@ class StripeExtension extends Extension
         $container->setParameter('stripe.success.order.field', $config['payment_success']['order_append_field']);
 
         $container->setParameter('stripe.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('stripe.fail.cart.append', $config['payment_fail']['cart_append']);
-        $container->setParameter('stripe.fail.cart.field', $config['payment_fail']['cart_append_field']);
+        $container->setParameter('stripe.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('stripe.fail.order.field', $config['payment_fail']['order_append_field']);
 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

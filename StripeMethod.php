@@ -34,14 +34,6 @@ class StripeMethod implements PaymentMethodInterface
 
 
     /**
-     * @var float
-     *
-     * Stripe amount
-     */
-    private $amount;
-
-
-    /**
      * @var string
      *
      * Stripe response api token
@@ -90,14 +82,6 @@ class StripeMethod implements PaymentMethodInterface
 
 
     /**
-     * @var string
-     *
-     * Currency
-     */
-    private $currency;
-
-
-    /**
      * @var integer
      *
      * Stripe transaction id
@@ -119,33 +103,6 @@ class StripeMethod implements PaymentMethodInterface
      * Transaction status
      */
     private $transactionStatus;
-
-
-
-    /**
-     * set amount
-     *
-     * @param float $amount Amount
-     *
-     * @return StripeMethod self Object
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-
-    /**
-     * Get amount
-     *
-     * @return float amount
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
 
 
     /**
@@ -290,31 +247,6 @@ class StripeMethod implements PaymentMethodInterface
         $this->apiToken = $apiToken;
 
         return $this;
-    }
-
-    /**
-     * Set currency
-     *
-     * @param string $currency
-     *
-     * @return StripeMethod self Object
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-
-        return $this;
-    }
-
-
-    /**
-     * Get currency
-     *
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
     }
 
 

@@ -13,28 +13,29 @@
 
 namespace dpcat237\StripeBundle\Services;
 
-use Services_Stripe_Transactions;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\CartWrapperInterface;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\OrderWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
-use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
-use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
-use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
 use dpcat237\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
 use dpcat237\StripeBundle\StripeMethod;
 use Stripe;
-use Stripe_Charge;
 
 /**
  * Stripe manager
  */
 class StripeManager
 {
+
+    /**
+     * @var array
+     *
+     * Necessary params to request the payment
+     */
+    protected $chargeParams;
+
     /**
      * @var PaymentEventDispatcher
      *
@@ -52,82 +53,69 @@ class StripeManager
 
 
     /**
-     * @var string
+     * @var PaymentBridgeInterface
      *
-     * Stripe api ednpoint
+     * Payment Bridge
      */
-    protected $apiEndPoint;
-
-
-    /**
-     * @var CartWrapperInterface
-     *
-     * Cart wrapper interface
-     */
-    protected $cartWrapper;
-
-
-    /**
-     * @var CurrencyWrapper
-     *
-     * Currency wrapper
-     */
-    protected $currencyWrapper;
-
-
-    /**
-     * @var OrderWrapperInterface
-     *
-     * Order wrapper interface
-     */
-    protected $orderWrapper;
+    protected $paymentBridge;
 
 
     /**
      * Construct method for stripe manager
      *
      * @param PaymentEventDispatcher   $paymentEventDispatcher Event dispatcher
-     * @param StripeTransactionWrapper $transactionWrapper     Transaction wrapper
-     * @param string                   $apiEndPoint            Api end point
-     * @param CartWrapperInterface     $cartWrapper            Cart wrapper
-     * @param CurrencyWrapper          $currencyWrapper        Currency wrapper
-     * @param OrderWrapperInterface    $orderWrapper           Order wrapper
+     * @param StripeTransactionWrapper $transactionWrapper     Stripe Transaction wrapper
+     * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, StripeTransactionWrapper $transactionWrapper, $apiEndPoint, CartWrapperInterface $cartWrapper, CurrencyWrapper $currencyWrapper, OrderWrapperInterface $orderWrapper)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, StripeTransactionWrapper $transactionWrapper, PaymentBridgeInterface $paymentBridge)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->transactionWrapper = $transactionWrapper;
-        $this->apiEndPoint = $apiEndPoint;
-        $this->cartWrapper = $cartWrapper;
-        $this->currencyWrapper = $currencyWrapper;
-        $this->orderWrapper = $orderWrapper;
+        $this->paymentBridge = $paymentBridge;
     }
 
 
     /**
-     * Tries to process a payment through Stripe
-     *
-     * @param StripeMethod $paymentMethod
+     * Check and set param for payment
+     * 
+     * @param StripeMethod $paymentMethod Payment method
+     * @param float        $amount        Amount
+     * 
+     * @return StripeManager self Object
      *
      * @throws PaymentAmountsNotMatchException
-     * @throws PaymentException
-     *
-     * @return StripeManager Self object
+     * @throws PaymentOrderNotFoundException
      */
-    public function processPayment(StripeMethod $paymentMethod)
+    private function prepareData(StripeMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $cartAmount = (float) $this->cartWrapper->getAmount() * 100;
+        $cartAmount = (float) $this->paymentBridge->getAmount();
 
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($paymentMethod->getAmount() - $cartAmount) > 0.00001) {
-
+        if (abs($amount - $cartAmount) > 0.00001) {
             throw new PaymentAmountsNotMatchException;
         }
 
-        $this->paymentEventDispatcher->notifyPaymentReady($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        /**
+         * At this point, order must be created given a cart, and placed in PaymentBridge
+         *
+         * So, $this->paymentBridge->getOrder() must return an object
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+
+        /**
+         * Order Not found Exception must be thrown just here
+         */
+        if (!$this->paymentBridge->getOrder()) {
+            throw new PaymentOrderNotFoundException;
+        }
+
+        /**
+         * Order exists right here
+         */
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
 
         /**
          * Validate the order in the module
@@ -138,20 +126,45 @@ class StripeManager
             'exp_month' => $paymentMethod->getCreditCartExpirationMonth(),
             'exp_year' => $paymentMethod->getCreditCartExpirationYear(),
         );
-        $chargeParams = array(
+
+        $this->chargeParams = array(
             'card' => $cardParams,
             'amount' => intval($cartAmount),
-            'currency' => strtolower($this->currencyWrapper->getCurrency()),
+            'currency' => strtolower($this->paymentBridge->getCurrency()),
         );
 
-        $transaction = $this->transactionWrapper->create($chargeParams);
+        return $this;
+    }
+
+
+    /**
+     * Tries to process a payment through Stripe
+     *
+     * @param StripeMethod $paymentMethod Payment method
+     * @param float        $amount        Amount
+     *
+     * @throws PaymentAmountsNotMatchException
+     * @throws PaymentException
+     *
+     * @return StripeManager Self object
+     */
+    public function processPayment(StripeMethod $paymentMethod, $amount)
+    {
+        /**
+         * check and set payment data
+         */
+        $this->prepareData($paymentMethod, $amount);
+        /**
+         * make payment
+         */
+        $transaction = $this->transactionWrapper->create($this->chargeParams);
 
         /**
          * Payment paid done
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentDone($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
         /**
          * when a transaction is successful, it is marked as 'closed'
@@ -163,7 +176,7 @@ class StripeManager
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentFail($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
             throw new PaymentException;
         }
@@ -179,17 +192,7 @@ class StripeManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentSuccess($this->cartWrapper, $this->orderWrapper, $paymentMethod);
-
-
-        /**
-         * Notifies Payment
-         *
-         * This event os thrown when Order is created already
-         *
-         * At this point, order MUST be created
-         */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->cartWrapper, $this->orderWrapper, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
         return $this;
     }

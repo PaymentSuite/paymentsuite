@@ -2,7 +2,7 @@ services:
     stripe.form.type:
         class: %stripe.form.type.class%
         arguments:
-            payment.cart.wrapper: @payment.cart.wrapper
+            payment.bridge: @payment.bridge
         tags:
             - { name: form.type, alias: stripe_view }
 
@@ -16,17 +16,14 @@ services:
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
             stripe.transaction.wrapper: @stripe.transaction.wrapper
-            stripe.api.endpoint: %stripe.api.endpoint%
-            payment.cart.wrapper: @payment.cart.wrapper
-            payment.currency.wrapper: @payment.currency.wrapper
-            payment.order.wrapper: @payment.order.wrapper
+            payment.bridge: @payment.bridge
 
     stripe.twig.extension:
         class: %stripe.twig.extension.class%
         arguments:
             stripe.public.key: %stripe.public.key%
             form.factory: @form.factory
-            payment.currency.wrapper: @payment.currency.wrapper
+            payment.bridge: @payment.bridge
         tags:
             - { name: twig.extension }
 

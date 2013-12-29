@@ -15,7 +15,7 @@ namespace dpcat237\StripeBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\CartWrapperInterface;
+use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * Type for a shop edit profile form
@@ -24,21 +24,21 @@ class StripeType extends AbstractType
 {
 
     /**
-     * @var CartWrapperInterface
+     * @var PaymentBridgeInterface
      *
-     * Cart Wrapper
+     * Payment bridge
      */
-    private $cartWrapper;
+    private $paymentBridge;
 
 
     /**
-     * Formtype construct method
+     * Form type construct method
      *
-     * @param CartWrapperInterface $cartWrapper Cart wrapper
+     * @param PaymentBridgeInterface $paymentBridge Payment bridge
      */
-    public function __construct(CartWrapperInterface $cartWrapper)
+    public function __construct(PaymentBridgeInterface $paymentBridge)
     {
-        $this->cartWrapper = $cartWrapper;
+        $this->paymentBridge = $paymentBridge;
     }
 
 
@@ -68,7 +68,7 @@ class StripeType extends AbstractType
                 'choices' => array_combine(range(2013, 2025), range(2013, 2025)),
             ))
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->cartWrapper->getAmount(), 2) * 100
+                'data'  =>  $this->paymentBridge->getAmount()
             ))
             ->add('api_token', 'hidden', array(
                 'data'  =>  ''

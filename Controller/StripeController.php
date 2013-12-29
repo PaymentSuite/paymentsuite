@@ -13,7 +13,6 @@
 
 namespace dpcat237\StripeBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -42,54 +41,62 @@ class StripeController extends Controller
         $form = $this->get('form.factory')->create('stripe_view');
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        try {
+
+            if (!$form->isValid()) {
+
+                throw new PaymentException;
+            }
 
             $data = $form->getData();
+            $paymentMethod = $this->createStripeMethod($data);
+            $this
+                ->get('stripe.manager')
+                ->processPayment($paymentMethod, $data['amount']);
 
-            $paymentMethod = new StripeMethod;
-            $paymentMethod
-                ->setAmount((float) $data['amount'])
-                ->setApiToken($data['api_token'])
-                ->setCreditCartNumber($data['credit_cart'])
-                ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
-                ->setCreditCartExpirationYear($data['credit_cart_expiration_year'])
-                ->setCreditCartSecurity($data['credit_cart_security']);
+            $redirectUrl = $this->container->getParameter('stripe.success.route');
+            $redirectAppend = $this->container->getParameter('stripe.success.order.append');
+            $redirectAppendField = $this->container->getParameter('stripe.success.order.field');
 
-            try {
-                $this
-                    ->get('stripe.manager')
-                    ->processPayment($paymentMethod);
 
-                $redirectUrl = $this->container->getParameter('stripe.success.route');
-                $redirectAppend = $this->container->getParameter('stripe.success.order.append');
-                $redirectAppendField = $this->container->getParameter('stripe.success.order.field');
-                $redirectAppendValue = $this->get('payment.order.wrapper')->getOrderId();
-
-            } catch (PaymentException $e) {
-
-                /**
-                 * Must redirect to fail route
-                 */
-                $redirectUrl = $this->container->getParameter('stripe.fail.route');
-                $redirectAppend = $this->container->getParameter('stripe.fail.cart.append');
-                $redirectAppendField = $this->container->getParameter('stripe.fail.cart.field');
-                $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
-
-                throw $e;
-            }
-        } else {
+        } catch (PaymentException $e) {
 
             /**
-             * If form is not valid, fail return page
+             * Must redirect to fail route
              */
             $redirectUrl = $this->container->getParameter('stripe.fail.route');
-            $redirectAppend = $this->container->getParameter('stripe.fail.cart.append');
-            $redirectAppendField = $this->container->getParameter('stripe.fail.cart.field');
-            $redirectAppendValue = $this->get('payment.cart.wrapper')->getCartId();
+            $redirectAppend = $this->container->getParameter('stripe.fail.order.append');
+            $redirectAppendField = $this->container->getParameter('stripe.fail.order.field');
+
         }
 
-        $redirectData   = $redirectAppend ? array($redirectAppendField => $redirectAppendValue) : array();
+        $redirectData   = $redirectAppend
+                        ? array(
+                            $redirectAppendField => $this->get('payment.bridge')->getOrderId()
+                        )
+                        : array();
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+    }
+
+
+    /**
+     * Given some data, creates a StripeMethod object
+     *
+     * @param array $data Data
+     * 
+     * @return StripeMethod StripeMethod instance
+     */
+    private function createStripeMethod(array $data)
+    {
+        $paymentMethod = new StripeMethod;
+        $paymentMethod
+            ->setApiToken($data['api_token'])
+            ->setCreditCartNumber($data['credit_cart'])
+            ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
+            ->setCreditCartExpirationYear($data['credit_cart_expiration_year'])
+            ->setCreditCartSecurity($data['credit_cart_security']);
+
+        return $paymentMethod;
     }
 }

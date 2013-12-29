@@ -18,7 +18,7 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 
 use dpcat237\StripeBundle\Router\StripeRoutesLoader;
-use Mmoreram\PaymentCoreBundle\Services\Wrapper\CurrencyWrapper;
+use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension
@@ -51,25 +51,25 @@ class StripeExtension extends Twig_Extension
 
 
     /**
-     * @var CurrencyWrapper
+     * @var PaymentBridgeInterface
      *
      * Currency wrapper
      */
-    private $currency;
+    private $paymentBridgeInterface;
 
 
     /**
      * Construct method
      *
-     * @param string          $publicKey   Public key
-     * @param FormFactory     $formFactory Form factory
-     * @param CurrencyWrapper $currency    Currency wrapper
+     * @param string                 $publicKey              Public key
+     * @param FormFactory            $formFactory            Form factory
+     * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge Interface
      */
-    public function __construct($publicKey, FormFactory $formFactory, CurrencyWrapper $currency)
+    public function __construct($publicKey, FormFactory $formFactory, PaymentBridgeInterface $paymentBridgeInterface)
     {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
-        $this->currency = $currency;
+        $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
 
 
@@ -127,7 +127,7 @@ class StripeExtension extends Twig_Extension
     {
         return $this->environment->display('StripeBundle:Stripe:scripts.html.twig', array(
             'public_key'    =>  $this->publicKey,
-            'currency'      =>  $this->currency->getCurrency(),
+            'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
 
