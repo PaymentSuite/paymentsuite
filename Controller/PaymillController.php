@@ -13,7 +13,6 @@
 
 namespace Mmoreram\PaymillBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
@@ -45,14 +44,7 @@ class PaymillController extends Controller
 
             $data = $form->getData();
 
-            $paymentMethod = new PaymillMethod;
-            $paymentMethod
-                ->setApiToken($data['api_token'])
-                ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])
-                ->setCreditCardOwner($data['credit_card_owner'])
-                ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
-                ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
-                ->setCreditCardSecurity($data['credit_card_security']);
+            $paymillMethod = $this->createPaymillMethod($data);
 
             try {
                 $this
@@ -91,5 +83,27 @@ class PaymillController extends Controller
                         : array();
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+    }
+
+
+    /**
+     * Given some data, creates a PaymillMethod object
+     *
+     * @param array $data Data
+     * 
+     * @return PaymillMethod PaymillMethod instance
+     */
+    private function createPaymillMethod(array $data)
+    {
+        $paymentMethod = new PaymillMethod;
+        $paymentMethod
+            ->setApiToken($data['api_token'])
+            ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])
+            ->setCreditCardOwner($data['credit_card_owner'])
+            ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
+            ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
+            ->setCreditCardSecurity($data['credit_card_security']);
+
+        return $paymentMethod;
     }
 }

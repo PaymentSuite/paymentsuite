@@ -16,9 +16,7 @@ namespace Mmoreram\PaymillBundle\Twig;
 use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use Twig_SimpleFilter;
 
-use Mmoreram\PaymillBundle\Router\PaymillRoutesLoader;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
