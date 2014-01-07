@@ -165,7 +165,7 @@ class SafetypayManager
             {
                 $search = "/<ClientRedirectURL(?:.*?)>(.*)<\/ClientRedirectURL>/U";
                 preg_match_all($search, $result[1], $match);
-                return (($html_link)? '<a href="' . $match[1][0] . '" target="_blank"><img src="../images/safetypay_module.png" border="0" alt="SafetyPay Inc." /></a>': $match[1][0]);// return Token URL EXPRESS
+                return (($html_link)? '<a href="' . $match[1][0] . '" target="_blank">SafetyPay</a>': $match[1][0]);// return Token URL EXPRESS
             }
         }
         else
@@ -173,7 +173,7 @@ class SafetypayManager
         {
             $match = explode(',', $result[1], 4);
             if ($match[0] == '0')
-                return (($html_link)? '<a href="' . $match[2] . '" target="_blank"><img src="../images/safetypay_module.png" border="0" alt="SafetyPay Inc." /></a>': $match[2]);// return Token URL EXPRESS
+                return (($html_link)? '<a href="' . $match[2] . '" target="_blank">SafetyPay</a>': $match[2]);// return Token URL EXPRESS
             else
                 return '<span style="color:red;">Error: ' . ($match[0] == '1'?'1, Invalid credentials':'2, Merchant has not sent data') .'</span>';	// return error message
         }
