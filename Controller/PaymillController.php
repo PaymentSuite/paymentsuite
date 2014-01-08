@@ -45,6 +45,7 @@ class PaymillController extends Controller
             if (!$form->isValid()) {
 
                 throw new PaymentException;
+
             }
 
             $data = $form->getData();
@@ -82,7 +83,7 @@ class PaymillController extends Controller
      * Given some data, creates a PaymillMethod object
      *
      * @param array $data Data
-     * 
+     *
      * @return PaymillMethod PaymillMethod instance
      */
     private function createPaymillMethod(array $data)

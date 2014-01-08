@@ -14,6 +14,7 @@
 namespace Mmoreram\PaymillBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use Paymill\Models\Response\Transaction;
 
 
 /**
@@ -24,7 +25,7 @@ class PaymillMethod implements PaymentMethodInterface
 
     /**
      * Get Paymill method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
@@ -98,7 +99,7 @@ class PaymillMethod implements PaymentMethodInterface
 
 
     /**
-     * @var array
+     * @var Paymill\Models\Response\Transaction
      *
      * Transaction
      */
@@ -107,9 +108,9 @@ class PaymillMethod implements PaymentMethodInterface
 
     /**
      * set currency
-     * 
+     *
      * @param string $currency Currency
-     * 
+     *
      * @return PaymillMethod self Object
      */
     public function setCurrency($currency)
@@ -341,12 +342,12 @@ class PaymillMethod implements PaymentMethodInterface
 
     /**
      * Set Transaction
-     * 
-     * @param array $transaction Transaction
-     * 
+     *
+     * @param Paymill\Models\Response\Transaction $transaction Transaction
+     *
      * @return PaymillMethod self Object
      */
-    public function setTransaction(array $transaction)
+    public function setTransaction(Transaction $transaction)
     {
         $this->transaction = $transaction;
 
@@ -356,8 +357,8 @@ class PaymillMethod implements PaymentMethodInterface
 
     /**
      * Get transaction
-     * 
-     * @return array Transaction
+     *
+     * @return Paymill\Models\Response\Transaction Transaction
      */
     public function getTransaction()
     {
