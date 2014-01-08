@@ -13,7 +13,6 @@
 
 namespace Mmoreram\PaymillBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
@@ -41,43 +40,28 @@ class PaymillController extends Controller
         $form = $this->get('form.factory')->create('paymill_view');
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        try {
+
+            if (!$form->isValid()) {
+
+                throw new PaymentException;
+            }
 
             $data = $form->getData();
+            $paymentMethod = $this->createPaymillMethod($data);
+            $this
+                ->get('paymill.manager')
+                ->processPayment($paymentMethod, $data['amount']);
 
-            $paymentMethod = new PaymillMethod;
-            $paymentMethod
-                ->setApiToken($data['api_token'])
-                ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])
-                ->setCreditCardOwner($data['credit_card_owner'])
-                ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
-                ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
-                ->setCreditCardSecurity($data['credit_card_security']);
+            $redirectUrl = $this->container->getParameter('paymill.success.route');
+            $redirectAppend = $this->container->getParameter('paymill.success.order.append');
+            $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
 
-            try {
-                $this
-                    ->get('paymill.manager')
-                    ->processPayment($paymentMethod, $data['amount']);
 
-                $redirectUrl = $this->container->getParameter('paymill.success.route');
-                $redirectAppend = $this->container->getParameter('paymill.success.order.append');
-                $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
-
-            } catch (PaymentException $e) {
-
-                /**
-                 * Must redirect to fail route
-                 */
-                $redirectUrl = $this->container->getParameter('paymill.fail.route');
-                $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
-                $redirectAppendField = $this->container->getParameter('paymill.fail.order.field');
-
-                throw $e;
-            }
-        } else {
+        } catch (PaymentException $e) {
 
             /**
-             * If form is not valid, fail return page
+             * Must redirect to fail route
              */
             $redirectUrl = $this->container->getParameter('paymill.fail.route');
             $redirectAppend = $this->container->getParameter('paymill.fail.order.append');
@@ -91,5 +75,27 @@ class PaymillController extends Controller
                         : array();
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+    }
+
+
+    /**
+     * Given some data, creates a PaymillMethod object
+     *
+     * @param array $data Data
+     * 
+     * @return PaymillMethod PaymillMethod instance
+     */
+    private function createPaymillMethod(array $data)
+    {
+        $paymentMethod = new PaymillMethod;
+        $paymentMethod
+            ->setApiToken($data['api_token'])
+            ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])
+            ->setCreditCardOwner($data['credit_card_owner'])
+            ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
+            ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
+            ->setCreditCardSecurity($data['credit_card_security']);
+
+        return $paymentMethod;
     }
 }

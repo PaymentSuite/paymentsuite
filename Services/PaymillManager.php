@@ -20,7 +20,6 @@ use Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Mmoreram\PaymillBundle\PaymillMethod;
-use Services_Paymill_Transactions;
 
 /**
  * Paymill manager
