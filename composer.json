@@ -19,8 +19,8 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "paymill/paymill": "3.0.0",
-	"mmoreram/payment-core-bundle": "~1"
+        "paymill/paymill": ">=3.0",
+        "mmoreram/payment-core-bundle": ">=1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
@@ -29,7 +29,7 @@
     "autoload": {
         "psr-0": { "Mmoreram\\PaymillBundle": "" }
     },
-    "minimum-stability": "stable", 
+    "minimum-stability": "stable",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
