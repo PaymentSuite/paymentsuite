@@ -248,11 +248,12 @@ class DineromailApiManager
          $uniqueMessageId = date('Ymdhis') . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
          $stringItems = '';
+         $soapItems = array();
          foreach($items as $item){
              $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
+             $soapItems[] = $this->soapVar($item, 'Item');
          }
 
-        $stringItems = $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
         $stringBuyer = $buyer['Name'].$buyer['LastName'].$buyer['Email'].$buyer['Address'].$buyer['Phone'].$buyer['Country'].
             $buyer['City'];
         $stringCreditCard = $creditCard['Installment'].$creditCard['CreditCardNumber'].$creditCard['Holder'].
@@ -265,7 +266,7 @@ class DineromailApiManager
 
         $client = new \SoapClient($this->wsdl, array('trace' => 1, 'exceptions' => 1));
         $soapCredentials = $this->soapVar(array('APIUserName' => $this->apiUserName, 'APIPassword' => $this->apiPassword), 'APICredential');
-        $soapItems = $this->soapVar($items[0], 'Item');
+
         $soapBuyer = $this->soapVar($buyer,'Buyer');
         $soapCreditCard = $this->soapVar($creditCard,'CreditCard');
 
@@ -273,7 +274,7 @@ class DineromailApiManager
             'Credential'            => $soapCredentials,
             'Crypt'                 => false,
             'MerchantTransactionId' => $merchantTransactionId,
-            'Items'                 => array($soapItems),
+            'Items'                 => $soapItems,
             'Buyer'                 => $soapBuyer,
             'Provider'              => $provider,
             'CreditCard'            => $soapCreditCard,
