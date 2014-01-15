@@ -249,7 +249,9 @@ class DineromailApiManager
 
          $stringItems = '';
          $soapItems = array();
-         foreach($items as $item){
+         foreach($items as &$item){
+             /* UGLY HACK NEEDED UNTIL PAYMENTBRIDGE HIERARCHY WILL BE REFACTORED */
+             $item['Amount'] = number_format($item['Amount'] / 100, 2, '.', '');
              $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
              $soapItems[] = $this->soapVar($item, 'Item');
          }
