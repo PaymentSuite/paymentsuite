@@ -1,0 +1,15 @@
+services:
+
+    freepayment.manager:
+        class: %freepayment.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.bridge: @payment.bridge
+
+    freepayment.routes.loader:
+        class: %freepayment.routes.loader.class%
+        arguments:
+            freepayment.controller.route.name: %freepayment.controller.route.name%
+            freepayment.controller.route: %freepayment.controller.route%
+        tags:
+            - { name: routing.loader }
