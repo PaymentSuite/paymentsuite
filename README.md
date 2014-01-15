@@ -1,6 +1,12 @@
 FreePayment - PaymentCoreBundle
 =====
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9/mini.png)](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/FreePaymentBundle/badges/quality-score.png?s=962c277666ad58ac942c8180fc72ffee76b45d6c)](https://scrutinizer-ci.com/g/PaymentSuite/FreePaymentBundle/)
+[![Latest Stable Version](https://poser.pugx.org/paymentsuite/free-payment-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/free-payment-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
+[![Total Downloads](https://poser.pugx.org/paymentsuite/free-payment-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
+
 Table of contents
 -----
 

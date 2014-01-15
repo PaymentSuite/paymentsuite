@@ -14,10 +14,6 @@
 namespace PaymentSuite\FreePaymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\FreePaymentBundle\PaymillMethod;
 
 
 /**
@@ -29,11 +25,9 @@ class PaymillController extends Controller
     /**
      * Free Payment execution
      *
-     * @param Request $request Request element
-     *
-     * @return RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function executeAction(Request $request)
+    public function executeAction()
     {
         $this
             ->get('freepayment.manager')
@@ -42,6 +36,12 @@ class PaymillController extends Controller
         $redirectUrl = $this->container->getParameter('freepayment.success.route');
         $redirectAppend = $this->container->getParameter('freepayment.success.order.append');
         $redirectAppendField = $this->container->getParameter('freepayment.success.order.field');
+
+        $redirectData   = $redirectAppend
+                        ? array(
+                            $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
+                        )
+                        : array();
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }

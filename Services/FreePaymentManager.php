@@ -57,7 +57,7 @@ class FreePaymentManager
      *
      * @param FreePaymentMethod $paymentMethod Payment method
      *
-     * @return PaymillManager Self object
+     * @return FreePaymentManager Self object
      */
     public function processPayment(FreePaymentMethod $paymentMethod)
     {
