@@ -15,6 +15,7 @@ namespace PaymentSuite\FreePaymentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use PaymentSuite\FreePaymentBundle\FreePaymentMethod;
 
 /**
  * PaymillController
@@ -29,9 +30,11 @@ class FreePaymentController extends Controller
      */
     public function executeAction()
     {
+        $freePaymentMethod = new FreePaymentMethod;
+
         $this
             ->get('freepayment.manager')
-            ->processPayment();
+            ->processPayment($freePaymentMethod);
 
         $redirectUrl = $this->container->getParameter('freepayment.success.route');
         $redirectAppend = $this->container->getParameter('freepayment.success.order.append');
