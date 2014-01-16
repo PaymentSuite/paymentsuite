@@ -1,4 +1,4 @@
-Authorize.Net (AIM) Platform for Symfony Payment Suite
+Authorize.Net (AIM) - Payment Suite
 =====
 
 [![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)
