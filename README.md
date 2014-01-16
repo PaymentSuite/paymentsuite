@@ -1,4 +1,4 @@
-FreePayment - PaymentCoreBundle
+Free Payment - Payment Suite
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9/mini.png)](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9)
