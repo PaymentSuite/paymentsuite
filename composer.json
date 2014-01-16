@@ -2,7 +2,7 @@
     "name": "paymentsuite/banwire-bundle",
     "type": "symfony-bundle",
     "description": "Banwire Bundle, part of Mmoreram Payment Suite",
-    "keywords": ["Banwire", "payment", "ecommerce"],
+    "keywords": ["Banwire", "payment", "ecommerce", "PaymentSuite"],
     "license": "MIT",
     "authors": [
         {
@@ -25,5 +25,11 @@
     "target-dir": "PaymentSuite/BanwireBundle",
     "autoload": {
         "psr-0": { "PaymentSuite\\BanwireBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
