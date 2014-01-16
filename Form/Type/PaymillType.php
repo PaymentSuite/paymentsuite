@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Form\Type;
+namespace PaymentSuite\PaymillBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +34,7 @@ class PaymillType extends AbstractType
 
     /**
      * @var Router
-     * 
+     *
      * Router instance
      */
     private $router;
@@ -42,7 +42,7 @@ class PaymillType extends AbstractType
 
     /**
      * @var string
-     * 
+     *
      * Execution route name
      */
     private $controllerRouteName;

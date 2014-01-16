@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Services\Wrapper;
+namespace PaymentSuite\PaymillBundle\Services\Wrapper;
 
 use Paymill\Request;
 use Paymill\Models\Request\Transaction;

@@ -4,10 +4,10 @@ PaymillBundle - PaymentCoreBundle
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606/mini.png)](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606)
 [![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
-[![Latest Stable Version](https://poser.pugx.org/mmoreram/paymill-bundle/v/stable.png)](https://packagist.org/packages/mmoreram/paymill-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/mmoreram/paymill-bundle/v/unstable.png)](https://packagist.org/packages/mmoreram/paymill-bundle)
+[![Latest Stable Version](https://poser.pugx.org/paymentsuite/paymill-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/paymill-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/paymill-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/paymill-bundle)
 [![Dependency Status](https://www.versioneye.com/user/projects/52c05da5ec13758efc0002c4/badge.png)](https://www.versioneye.com/user/projects/52c05da5ec13758efc0002c4)
-[![Total Downloads](https://poser.pugx.org/mmoreram/paymill-bundle/downloads.png)](https://packagist.org/packages/mmoreram/paymill-bundle)
+[![Total Downloads](https://poser.pugx.org/paymentsuite/paymill-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/paymill-bundle)
 
 Table of contents
 -----
@@ -70,9 +70,9 @@ PaymentBridge Service must return, at least, these fields.
 Router
 -----
 
-PaymillBundle allows developer to specify the route of controller where paymill payment is processed.  
-By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.  
-Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file  
+PaymillBundle allows developer to specify the route of controller where paymill payment is processed.
+By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.
+Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file
 
 ``` yml
 paymill_payment_routes:
@@ -83,7 +83,7 @@ paymill_payment_routes:
 Display
 -----
 
-Once your Paymill is installed and well configured, you need to place your payment form.  
+Once your Paymill is installed and well configured, you need to place your payment form.
 
 PaymillBundle gives you all form view as requested by the payment module.
 
@@ -110,6 +110,6 @@ PaymillBundle gives you all form view as requested by the payment module.
 Customize
 -----
 
-`paymill_render()` only print form in a simple way.  
+`paymill_render()` only print form in a simple way.
 
-As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `Mmoreram/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
+As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `PaymentSuite/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.

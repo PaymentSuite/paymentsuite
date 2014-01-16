@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Router;
+namespace PaymentSuite\PaymillBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -26,7 +26,7 @@ class PaymillRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution route name
      */
     private $controllerRouteName;
@@ -34,7 +34,7 @@ class PaymillRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
@@ -42,7 +42,7 @@ class PaymillRoutesLoader implements LoaderInterface
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
@@ -50,7 +50,7 @@ class PaymillRoutesLoader implements LoaderInterface
 
     /**
      * Construct method
-     * 
+     *
      * @param string $controllerRouteName Controller route name
      * @param string $controllerRoute     Controller route
      */
@@ -66,9 +66,9 @@ class PaymillRoutesLoader implements LoaderInterface
      *
      * @param mixed  $resource The resource
      * @param string $type     The resource type
-     * 
+     *
      * @return RouteCollection
-     * 
+     *
      * @throws RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)

@@ -11,9 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Tests\Services;
+namespace PaymentSuite\PaymillBundle\Tests\Services;
 
-use Mmoreram\PaymillBundle\Services\PaymillManager;
+use PaymentSuite\PaymillBundle\Services\PaymillManager;
 
 /**
  * Paymill manager
@@ -23,14 +23,14 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var string
-     * 
+     *
      * Currency
      */
     const CURRENCY = 'EUR';
 
     /**
      * @var string
-     * 
+     *
      * Currency
      */
     const API_TOKEN = '2374932748923';
@@ -38,7 +38,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var integer
-     * 
+     *
      * Card amount
      */
     const ORDER_AMOUNT = 10;
@@ -46,7 +46,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var string
-     * 
+     *
      * Card description
      */
     const ORDER_DESCRIPTION = 'This is my card description';
@@ -54,7 +54,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var PaymentManager
-     * 
+     *
      * Payment manager object
      */
     private $paymillManager;
@@ -62,7 +62,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var PaymentEventDispatcher
-     * 
+     *
      * Paymetn event dispatcher object
      */
     private $paymentEventDispatcher;
@@ -70,7 +70,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var PaymillTransactionWrapper
-     * 
+     *
      * Wrapper for Paypall Transaction instance
      */
     private $paymillTransactionWrapper;
@@ -78,7 +78,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var CardWrapper
-     * 
+     *
      * Card Wrapper object
      */
     private $paymentBridge;
@@ -86,7 +86,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var PaymillMethod class
-     * 
+     *
      * Paymill Method object
      */
     private $paymillMethod;
@@ -112,9 +112,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->paymillTransactionWrapper = $this
-            ->getMockBuilder('Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper')
+            ->getMockBuilder('PaymentSuite\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper')
             ->disableOriginalConstructor()
-            ->getMock();           
+            ->getMock();
 
         $this->paymentEventDispatcher = $this
             ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher')
@@ -122,9 +122,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->paymillMethod = $this
-            ->getMockBuilder('Mmoreram\PaymillBundle\PaymillMethod')
+            ->getMockBuilder('PaymentSuite\PaymillBundle\PaymillMethod')
             ->disableOriginalConstructor()
-            ->getMock(); 
+            ->getMock();
 
         $this->paymillResponseTransaction = $this
             ->getMockBuilder('Paymill\Models\Response\Transaction')
@@ -137,7 +137,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Testing different ammunts
-     * 
+     *
      * @expectedException \Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
      */
     public function testDifferentAmounts()
@@ -184,7 +184,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Testing payment error
-     * 
+     *
      * @expectedException \Mmoreram\PaymentCoreBundle\Exception\PaymentException
      */
     public function testPaymentError()
@@ -245,9 +245,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create')
             ->with(
-                $this->equalTo(self::ORDER_AMOUNT * 100), 
-                $this->equalTo(self::CURRENCY), 
-                $this->equalTo(self::API_TOKEN), 
+                $this->equalTo(self::ORDER_AMOUNT * 100),
+                $this->equalTo(self::CURRENCY),
+                $this->equalTo(self::API_TOKEN),
                 $this->equalTo(self::ORDER_DESCRIPTION)
             )
             ->will($this->returnValue($this->paymillResponseTransaction));
@@ -287,7 +287,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Testing payment error
-     * 
+     *
      */
     public function testPaymentSuccess()
     {
@@ -353,9 +353,9 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create')
             ->with(
-                $this->equalTo(self::ORDER_AMOUNT * 100), 
-                $this->equalTo(self::CURRENCY), 
-                $this->equalTo(self::API_TOKEN), 
+                $this->equalTo(self::ORDER_AMOUNT * 100),
+                $this->equalTo(self::CURRENCY),
+                $this->equalTo(self::API_TOKEN),
                 $this->equalTo(self::ORDER_DESCRIPTION)
             )
             ->will($this->returnValue($this->paymillResponseTransaction));

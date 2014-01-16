@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle;
+namespace PaymentSuite\PaymillBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 use Paymill\Models\Response\Transaction;

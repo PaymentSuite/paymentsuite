@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Twig;
+namespace PaymentSuite\PaymillBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
@@ -52,7 +52,7 @@ class PaymillExtension extends Twig_Extension
 
     /**
      * @var PaymentBridgeInterfaces
-     * 
+     *
      * Payment Bridge
      */
     private $paymentBridgeInterface;
@@ -104,7 +104,7 @@ class PaymillExtension extends Twig_Extension
 
     /**
      * Render paymill form view
-     * 
+     *
      * @return string view html
      */
     public function renderPaymentView()
@@ -119,7 +119,7 @@ class PaymillExtension extends Twig_Extension
 
     /**
      * Render paymill scripts view
-     * 
+     *
      * @return string js code needed by Paymill behaviour
      */
     public function renderPaymentScripts()

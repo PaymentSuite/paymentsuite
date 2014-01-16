@@ -1,5 +1,5 @@
 {
-    "name": "mmoreram/paymill-bundle",
+    "name": "paymentsuite/paymill-bundle",
     "type": "symfony-bundle",
     "description": "Paymill Bundle, part of Mmoreram Payment Suite",
     "keywords": ["paymill", "payment", "ecommerce"],
@@ -25,9 +25,9 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "Mmoreram/PaymillBundle",
+    "target-dir": "PaymentSuite/PaymillBundle",
     "autoload": {
-        "psr-0": { "Mmoreram\\PaymillBundle": "" }
+        "psr-0": { "PaymentSuite\\PaymillBundle": "" }
     },
     "minimum-stability": "stable",
     "extra": {

@@ -2,8 +2,8 @@ parameters:
 
     paymill.api.endpoint: "https://api.paymill.com/v2/"
     paymill.controller.route.name: "paymill_execute"
-    paymill.form.type.class: "Mmoreram\\PaymillBundle\\Form\\Type\\PaymillType"
-    paymill.transaction.wrapper.class: "Mmoreram\\PaymillBundle\\Services\\Wrapper\\PaymillTransactionWrapper"
-    paymill.manager.class: "Mmoreram\\PaymillBundle\\Services\\PaymillManager"
-    paymill.twig.extension.class: "Mmoreram\\PaymillBundle\\Twig\\PaymillExtension"
-    paymill.routes.loader.class: "Mmoreram\\PaymillBundle\\Router\\PaymillRoutesLoader"
+    paymill.form.type.class: "PaymentSuite\\PaymillBundle\\Form\\Type\\PaymillType"
+    paymill.transaction.wrapper.class: "PaymentSuite\\PaymillBundle\\Services\\Wrapper\\PaymillTransactionWrapper"
+    paymill.manager.class: "PaymentSuite\\PaymillBundle\\Services\\PaymillManager"
+    paymill.twig.extension.class: "PaymentSuite\\PaymillBundle\\Twig\\PaymillExtension"
+    paymill.routes.loader.class: "PaymentSuite\\PaymillBundle\\Router\\PaymillRoutesLoader"

@@ -11,15 +11,15 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymillBundle\Services;
+namespace PaymentSuite\PaymillBundle\Services;
 
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
+use PaymentSuite\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Mmoreram\PaymillBundle\PaymillMethod;
+use PaymentSuite\PaymillBundle\PaymillMethod;
 use Paymill\Models\Response\Transaction;
 use Paymill\Services\PaymillException;
 
