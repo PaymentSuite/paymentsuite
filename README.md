@@ -2,8 +2,8 @@ PaymillBundle - PaymentCoreBundle
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606/mini.png)](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606)
-[![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/mmoreram/PaymillBundle)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/badges/quality-score.png?s=561838fdedd54e5d4c05036b8ef46b0bca4b3c48)](https://scrutinizer-ci.com/g/mmoreram/PaymillBundle/)
+[![Build Status](https://travis-ci.org/PaymentSuite/PaymillBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/PaymillBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/PaymillBundle/badges/quality-score.png?s=a320b312d0c4e0f1842221f20d6261eb27c43618)](https://scrutinizer-ci.com/g/PaymentSuite/PaymillBundle/)
 [![Latest Stable Version](https://poser.pugx.org/paymentsuite/paymill-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/paymill-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/paymentsuite/paymill-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/paymill-bundle)
 [![Dependency Status](https://www.versioneye.com/user/projects/52c05da5ec13758efc0002c4/badge.png)](https://www.versioneye.com/user/projects/52c05da5ec13758efc0002c4)
