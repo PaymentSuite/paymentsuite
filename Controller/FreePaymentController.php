@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
  * PaymillController
  */
-class PaymillController extends Controller
+class FreePaymentController extends Controller
 {
 
     /**
