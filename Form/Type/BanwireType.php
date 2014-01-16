@@ -1,6 +1,17 @@
 <?php
 
-namespace Scastells\BanwireBundle\Form\Type;
+/**
+ * BanwireBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package BanwireBundle
+ *
+ * Marc Morera 2013
+ */
+
+namespace PaymentSuite\BanwireBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,10 +49,9 @@ class BanwireType extends AbstractType
     /**
      * Formtype construct method
      *
-     * @param \Symfony\Component\Routing\Router $router
-     * @param PaymentBridgeInterface $paymentBridge Payment bridge
-     * @param string $controllerRouteName
-     * @internal param \Symfony\Component\Routing\Router $router
+     * @param Router                 $router              Router instance
+     * @param PaymentBridgeInterface $paymentBridge       Payment bridge
+     * @param string                 $controllerRouteName Controller route name
      */
     public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
     {
@@ -50,6 +60,13 @@ class BanwireType extends AbstractType
         $this->controllerRouteName = $controllerRouteName;
     }
 
+
+    /**
+     * Buildform function
+     *
+     * @param FormBuilderInterface $builder the formBuilder
+     * @param array                $options the options for this form
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
@@ -70,7 +87,6 @@ class BanwireType extends AbstractType
             /**
              * Card Owner
              */
-
             ->add('card_name', 'text', array(
                 'required' => true,
             ))
@@ -111,6 +127,7 @@ class BanwireType extends AbstractType
             ))
             ->add('submit', 'submit');
     }
+
 
     /**
      * Return unique name for this form

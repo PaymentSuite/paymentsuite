@@ -1,6 +1,17 @@
 <?php
 
-namespace Scastells\BanwireBundle\Twig;
+/**
+ * BanwireBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package BanwireBundle
+ *
+ * Marc Morera 2013
+ */
+
+namespace PaymentSuite\BanwireBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;

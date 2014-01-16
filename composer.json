@@ -1,5 +1,5 @@
 {
-    "name": "scastells/banwire-bundle",
+    "name": "paymentsuite/banwire-bundle",
     "type": "symfony-bundle",
     "description": "Banwire Bundle, part of Mmoreram Payment Suite",
     "keywords": ["Banwire", "payment", "ecommerce"],
@@ -19,10 +19,11 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "mmoreram/payment-core-bundle": "v1.0.1"
+        "sensio/buzz-bundle": "1.0.0",
+        "mmoreram/payment-core-bundle": "~1"
     },
-    "target-dir": "Scastells/BanwireBundle",
+    "target-dir": "PaymentSuite/BanwireBundle",
     "autoload": {
-        "psr-0": { "Scastells\\BanwireBundle": "" }
+        "psr-0": { "PaymentSuite\\BanwireBundle": "" }
     }
 }

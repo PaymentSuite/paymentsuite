@@ -1,13 +1,24 @@
 <?php
 
-namespace Scastells\BanwireBundle\Controller;
+/**
+ * BanwireBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package BanwireBundle
+ *
+ * Marc Morera 2013
+ */
+
+namespace PaymentSuite\BanwireBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Scastells\BanwireBundle\BanwireMethod;
+use PaymentSuite\BanwireBundle\BanwireMethod;
 
 /**
  * BanwireController

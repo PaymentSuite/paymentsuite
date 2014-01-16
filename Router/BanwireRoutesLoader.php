@@ -1,14 +1,30 @@
 <?php
 
-namespace Scastells\BanwireBundle\Router;
+/**
+ * BanwireBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morera <yuhu@mmoreram.com>
+ * @package BanwireBundle
+ *
+ * Marc Morera 2013
+ */
+
+namespace PaymentSuite\BanwireBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
+
+/**
+ * Banwire router
+ */
 class BanwireRoutesLoader implements LoaderInterface
 {
+
     /**
      * @var string
      *
@@ -24,6 +40,15 @@ class BanwireRoutesLoader implements LoaderInterface
      */
     private $controllerRouteName;
 
+
+    /**
+     * @var boolean
+     *
+     * Route is loaded
+     */
+    private $loaded = false;
+
+
     /**
      * Construct method
      *
@@ -35,14 +60,6 @@ class BanwireRoutesLoader implements LoaderInterface
         $this->controllerRouteName = $controllerRouteName;
         $this->controllerRoute = $controllerRoute;
     }
-
-
-    /**
-     * @var boolean
-     *
-     * Route is loaded
-     */
-    private $loaded = false;
 
 
     /**
@@ -61,11 +78,14 @@ class BanwireRoutesLoader implements LoaderInterface
 
             throw new \RuntimeException('Do not add this loader twice');
         }
+
         $routes = new RouteCollection();
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
             '_controller'   =>  'BanwireBundle:Banwire:execute',
         )));
+
         $this->loaded = true;
+
         return $routes;
     }
 

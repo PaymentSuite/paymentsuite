@@ -5,11 +5,13 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
+ * @author Marc Morera <yuhu@mmoreram.com>
  * @package BanwireBundle
  *
+ * Marc Morera 2013
  */
 
-namespace Scastells\BanwireBundle;
+namespace PaymentSuite\BanwireBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 
@@ -22,7 +24,7 @@ class BanwireMethod implements PaymentMethodInterface
 
     /**
      * Get BanwireMethod method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
