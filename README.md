@@ -1,4 +1,4 @@
-PaymillBundle - PaymentCoreBundle
+PaymillBundle - PaymentSuite
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606/mini.png)](https://insight.sensiolabs.com/projects/6547cf38-372e-40c5-98bd-1b1491ed8606)
