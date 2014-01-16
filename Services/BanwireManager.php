@@ -151,6 +151,7 @@ class BanwireManager
             'phone'             => $extraData['customer_phone'],
             'mail'             => $extraData['customer_email']
         );
+
         $host = $this->api;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $host);
@@ -186,8 +187,16 @@ class BanwireManager
     private function processTransaction($responseApi, BanwireMethod $paymentMethod)
     {
         $banwireParams = json_decode($responseApi);
-        $paymentMethod->setBanwireTransactionId($banwireParams->order_id);
-        $paymentMethod->setBanwireReference($banwireParams->referencia);
+
+        if (isset($banwireParams->order_id)) {
+
+            $paymentMethod->setBanwireTransactionId($banwireParams->order_id);
+        }
+
+        if (isset($banwireParams->referencia)) {
+
+            $paymentMethod->setBanwireReference($banwireParams->referencia);
+        }
 
         /**
          * Payment paid done
