@@ -86,6 +86,7 @@ class BanwireController extends Controller
                 $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
             )
             : array();
+
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

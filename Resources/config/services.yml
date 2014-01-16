@@ -10,13 +10,13 @@ services:
             - { name: form.type, alias: banwire_view }
 
     banwire.manager:
-            class: %banwire.manager.class%
-            arguments:
-                payment.event.dispatcher: @payment.event.dispatcher
-                payment.bridge: @payment.bridge
-                banwire.user: %banwire.user%
-                banwire.api: %banwire.api%
-                logger: @logger
+        class: %banwire.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.bridge: @payment.bridge
+            buzz: @buzz
+            banwire.user: %banwire.user%
+            banwire.api: %banwire.api%
 
     banwire.twig.extension:
         class: %banwire.twig.extension.class%

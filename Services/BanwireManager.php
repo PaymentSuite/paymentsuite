@@ -61,10 +61,11 @@ class BanwireManager
 
 
     /**
-     * @var logger
+     * @var Buzz
      *
+     * Buzz
      */
-    private $logger;
+    private $buzz;
 
 
     /**
@@ -76,13 +77,13 @@ class BanwireManager
      * @param $api                   $api
      * @param $logger                $logger
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $user, $api, $logger)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, Buzz $buzz, $user, $api)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
+        $this->buzz = $buzz;
         $this->user = $user;
         $this->api = $api;
-        $this->logger = $logger;
     }
 
 
@@ -99,10 +100,10 @@ class BanwireManager
      * @throws PaymentOrderNotFoundException
      * @throws PaymentException
      */
-    public function processPayment(Buzz $buzz, BanwireMethod $paymentMethod, $amount)
+    public function processPayment(BanwireMethod $paymentMethod, $amount)
     {
+        /// first check that amounts are the same
         $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
-
         /**
          * If both amounts are different, execute Exception
          */
@@ -110,6 +111,7 @@ class BanwireManager
 
             throw new PaymentAmountsNotMatchException;
         }
+
 
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
@@ -129,55 +131,43 @@ class BanwireManager
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
 
         $extraData = $this->paymentBridge->getExtraData();
+        //params to send banwire api
 
-        /**
-         * params to send to banwire api
-         */
-        $cardExpYear = substr($paymentMethod->getCardExpYear(), -2);
-        $cartExpMonth = $paymentMethod->getCardExpMonth();
-        $cartExp = $cartExpMonth . '/' . $cardExpYear;
-        $amout = number_format($this->paymentBridge->getAmount(), 2) * 100;
-        $reference = $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis');
-
+        $carExp = substr($paymentMethod->getCardExpYear(), -2);
         $params = array (
             'response_format'   => 'JSON',
             'user'              => $this->user,
-            'reference'         => $reference,
+            'reference'         => $this->paymentBridge->getOrderId(). '#'.  date('Ymdhis'),
             'currency'          => $this->paymentBridge->getCurrency(),
-            'ammount'           => $amount,
+            'ammount'           => number_format($this->paymentBridge->getAmount(), 2) * 100,
             'concept'           => $this->paymentBridge->getOrderDescription(),
             'card_num'          => $paymentMethod->getCardNum(),
             'card_name'         => $paymentMethod->getCardName(),
             'card_type'         => $paymentMethod->getCardType(),
-            'card_exp'          => $cartExp,
+            'card_exp'          => $paymentMethod->getCardExpMonth().'/'.$carExp,
             'card_ccv2'         => $paymentMethod->getCardSecurity(),
             'address'           => $extraData['correspondence_address'],
             'post_code'         => $extraData['customer_postal_code'],
             'phone'             => $extraData['customer_phone'],
-            'mail'              => $extraData['customer_email']
+            'mail'             => $extraData['customer_email']
         );
+        $host = $this->api;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $host);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; WINDOWS; .NET CLR 1.1.4322)');
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);//cambiar el valor a 2 en prod??
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+        if (defined('CURLOPT_ENCODING')) curl_setopt($ch, CURLOPT_ENCODING, "");
+        $responseApi = curl_exec($ch);
 
-        $client = $this->buzz->getClient();
-        $client->setOption(CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; WINDOWS; .NET CLR 1.1.4322)');
-        $client->setOption(CURLOPT_MAXREDIRS, 10);
-        $client->setOption(CURLOPT_SSL_VERIFYHOST, 0);//cambiar el valor a 2 en prod??
-        $client->setOption(CURLOPT_SSL_VERIFYPEER, 0);
-        $client->setOption(CURLOPT_RETURNTRANSFER, 1);
-        $client->setOption(CURLOPT_FOLLOWLOCATION, 1);
-        $client->setOption(CURLOPT_TIMEOUT, 30);
-        $client->setOption(CURLOPT_HEADER, 0);
-
-        if (defined('CURLOPT_ENCODING')) {
-
-            $client->setOption(CURLOPT_ENCODING, '');
-        }
-
-        $apiResponse = $buzz
-            ->post($this->api, $params, http_build_query($params))
-            ->getContent();
-
-        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction Request', $params);
-        $this->processTransaction($apiResponse, $paymentMethod);
+        $this->processTransaction($responseApi, $paymentMethod);
 
         return $this;
     }
@@ -193,9 +183,9 @@ class BanwireManager
      *
      * @throws PaymentException
      */
-    private function processTransaction($apiResponse, BanwireMethod $paymentMethod)
+    private function processTransaction($responseApi, BanwireMethod $paymentMethod)
     {
-        $banwireParams = json_decode($apiResponse);
+        $banwireParams = json_decode($responseApi);
         $paymentMethod->setBanwireTransactionId($banwireParams->order_id);
         $paymentMethod->setBanwireReference($banwireParams->referencia);
 
@@ -205,9 +195,6 @@ class BanwireManager
          * Paid process has ended ( No matters result )
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
-
-
-        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction Response', get_object_vars($banwireParams));
 
        if ($banwireParams->response == 'ok') {
 
