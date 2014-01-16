@@ -1,4 +1,4 @@
-StripeBundle - PaymentCoreBundle
+Stripe - Payment Suite
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801/mini.png)](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801)
