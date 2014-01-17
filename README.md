@@ -70,9 +70,12 @@ PaymentBridge Service must return, at least, these fields.
 Router
 -----
 
-PaymillBundle allows developer to specify the route of controller where paymill payment is processed.
-By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.
-Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file
+PaymillBundle allows developer to specify the route of controller where paymill
+payment is processed.
+By default, this value is `/payment/paymill/execute` but this value can be
+changed in configuration file.
+Anyway, the bundle routes must be parsed by the framework, so these lines must
+be included into routing.yml file
 
 ``` yml
 paymill_payment_routes:
@@ -83,27 +86,21 @@ paymill_payment_routes:
 Display
 -----
 
-Once your Paymill is installed and well configured, you need to place your payment form.
+Once your Paymill is installed and well configured, you need to place your
+payment form.
 
 PaymillBundle gives you all form view as requested by the payment module.
 
 ``` twig
 {% block content %}
-
         <div class="payment-wrapper">
-
             {{ paymill_render() }}
-
         </div>
-
 {% endblock content %}
 
 {% block foot_script %}
-
     {{ parent() }}
-
     {{ paymill_scripts() }}
-
 {% endblock foot_script %}
 ```
 
@@ -112,4 +109,7 @@ Customize
 
 `paymill_render()` only print form in a simple way.
 
-As every project need its own form design, you should overwrite in `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render template placed in `PaymentSuite/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
+As every project need its own form design, you should overwrite in
+`app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render
+template placed in
+`PaymentSuite/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
