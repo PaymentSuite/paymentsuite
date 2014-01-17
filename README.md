@@ -12,19 +12,23 @@ Stripe - Payment Suite
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/mmoreram/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Creating StripeBundle](https://github.com/mmoreram/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+1. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
 3. [Configuration](#configuration)
 4. [Router](#router)
 5. [Display](#display)
 6. [Customize](#customize)
-7. [Testing and more documentation](#testing-and-more-documentation)
-8. [Contribute](http://github.com/mmoreram/PaymentCoreBundle/blob/master/Resources/docs/contribute.md)
+7. [Testing and more Documentation](#testing-and-more-documentation)
 
 About Stripe Bundle
 -----
 
-This bundle bring you a possibility to make simple payments through [Stripe](https://stripe.com). StripeBundle is payment method for Symfony2 Payment Suite and it's built following [PaymentCore](https://github.com/mmoreram/PaymillBundle) specifications. PaymentCore brings for developers easy way to implement several payment methods.
+This bundle bring you a possibility to make simple payments through
+[Stripe](https://stripe.com). StripeBundle is payment method for Symfony2
+Payment Suite and it's built following
+[PaymentCore](https://github.com/PaymentSuite/PaymentCoreBundle) specifications.
+PaymentCore brings for developers easy way to implement several payment methods.
 
 Configuration
 -----
@@ -69,8 +73,8 @@ About Stripe `public_key` and `private_key` you can learn more in [Stripe docume
 Router
 -----
 
-StripeBundle allows developer to specify the route of controller where stripe payment is processed.  
-By default, this value is `/payment/stripe/execute` but this value can be changed in configuration file.  
+StripeBundle allows developer to specify the route of controller where stripe payment is processed.
+By default, this value is `/payment/stripe/execute` but this value can be changed in configuration file.
 Anyway StripeBundle's routes must be parsed by the framework, so these lines must be included into `routing.yml` file.
 
 ``` yml
@@ -88,21 +92,14 @@ StripeBundle gives you all form view as requested by the payment module.
 
 ``` twig
 {% block content %}
-
-        <div class="payment-wrapper">
-
-            {{ stripe_render() }}
-
-        </div>
-
+    <div class="payment-wrapper">
+        {{ stripe_render() }}
+    </div>
 {% endblock content %}
 
 {% block foot_script %}
-
     {{ parent() }}
-
     {{ stripe_scripts() }}
-
 {% endblock foot_script %}
 ```
 
@@ -119,6 +116,6 @@ In another hand, Stripe [recommend](https://stripe.com/docs/tutorials/forms#crea
 
 Testing and more documentation
 -----
- 
+
 For testing you can use [these examples](https://stripe.com/docs/testing).
 More detail about Stripe API you can find in this [web](https://stripe.com/docs/api/php).
