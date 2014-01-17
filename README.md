@@ -23,11 +23,17 @@ Table of contents
 About Payment Suite
 -----
 
-The Symfony2 Payment Suite is just a way to implement any payment platform for Symfony2 based E-commerce, with a common structure. Your project will simply need to listen to a few events, so the method of payment will be fully transparent.
+The Symfony2 Payment Suite is just a way to implement any payment platform for
+Symfony2 based E-commerce, with a common structure. Your project will simply
+need to listen to a few events, so the method of payment will be fully
+transparent.
 
     + Payment platforms
     - Headaches
     = Code
     + Time, Life
 
-The philosophy that leads us to do this project is simply no need to repeat in every project the same lines of code ( yes, we love Open Source ). We want every E-commerce based in Symfony2 to meet us, to join us and contribute to new platform.
+The philosophy that leads us to do this project is simply no need to repeat in
+every project the same lines of code ( yes, we love Open Source ). We want every
+E-commerce based in Symfony2 to meet us, to join us and contribute to new
+platform.
