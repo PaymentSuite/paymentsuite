@@ -40,7 +40,7 @@
  * @version    1.1.0-dev
  */
 
-namespace Scastells\PagosonlineCommBundle\Lib;
+namespace PaymentSuite\PagosonlineCommBundle\Lib;
 
 use DOMElement;
 use DOMText;

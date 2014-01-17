@@ -1,9 +1,9 @@
 <?php
-namespace Scastells\PagosonlineCommBundle\Services;
+namespace PaymentSuite\PagosonlineCommBundle\Services;
 
 use DOMDocument;
 use SoapClient;
-use Scastells\PagosonlineCommBundle\Lib\WSSESoap;
+use PaymentSuite\PagosonlineCommBundle\Lib\WSSESoap;
 
 class PagosonlineCommManager extends SoapClient{
 
