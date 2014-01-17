@@ -1,29 +1,25 @@
 <?php
 
 /**
- * DineromailBundle for Symfony2
+ * PagosOnline for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
- * @package DineromailBundle
- *
- * Marc Morera 2013
  */
 
-namespace Scastells\PagosonlineGatewayBundle;
+namespace PaymentSuite\PagosonlineGatewayBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**
- * DineromailMethod class
+ * PagosOnlineMethod class
  */
 class PagosonlineGatewayMethod implements PaymentMethodInterface
 {
 
     /**
-     * Get Dineromail method name
+     * Get pagosOnline method name
      * 
      * @return string Payment name
      */
@@ -36,7 +32,7 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
     /**
      * @var float
      *
-     * Dineromail amount
+     * pagosOnline amount
      */
     private $amount;
 

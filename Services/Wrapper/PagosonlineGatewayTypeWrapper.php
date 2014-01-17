@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\PagosonlineGatewayBundle\Services\Wrapper;
+namespace PaymentSuite\PagosonlineGatewayBundle\Services\Wrapper;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -113,7 +113,6 @@ class PagosonlineGatewayTypeWrapper
             ->formFactory
             ->createNamedBuilder(null);
 
-        //$signature = $this->key.'~'.$this->userId.'~'.$this->paymentBridge->getOrderID().'~'.$this->paymentBridge->getAmount().'~'.$this->paymentBridge->getCurrency();
         $key = $this->key;
         $userId = $this->userId;
         $orderId = $this->paymentBridge->getOrderId() . '#' . date('Ymdhis');

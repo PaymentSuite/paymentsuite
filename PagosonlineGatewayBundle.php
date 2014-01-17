@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\PagosonlineGatewayBundle;
+namespace PaymentSuite\PagosonlineGatewayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

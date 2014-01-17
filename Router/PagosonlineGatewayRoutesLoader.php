@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\PagosonlineGatewayBundle\Router;
+namespace PaymentSuite\PagosonlineGatewayBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

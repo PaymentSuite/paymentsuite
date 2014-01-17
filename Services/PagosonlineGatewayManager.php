@@ -1,11 +1,11 @@
 <?php
 
-namespace Scastells\PagosonlineGatewayBundle\Services;
+namespace PaymentSuite\PagosonlineGatewayBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Scastells\PagosonlineCommBundle\Services\PagosonlineCommManager;
-use Scastells\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PagosonlineCommBundle\Services\PagosonlineCommManager;
+use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
 
 class PagosonlineGatewayManager
 {
@@ -31,14 +31,6 @@ class PagosonlineGatewayManager
      */
     protected $pagosonlineComm;
 
-
-    /**
-     * @var logger
-     *
-     */
-    private $logger;
-
-
     /**
      * @var integer
      */
@@ -49,15 +41,13 @@ class PagosonlineGatewayManager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param $logger
      * @param $accountId
      * @param PagosonlineCommManager $pagosonlineComm
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $logger, $accountId, PagosonlineCommManager $pagosonlineComm)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $accountId, PagosonlineCommManager $pagosonlineComm)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
-        $this->logger = $logger;
         $this->accountId = $accountId;
         $this->pagosonlineComm = $pagosonlineComm;
     }
@@ -73,7 +63,6 @@ class PagosonlineGatewayManager
         $paymentMethod->setReference($statusTransactionWS->referencia);
         $paymentMethod->setAmount($statusTransactionWS->valor);
 
-        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransactionCheck', get_object_vars($statusTransactionWS));
         /**
          * if pagosonline return code 15 o 9994 the order status is pending
          */

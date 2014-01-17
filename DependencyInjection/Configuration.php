@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\PagosonlineGatewayBundle\DependencyInjection;
+namespace PaymentSuite\PagosonlineGatewayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -43,6 +43,10 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->booleanNode('test')
                      ->defaultTrue()
+                ->end()
+                 ->scalarNode('order_paid_status')
+                    ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('controller_route')
                     ->defaultValue('/payment/pagosonlinegateway/execute')

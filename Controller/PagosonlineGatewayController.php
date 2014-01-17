@@ -9,16 +9,16 @@
  *
  */
 
-namespace Scastells\PagosonlineGatewayBundle\Controller;
+namespace PaymentSuite\PagosonlineGatewayBundle\Controller;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Scastells\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -116,44 +116,30 @@ class PagosonlineGatewayController extends Controller
         $paymentBridge = $this->get('payment.bridge');
 
         $signature = $request->request->get('firma');
-        $status_pol = $request->request->get('estado_pol');
+        $statusPol = $request->request->get('estado_pol');
         $currency = $request->request->get('moneda');
         $value = $request->request->get('valor');
         $orderRef = $request->request->get('ref_venta');
         $userId = $request->request->get('usuario_id');
         $key = $this->container->getParameter('pagosonline_gateway.key');
-        $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$status_pol);
+        $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$statusPol);
         $referencePol = $request->request->get('ref_pol');
 
-        $infoLog = array(
-            'firma'         => $signature,
-            'estado_pol'    => $status_pol,
-            'moneda'        => $currency,
-            'valor'         => $value,
-            'ref_venda'     => $orderRef,
-            'usuario_id'    => $userId,
-            'hash'          => $signatureHash,
-            'ref_pol'       => $referencePol,
-            'action'        => 'confirmationAction'
-        );
-
-        $this->get('logger')->addInfo($paymentMethod->getPaymentName(), $infoLog);
-
-        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
-                ->findOneBy(array('reference' => $orderRef));
-        //save values
+        $orderRefPol = explode("#",$orderRef);
+        $orderId = $orderRef[0];
 
         $paymentMethod->setPagosonlineGatewayTransactionId($referencePol);
         $paymentMethod->setPagosonlineGatewayReference($referencePol);
         $paymentMethod->setReference($orderRef);
-        $paymentMethod->setStatus($status_pol);
-        $order = $paymentBridge->findOrder($trans->getOrder()->getId());
+        $paymentMethod->setStatus($statusPol);
+        $order = $paymentBridge->findOrder($orderId);
         $paymentBridge->setOrder($order);
 
+        $orderPaidStatus = $this->getParameter('pagosonline_gateway.order_paid_status');
 
-       if (strtoupper($signatureHash) == $signature) {
+        if (strtoupper($signatureHash) == $signature) {
             
-            if ($status_pol == 4) {
+            if ($statusPol == $orderPaidStatus) {
                 
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
@@ -161,7 +147,7 @@ class PagosonlineGatewayController extends Controller
                 
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             }
-       }
+        }
         return new Response();
     }
 
@@ -176,13 +162,14 @@ class PagosonlineGatewayController extends Controller
     public function responseAction(Request $request)
     {
 
-        $status_pol = $request->query->get('estado_pol');
+        $statusPol = $request->query->get('estado_pol');
         $orderRef = $request->query->get('ref_venta');
                 
-        $trans = $this->getDoctrine()->getRepository('PagosonlineGatewayBridgeBundle:PagosonlineGatewayOrderTransaction')
-                ->findOneBy(array('reference' => $orderRef));
-
-        if ($status_pol == 4) {
+        $orderRefPol = explode("#",$orderRef);
+        $orderId = $orderRef[0];
+        $orderPaidStatus = $this->getParameter('pagosonline_gateway.order_paid_status');
+        
+        if ($statusPol == $orderPaidStatus) {
 
             $redirectUrl = $this->container->getParameter('pagosonline_gateway.success.route');
             $redirectSuccessAppend = $this->container->getParameter('pagosonline_gateway.success.order.append');
@@ -190,7 +177,7 @@ class PagosonlineGatewayController extends Controller
 
             $redirectData    = $redirectSuccessAppend
                 ? array(
-                    $redirectSuccessAppendField => $trans->getOrder()->getId(),
+                    $redirectSuccessAppendField => $orderId,
                 )
                 : array();
         } else {
@@ -200,7 +187,7 @@ class PagosonlineGatewayController extends Controller
             $redirectFailAppendField = $this->container->getParameter('pagosonline_gateway.fail.order.field');
             $redirectData    = $redirectFailAppend
                 ? array(
-                    $redirectFailAppendField => $trans->getOrder()->getId(),
+                    $redirectFailAppendField => $orderId,
                 )
                 : array();
         }

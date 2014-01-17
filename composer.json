@@ -1,5 +1,5 @@
 {
-    "name": "scastells/pagosonline-gateway-bundle",
+    "name": "paymentsuite/pagosonline-gateway-bundle",
     "type": "symfony-bundle",
     "description": "Pagosonlie gateway Bundle, part of Mmoreram Payment Suite",
     "keywords": ["pagosonline", "payment", "ecommerce"],
@@ -20,10 +20,10 @@
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
 
-        "mmoreram/payment-core-bundle": "1.0.1"
+        "PaymentSuite/payment-core-bundle": "1.0.1"
     },
-    "target-dir": "Scastells/PagosonlineGatewayBundle",
+    "target-dir": "PaymentSuite/PagosonlineGatewayBundle",
     "autoload": {
-        "psr-0": { "Scastells\\PagosonlineGatewayBundle": "" }
+        "psr-0": { "PaymentSuite\\PagosonlineGatewayBundle": "" }
     }
 }
