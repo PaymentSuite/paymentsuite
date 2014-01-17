@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle;
+namespace PaymentSuite\PaymentCoreBundle;
 
 /**
  * This class define all events thrown by all payment method

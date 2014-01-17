@@ -11,10 +11,10 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Event\Abstracts;
+namespace PaymentSuite\PaymentCoreBundle\Event\Abstracts;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

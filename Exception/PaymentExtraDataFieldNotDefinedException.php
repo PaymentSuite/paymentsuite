@@ -11,9 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Exception;
+namespace PaymentSuite\PaymentCoreBundle\Exception;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * PaymentExtraDataFieldNotDefinedException

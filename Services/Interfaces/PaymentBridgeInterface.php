@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Services\interfaces;
+namespace PaymentSuite\PaymentCoreBundle\Services\interfaces;
 
 /**
  * Interface for PaymentBridge

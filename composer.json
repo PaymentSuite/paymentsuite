@@ -1,5 +1,5 @@
 {
-    "name": "mmoreram/payment-core-bundle",
+    "name": "paymentsuite/payment-core-bundle",
     "type": "symfony-bundle",
     "description": "Payment Core Bundle, part and core of Mmoreram Payment Suite",
     "keywords": ["payment", "ecommerce", "mmoreram"],
@@ -20,9 +20,9 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "Mmoreram/PaymentCoreBundle",
+    "target-dir": "PaymentSuite/PaymentCoreBundle",
     "autoload": {
-        "psr-0": { "Mmoreram\\PaymentCoreBundle": "" }
+        "psr-0": { "PaymentSuite\\PaymentCoreBundle": "" }
     },
     "minimum-stability": "stable", 
     "extra": {

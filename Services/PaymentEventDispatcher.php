@@ -11,18 +11,18 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Services;
+namespace PaymentSuite\PaymentCoreBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
-use Mmoreram\PaymentCoreBundle\PaymentCoreEvents;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent;
+use PaymentSuite\PaymentCoreBundle\PaymentCoreEvents;
 
 /**
  * Payment event dispatcher.

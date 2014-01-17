@@ -11,9 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Event;
+namespace PaymentSuite\PaymentCoreBundle\Event;
 
-use Mmoreram\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
+use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 /**
  * Event for order created

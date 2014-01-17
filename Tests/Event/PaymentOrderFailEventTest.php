@@ -11,12 +11,12 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Tests\Event;
+namespace PaymentSuite\PaymentCoreBundle\Tests\Event;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent;
 
 /**
- * Tests Mmoreram\PaymentCoreBundle\Event\PaymentOrderFailEvent class
+ * Tests PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent class
  */
 class PaymentOrderFailEventTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,8 +51,8 @@ class PaymentOrderFailEventTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->paymentBridge = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
-        $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
+        $this->paymentBridge = $this->getMock('\PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
+        $this->paymentMethod = $this->getMock('\PaymentSuite\PaymentCoreBundle\PaymentMethodInterface');
         $this->event = new PaymentOrderFailEvent($this->paymentBridge, $this->paymentMethod);
     }
 

@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle;
+namespace PaymentSuite\PaymentCoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

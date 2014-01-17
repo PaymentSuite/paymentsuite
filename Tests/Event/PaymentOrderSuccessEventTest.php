@@ -11,12 +11,12 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Tests\Event;
+namespace PaymentSuite\PaymentCoreBundle\Tests\Event;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 
 /**
- * Tests Mmoreram\PaymentCoreBundle\Event\PaymentOrderSuccessEvent class
+ * Tests PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent class
  */
 class PaymentOrderSuccessEventTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,8 +59,8 @@ class PaymentOrderSuccessEventTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->paymentBridge = $this->getMock('\Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
-        $this->paymentMethod = $this->getMock('\Mmoreram\PaymentCoreBundle\PaymentMethodInterface');
+        $this->paymentBridge = $this->getMock('\PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
+        $this->paymentMethod = $this->getMock('\PaymentSuite\PaymentCoreBundle\PaymentMethodInterface');
         $this->event = new PaymentOrderSuccessEvent($this->paymentBridge, $this->paymentMethod);
     }
 

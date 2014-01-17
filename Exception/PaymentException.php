@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\PaymentCoreBundle\Exception;
+namespace PaymentSuite\PaymentCoreBundle\Exception;
 
 use Exception;
 
