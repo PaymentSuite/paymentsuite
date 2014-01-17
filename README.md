@@ -10,11 +10,11 @@ Free Payment - Payment Suite
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/mmoreram/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Creating FreePaymentBundle](https://github.com/mmoreram/PaymentCoreBundle/wiki/Crating-payment-Platforms)
-3. [Configuration](#configuration)
-4. [Router](#router)
-5. [Contribute](https://github.com/mmoreram/PaymentCoreBundle/wiki/Contribute)
+1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+1. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+1. [Configuration](#configuration)
+1. [Router](#router)
 
 
 Configuration
