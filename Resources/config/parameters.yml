@@ -1,0 +1,8 @@
+parameters:
+
+    payu.controller.route.name: "payu_execute"
+    payu.controller.route.response.name: "payu_response"
+    payu.form.type.class: "Scastells\\PayuBundle\\Form\\Type\\PayuType"
+    payu.routes.loader.class: "Scastells\\PayuBundle\\Router\\PayuRoutesLoader"
+    payu.manager.class: "Scastells\\PayuBundle\\Services\\PayuManager"
+    payu.twig.extension.class: "Scastells\\PayuBundle\\Twig\\PayuExtension"

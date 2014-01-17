@@ -1,0 +1,50 @@
+services:
+    payu.encode:
+      class: Symfony\Component\Serializer\Encoder\JsonEncoder
+
+    payu.decode:
+      class: Symfony\Component\Serializer\Encoder\JsonDecoder
+
+    payu.form.type:
+        class: %payu.form.type.class%
+        arguments:
+            router: @router
+            payment.bridge: @payment.bridge
+            pagosonline.controller.route.name: %payu.controller.route.name%
+        tags:
+            - { name: form.type, alias: payu_view }
+
+    payu.manager:
+            class: %payu.manager.class%
+            arguments:
+                payment.event.dispatcher: @payment.event.dispatcher
+                payment.bridge: @payment.bridge
+                payu.host: %payu.host%
+                logger: @logger
+                payu.login: %payu.login%
+                payu.key: %payu.key%
+                payu.account_id: %payu.account_id%
+                payu.merchant_id: %payu.merchant_id%
+                payu.mode_test: %payu.mode_test%
+                encoder: @payu.encode
+
+
+
+    payu.twig.extension:
+        class: %payu.twig.extension.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: twig.extension }
+
+    payu.routes.loader:
+        class: %payu.routes.loader.class%
+        arguments:
+          payu.controller.route: %payu.controller.route%
+          payu.controller.route.name: %payu.controller.route.name%
+          payu.controller.route.response: %payu.controller.route.response%
+          payu.controller.route.response.name: %payu.controller.route.response.name%
+         # container: @service_container
+        tags:
+            - { name: routing.loader }
