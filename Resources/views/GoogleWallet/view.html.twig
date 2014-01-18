@@ -1,0 +1,5 @@
+{% block payment_form %}
+
+    <button id='payButton' value='buy' class='buy-button' onclick="payButton('{{ gw_token }}', '{{ url(googlewallet_callback_route) }}');"><b>Purchase</b></button>
+
+{% endblock payment_form %}

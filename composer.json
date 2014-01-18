@@ -1,0 +1,34 @@
+{
+    "name": "dpcat237/google-wallet-bundle",
+    "type": "symfony-bundle",
+    "description": "Google Wallet Bundle, part of Payment Suite for Symfony 2",
+    "keywords": ["google-wallet", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denys Pasishnyi",
+            "email": "dpcat237@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "mmoreram/payment-core-bundle": ">=1.0.1"
+    },
+    "target-dir": "dpcat237/GoogleWalletBundle",
+    "autoload": {
+        "psr-0": { "dpcat237\\GoogleWalletBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
