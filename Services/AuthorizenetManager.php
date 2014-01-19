@@ -13,20 +13,14 @@
 
 namespace dpcat237\AuthorizenetBundle\Services;
 
-use Services_Authorizenet_Transactions;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
-use Mmoreram\PaymentCoreBundle\Event\PaymentDoneEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentSuccessEvent;
-use Mmoreram\PaymentCoreBundle\Event\PaymentFailEvent;
 use dpcat237\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper;
 use dpcat237\AuthorizenetBundle\AuthorizenetMethod;
-use Authorizenet;
-use Authorizenet_Charge;
 
 /**
  * Authorizenet manager

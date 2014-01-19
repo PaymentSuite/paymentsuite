@@ -15,7 +15,7 @@ namespace dpcat237\AuthorizenetBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * Type for a shop edit profile form

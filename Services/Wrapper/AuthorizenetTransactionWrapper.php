@@ -13,7 +13,7 @@
 
 namespace dpcat237\AuthorizenetBundle\Services\Wrapper;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Authorizenet transaction wrapper

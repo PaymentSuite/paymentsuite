@@ -13,7 +13,7 @@
 
 namespace dpcat237\AuthorizenetBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

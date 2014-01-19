@@ -96,14 +96,6 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @var PaymentBridgeInterface
-     *
-     * Payment bridge object
-     */
-    private $paymentBridgeInterface;
-
-
-    /**
      * @var AuthorizenetMethod class
      * 
      * Authorizenet Method object
@@ -117,7 +109,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->paymentBridge = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
+            ->getMockBuilder('PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -127,7 +119,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->paymentEventDispatcher = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher')
+            ->getMockBuilder('PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -143,7 +135,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * Testing payment error
      *
-     * @expectedException \Mmoreram\PaymentCoreBundle\Exception\PaymentException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
     public function testPaymentError()
     {
