@@ -21,7 +21,6 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 use dpcat237\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
 use dpcat237\StripeBundle\StripeMethod;
-use Stripe;
 
 /**
  * Stripe manager
