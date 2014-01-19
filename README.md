@@ -20,9 +20,9 @@ PaymentCore brings for developers easy way to implement several payment methods.
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Install StripeBundle](#install)
-3. [Configuration](#configuration)
+1. [Install AuthorizenetBundle](#install)
+2. [Configure Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+3. [Configure AuthorizenetBundle](#configure-authorizenetbundle)
 4. [Router](#router)
 5. [Display](#display)
 6. [Customize](#customize)
@@ -58,7 +58,7 @@ return array(
 );
 ```
 
-Configuration
+Configure AuthorizenetBundle
 -----
 
 Configure the AuthorizenetBundle parameters in your `config.yml`.
