@@ -70,6 +70,7 @@ interface PaymentBridgeInterface
 
     /**
      * Get payment amount
+     * Must be with decimals, for example 10$ is 10.00
      *
      * @return float
      */
