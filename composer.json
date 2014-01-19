@@ -1,7 +1,7 @@
 {
     "name": "dpcat237/authorizenet-bundle",
     "type": "symfony-bundle",
-    "description": "Authorizenet Bundle, part of Payment Suite for Symfony 2",
+    "description": "Authorizenet Bundle, part of Mmoreram Payment Suite for Symfony 2",
     "keywords": ["authorizenet", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
@@ -11,18 +11,11 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "symfony/event-dispatcher": ">=2.2.3",
-        "symfony/framework-bundle": ">=2.2.3",
-        "symfony/form": ">=2.2.3",
-        "symfony/config": ">=2.2.3",
-        "symfony/http-kernel": ">=2.2.3",
-        "symfony/dependency-injection": ">=2.2.3",
-        "twig/twig": "~1.11",
-        "mmoreram/payment-core-bundle": "1.0.1"
+        "paymentsuite/payment-core-bundle": "1.1"
     },
     "target-dir": "dpcat237/AuthorizenetBundle",
     "autoload": {
         "psr-0": { "dpcat237\\AuthorizenetBundle": "" }
-    }
+    },
+    "minimum-stability": "stable"
 }
