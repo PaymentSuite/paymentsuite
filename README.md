@@ -20,8 +20,8 @@ PaymentCore brings for developers easy way to implement several payment methods.
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Install StripeBundle](#install)
+1. [Install StripeBundle](#install)
+2. [Configure Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
 3. [Configuration](#configuration)
 4. [Router](#router)
 5. [Display](#display)
