@@ -2,24 +2,12 @@ Stripe - Payment Suite
 =====
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801/mini.png)](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801)
-[![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/dpcat237/StripeBundle)
+[![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/StripeBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/badges/quality-score.png?s=10dab38a47f5ca4c11a2de2e4f1237555c5e8660)](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/)
 [![Latest Stable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
 [![Dependency Status](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e/badge.png)](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e)
 [![Total Downloads](https://poser.pugx.org/dpcat237/stripe-bundle/downloads.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
-
-Table of contents
------
-
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-1. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
-1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
-3. [Configuration](#configuration)
-4. [Router](#router)
-5. [Display](#display)
-6. [Customize](#customize)
-7. [Testing and more Documentation](#testing-and-more-documentation)
 
 About Stripe Bundle
 -----
@@ -29,6 +17,19 @@ This bundle bring you a possibility to make simple payments through
 Payment Suite and it's built following
 [PaymentCore](https://github.com/PaymentSuite/PaymentCoreBundle) specifications.
 PaymentCore brings for developers easy way to implement several payment methods.
+
+Table of contents
+-----
+
+1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+2. [Configuration](#configuration)
+3. [Router](#router)
+4. [Display](#display)
+5. [Customize](#customize)
+6. [Testing and more Documentation](#testing-and-more-documentation)
+7. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+8. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+
 
 Configuration
 -----
