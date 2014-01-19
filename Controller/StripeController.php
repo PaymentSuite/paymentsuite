@@ -16,7 +16,7 @@ namespace dpcat237\StripeBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use dpcat237\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use dpcat237\StripeBundle\StripeMethod;
 
 
@@ -42,9 +42,7 @@ class StripeController extends Controller
         $form->handleRequest($request);
 
         try {
-
             if (!$form->isValid()) {
-
                 throw new PaymentException;
             }
 
@@ -57,17 +55,13 @@ class StripeController extends Controller
             $redirectUrl = $this->container->getParameter('stripe.success.route');
             $redirectAppend = $this->container->getParameter('stripe.success.order.append');
             $redirectAppendField = $this->container->getParameter('stripe.success.order.field');
-
-
         } catch (PaymentException $e) {
-
             /**
              * Must redirect to fail route
              */
             $redirectUrl = $this->container->getParameter('stripe.fail.route');
             $redirectAppend = $this->container->getParameter('stripe.fail.order.append');
             $redirectAppendField = $this->container->getParameter('stripe.fail.order.field');
-
         }
 
         $redirectData   = $redirectAppend
