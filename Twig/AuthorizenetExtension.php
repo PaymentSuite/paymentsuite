@@ -17,7 +17,6 @@ use Symfony\Component\Form\FormFactory;
 use Twig_Extension,
     Twig_SimpleFunction;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use dpcat237\AuthorizenetBundle\Router\AuthorizenetRoutesLoader;
 
 /**
