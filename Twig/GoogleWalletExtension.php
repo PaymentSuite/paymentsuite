@@ -13,7 +13,6 @@
 
 namespace dpcat237\GoogleWalletBundle\Twig;
 
-use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_Environment;

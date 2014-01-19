@@ -79,12 +79,12 @@ class GoogleWalletManager
         $cartAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
 
         $payload = new Payload();
-        $payload->SetIssuedAt(time());
-        $payload->SetExpiration(time()+3600);
-        $payload->AddProperty("name", $extraData['order_name']);
-        $payload->AddProperty("description", $extraData['order_description']);
-        $payload->AddProperty("price", $cartAmount);
-        $payload->AddProperty("currencyCode", $this->paymentBridge->getCurrency());
+        $payload->setIssuedAt(time());
+        $payload->setExpiration(time()+3600);
+        $payload->addProperty("name", $extraData['order_name']);
+        $payload->addProperty("description", $extraData['order_description']);
+        $payload->addProperty("price", $cartAmount);
+        $payload->addProperty("currencyCode", $this->paymentBridge->getCurrency());
 
         $token = $payload->CreatePayload($this->merchantId);
         $jwtToken = JWTHelper::encode($token, $this->secretKey);

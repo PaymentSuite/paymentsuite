@@ -163,9 +163,10 @@ class JWTHelper extends Helper
     /**
      * @param int $errno An error number from json_last_error()
      *
+     * @throws DomainException
      * @return void
      */
-    private static function handleJsonError($errno)
+    public static function handleJsonError($errno)
     {
         $messages = array(
             JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',

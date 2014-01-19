@@ -16,6 +16,7 @@ namespace dpcat237\GoogleWalletBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Class GoogleWalletController

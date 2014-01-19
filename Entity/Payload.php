@@ -39,31 +39,6 @@ class Payload {
     private $request = array();
 
     /**
-     * @var string Name of product.
-     */
-    private $name;
-
-    /**
-     * @var string  Description of product.
-     */
-    private $description;
-
-    /**
-     * @var string Price in 2 decimal places.
-     */
-    private $price;
-
-    /**
-     * @var string Currency code.
-     */
-    private $currencyCode;
-
-    /**
-     * @var string Seller data.
-     */
-    private $sellerData;
-
-    /**
      * @var array Payload.
      */
     public $payload = array();
@@ -72,7 +47,7 @@ class Payload {
      * Set JWT Issued time.
      * @param integer $issuedAt The time when the JWT was issued.
      */
-    public function SetIssuedAt($issuedAt){
+    public function setIssuedAt($issuedAt){
         $this->iat = $issuedAt;
     }
 
@@ -80,7 +55,7 @@ class Payload {
      * Set JWT expiration time.
      * @param integer $expiryTime The time when the purchase will expire.
      */
-    public function SetExpiration($expiryTime) {
+    public function setExpiration($expiryTime) {
         $this->exp = $expiryTime;
     }
 
@@ -89,7 +64,7 @@ class Payload {
      * @param string $fieldName Requested field name.
      * @param string $fieldValue Requested field value.
      */
-    public function AddProperty($fieldName, $fieldValue) {
+    public function addProperty($fieldName, $fieldValue) {
         $this->request[$fieldName] = $fieldValue;
     }
 
@@ -98,7 +73,7 @@ class Payload {
      * @param string $sellerIdentifier Merchant Id.
      * @return array $this->payload Payload of the product.
      */
-    public function CreatePayload($sellerIdentifier) {
+    public function createPayload($sellerIdentifier) {
         $this->payload['iss'] = $sellerIdentifier;
         $this->payload['aud'] = self::AUDIENCE;
         $this->payload['typ'] = self::TYPE;
