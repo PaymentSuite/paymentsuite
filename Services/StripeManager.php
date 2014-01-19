@@ -94,7 +94,6 @@ class StripeManager
         /**
          * If both amounts are different, execute Exception
          */
-        echo 'tut: '.$amount .' - '.$cartAmount; exit();
         if (abs($amount - $cartAmount) > 0.00001) {
             throw new PaymentAmountsNotMatchException;
         }
