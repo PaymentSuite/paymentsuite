@@ -1,12 +1,11 @@
 Stripe - Payment Suite
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801/mini.png)](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113/mini.png)](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113)
 [![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/StripeBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/badges/quality-score.png?s=10dab38a47f5ca4c11a2de2e4f1237555c5e8660)](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/)
 [![Latest Stable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
-[![Dependency Status](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e/badge.png)](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e)
 [![Total Downloads](https://poser.pugx.org/dpcat237/stripe-bundle/downloads.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
 
 About Stripe Bundle
