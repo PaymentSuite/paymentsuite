@@ -22,7 +22,7 @@ Table of contents
 
 1. [Install StripeBundle](#install)
 2. [Configure Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-3. [Configuration](#configuration)
+3. [Configure StripeBundle](#configuration-stripebundle)
 4. [Router](#router)
 5. [Display](#display)
 6. [Customize](#customize)
@@ -58,7 +58,7 @@ return array(
 );
 ```
 
-Configuration
+Configuration StripeBundle
 -----
 
 Configure the StripeBundle parameters in your `config.yml`.
