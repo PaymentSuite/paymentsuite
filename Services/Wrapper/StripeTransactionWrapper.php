@@ -13,7 +13,7 @@
 
 namespace dpcat237\StripeBundle\Services\Wrapper;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Stripe;
 use Stripe_Charge;
 
@@ -57,6 +57,7 @@ class StripeTransactionWrapper
             $charge = Stripe_Charge::create($params);
             $chargeData = json_decode($charge, true);
         } catch (\Exception $e) {
+            echo '<pre>tut: '; print_r($e->getMessage()); echo '</pre>'; exit();
             throw new PaymentException;
         }
 
