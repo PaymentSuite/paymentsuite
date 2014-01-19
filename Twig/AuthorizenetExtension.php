@@ -33,29 +33,12 @@ class AuthorizenetExtension extends Twig_Extension
      */
     protected $formFactory;
 
-
     /**
      * @var Twig_Environment
      *
      * Twig environment
      */
     private $environment;
-
-
-    /**
-     * @var string
-     *
-     * Public key
-     */
-    private $publicKey;
-
-
-    /**
-     * @var PaymentBridgeInterface
-     *
-     * Currency wrapper
-     */
-    private $paymentBridgeInterface;
 
 
     /**
@@ -69,7 +52,6 @@ class AuthorizenetExtension extends Twig_Extension
     {
         $this->formFactory = $formFactory;
     }
-
 
     /**
      * Init runtime
@@ -85,7 +67,6 @@ class AuthorizenetExtension extends Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -97,7 +78,6 @@ class AuthorizenetExtension extends Twig_Extension
             new Twig_SimpleFunction('authorizenet_render', array($this, 'renderPaymentView')),
         );
     }
-
 
     /**
      * Render authorizenet form view
@@ -113,7 +93,6 @@ class AuthorizenetExtension extends Twig_Extension
             'authorizenet_execute_route' =>  AuthorizenetRoutesLoader::ROUTE_NAME,
         ));
     }
-
 
     /**
      * return extension name

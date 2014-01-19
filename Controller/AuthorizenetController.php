@@ -13,11 +13,11 @@
 
 namespace dpcat237\AuthorizenetBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use dpcat237\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use dpcat237\AuthorizenetBundle\AuthorizenetMethod;
 
 
@@ -41,29 +41,27 @@ class AuthorizenetController extends Controller
     {
         $form = $this->get('form.factory')->create('authorizenet_view');
         $form->handleRequest($request);
+        $responseData = $this->processPaymentData($form);
 
+        return $this->redirect($this->generateUrl($responseData['redirectUrl'], $responseData['redirectData']));
+    }
+
+    private function processPaymentData(Form $form)
+    {
         if ($form->isValid()) {
-
             $data = $form->getData();
-
-
             $paymentMethod = new AuthorizenetMethod;
             $paymentMethod
                 ->setCreditCartNumber($data['credit_cart'])
                 ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
                 ->setCreditCartExpirationYear($data['credit_cart_expiration_year']);
-
             try {
-                $this
-                    ->get('authorizenet.manager')
-                    ->processPayment($paymentMethod);
+                $this->get('authorizenet.manager')->processPayment($paymentMethod);
 
                 $redirectUrl = $this->container->getParameter('authorizenet.success.route');
                 $redirectAppend = $this->container->getParameter('authorizenet.success.order.append');
                 $redirectAppendField = $this->container->getParameter('authorizenet.success.order.field');
-
             } catch (PaymentException $e) {
-
                 /**
                  * Must redirect to fail route
                  */
@@ -74,7 +72,6 @@ class AuthorizenetController extends Controller
                 throw $e;
             }
         } else {
-
             /**
              * If form is not valid, fail return page
              */
@@ -82,9 +79,10 @@ class AuthorizenetController extends Controller
             $redirectAppend = $this->container->getParameter('authorizenet.fail.order.append');
             $redirectAppendField = $this->container->getParameter('authorizenet.fail.order.field');
         }
-
         $redirectData   = $redirectAppend ? array($redirectAppendField => $this->get('payment.bridge')->getOrderId()) : array();
+        $returnData['redirectUrl'] = $redirectUrl;
+        $returnData['redirectData'] = $redirectData;
 
-        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+        return $returnData;
     }
 }
