@@ -1,8 +1,22 @@
 <?php
+
+/**
+ * GoogleWalletBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @copyright 2013  Google Inc. All rights reserved.
+ * @author Rohit Panwar <panwar@google.com>
+ *
+ * Denys Pasishnyi 2013
+ */
+
 namespace dpcat237\GoogleWalletBundle\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
 use dpcat237\GoogleWalletBundle\Helper\JWTHelper as JWT;
+use dpcat237\GoogleWalletBundle\Exception\DomainException,
+    dpcat237\GoogleWalletBundle\Exception\UnexpectedValueException;
 
 /**
  * Class for time functions
@@ -26,10 +40,12 @@ class JWTHelper extends Helper
     }
 
     /**
-     * @param string      $jwt    The JWT
-     * @param string|null $key    The secret key
-     * @param bool        $verify Don't skip verification process
+     * @param string $jwt The JWT
+     * @param string|null $key The secret key
+     * @param bool $verify Don't skip verification process
      *
+     * @throws UnexpectedValueException
+     * @throws DomainException
      * @return object The JWT's payload as a PHP object
      */
     public static function decode($jwt, $key = null, $verify = true)
@@ -82,10 +98,11 @@ class JWTHelper extends Helper
     }
 
     /**
-     * @param string $msg    The message to sign
-     * @param string $key    The secret key
+     * @param string $msg The message to sign
+     * @param string $key The secret key
      * @param string $method The signing algorithm
      *
+     * @throws DomainException
      * @return string An encrypted message
      */
     public static function sign($msg, $key, $method = 'HS256')
@@ -104,6 +121,7 @@ class JWTHelper extends Helper
     /**
      * @param string $input JSON string
      *
+     * @throws DomainException
      * @return object Object representation of JSON string
      */
     public static function jsonDecode($input)
@@ -121,6 +139,7 @@ class JWTHelper extends Helper
     /**
      * @param object|array $input A PHP object or array
      *
+     * @throws DomainException
      * @return string JSON representation of the PHP object or array
      */
     public static function jsonEncode($input)
