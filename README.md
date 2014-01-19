@@ -1,8 +1,9 @@
 Authorize.Net (AIM) - Payment Suite
 =====
 
-[![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/AuthorizenetBundle)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/badges/quality-score.png?s=43290e459683b8b94de1e695ca851a6451ab1b50)](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/219aca29-4716-49f1-93f3-484d75b6a772/mini.png)](https://insight.sensiolabs.com/projects/219aca29-4716-49f1-93f3-484d75b6a772)
+[![Build Status](https://travis-ci.org/PaymentSuite/AuthorizenetBundle.png?branch=1.0.1)](https://travis-ci.org/PaymentSuite/AuthorizenetBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/AuthorizenetBundle/badges/quality-score.png?s=bce86cb317aa4b4363c8a04b6a4e69556c30f5c7)](https://scrutinizer-ci.com/g/PaymentSuite/AuthorizenetBundle/)
 [![Latest Stable Version](https://poser.pugx.org/dpcat237/authorizenet-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/dpcat237/authorizenet-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
 [![Total Downloads](https://poser.pugx.org/dpcat237/authorizenet-bundle/downloads.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
@@ -19,17 +20,45 @@ PaymentCore brings for developers easy way to implement several payment methods.
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Configuration](#configuration)
-3. [Router](#router)
-4. [Display](#display)
-5. [Customize](#customize)
-6. [Testing and more documentation](#testing-and-more-documentation)
-7. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
-8. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms) 
+1. [Install AuthorizenetBundle](#install)
+2. [Configure Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+3. [Configure AuthorizenetBundle](#configure-authorizenetbundle)
+4. [Router](#router)
+5. [Display](#display)
+6. [Customize](#customize)
+7. [Testing and more documentation](#testing-and-more-documentation)
+8. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+9. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms) 
 
+## Install
 
-Configuration
+You have to add require line into you composer.json file
+
+``` yml
+"require": {
+   // ...
+   "dpcat237/authorizenet-bundle": "1.0.1"
+}
+```
+
+Then you have to use composer to update your project dependencies
+
+``` bash
+$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar update
+```
+
+And register the bundle in your appkernel.php file
+
+``` php
+return array(
+   // ...
+   new PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
+   new dpcat237\AuthorizenetBundle\AuthorizenetBundle(),
+);
+```
+
+Configure AuthorizenetBundle
 -----
 
 Configure the AuthorizenetBundle parameters in your `config.yml`.
