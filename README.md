@@ -22,14 +22,42 @@ Table of contents
 -----
 
 1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Configuration](#configuration)
-3. [Router](#router)
-4. [Display](#display)
-5. [Customize](#customize)
-6. [Testing and more Documentation](#testing-and-more-documentation)
-7. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
-8. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+2. [Install StripeBundle](#install)
+3. [Configuration](#configuration)
+4. [Router](#router)
+5. [Display](#display)
+6. [Customize](#customize)
+7. [Testing and more Documentation](#testing-and-more-documentation)
+8. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+9. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
 
+## Install
+
+You have to add require line into you composer.json file
+
+``` yml
+"require": {
+   // ...
+   "dpcat237/stripe-bundle": "1.0.1"
+}
+```
+
+Then you have to use composer to update your project dependencies
+
+``` bash
+$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar update
+```
+
+And register the bundle in your appkernel.php file
+
+``` php
+return array(
+   // ...
+   new PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
+   new dpcat237\StripeBundle\StripeBundle(),
+);
+```
 
 Configuration
 -----
