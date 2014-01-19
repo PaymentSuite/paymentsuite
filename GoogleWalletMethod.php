@@ -13,7 +13,7 @@
 
 namespace dpcat237\GoogleWalletBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

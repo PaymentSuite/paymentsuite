@@ -13,10 +13,10 @@
 
 namespace dpcat237\GoogleWalletBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 use dpcat237\GoogleWalletBundle\Entity\Payload;
 use dpcat237\GoogleWalletBundle\Helper\JWTHelper;
@@ -76,13 +76,14 @@ class GoogleWalletManager
     public function generateToken()
     {
         $extraData = $this->paymentBridge->getExtraData();
+        $cartAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
 
         $payload = new Payload();
         $payload->SetIssuedAt(time());
         $payload->SetExpiration(time()+3600);
         $payload->AddProperty("name", $extraData['order_name']);
         $payload->AddProperty("description", $extraData['order_description']);
-        $payload->AddProperty("price", $this->paymentBridge->getAmount());
+        $payload->AddProperty("price", $cartAmount);
         $payload->AddProperty("currencyCode", $this->paymentBridge->getCurrency());
 
         $token = $payload->CreatePayload($this->merchantId);
