@@ -7,24 +7,26 @@ Authorize.Net (AIM) - Payment Suite
 [![Latest Unstable Version](https://poser.pugx.org/dpcat237/authorizenet-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
 [![Total Downloads](https://poser.pugx.org/dpcat237/authorizenet-bundle/downloads.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
 
-> This Bundle is under development but already functional and partially tested.
-> Any comment, suggestion or contribution will be very appreciated.
->
-> [@dpcat237](https://github.com/dpcat237)
+About AuthorizenetBundle
+-----
 
-
+This bundle bring you a possibility to make simple payments through
+[Authorize.Net](http://www.authorize.net/). AuthorizenetBundle is payment method for Symfony2
+Payment Suite and it's built following
+[PaymentCore](https://github.com/PaymentSuite/PaymentCoreBundle) specifications.
+PaymentCore brings for developers easy way to implement several payment methods.
 
 Table of contents
 -----
 
-1.  [Installing Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
-2.  [Installing PaymillBundle](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
-3.  [Contribute](https://gist.github.com/mmoreram/6813203#file-contribute-payfony-md)
-4.  [Configuration](#configuration)
-5.  [Router](#router)
-6.  [Display](#display)
-7.  [Customize](#customize)
-8.  [Testing and more documentation](#testing-and-more-documentation)
+1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+2. [Configuration](#configuration)
+3. [Router](#router)
+4. [Display](#display)
+5. [Customize](#customize)
+6. [Testing and more documentation](#testing-and-more-documentation)
+7. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+8. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms) 
 
 
 Configuration
