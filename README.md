@@ -1,10 +1,11 @@
 Authorize.Net (AIM) - Payment Suite
 =====
 
-[![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)
-[![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/still-maintained.png)]()
-[![Build Status](https://api.travis-ci.org/dpcat237/AuthorizenetBundle.png?branch=master)](https://travis-ci.org/dpcat237/AuthorizenetBundle)
+[![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/AuthorizenetBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/badges/quality-score.png?s=43290e459683b8b94de1e695ca851a6451ab1b50)](https://scrutinizer-ci.com/g/dpcat237/AuthorizenetBundle/)
+[![Latest Stable Version](https://poser.pugx.org/dpcat237/authorizenet-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/dpcat237/authorizenet-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
+[![Total Downloads](https://poser.pugx.org/dpcat237/authorizenet-bundle/downloads.png)](https://packagist.org/packages/dpcat237/authorizenet-bundle)
 
 > This Bundle is under development but already functional and partially tested.
 > Any comment, suggestion or contribution will be very appreciated.
