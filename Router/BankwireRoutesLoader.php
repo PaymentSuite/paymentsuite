@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\BankwireBundle\Router;
+namespace PaymentSuite\BankwireBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -26,7 +26,7 @@ class BankwireRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution route name
      */
     const ROUTE_EXECUTE_NAME = 'bankwire_execute';
@@ -34,7 +34,7 @@ class BankwireRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerExecuteRoute;
@@ -42,7 +42,7 @@ class BankwireRoutesLoader implements LoaderInterface
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
@@ -50,7 +50,7 @@ class BankwireRoutesLoader implements LoaderInterface
 
     /**
      * Construct method
-     * 
+     *
      * @param string $controllerExecuteRoute Execution controller route
      */
     public function __construct($controllerExecuteRoute)
@@ -64,9 +64,9 @@ class BankwireRoutesLoader implements LoaderInterface
      *
      * @param mixed  $resource The resource
      * @param string $type     The resource type
-     * 
+     *
      * @return RouteCollection
-     * 
+     *
      * @throws RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)

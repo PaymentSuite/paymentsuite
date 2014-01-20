@@ -11,10 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\BankwireBundle\Services\Wrapper;
+namespace PaymentSuite\BankwireBundle\Services\Wrapper;
 
-use Mmoreram\BankwireBundle\BankwireMethod;
-
+use PaymentSuite\BankwireBundle\BankwireMethod;
 
 /**
  * BankwireMethodWrapper
@@ -24,7 +23,7 @@ class BankwireMethodWrapper
 
     /**
      * @var BankwireMethod
-     * 
+     *
      * Bankwire method
      */
     private $bankwireMethod;
@@ -41,7 +40,7 @@ class BankwireMethodWrapper
 
     /**
      * Get bankwire method
-     * 
+     *
      * @return BankwireMethod Bankwire method
      */
     public function getBankwireMethod()

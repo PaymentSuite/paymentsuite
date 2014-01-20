@@ -11,12 +11,12 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\BankwireBundle\Services;
+namespace PaymentSuite\BankwireBundle\Services;
 
-use Mmoreram\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
  * Bankwire manager
@@ -26,7 +26,7 @@ class BankwireManager
 
     /**
      * @var PaymentEventDispatcher
-     * 
+     *
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
@@ -74,7 +74,7 @@ class BankwireManager
     {
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
-         * 
+         *
          * So, $this->paymentBridge->getOrder() must return an object
          */
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
@@ -99,16 +99,16 @@ class BankwireManager
          * Paid process has ended ( No matters result )
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
-        
+
         return $this;
     }
 
 
     /**
      * Validates payment, given an Id of an existing order
-     * 
+     *
      * @param integer $orderId Id from order to validate
-     * 
+     *
      * @return BankwireManager self Object
      *
      * @throws PaymentOrderNotFoundException

@@ -11,9 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\BankwireBundle;
+namespace PaymentSuite\BankwireBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**
@@ -24,7 +24,7 @@ class BankwireMethod implements PaymentMethodInterface
 
     /**
      * Get Bankwire method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()

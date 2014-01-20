@@ -1,21 +1,21 @@
 BankWireBundle - PaymentCoreBundle
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade/mini.png)](https://insight.sensiolabs.com/projects/19db0e86-6080-4a1c-9065-4f9430646ade)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/badges/quality-score.png?s=f5ae2404f5f37bf187dece44f2cc19a0b2f774d2)](https://scrutinizer-ci.com/g/mmoreram/BankwireBundle/)
-[![Latest Stable Version](https://poser.pugx.org/mmoreram/bankwire-bundle/v/stable.png)](https://packagist.org/packages/mmoreram/bankwire-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/mmoreram/bankwire-bundle/v/unstable.png)](https://packagist.org/packages/mmoreram/bankwire-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef/mini.png)](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/BankwireBundle/badges/quality-score.png?s=48caeef36a98e5aeefbf4f52ef173d5dcac74583)](https://scrutinizer-ci.com/g/PaymentSuite/BankwireBundle/)
+[![Latest Stable Version](https://poser.pugx.org/PaymentSuite/bankwire-bundle/v/stable.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/PaymentSuite/bankwire-bundle/v/unstable.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
 [![Dependency Status](https://www.versioneye.com/php/mmoreram:bankwire-bundle/1.0.1/badge.png)](https://www.versioneye.com/php/mmoreram:bankwire-bundle/1.0.1)
-[![Total Downloads](https://poser.pugx.org/mmoreram/bankwire-bundle/downloads.png)](https://packagist.org/packages/mmoreram/bankwire-bundle)
+[![Total Downloads](https://poser.pugx.org/PaymentSuite/bankwire-bundle/downloads.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
 
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/mmoreram/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Creating BankWireBundle](https://github.com/mmoreram/PaymentCoreBundle/wiki/Crating-payment-Platforms)
-3. [Configuration](#configuration)
-4. [Router](#router)
-5. [Contribute](https://github.com/mmoreram/PaymentCoreBundle/wiki/Contribute)
+1. [Configure Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+1. [Configure AuthorizenetBundle](#https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Installing-Payment-Platforms)
+1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
+1. [Configuration](#configuration)
+1. [Router](#router)
 
 Configuration
 -----

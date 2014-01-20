@@ -1,17 +1,17 @@
 <?php
 
 /**
- * DineromailBundle for Symfony2
+ * BankwireBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author David Pujadas <dpujadas@gmail.com>
- * @package DineromailBundle
+ * @package BankwireBundle
  *
  * David Pujadas 2013
  */
 
-namespace Mmoreram\BankwireBundle;
+namespace PaymentSuite\BankwireBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

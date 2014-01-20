@@ -1,5 +1,5 @@
 {
-    "name": "mmoreram/bankwire-bundle",
+    "name": "paymentsuite/bankwire-bundle",
     "type": "symfony-bundle",
     "description": "Bankwire Bundle, part of Mmoreram Payment Suite",
     "keywords": ["bankwire", "payment", "ecommerce"],
@@ -17,14 +17,14 @@
         "symfony/config": ">=2.2.3",
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
-        "mmoreram/payment-core-bundle": ">=1.0.1"
+        "paymentsuite/payment-core-bundle": ">=1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "Mmoreram/BankwireBundle",
+    "target-dir": "PaymentSuite/BankwireBundle",
     "autoload": {
-        "psr-0": { "Mmoreram\\BankwireBundle": "" }
+        "psr-0": { "PaymentSuite\\BankwireBundle": "" }
     },
     "minimum-stability": "stable",
     "extra": {

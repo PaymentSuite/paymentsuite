@@ -11,11 +11,10 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\BankwireBundle\Controller;
+namespace PaymentSuite\BankwireBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 /**
  * BankwireController
