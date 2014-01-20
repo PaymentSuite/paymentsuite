@@ -69,15 +69,11 @@ class PagosonlineGatewayManager
 
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
 
-        if (in_array($statusTransactionWS->codigoRespuesta, array('15','9994'))) {
-
-            //payment is still pending nothing to do
-
-        } elseif ($statusTransactionWS->codigoRespuesta == 1) {
+        if ($statusTransactionWS->codigoRespuesta == 1) {
 
             $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
-        } else {
+        } elseif ((!in_array($statusTransactionWS->codigoRespuesta, array('15','9994')))) { //status 15 or 9994 payment is still in pending nothing to do
 
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
         }
