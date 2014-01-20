@@ -1,5 +1,5 @@
 {
-    "name": "dpcat237/google-wallet-bundle",
+    "name": "paymentsuite/google-wallet-bundle",
     "type": "symfony-bundle",
     "description": "Google Wallet Bundle, part of Payment Suite for Symfony 2",
     "keywords": ["google-wallet", "payment", "ecommerce"],
