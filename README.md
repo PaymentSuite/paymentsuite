@@ -1,11 +1,11 @@
 BankWireBundle - PaymentCoreBundle
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef/mini.png)](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/71cee758-4734-43a9-96ca-5ca4429eed1c/mini.png)](https://insight.sensiolabs.com/projects/71cee758-4734-43a9-96ca-5ca4429eed1c)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/BankwireBundle/badges/quality-score.png?s=48caeef36a98e5aeefbf4f52ef173d5dcac74583)](https://scrutinizer-ci.com/g/PaymentSuite/BankwireBundle/)
 [![Latest Stable Version](https://poser.pugx.org/PaymentSuite/bankwire-bundle/v/stable.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/PaymentSuite/bankwire-bundle/v/unstable.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
-[![Dependency Status](https://www.versioneye.com/php/mmoreram:bankwire-bundle/1.0.1/badge.png)](https://www.versioneye.com/php/mmoreram:bankwire-bundle/1.0.1)
+[![Dependency Status](https://www.versioneye.com/php/paymentsuite:bankwire-bundle/1.0.1/badge.png)](https://www.versioneye.com/php/mmoreram:bankwire-bundle/1.0.1)
 [![Total Downloads](https://poser.pugx.org/PaymentSuite/bankwire-bundle/downloads.png)](https://packagist.org/packages/PaymentSuite/bankwire-bundle)
 
 Table of contents
