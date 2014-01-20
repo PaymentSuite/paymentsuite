@@ -1,5 +1,5 @@
 {
-    "name": "dpcat237/stripe-bundle",
+    "name": "paymentsuite/stripe-bundle",
     "type": "symfony-bundle",
     "description": "Stripe Bundle, part of Payment Suite for Symfony 2",
     "keywords": ["stripe", "payment", "ecommerce"],
