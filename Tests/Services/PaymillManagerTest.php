@@ -107,7 +107,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     {
 
         $this->paymentBridge = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
+            ->getMockBuilder('PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -117,7 +117,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->paymentEventDispatcher = $this
-            ->getMockBuilder('Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher')
+            ->getMockBuilder('PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -138,7 +138,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * Testing different ammunts
      *
-     * @expectedException \Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
      */
     public function testDifferentAmounts()
     {
@@ -185,7 +185,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * Testing payment error
      *
-     * @expectedException \Mmoreram\PaymentCoreBundle\Exception\PaymentException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
     public function testPaymentError()
     {

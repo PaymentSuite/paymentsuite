@@ -12,14 +12,14 @@ Paymill - Payment Suite
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/mmoreram/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Creating PaymillBundle](https://github.com/mmoreram/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
+2. [Creating PaymillBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
 3. [Configuration](#configuration)
 4. [Extra Data](#extra-data)
 5. [Router](#router)
 6. [Display](#display)
 7. [Customize](#customize)
-8. [Contribute](https://github.com/mmoreram/PaymentCoreBundle/wiki/Contribute)
+8. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
 
 
 Configuration

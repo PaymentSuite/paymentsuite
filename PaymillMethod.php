@@ -13,7 +13,7 @@
 
 namespace PaymentSuite\PaymillBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use Paymill\Models\Response\Transaction;
 
 

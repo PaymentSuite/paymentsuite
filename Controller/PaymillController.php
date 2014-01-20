@@ -15,7 +15,7 @@ namespace PaymentSuite\PaymillBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymillBundle\PaymillMethod;
 

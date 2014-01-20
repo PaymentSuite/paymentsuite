@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension
