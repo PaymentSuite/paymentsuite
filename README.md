@@ -43,8 +43,8 @@ freepayment:
 Router
 -----
 
-FreePaymentBundle allows developer to specify the route of controller where paymill payment is processed.
-By default, this value is `/payment/paymill/execute` but this value can be changed in configuration file.
+FreePaymentBundle allows developer to specify the route of controller where freepayment payment is processed.
+By default, this value is `/payment/freepayment/execute` but this value can be changed in configuration file.
 Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file
 
 ``` yml
