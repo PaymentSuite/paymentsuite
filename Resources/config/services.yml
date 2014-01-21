@@ -1,0 +1,7 @@
+parameters:
+#    redsys.example.class: PaymentSuite\RedsysBundle\Example
+
+services:
+#    redsys.example:
+#        class: %redsys.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
