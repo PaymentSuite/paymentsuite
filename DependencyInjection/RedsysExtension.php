@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * RedsysBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morales Valldepérez <marcmorales83@gmail.com>
+ * @author Gonzalo Vilseca <gonzalo.vilaseca@gmail.com>
+ * @package RedsysBundle
+ *
+ */
 namespace PaymentSuite\RedsysBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +23,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class RedsysExtension extends Extension
 {
+
     /**
      * {@inheritDoc}
      */
@@ -21,6 +31,10 @@ class RedsysExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('redsys.merchant.code', $config['merchant_code']);
+        $container->setParameter('redsys.secret.key', $config['secret_key']);
+        $container->setParameter('redsys.url', $config['url']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

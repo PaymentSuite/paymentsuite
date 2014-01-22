@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * RedsysBundle for Symfony2
+ *
+ * This Bundle is part of Symfony2 Payment Suite
+ *
+ * @author Marc Morales Valldepérez <marcmorales83@gmail.com>
+ * @author Gonzalo Vilseca <gonzalo.vilaseca@gmail.com>
+ * @package RedsysBundle
+ *
+ */
 namespace PaymentSuite\RedsysBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -20,9 +29,20 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('redsys');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+            ->scalarNode('merchant_code')
+            ->isRequired()
+            ->cannotBeEmpty()
+            ->end()
+            ->scalarNode('secret_key')
+            ->isRequired()
+            ->cannotBeEmpty()
+            ->end()
+            ->scalarNode('url')
+            ->defaultValue('https://sis.redsys.es/sis/realizarPago')
+            ->end()
+            ->end();
 
         return $treeBuilder;
     }
