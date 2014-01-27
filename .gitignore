@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 .DS_Store
+=======
+composer.lock
+composer.phar
+phpunit.xml
+phpcs.log
+vendor
+>>>>>>> c325249fc286f9b05c064a7fac26163a9092c791
