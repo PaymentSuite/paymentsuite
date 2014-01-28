@@ -1,3 +1,5 @@
 redsys_homepage:
-    path:  /hello/{name}
-    defaults: { _controller: RedsysBundle:Default:index }
+    pattern:  /redsys
+    defaults: { _controller: RedsysBundle:Redsys:execute }
+    requirements:
+            _method:  GET

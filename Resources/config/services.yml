@@ -1,7 +1,15 @@
-parameters:
-#    redsys.example.class: PaymentSuite\RedsysBundle\Example
-
 services:
-#    redsys.example:
-#        class: %redsys.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    redsys.method.wrapper:
+        class: %redsys.method.wrapper.class%
+        arguments:
+            redsys.merchant.code: %redsys.merchant.code%
+            redsys.secret.key: %redsys.secret.key%
+            edsys.url: %redsys.url%
+
+    redsys.manager:
+        class: %redsys.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            redsys.method.wrapper: @redsys.method.wrapper
+            payment.bridge: @payment.bridge
+            templating: @templating

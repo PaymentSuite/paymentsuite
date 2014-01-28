@@ -1,0 +1,5 @@
+parameters:
+    redsys.manager.class: "PaymentSuite\\RedsysBundle\\Services\\RedsysManager"
+    redsys.method.wrapper.class: "PaymentSuite\\RedsysBundle\\Services\\Wrapper\\RedsysMethodWrapper"
+
+    

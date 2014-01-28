@@ -1,0 +1,12 @@
+<form id="secure_payment" action="{{ action }}" method="post">
+
+    {% for key,value in inputs %}
+        {{ key }}:  <input type="text" name="{{ key }}" value="{{ value }}" /><br/>
+    {% endfor %}
+<input type='submit'>
+</form>
+
+<script type="text/javascript">
+   // document.getElementById('secure_payment').submit();
+
+</script>
