@@ -96,7 +96,7 @@ class RedsysManager
         $orderNumber     = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
         //$orderNumber = '0001';
         $merchantCode    = $this->redsysMethodWrapper->getMerchantCode();
-        $currency        = $this->cambioMoneda($this->paymentBridge->getCurrency());
+        $currency        = $this->currencyTranslation($this->paymentBridge->getCurrency());
 
 
         $extraData = $this->paymentBridge->getExtraData();
@@ -109,7 +109,7 @@ class RedsysManager
 
         $opts = array();
         $opts['Ds_Merchant_Amount'] = $amount;
-        $opts['Ds_Merchant_MerchantSignature'] = $this->firmaComercio($amount, $orderNumber, $merchantCode, $currency, $transactionType, $merchantURL, $secret);
+        $opts['Ds_Merchant_MerchantSignature'] = $this->shopSignature($amount, $orderNumber, $merchantCode, $currency, $transactionType, $merchantURL, $secret);
         $opts['Ds_Merchant_MerchantCode'] = $merchantCode;
         $opts['Ds_Merchant_Currency'] = $currency;
         $opts['Ds_Merchant_Terminal'] = $terminal;
@@ -184,22 +184,22 @@ class RedsysManager
         return $this;
     }
 
-    protected function firmaComercio($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret){
+    protected function shopSignature($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret){
 
         $mensaje = $amount . $order . $merchantCode . $currency . $transactionType . $merchantURL . $secret;
-        // Cálculo del SHA1
+        // SHA1
         return strtoupper(sha1($mensaje));
 
     }
-    protected function firmaRedsys($amount, $order, $merchantCode, $currency, $response, $secret){
+    protected function redsysSignature($amount, $order, $merchantCode, $currency, $response, $secret){
 
         $mensaje = $amount . $order . $merchantCode . $currency . $response . $secret;
-        // Cálculo del SHA1
+        // SHA1
         return strtoupper(sha1($mensaje));
 
     }
 
-    protected function cambioMoneda($currency){
+    protected function currencyTranslation($currency){
         /*
         978 – Euro
 840 – Dólar
