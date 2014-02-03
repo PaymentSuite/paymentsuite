@@ -25,9 +25,9 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "PaymentSuite/PaymillBundle",
+    "target-dir": "PaymentSuite/DineromailBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\PaymillBundle": "" }
+        "psr-0": { "PaymentSuite\\DineromailBundle": "" }
     },
     "minimum-stability": "stable",
     "extra": {
