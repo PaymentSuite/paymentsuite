@@ -1,5 +1,5 @@
 {
-    "name": "scastells/dineromail-api-bundle",
+    "name": "paymentsuite/dineromail-api-bundle",
     "type": "symfony-bundle",
     "description": "DineroMail Api Bundle, part of Mmoreram Payment Suite",
     "keywords": ["dineromail-api", "payment", "ecommerce"],
@@ -19,10 +19,19 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "mmoreram/payment-core-bundle": "v1.0.1"
+        "paymentsuite/payment-core-bundle": "v1.0.1"
     },
-    "target-dir": "Scastells/DineromailApiBundle",
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "target-dir": "PaymentSuite/DineromailApiBundle",
     "autoload": {
-        "psr-0": { "Scastells\\DineromailApiBundle": "" }
+        "psr-0": { "PaymentSuite\\DineromailApiBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
