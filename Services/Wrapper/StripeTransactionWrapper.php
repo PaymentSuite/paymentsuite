@@ -13,7 +13,7 @@
 
 namespace dpcat237\StripeBundle\Services\Wrapper;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Stripe;
 use Stripe_Charge;
 

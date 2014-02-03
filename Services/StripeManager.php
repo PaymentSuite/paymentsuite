@@ -13,15 +13,14 @@
 
 namespace dpcat237\StripeBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 use dpcat237\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
 use dpcat237\StripeBundle\StripeMethod;
-use Stripe;
 
 /**
  * Stripe manager

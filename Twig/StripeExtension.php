@@ -18,7 +18,7 @@ use Twig_Extension;
 use Twig_SimpleFunction;
 
 use dpcat237\StripeBundle\Router\StripeRoutesLoader;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension

@@ -1,13 +1,21 @@
 Stripe - Payment Suite
 =====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801/mini.png)](https://insight.sensiolabs.com/projects/b1e1520a-dab9-463e-9e9d-602c3e55a801)
-[![Build Status](https://travis-ci.org/mmoreram/PaymillBundle.png?branch=master)](https://travis-ci.org/dpcat237/StripeBundle)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/badges/quality-score.png?s=10dab38a47f5ca4c11a2de2e4f1237555c5e8660)](https://scrutinizer-ci.com/g/dpcat237/StripeBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113/mini.png)](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113)
+[![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/StripeBundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/StripeBundle/badges/quality-score.png?s=4d9dff8533c0f853d67949d6ce9b348a85bf5437)](https://scrutinizer-ci.com/g/PaymentSuite/StripeBundle/)
 [![Latest Stable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
-[![Dependency Status](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e/badge.png)](https://www.versioneye.com/user/projects/52c075aaec1375db6000015e)
 [![Total Downloads](https://poser.pugx.org/dpcat237/stripe-bundle/downloads.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
+
+About Stripe Bundle
+-----
+
+This bundle bring you a possibility to make simple payments through
+[Stripe](https://stripe.com). StripeBundle is payment method for Symfony2
+Payment Suite and it's built following
+[PaymentCore](https://github.com/PaymentSuite/PaymentCoreBundle) specifications.
+PaymentCore brings for developers easy way to implement several payment methods.
 
 Table of contents
 -----
@@ -21,16 +29,35 @@ Table of contents
 1. [Customize](#customize)
 1. [Testing and more Documentation](#testing-and-more-documentation)
 
-About Stripe Bundle
------
+## Install
 
-This bundle bring you a possibility to make simple payments through
-[Stripe](https://stripe.com). StripeBundle is payment method for Symfony2
-Payment Suite and it's built following
-[PaymentCore](https://github.com/PaymentSuite/PaymentCoreBundle) specifications.
-PaymentCore brings for developers easy way to implement several payment methods.
+You have to add require line into you composer.json file
 
-Configuration
+``` yml
+"require": {
+   // ...
+   "dpcat237/stripe-bundle": "1.0.1"
+}
+```
+
+Then you have to use composer to update your project dependencies
+
+``` bash
+$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar update
+```
+
+And register the bundle in your appkernel.php file
+
+``` php
+return array(
+   // ...
+   new PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
+   new dpcat237\StripeBundle\StripeBundle(),
+);
+```
+
+Configure StripeBundle
 -----
 
 Configure the StripeBundle parameters in your `config.yml`.

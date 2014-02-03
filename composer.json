@@ -1,7 +1,7 @@
 {
-    "name": "dpcat237/stripe-bundle",
+    "name": "paymentsuite/stripe-bundle",
     "type": "symfony-bundle",
-    "description": "Stripe Bundle, part of Mmoreram Payment Suite for Symfony 2",
+    "description": "Stripe Bundle, part of Payment Suite for Symfony 2",
     "keywords": ["stripe", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
@@ -19,8 +19,8 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "stripe/stripe-php": ">=1.8.0",
-        "mmoreram/payment-core-bundle": ">=1.0.1"
+        "stripe/stripe-php": "v1.10.1",
+        "paymentsuite/payment-core-bundle": "1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
