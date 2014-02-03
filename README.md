@@ -15,11 +15,11 @@ Table of contents
 1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
 1. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
 1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
-3. [Configuration](#configuration)
-4. [Router](#router)
-5. [Display](#display)
-6. [Customize](#customize)
-7. [Testing and more Documentation](#testing-and-more-documentation)
+1. [Configuration](#configuration)
+1. [Router](#router)
+1. [Display](#display)
+1. [Customize](#customize)
+1. [Testing and more Documentation](#testing-and-more-documentation)
 
 About Stripe Bundle
 -----
