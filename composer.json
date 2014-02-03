@@ -20,7 +20,7 @@
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
         "sensio/buzz-bundle": "1.0.0",
-        "mmoreram/payment-core-bundle": "~1"
+        "mmoreram/payment-core-bundle": "~1.1"
     },
     "target-dir": "PaymentSuite/BanwireBundle",
     "autoload": {
