@@ -39,7 +39,7 @@ class RedsysMethodWrapper
      */
     public function __construct($merchantCode, $secretKey, $url)
     {
-        $this->redsysMethod = new RedsysMethod;
+        $this->redsysMethod = new RedsysMethod();
         $this->merchantCode = $merchantCode;
         $this->secretKey    = $secretKey;
         $this->url          = $url;

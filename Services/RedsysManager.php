@@ -17,6 +17,10 @@ use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysMethodWrapper;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
+use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
+use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Redsys manager
@@ -136,42 +140,69 @@ class RedsysManager
      *
      * @return RedsysManager Self object
      *
-     * @throws PaymentOrderNotFoundException
+     * @throws SignatureNotReceivedException
      */
-    public function processTransaction()
+    public function processResult(array $parameters)
     {
+        //Check we receive all needed parameters
+        $this->checkResultParameters($parameters);
+
+        $dsSignature           = $parameters['Ds_Signature'];
+        $dsResponse            = $parameters['Ds_Response'];
+        $dsAmount              = $parameters['Ds_Amount'];
+        $dsOrder               = $parameters['Ds_Order'];
+        $dsMerchantCode        = $parameters['Ds_MerchantCode'];
+        $dsCurrency            = $parameters['Ds_Currency'];
+        $dsSecret               = 'qwertyasdf0123456789';
+        $dsDate                 = $parameters['Ds_Date'];
+        $dsHour                 = $parameters['Ds_Hour'];
+        $dsSecurePayment        = $parameters['Ds_SecurePayment'];
+        $dsCardCountry          = $parameters['Ds_Card_Country'];
+        $dsAuthorisationCode    = $parameters['Ds_AuthorisationCode'];
+        $dsConsumerLanguage     = $parameters['Ds_ConsumerLanguage'];
+        $dsCardType             = $parameters['Ds_Card_Type'];
+
+        if ($dsSignature != $this->expectedSignature($dsAmount, $dsOrder, $dsMerchantCode, $dsCurrency, $dsResponse,  $dsSecret)){
+            throw new InvalidSignatureException();
+        }
+
+        $redsysMethod = $this->redsysMethodWrapper->getRedsysMethod();
+
+        /**
+         * Adding to PaymentMethod transaction information
+         *
+         * This information is only available in PaymentOrderSuccess event
+         */
+        $redsysMethod
+            ->setDsResponse($dsResponse)
+            ->setDsAuthorisationCode($dsAuthorisationCode)
+            ->setDsCardCountry($dsCardCountry)
+            ->setDsCardType($dsCardType)
+            ->setDsConsumerLanguage($dsConsumerLanguage)
+            ->setDsDate($dsDate)
+            ->setDsHour($dsHour)
+            ->setDsSecurePayment($dsSecurePayment);
+
 
         /**
          * Payment paid done
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->redsysMethodWrapper->getRedsysMethod());
-
-        return $this;
-    }
-    /**
-     * Validates payment, given an Id of an existing order
-     *
-     * @param integer $orderId Id from order to validate
-     *
-     * @return RedsysManager self Object
-     *
-     * @throws PaymentOrderNotFoundException
-     */
-    public function validatePayment($orderId)
-    {
-        /**
-         * Loads order to validate
-         */
-        $this->paymentBridge->findOrder($orderId);
+        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $redsysMethod);
 
         /**
-         * Order Not found Exception must be thrown just here
+         * when a transaction is successful, $Ds_Response has a value between 0 and 99
          */
-        if (!$this->paymentBridge->getOrder()) {
+        if (intval($dsResponse)<0 || intval($dsResponse)>99 ) {
+            /**
+             * Payment paid failed
+             *
+             * Paid process has ended failed
+             */
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $redsysMethod);
 
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentException;
         }
 
         /**
@@ -179,10 +210,11 @@ class RedsysManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $redsysMethod);
 
         return $this;
     }
+
 
     protected function shopSignature($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret){
 
@@ -191,7 +223,7 @@ class RedsysManager
         return strtoupper(sha1($mensaje));
 
     }
-    protected function redsysSignature($amount, $order, $merchantCode, $currency, $response, $secret){
+    protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret){
 
         $mensaje = $amount . $order . $merchantCode . $currency . $response . $secret;
         // SHA1
@@ -199,22 +231,42 @@ class RedsysManager
 
     }
 
-    protected function currencyTranslation($currency){
-        /*
-        978 – Euro
-840 – Dólar
-826 – Libra Esterlina
-392 – Yen
-032 – Peso Argentino
-124 – Dólar Canadiense 152 – Peso Chileno
-170 – Peso Colombiano 356 – Rupia India
-484 – Nuevo Peso Mejicano 604 – Nuevos Soles
-756 – Franco Suizo
-986 – Real Brasileño
-937 – Bolívar Venezolano 949 – Lira Turca
+    public function currencyTranslation($currency){
 
-        si no es ninguna de estas lanzar excepcion*/
-        return '978';
+        switch($currency){
+            case 'EUR':
+                return '978';
+            case 'USD':
+                return '840';
+            case 'GBP':
+                return '826';
+            case 'JPY':
+                return '392';
+            case 'ARS':
+                return '032';
+            case 'CAD':
+                return '124';
+            case 'CLF':
+                return '152';
+            case 'COP':
+                return '170';
+            case 'INR':
+                return '356';
+            case 'MXN':
+                return '484';
+            case 'PEN':
+                return '604';
+            case 'CHF':
+                return '756';
+            case 'BRL':
+                return '986';
+            case 'VEF':
+                return '937';
+            case 'TRY':
+                return '949';
+            default:
+                throw new CurrencyNotSupportedException;
+        }
     }
 
     protected function formatOrderNumber($orderNumber){
@@ -227,5 +279,34 @@ class RedsysManager
         }
 
         return $orderNumber;
+    }
+
+    protected function checkResultParameters(array $parameters){
+        $list = array(
+                    'Ds_Date',
+                    'Ds_Hour',
+                    'Ds_Signature',
+                    'Ds_Amount',
+                    'Ds_Currency',
+                    'Ds_Order',
+                    'Ds_MerchantCode',
+                    'Ds_Terminal',
+                    'Ds_Signature',
+                    'Ds_Response',
+                    'Ds_TransactionType',
+                    'Ds_SecurePayment',
+                    'Ds_MerchantData',
+                    'Ds_Card_Country',
+                    'Ds_AuthorisationCode',
+                    'Ds_ConsumerLanguage',
+                    'Ds_Card_Type'
+        );
+        foreach ($list as $item){
+            if(!isset($parameters[$item])){
+               throw new ParameterNotReceivedException($item);
+            }
+        }
+
+
     }
 }

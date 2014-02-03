@@ -1,12 +1,24 @@
-<form id="secure_payment" action="{{ action }}" method="post">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
 
-    {% for key,value in inputs %}
-        {{ key }}:  <input type="text" name="{{ key }}" value="{{ value }}" /><br/>
-    {% endfor %}
-<input type='submit'>
-</form>
 
-<script type="text/javascript">
-   // document.getElementById('secure_payment').submit();
+        <form id="secure_payment" action="{{ action }}" method="post">
 
-</script>
+            {% for key,value in inputs %}
+                {{ key }}:  <input type="text" name="{{ key }}" value="{{ value }}" /><br/>
+            {% endfor %}
+            <input type='submit'>
+
+        </form>
+<a>kk</a>
+        <script type="text/javascript">
+            // document.getElementById('secure_payment').submit();
+
+        </script>
+    </body>
+</html>

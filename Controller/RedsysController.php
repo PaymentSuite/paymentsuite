@@ -49,13 +49,13 @@ class RedsysController extends Controller
      *
      * @Method("POST")
      */
-    public function executeTransaction(Request $request)
+    public function resultAction(Request $request)
     {
 
         try {
             $this
                 ->get('redsys.manager')
-                ->processTransaction();
+                ->processResult($request->request->all());
 
             $redirectUrl = $this->container->getParameter('redsys.success.route');
             $redirectAppend = $this->container->getParameter('redsys.success.order.append');

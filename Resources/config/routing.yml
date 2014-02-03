@@ -3,3 +3,9 @@ redsys_homepage:
     defaults: { _controller: RedsysBundle:Redsys:execute }
     requirements:
             _method:  GET
+
+redsys_result:
+    pattern:  /redsys/result
+    defaults: { _controller: RedsysBundle:Redsys:result }
+    requirements:
+            _method:  POST
