@@ -1,5 +1,5 @@
 {
-    "name": "mmoreram/dineromail-bundle",
+    "name": "paymentsuite/dineromail-bundle",
     "type": "symfony-bundle",
     "description": "DineroMail Bundle, part of Mmoreram Payment Suite",
     "keywords": ["dineromail", "payment", "ecommerce"],
