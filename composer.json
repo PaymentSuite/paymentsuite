@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/banwire-bundle",
     "type": "symfony-bundle",
-    "description": "Banwire Bundle, part of Mmoreram Payment Suite",
+    "description": "Banwire Bundle, part of PaymentSuite Payment Suite",
     "keywords": ["Banwire", "payment", "ecommerce", "PaymentSuite"],
     "license": "MIT",
     "authors": [

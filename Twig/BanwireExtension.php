@@ -14,7 +14,7 @@
 namespace PaymentSuite\BanwireBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Text utilities extension

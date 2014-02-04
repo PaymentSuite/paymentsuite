@@ -13,7 +13,7 @@
 
 namespace PaymentSuite\BanwireBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**
