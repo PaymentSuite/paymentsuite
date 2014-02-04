@@ -1,16 +1,16 @@
 <?php
 
-namespace Scastells\BanwireGatewayBundle\Controller;
+namespace PaymentSuite\BanwireGatewayBundle\Controller;
 
-use Scastells\BanwireGatewayBundle\Encryptor\RC4;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Scastells\BanwireGatewayBundle\BanwireGatewayMethod;
+use PaymentSuite\BanwireGatewayBundle\BanwireGatewayMethod;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

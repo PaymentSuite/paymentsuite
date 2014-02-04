@@ -9,13 +9,13 @@
  *
  */
 
-namespace Scastells\BanwireGatewayBundle\Services\Wrapper;
+namespace PaymentSuite\BanwireGatewayBundle\Services\Wrapper;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
-use Scastells\BanwireGatewayBundle\Encryptor\RC4;
+use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
 
 /**
  * BanwireGatewayBundle manager

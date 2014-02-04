@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\BanwireGatewayBundle\Router;
+namespace PaymentSuite\BanwireGatewayBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

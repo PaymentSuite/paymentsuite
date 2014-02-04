@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\BanwireGatewayBundle\Encryptor;
+namespace PaymentSuite\BanwireGatewayBundle\Encryptor;
 
 class RC4
 {

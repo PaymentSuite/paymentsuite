@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\BanwireGatewayBundle\DependencyInjection;
+namespace PaymentSuite\BanwireGatewayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

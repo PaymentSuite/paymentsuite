@@ -1,8 +1,8 @@
 <?php
 
-namespace Scastells\BanwireGatewayBundle;
+namespace PaymentSuite\BanwireGatewayBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 class BanwiregatewayMethod implements PaymentMethodInterface
 {

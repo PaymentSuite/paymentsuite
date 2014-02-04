@@ -1,12 +1,12 @@
 <?php
 
-namespace Scastells\BanwireGatewayBundle;
+namespace PaymentSuite\BanwireGatewayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class BanwireGatewayBundle
- * @package Scastells\BanwireGatewayBundle
+ * @package PaymentSuite\BanwireGatewayBundle
  */
 class BanwireGatewayBundle extends Bundle
 {
