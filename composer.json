@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/payu-bundle",
     "type": "symfony-bundle",
-    "description": "PayU Bundle, part of Mmoreram Payment Suite",
+    "description": "PayU Bundle, part of PaymentSuite Project",
     "keywords": ["payu", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [

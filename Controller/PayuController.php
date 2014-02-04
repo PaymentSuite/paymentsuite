@@ -2,10 +2,10 @@
 
 namespace Scastells\PayuBundle\Controller;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
