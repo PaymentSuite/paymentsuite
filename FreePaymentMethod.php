@@ -13,7 +13,7 @@
 
 namespace PaymentSuite\FreePaymentBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**
