@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/paymill-bundle",
     "type": "symfony-bundle",
-    "description": "Paymill Bundle, part of Mmoreram Payment Suite",
+    "description": "Paymill Bundle, part of PaymentSuite Project",
     "keywords": ["paymill", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
