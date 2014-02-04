@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle\DependencyInjection;
+namespace PaymentSuite\PagosonlineBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

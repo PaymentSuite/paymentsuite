@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Scastells\PagosonlineBundle\Services;
+namespace PaymentSuite\PagosonlineBundle\Services;
 
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Scastells\PagosonlineBundle\PagosonlineMethod;
-use Scastells\PagosonlineCommBundle\Services\PagosonlineCommManager;
+use PaymentSuite\PagosonlineBundle\PagosonlineMethod;
+use PaymentSuite\PagosonlineCommBundle\Services\PagosonlineCommManager;
 
 /**
  * Pagosonline manager

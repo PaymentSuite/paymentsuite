@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle\Form\Type;
+namespace PaymentSuite\PagosonlineBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

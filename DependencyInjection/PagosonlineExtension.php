@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle\DependencyInjection;
+namespace PaymentSuite\PagosonlineBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

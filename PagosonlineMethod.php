@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle;
+namespace PaymentSuite\PagosonlineBundle;
 
 use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
 

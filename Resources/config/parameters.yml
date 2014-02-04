@@ -1,7 +1,7 @@
 parameters:
 
     pagosonline.controller.route.name: "pagosonline_execute"
-    pagosonline.form.type.class: "Scastells\\PagosonlineBundle\\Form\\Type\\PagosonlineType"
-    pagosonline.manager.class: "Scastells\\PagosonlineBundle\\Services\\PagosonlineManager"
-    pagosonline.twig.extension.class: "Scastells\\PagosonlineBundle\\Twig\\PagosonlineExtension"
-    pagosonline.routes.loader.class: "Scastells\\PagosonlineBundle\\Router\\PagosonlineRoutesLoader"
+    pagosonline.form.type.class: "PaymentSuite\\PagosonlineBundle\\Form\\Type\\PagosonlineType"
+    pagosonline.manager.class: "PaymentSuite\\PagosonlineBundle\\Services\\PagosonlineManager"
+    pagosonline.twig.extension.class: "PaymentSuite\\PagosonlineBundle\\Twig\\PagosonlineExtension"
+    pagosonline.routes.loader.class: "PaymentSuite\\PagosonlineBundle\\Router\\PagosonlineRoutesLoader"

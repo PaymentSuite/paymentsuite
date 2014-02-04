@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle\Router;
+namespace PaymentSuite\PagosonlineBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

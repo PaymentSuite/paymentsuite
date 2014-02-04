@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\PagosonlineBundle\Twig;
+namespace PaymentSuite\PagosonlineBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
