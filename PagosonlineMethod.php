@@ -2,7 +2,7 @@
 
 namespace PaymentSuite\PagosonlineBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

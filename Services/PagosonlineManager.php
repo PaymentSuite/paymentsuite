@@ -3,11 +3,11 @@
 
 namespace PaymentSuite\PagosonlineBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PagosonlineBundle\PagosonlineMethod;
 use PaymentSuite\PagosonlineCommBundle\Services\PagosonlineCommManager;
 
