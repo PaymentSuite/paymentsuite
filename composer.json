@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/bankwire-bundle",
     "type": "symfony-bundle",
-    "description": "Bankwire Bundle, part of Mmoreram Payment Suite",
+    "description": "Bankwire Bundle, part of PaymentSuite Payment Suite",
     "keywords": ["bankwire", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
