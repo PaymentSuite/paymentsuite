@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/banwire-gateway-bundle",
     "type": "symfony-bundle",
-    "description": "BanwireGateway Bundle, part of PaymentSuite Payment Suite",
+    "description": "BanwireGateway Bundle, part of PaymentSuite Project",
     "keywords": ["BanwireGateway", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
