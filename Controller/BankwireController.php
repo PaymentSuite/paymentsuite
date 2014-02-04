@@ -13,7 +13,6 @@
 
 namespace PaymentSuite\BankwireBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -26,8 +25,6 @@ class BankwireController extends Controller
      * Payment execution
      *
      * @return RedirectResponse
-     *
-     * @Method("GET")
      */
     public function executeAction()
     {
