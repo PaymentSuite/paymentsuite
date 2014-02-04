@@ -7,4 +7,3 @@ parameters:
     pagosonline_gateway.form.type.wrapper.class: "PaymentSuite\\PagosonlineGatewayBundle\\Services\\Wrapper\\PagosonlineGatewayTypeWrapper"
     pagosonline_gateway.routes.loader.class: "PaymentSuite\\PagosonlineGatewayBundle\\Router\\PagosonlineGatewayRoutesLoader"
     pagosonline_gateway.manager.class: "PaymentSuite\\PagosonlineGatewayBundle\\Services\\PagosonlineGatewayManager"
-    pagosonline_gateway.order_paid_status: 4

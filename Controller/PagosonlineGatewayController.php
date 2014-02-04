@@ -135,7 +135,7 @@ class PagosonlineGatewayController extends Controller
         $order = $paymentBridge->findOrder($orderId);
         $paymentBridge->setOrder($order);
 
-        $orderPaidStatus = $this->getParameter('pagosonline_gateway.order_paid_status');
+        $orderPaidStatus = 4;
 
         if (strtoupper($signatureHash) == $signature) {
             
@@ -167,7 +167,7 @@ class PagosonlineGatewayController extends Controller
                 
         $orderRefPol = explode("#",$orderRef);
         $orderId = $orderRef[0];
-        $orderPaidStatus = $this->getParameter('pagosonline_gateway.order_paid_status');
+        $orderPaidStatus = 4;
         
         if ($statusPol == $orderPaidStatus) {
 

@@ -36,7 +36,6 @@ class PagosonlineGatewayExtension extends Extension
         $container->setParameter('pagosonline_gateway.user_id', $config['user_id']);
         $container->setParameter('pagosonline_gateway.account_id', $config['account_id']);
         $container->setParameter('pagosonline_gateway.test', $config['test']);
-        $container->setParameter('pagosonline_gateway.order_paid_status', $config['order_paid_status']);
         
         $container->setParameter('pagosonline_gateway.controller.route.confirmation', $config['controller_route_confirmation']);
         $container->setParameter('pagosonline_gateway.controller.route.response', $config['controller_route_response']);
