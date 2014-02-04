@@ -26,7 +26,7 @@ class DineromailTypeWrapper
 
     /**
      * @var FormFactory
-     * 
+     *
      * Form factory
      */
     protected $formFactory;
@@ -34,7 +34,7 @@ class DineromailTypeWrapper
 
     /**
      * @var PaymentBridge
-     * 
+     *
      * Payment bridge
      */
     private $paymentBridge;
@@ -42,7 +42,7 @@ class DineromailTypeWrapper
 
     /**
      * @var string
-     * 
+     *
      * Api endpoint
      */
     private $endPoint;
@@ -50,7 +50,7 @@ class DineromailTypeWrapper
 
     /**
      * @var string
-     * 
+     *
      * Merchant
      */
     private $merchant;
@@ -58,7 +58,7 @@ class DineromailTypeWrapper
 
     /**
      * @var string
-     * 
+     *
      * Seller name
      */
     private $sellerName;
@@ -66,7 +66,7 @@ class DineromailTypeWrapper
 
     /**
      * @var string
-     * 
+     *
      * url of header image ( full url )
      */
     private $headerImage;
@@ -74,7 +74,7 @@ class DineromailTypeWrapper
 
     /**
      * @var boolean
-     * 
+     *
      * Redirect to url after payment from platform
      */
     private $urlRedirectEnabled;
@@ -82,7 +82,7 @@ class DineromailTypeWrapper
 
     /**
      * @var array
-     * 
+     *
      * Methods available, imploded by comma
      */
     private $paymentMethodsAvailable;
@@ -90,7 +90,7 @@ class DineromailTypeWrapper
 
     /**
      * @var integer
-     * 
+     *
      * Code of country.
      * * 1 - Argentina
      * * 2 - Brasil
@@ -102,7 +102,7 @@ class DineromailTypeWrapper
 
     /**
      * Formtype construct method
-     * 
+     *
      * @param FormFactory            $formFactory             Form factory
      * @param PaymentBridgeInterface $paymentBridge           Payment bridge
      * @param string                 $endPoint                Api end point
@@ -129,11 +129,11 @@ class DineromailTypeWrapper
 
     /**
      * Builds form given success and fail urls
-     * 
+     *
      * @param string $dineromailSuccessUrl      Success route url
      * @param string $dineromailFailUrl         Fail route url
      * @param string $dineromailTransactionId   Transaction Id
-     * 
+     *
      * @return Form
      */
     public function buildForm($dineromailSuccessUrl, $dineromailFailUrl, $dineromailTransactionId)
@@ -234,7 +234,7 @@ class DineromailTypeWrapper
                 ))
 
                 /**
-                 * ammount... 
+                 * ammount...
                  */
                 ->add('item_ammount_' . $iteration, 'hidden', array(
                     'data'  =>  $dineroMailItem['amount'],

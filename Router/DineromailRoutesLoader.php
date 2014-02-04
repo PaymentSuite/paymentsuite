@@ -26,7 +26,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution route name
      */
     const ROUTE_NAME = 'dineromail_execute';
@@ -34,7 +34,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Process url. For callbacks
      */
     const ROUTE_PROCESS_NAME = 'dineromail_process';
@@ -42,7 +42,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
@@ -50,7 +50,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route name
      */
     private $controllerRouteName;
@@ -58,7 +58,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Process controller route
      */
     private $controllerProcessRoute;
@@ -66,7 +66,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Process controller route name
      */
     private $controllerProcessRouteName;
@@ -74,7 +74,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
@@ -82,7 +82,7 @@ class DineromailRoutesLoader implements LoaderInterface
 
     /**
      * Construct method
-     * 
+     *
      * @param string $controllerRoute            Controller route
      * @param string $controllerRouteName        Controller route name
      * @param string $controllerProcessRoute     Process controller route
@@ -102,9 +102,9 @@ class DineromailRoutesLoader implements LoaderInterface
      *
      * @param mixed  $resource The resource
      * @param string $type     The resource type
-     * 
+     *
      * @return RouteCollection
-     * 
+     *
      * @throws RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)

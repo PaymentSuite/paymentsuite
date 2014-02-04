@@ -1,16 +1,16 @@
 DineroMailBundle - PayFony
 =====
 
-[![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/payment-suite.png)](https://github.com/mmoreram/PaymentCoreBundle)
-[![Payment Suite](https://raw.github.com/mmoreram/PaymentCoreBundle/gh-pages/public/images/still-maintained.png)]()
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/badges/quality-score.png?s=b56ed7f3a43fd7543777ec9beac26a30891fcf43)](https://scrutinizer-ci.com/g/mmoreram/DineroMailBundle/)
+[![Payment Suite](https://raw.github.com/paymentsuite/PaymentCoreBundle/gh-pages/public/images/payment-suite.png)](https://github.com/paymentsuite/PaymentCoreBundle)
+[![Payment Suite](https://raw.github.com/paymentsuite/PaymentCoreBundle/gh-pages/public/images/still-maintained.png)]()
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/paymentsuite/DineroMailBundle/badges/quality-score.png?s=b56ed7f3a43fd7543777ec9beac26a30891fcf43)](https://scrutinizer-ci.com/g/paymentsuite/DineroMailBundle/)
 
 Table of contents
 -----
 
-1.  [Installing Payment Environment](https://gist.github.com/mmoreram/6771947#file-configure-payfony-environment-md)
-2.  [Installing DineroMail](https://gist.github.com/mmoreram/6771869#file-install-platform-md)
-3.  [Contribute](https://gist.github.com/mmoreram/6813203#file-contribute-payfony-md)
+1.  [Installing Payment Environment](https://gist.github.com/paymentsuite/6771947#file-configure-payfony-environment-md)
+2.  [Installing DineroMail](https://gist.github.com/paymentsuite/6771869#file-install-platform-md)
+3.  [Contribute](https://gist.github.com/paymentsuite/6813203#file-contribute-payfony-md)
 4.  [Configuration](#configuration)
 5.  [Extra Data](#extra-data)
 6.  [Router](#router)

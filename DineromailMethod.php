@@ -24,7 +24,7 @@ class DineromailMethod implements PaymentMethodInterface
 
     /**
      * Get Dineromail method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
