@@ -9,7 +9,7 @@
 
 namespace PaymentSuite\PagosonlineGatewayBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

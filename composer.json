@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/pagosonline-gateway-bundle",
     "type": "symfony-bundle",
-    "description": "Pagosonlie gateway Bundle, part of Mmoreram Payment Suite",
+    "description": "Pagosonlie gateway Bundle, part of PaymentSuite Payment Suite",
     "keywords": ["pagosonline", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
