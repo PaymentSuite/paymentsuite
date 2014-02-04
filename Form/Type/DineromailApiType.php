@@ -1,10 +1,10 @@
 <?php
 
-namespace Scastells\DineromailApiBundle\Form\Type;
+namespace PaymentSuite\DineromailApiBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Validator\Constraints\Collection;
 

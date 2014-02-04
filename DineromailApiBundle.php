@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\DineromailApiBundle;
+namespace PaymentSuite\DineromailApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Scastells\DineromailApiBundle\Services;
+namespace PaymentSuite\DineromailApiBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
-use Scastells\DineromailApiBundle\DineromailApiMethod;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\DineromailApiBundle\DineromailApiMethod;
 use SoapVar;
 
 /**
@@ -307,7 +307,7 @@ class DineromailApiManager
      * @param $result \soap response
      * @param DineromailApiMethod $paymentMethod Payment method
      *
-     * @throws \Mmoreram\PaymentCoreBundle\Exception\PaymentException
+     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      * @return DineromailApiMethod Self object
      *
      */

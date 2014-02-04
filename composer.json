@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/dineromail-api-bundle",
     "type": "symfony-bundle",
-    "description": "DineroMail Api Bundle, part of Mmoreram Payment Suite",
+    "description": "DineroMail Api Bundle, part of PaymentSuite Payment Suite",
     "keywords": ["dineromail-api", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [

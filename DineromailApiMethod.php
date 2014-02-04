@@ -9,9 +9,9 @@
  *
  */
 
-namespace Scastells\DineromailApiBundle;
+namespace PaymentSuite\DineromailApiBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

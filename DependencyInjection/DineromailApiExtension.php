@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\DineromailApiBundle\DependencyInjection;
+namespace PaymentSuite\DineromailApiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

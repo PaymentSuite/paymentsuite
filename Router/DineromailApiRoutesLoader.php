@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\DineromailApiBundle\Router;
+namespace PaymentSuite\DineromailApiBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
