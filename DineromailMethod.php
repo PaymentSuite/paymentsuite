@@ -11,9 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle;
+namespace PaymentSuite\DineromailBundle;
 
-use Mmoreram\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 
 /**

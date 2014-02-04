@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle\Router;
+namespace PaymentSuite\DineromailBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

@@ -11,11 +11,11 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle\Services\Wrapper;
+namespace PaymentSuite\DineromailBundle\Services\Wrapper;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
 
 /**

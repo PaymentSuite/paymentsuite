@@ -1,10 +1,10 @@
 <?php
 
-namespace Mmoreram\DineromailBundle\Services;
+namespace PaymentSuite\DineromailBundle\Services;
 
-use Mmoreram\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use Mmoreram\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Mmoreram\DineromailBundle\DineromailMethod;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\DineromailBundle\DineromailMethod;
 
 /**
  * Dineromail manager

@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle\DependencyInjection;
+namespace PaymentSuite\DineromailBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

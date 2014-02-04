@@ -11,15 +11,15 @@
  * Marc Morera 2013
  */
 
-namespace Mmoreram\DineromailBundle\Controller;
+namespace PaymentSuite\DineromailBundle\Controller;
 
-use Mmoreram\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Mmoreram\DineromailBundle\DineromailMethod;
+use PaymentSuite\DineromailBundle\DineromailMethod;
 
 
 /**
