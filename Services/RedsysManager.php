@@ -21,6 +21,7 @@ use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
 use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
 use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
 
 /**
  * Redsys manager
@@ -58,7 +59,7 @@ class RedsysManager
      * @param RedsysMethodWrapper $redsysMethodWrapper Redsys method wrapper
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, RedsysMethodWrapper $redsysMethodWrapper, PaymentBridgeInterface $paymentBridge, $templating)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, RedsysMethodWrapper $redsysMethodWrapper, PaymentBridgeInterface $paymentBridge,TimedTwigEngine $templating)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->redsysMethodWrapper = $redsysMethodWrapper;
@@ -98,7 +99,6 @@ class RedsysManager
 
         $amount          = (integer) ($this->paymentBridge->getAmount() * 100);
         $orderNumber     = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
-        //$orderNumber = '0001';
         $merchantCode    = $this->redsysMethodWrapper->getMerchantCode();
         $currency        = $this->currencyTranslation($this->paymentBridge->getCurrency());
 
@@ -147,6 +147,8 @@ class RedsysManager
         //Check we receive all needed parameters
         $this->checkResultParameters($parameters);
 
+        $redsysMethod = $this->redsysMethodWrapper->getRedsysMethod();
+
         $dsSignature           = $parameters['Ds_Signature'];
         $dsResponse            = $parameters['Ds_Response'];
         $dsAmount              = $parameters['Ds_Amount'];
@@ -165,8 +167,6 @@ class RedsysManager
         if ($dsSignature != $this->expectedSignature($dsAmount, $dsOrder, $dsMerchantCode, $dsCurrency, $dsResponse,  $dsSecret)){
             throw new InvalidSignatureException();
         }
-
-        $redsysMethod = $this->redsysMethodWrapper->getRedsysMethod();
 
         /**
          * Adding to PaymentMethod transaction information
@@ -231,7 +231,7 @@ class RedsysManager
 
     }
 
-    public function currencyTranslation($currency){
+    protected function currencyTranslation($currency){
 
         switch($currency){
             case 'EUR':

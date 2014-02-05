@@ -62,38 +62,9 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->templating = $this->getMock('Symfony\Bundle\FrameworkBundle\Templating\Engine', array(), array(), '', false, false);
+        $this->templating = $this->getMock('Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine', array(), array(), '', false, false);
 
         $this->redsysManager = new RedsysManager($this->paymentEventDispatcher, $this->redsysMethodWrapper, $this->paymentBridge, $this->templating);
-    }
-
-    public function currencyProvider()
-    {
-        return array(
-            array('978', 'EUR'),
-            array('484', 'MXN'),
-            array('949', 'TRY'),
-            array('756', 'CHF')
-        );
-    }
-    /**
-     * @dataProvider currencyProvider
-     */
-    public function testCurrencyTranslation($expected, $currency)
-    {
-
-        $result = $this->redsysManager->currencyTranslation($currency);
-
-        // assert that your calculator added the numbers correctly!
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * @expectedException PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException
-     */
-    public function testCurrencyTranslationException()
-    {
-        $result = $this->redsysManager->currencyTranslation('XXX');
     }
 
     /**
