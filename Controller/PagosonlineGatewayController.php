@@ -125,13 +125,29 @@ class PagosonlineGatewayController extends Controller
         $signatureHash = md5($key.'~'.$userId.'~'.$orderRef.'~'.$value.'~'.$currency.'~'.$statusPol);
         $referencePol = $request->request->get('ref_pol');
 
+        $infoLog = array(
+            'firma'         => $signature,
+            'estado_pol'    => $statusPol,
+            'moneda'        => $currency,
+            'valor'         => $value,
+            'ref_venda'     => $orderRef,
+            'usuario_id'    => $userId,
+            'hash'          => $signatureHash,
+            'ref_pol'       => $referencePol,
+            'action'        => 'confirmationAction'
+        );
+
+        $this->get('logger')->addInfo($paymentMethod->getPaymentName(), $infoLog);
+
+        //@TODO use notifyPaymentOrderLoad for check order
         $orderRefPol = explode("#",$orderRef);
-        $orderId = $orderRef[0];
+        $orderId = $orderRefPol[0];
 
         $paymentMethod->setPagosonlineGatewayTransactionId($referencePol);
         $paymentMethod->setPagosonlineGatewayReference($referencePol);
         $paymentMethod->setReference($orderRef);
         $paymentMethod->setStatus($statusPol);
+
         $order = $paymentBridge->findOrder($orderId);
         $paymentBridge->setOrder($order);
 
@@ -164,9 +180,10 @@ class PagosonlineGatewayController extends Controller
 
         $statusPol = $request->query->get('estado_pol');
         $orderRef = $request->query->get('ref_venta');
-                
+
+        //@TODO use notifyPaymentOrderLoad for check order
         $orderRefPol = explode("#",$orderRef);
-        $orderId = $orderRef[0];
+        $orderId = $orderRefPol[0];
         $orderPaidStatus = 4;
         
         if ($statusPol == $orderPaidStatus) {

@@ -31,6 +31,14 @@ class PagosonlineGatewayManager
      */
     protected $pagosonlineComm;
 
+
+    /**
+     * @var logger
+     *
+     */
+    private $logger;
+
+
     /**
      * @var integer
      */
@@ -41,13 +49,15 @@ class PagosonlineGatewayManager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param $logger
      * @param $accountId
      * @param PagosonlineCommManager $pagosonlineComm
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $accountId, PagosonlineCommManager $pagosonlineComm)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $logger, $accountId, PagosonlineCommManager $pagosonlineComm)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
+        $this->logger = $logger;
         $this->accountId = $accountId;
         $this->pagosonlineComm = $pagosonlineComm;
     }
@@ -63,17 +73,18 @@ class PagosonlineGatewayManager
         $paymentMethod->setReference($statusTransactionWS->referencia);
         $paymentMethod->setAmount($statusTransactionWS->valor);
 
+        $this->logger->addInfo($paymentMethod->getPaymentName().'processTransactionCheck', get_object_vars($statusTransactionWS));
+
         /**
          * if pagosonline return code 15 o 9994 the order status is pending
          */
-
         $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
 
         if ($statusTransactionWS->codigoRespuesta == 1) {
 
             $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
-        } elseif ((!in_array($statusTransactionWS->codigoRespuesta, array('15','9994')))) { //status 15 or 9994 payment is still in pending nothing to do
+        } elseif (!in_array($statusTransactionWS->codigoRespuesta, array(15, 9994))) { //status 15 or 9994 payment is still in pending nothing to do
 
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
         }
