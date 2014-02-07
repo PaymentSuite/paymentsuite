@@ -25,40 +25,11 @@ class RedsysRoutesLoader implements LoaderInterface
 {
 
     /**
-     * @var string
-     *
-     * Execution route name
-     */
-    private $controllerRouteName;
-
-
-    /**
-     * @var string
-     *
-     * Execution controller route
-     */
-    private $controllerRoute;
-
-
-    /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
-
-    /**
-     * Construct method
-     *
-     * @param string $controllerRouteName Controller route name
-     * @param string $controllerRoute     Controller route
-     */
-    public function __construct($controllerRouteName, $controllerRoute)
-    {
-        $this->controllerRouteName = $controllerRouteName;
-        $this->controllerRoute = $controllerRoute;
-    }
 
 
     /**
@@ -74,18 +45,26 @@ class RedsysRoutesLoader implements LoaderInterface
     public function load($resource, $type = null)
     {
         if ($this->loaded) {
-
-            throw new \RuntimeException('Do not add this loader twice');
+           throw new \RuntimeException('Do not add this loader twice');
         }
 
         $routes = new RouteCollection();
-        $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
-            '_controller'   =>  'RedsysBundle:Redsys:execute',
-        )));
+
+
+        $routes->add('redsys_execute', new Route('/payment/redsys/execute',
+            array('_controller'   =>  'RedsysBundle:Redsys:execute'),
+            array('_method' => 'GET')
+        ));
+
+        $routes->add('redsys_result', new Route('/payment/redsys/result',
+            array('_controller'   =>  'RedsysBundle:Redsys:result'),
+            array('_method' => 'POST')
+        ));
 
         $this->loaded = true;
 
         return $routes;
+
     }
 
 

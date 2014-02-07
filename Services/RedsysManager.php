@@ -38,13 +38,12 @@ class RedsysManager
 
 
     /**
-     * @var RedsysTransactionWrapper
+     * @var Wrapper\RedsysFormTypeWrapper
      *
-     * Redsys transaction wrapper
+     * Form Type Wrapper
      */
-    protected $redsysMethodWrapper;
-
     protected $redsysFormTypeWrapper;
+
     /**
      * @var PaymentBridgeInterface
      *
@@ -52,14 +51,19 @@ class RedsysManager
      */
     protected $paymentBridge;
 
+    /**
+     * @var SecretKey
+     */
     private $secretKey;
 
     /**
      * Construct method for redsys manager
      *
      * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param RedsysMethodWrapper $redsysMethodWrapper Redsys method wrapper
+     * @param RedsysFormTypeWrapper $redsysFormTypeWrapper Redsys form typ wrapper
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
+     * @param TimedTwigEngine $templating Twig Templating Engine
+     * @param $secretKey Secret Key
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher, RedsysFormTypeWrapper $redsysFormTypeWrapper, PaymentBridgeInterface $paymentBridge,TimedTwigEngine $templating, $secretKey)
     {
@@ -73,6 +77,10 @@ class RedsysManager
 
     /**
      * Tries to process a payment through Redsys
+     *
+     * @param $Ds_Merchant_MerchantURL
+     * @param $Ds_Merchant_UrlOK
+     * @param $Ds_Merchant_UrlKO
      *
      * @return RedsysManager Self object
      *
@@ -112,9 +120,12 @@ class RedsysManager
     /**
      * Tries to process a payment through Redsys
      *
+     * @param $parameters Array with response parameters
+     *
      * @return RedsysManager Self object
      *
-     * @throws SignatureNotReceivedException
+     * @throws InvalidSignatureException
+     * @throws ParameterNotReceivedException
      */
     public function processResult(array $parameters)
     {
@@ -193,14 +204,11 @@ class RedsysManager
 
     protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret){
 
-        $mensaje = $amount . $order . $merchantCode . $currency . $response . $secret;
+        $signature = $amount . $order . $merchantCode . $currency . $response . $secret;
         // SHA1
-        return strtoupper(sha1($mensaje));
+        return strtoupper(sha1($signature));
 
     }
-
-
-
 
     protected function checkResultParameters(array $parameters){
         $list = array(

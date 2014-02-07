@@ -2,7 +2,7 @@ parameters:
     redsys.manager.class: "PaymentSuite\\RedsysBundle\\Services\\RedsysManager"
     redsys.form.type.wrapper.class: "PaymentSuite\\RedsysBundle\\Services\\Wrapper\\RedsysFormTypeWrapper"
     redsys.merchant.url: "http://redsys.dev/redsys/transaction"
-    redsys.url.ok: "/ok"
-    redsys.url.ko: "/ko"
+    redsys.routes.loader.class: "PaymentSuite\\RedsysBundle\\Router\\RedsysRoutesLoader"
+    redsys.controller.route.name: "redsys_execute"
 
     

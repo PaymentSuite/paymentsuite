@@ -10,9 +10,9 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'http://redsys.dev/');
+        $client->request('GET', '/');
 
-        $this->assertTrue($client->getResponse()->isRedirect('/redsys'));
+        $this->assertTrue($client->getResponse()->isRedirect());
 
         $crawler = $client->followRedirect();
 

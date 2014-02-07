@@ -19,3 +19,8 @@ services:
             payment.bridge: @payment.bridge
             templating: @templating
             redsys.secret.key: %redsys.secret.key%
+
+   redsys.routes.loader:
+       class: %redsys.routes.loader.class%
+       tags:
+           - { name: routing.loader }

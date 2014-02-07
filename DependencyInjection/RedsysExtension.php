@@ -36,6 +36,14 @@ class RedsysExtension extends Extension
         $container->setParameter('redsys.secret.key', $config['secret_key']);
         $container->setParameter('redsys.url', $config['url']);
 
+        $container->setParameter('redsys.success.route', $config['payment_success']['route']);
+        $container->setParameter('redsys.success.order.append', $config['payment_success']['order_append']);
+        $container->setParameter('redsys.success.order.field', $config['payment_success']['order_append_field']);
+
+        $container->setParameter('redsys.fail.route', $config['payment_fail']['route']);
+        $container->setParameter('redsys.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('redsys.fail.order.field', $config['payment_fail']['order_append_field']);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');

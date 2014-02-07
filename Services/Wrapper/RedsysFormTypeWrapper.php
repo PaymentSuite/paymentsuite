@@ -37,10 +37,19 @@ class RedsysFormTypeWrapper
      */
     private $paymentBridge;
 
+    /**
+     * @var MerchantCode
+     */
     private $merchantCode;
 
+    /**
+     * @var SecretKey
+     */
     private $secretKey;
 
+    /**
+     * @var Url
+     */
     private $url;
 
     /**
@@ -63,9 +72,12 @@ class RedsysFormTypeWrapper
     }
 
     /**
-     * Builds form given success and fail urls
+     * Builds form given return, success and fail urls
      *
-     * @return Form
+     * @param $Ds_Merchant_MerchantURL
+     * @param $Ds_Merchant_UrlOK
+     * @param $Ds_Merchant_UrlKO
+     * @return \Symfony\Component\Form\FormView
      */
     public function buildForm($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO)
     {
@@ -157,6 +169,18 @@ class RedsysFormTypeWrapper
         return $formBuilder->getForm()->createView();
     }
 
+    /**
+     * Creates signature to be sent to Redsys
+     *
+     * @param $amount
+     * @param $order
+     * @param $merchantCode
+     * @param $currency
+     * @param $transactionType
+     * @param $merchantURL
+     * @param $secret
+     * @return string
+     */
     protected function shopSignature($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret){
 
         $signature = $amount . $order . $merchantCode . $currency . $transactionType . $merchantURL . $secret;
@@ -165,6 +189,13 @@ class RedsysFormTypeWrapper
 
     }
 
+    /**
+     * Translates standard currency to Redsys currency code
+     *
+     * @param $currency
+     * @return string
+     * @throws \PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException
+     */
     protected function currencyTranslation($currency){
 
         switch($currency){
@@ -202,6 +233,13 @@ class RedsysFormTypeWrapper
                 throw new CurrencyNotSupportedException;
         }
     }
+
+    /**
+     * Formats order number to be Redsys compliant
+     *
+     * @param $orderNumber
+     * @return string
+     */
     protected function formatOrderNumber($orderNumber){
         //Falta comprobar que empieza por 4 numericos y que como mucho tiene 12 de longitud
         $length = strlen($orderNumber);
