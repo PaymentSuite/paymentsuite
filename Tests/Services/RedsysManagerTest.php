@@ -19,11 +19,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 {
     private $paymentBridge;
 
-    private $redsysMethodWrapper;
-
     private $paymentEventDispatcher;
-
-    private $redsysResponseMethod;
 
     private $redsysManager;
 
@@ -42,8 +38,8 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->redsysMethodWrapper = $this
-            ->getMockBuilder('PaymentSuite\RedsysBundle\Services\Wrapper\RedsysMethodWrapper')
+        $this->RedsysFormTypeWrapper = $this
+            ->getMockBuilder('PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -57,14 +53,9 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->redsysResponseMethod = $this
-            ->getMockBuilder('Redsys\Models\Response\Method')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->templating = $this->getMock('Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine', array(), array(), '', false, false);
 
-        $this->redsysManager = new RedsysManager($this->paymentEventDispatcher, $this->redsysMethodWrapper, $this->paymentBridge, $this->templating);
+        $this->redsysManager = new RedsysManager($this->paymentEventDispatcher, $this->RedsysFormTypeWrapper, $this->paymentBridge, $this->templating, '333');
     }
 
     /**
@@ -75,11 +66,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_Signature'       => 'X',
         );
 
-        $this
-            ->redsysMethodWrapper
-            ->expects($this->any())
-            ->method('getRedsysMethod')
-            ->will($this->returnValue($this->redsysMethod));
+
 
         $result = $this->redsysManager->processResult($parameters);
 
@@ -89,6 +76,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
      * @expectedException PaymentSuite\RedsysBundle\Exception\InvalidSignatureException
      */
     public function testInvalidSignatureException(){
+
         $parameters = array(
             'Ds_Date'       => 'X',
             'Ds_Hour'       => 'X',
@@ -109,11 +97,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
         );
 
-        $this
-            ->redsysMethodWrapper
-            ->expects($this->any())
-            ->method('getRedsysMethod')
-            ->will($this->returnValue($this->redsysMethod));
 
         $this->redsysManager->processResult($parameters);
 
@@ -145,7 +128,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_Hour'       => $dsHour,
             'Ds_Terminal'       => '1',
             'Ds_SecurePayment'  => $dsSecurePayment,
-            'Ds_Signature'       => 'A9573FC831EA06ADE877BDDF7AB30975377239E0',
+            'Ds_Signature'       => '3142396C4337FDD6DED470919FBB0BC54D512C9E',
             'Ds_Response'        => $dsResponse,
             'Ds_Amount'          => '100',
             'Ds_Order'           => '0001',
@@ -164,13 +147,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderDone')
-            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->redsysMethod));
-
-        $this
-            ->redsysMethodWrapper
-            ->expects($this->any())
-            ->method('getRedsysMethod')
-            ->will($this->returnValue($this->redsysMethod));
+            ->with($this->equalTo($this->paymentBridge));
 
         $this
             ->redsysMethod
@@ -232,9 +209,10 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderFail')
-            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->redsysMethod));
+            ->with($this->equalTo($this->paymentBridge));
 
-        $result = $this->redsysManager->processResult($parameters);
+        $this->redsysManager->processResult($parameters);
+
 
     }
 
@@ -261,7 +239,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_Hour'       => $dsHour,
             'Ds_Terminal'       => '1',
             'Ds_SecurePayment'  => $dsSecurePayment,
-            'Ds_Signature'       => 'EB13F59FCC707771E0500BE372E4024B4BAEAF24',
+            'Ds_Signature'       => '9A163AA5034368367665866E62D603A5A92C5D35',
             'Ds_Response'        => $dsResponse,
             'Ds_Amount'          => '99',
             'Ds_Order'           => '0001',
@@ -282,13 +260,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderDone')
-            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->redsysMethod));
-
-        $this
-            ->redsysMethodWrapper
-            ->expects($this->any())
-            ->method('getRedsysMethod')
-            ->will($this->returnValue($this->redsysMethod));
+            ->with($this->equalTo($this->paymentBridge));
 
         $this
             ->redsysMethod
@@ -350,15 +322,15 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderDone')
-            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->redsysMethod));
+            ->with($this->equalTo($this->paymentBridge));
 
         $this
             ->paymentEventDispatcher
             ->expects($this->once())
             ->method('notifyPaymentOrderSuccess')
-            ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->redsysMethod));
+            ->with($this->equalTo($this->paymentBridge));
 
-        $result = $this->redsysManager->processResult($parameters);
+        $this->redsysManager->processResult($parameters);
 
     }
 }

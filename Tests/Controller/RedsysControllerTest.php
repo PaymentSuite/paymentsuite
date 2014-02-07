@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', 'http://redsys.dev/');
 
         $this->assertTrue($client->getResponse()->isRedirect('/redsys'));
 
@@ -18,7 +18,7 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('form')->count() > 0);
 
-        $this->assertTrue($crawler->filter('input[type="text"]')->count() > 12);
+        $this->assertTrue($crawler->filter('input[type="hidden"]')->count() > 9);
 
 
     }

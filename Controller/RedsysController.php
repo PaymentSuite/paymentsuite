@@ -37,7 +37,11 @@ class RedsysController extends Controller
     public function executeAction(Request $request)
     {
 
-        return $this->get('redsys.manager')->processPayment();
+        $Ds_Merchant_MerchantURL = $this->container->getParameter('redsys.merchant.url');
+        $Ds_Merchant_UrlOK = $this->container->getParameter('redsys.url.ok');
+        $Ds_Merchant_UrlKO = $this->container->getParameter('redsys.url.ko');
+
+        return $this->get('redsys.manager')->processPayment($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO);
     }
 
     /**
