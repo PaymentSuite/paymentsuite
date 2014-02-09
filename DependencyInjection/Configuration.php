@@ -70,6 +70,12 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('controller_execute_route')
+                    ->defaultValue('/payment/redsys/execute')
+                ->end()
+                ->scalarNode('controller_result_route')
+                    ->defaultValue('/payment/redsys/result')
+                ->end()
             ->end()
         ;
 

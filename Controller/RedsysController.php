@@ -30,18 +30,16 @@ class RedsysController extends Controller
      *
      * @param Request $request Request element
      *
-     * @return RedirectResponse
+     * @return Response
      *
-     * @Method("POST")
+     * @Method("GET")
      */
     public function executeAction(Request $request)
     {
-
-        $Ds_Merchant_MerchantURL = $this->container->getParameter('redsys.merchant.url');
-        $Ds_Merchant_UrlOK = $this->container->getParameter('redsys.success.route');
-        $Ds_Merchant_UrlKO = $this->container->getParameter('redsys.fail.route');
-
-        return $this->get('redsys.manager')->processPayment($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO);
+        $formView = $this->get('redsys.manager')->processPayment();
+        return $this->render('RedsysBundle:Redsys:process.html.twig',array(
+            'redsys_form' => $formView,
+        ));
     }
 
     /**

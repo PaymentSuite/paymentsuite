@@ -25,7 +25,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
     private $redsysMethod;
 
-    private $templating;
 
     /**
      * Setup method
@@ -53,9 +52,11 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->templating = $this->getMock('Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine', array(), array(), '', false, false);
-
-        $this->redsysManager = new RedsysManager($this->paymentEventDispatcher, $this->RedsysFormTypeWrapper, $this->paymentBridge, $this->templating, '333');
+        $this->redsysManager = new RedsysManager(
+            $this->paymentEventDispatcher,
+            $this->RedsysFormTypeWrapper,
+            $this->paymentBridge,
+            '333');
     }
 
     /**

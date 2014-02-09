@@ -8,8 +8,9 @@ services:
             redsys.merchant.code: %redsys.merchant.code%
             redsys.secret.key: %redsys.secret.key%
             redsys.url: %redsys.url%
-        tags:
-            - { name: form.type, alias: pagosonlinegateway_view }
+            redsys.merchant.url: %redsys.controller.result.route%
+            redsys.success.route: %redsys.success.route%
+            redsys.fail.route: %redsys.fail.route%
 
    redsys.manager:
         class: %redsys.manager.class%
@@ -17,10 +18,14 @@ services:
             payment.event.dispatcher: @payment.event.dispatcher
             redsys.form.type.wrapper: @redsys.form.type.wrapper
             payment.bridge: @payment.bridge
-            templating: @templating
             redsys.secret.key: %redsys.secret.key%
 
    redsys.routes.loader:
        class: %redsys.routes.loader.class%
+       arguments:
+            redsys.controller.execute.route.name: %redsys.controller.execute.route.name%
+            redsys.controller.execute.route: %redsys.controller.execute.route%
+            redsys.controller.result.route.name: %redsys.controller.result.route.name%
+            redsys.controller.result.route: %redsys.controller.result.route%
        tags:
            - { name: routing.loader }

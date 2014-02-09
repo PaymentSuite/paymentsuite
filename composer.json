@@ -1,5 +1,5 @@
 {
-    "name": "payment-suite/redsys-bundle",
+    "name": "paymentsuite/redsys-bundle",
     "type": "symfony-bundle",
     "description": "Redsys Bundle, part of Payment Suite",
     "keywords": ["redsys", "sermepa", "payment", "ecommerce"],

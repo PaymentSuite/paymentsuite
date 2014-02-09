@@ -52,6 +52,24 @@ class RedsysFormTypeWrapper
      */
     private $url;
 
+    /*
+    * @var dsMerchantMerchantURL
+    */
+    protected $dsMerchantMerchantURL;
+
+    /*
+     * @var dsMerchantUrlOK
+     *
+     */
+    protected $dsMerchantUrlOK;
+
+    /*
+     * @ dsMerchantUrlKO
+     *
+     *
+     */
+    protected $dsMerchantUrlKO;
+
     /**
      * Formtype construct method
      *
@@ -62,24 +80,31 @@ class RedsysFormTypeWrapper
      * @param $url gateway url
      *
      */
-    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $merchantCode, $secretKey, $url)
+    public function __construct(FormFactory $formFactory,
+                                PaymentBridgeInterface $paymentBridge,
+                                $merchantCode,
+                                $secretKey,
+                                $url,
+                                $Ds_Merchant_MerchantURL,
+                                $Ds_Merchant_UrlOK,
+                                $Ds_Merchant_UrlKO)
     {
         $this->formFactory = $formFactory;
         $this->paymentBridge = $paymentBridge;
         $this->merchantCode = $merchantCode;
         $this->secretKey    = $secretKey;
         $this->url          = $url;
+        $this->Ds_Merchant_MerchantURL  = $Ds_Merchant_MerchantURL;
+        $this->Ds_Merchant_UrlOK        = $Ds_Merchant_UrlOK;
+        $this->Ds_Merchant_UrlKO        = $Ds_Merchant_UrlKO;
     }
 
     /**
      * Builds form given return, success and fail urls
      *
-     * @param $Ds_Merchant_MerchantURL
-     * @param $Ds_Merchant_UrlOK
-     * @param $Ds_Merchant_UrlKO
      * @return \Symfony\Component\Form\FormView
      */
-    public function buildForm($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO)
+    public function buildForm()
     {
 
         $extraData = $this->paymentBridge->getExtraData();
@@ -103,10 +128,10 @@ class RedsysFormTypeWrapper
                                                         $Ds_Merchant_MerchantCode,
                                                         $Ds_Merchant_Currency,
                                                         $Ds_Merchant_TransactionType,
-                                                        $Ds_Merchant_MerchantURL,
+                                                        $this->Ds_Merchant_MerchantURL,
                                                         $this->secretKey);
 
-        $Ds_Merchant_Terminal           = $extraData['terminal'];
+        $Ds_Merchant_Terminal = $extraData['terminal'];
 
         $formBuilder
             ->setAction($this->url)
@@ -131,13 +156,13 @@ class RedsysFormTypeWrapper
                 'data' => $Ds_Merchant_Order,
             ))
             ->add('Ds_Merchant_MerchantURL', 'hidden', array(
-                'data' => $Ds_Merchant_MerchantURL,
+                'data' => $this->Ds_Merchant_MerchantURL,
             ))
             ->add('Ds_Merchant_UrlOK', 'hidden', array(
-                'data' => $Ds_Merchant_UrlOK,
+                'data' => $this->Ds_Merchant_UrlOK,
             ))
             ->add('Ds_Merchant_UrlKO', 'hidden', array(
-                'data' => $Ds_Merchant_UrlKO,
+                'data' => $this->Ds_Merchant_UrlKO,
             ))
 
         ;

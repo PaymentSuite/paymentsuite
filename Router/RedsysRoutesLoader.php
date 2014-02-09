@@ -25,12 +25,57 @@ class RedsysRoutesLoader implements LoaderInterface
 {
 
     /**
+     * @var string
+     *
+     * Execution route name
+     */
+    private $controllerExecuteRouteName;
+
+
+    /**
+     * @var string
+     *
+     * Execution controller route
+     */
+    private $controllerExecuteRoute;
+
+    /*
+     *
+     */
+    private $controllerResultRouteName;
+    /**
+     * @var string
+     *
+     * Result controller route
+     */
+    private $controllerResultRoute;
+
+    /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
 
+
+    /**
+     * Construct method
+     *
+     * @param string $controllerExecuteRouteName Controller Execute route name
+     * @param string $controllerExecuteRoute     Controller Execute route
+     * @param string $controllerResultRouteName Controller Result route name
+     * * @param string $controllerResultRoute Controller Result route
+     */
+    public function __construct($controllerExecuteRouteName,
+                                $controllerExecuteRoute,
+                                $controllerResultRouteName,
+                                $controllerResultRoute)
+    {
+        $this->controllerExecuteRouteName = $controllerExecuteRouteName;
+        $this->controllerExecuteRoute = $controllerExecuteRoute;
+        $this->controllerResultRouteName = $controllerResultRouteName;
+        $this->controllerResultRoute = $controllerResultRoute;
+    }
 
     /**
      * Loads a resource.
@@ -49,17 +94,15 @@ class RedsysRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
+        $routes->add($this->controllerExecuteRouteName, new Route($this->controllerExecuteRoute, array(
+            '_controller'   =>  'RedsysBundle:Redsys:execute',
+            array('_method' => 'GET'),
+        )));
+        $routes->add($this->controllerResultRouteName, new Route($this->controllerResultRoute, array(
+            '_controller'   =>  'RedsysBundle:Redsys:result',
+            array('_method' => 'POST'),
+        )));
 
-
-        $routes->add('redsys_execute', new Route('/payment/redsys/execute',
-            array('_controller'   =>  'RedsysBundle:Redsys:execute'),
-            array('_method' => 'GET')
-        ));
-
-        $routes->add('redsys_result', new Route('/payment/redsys/result',
-            array('_controller'   =>  'RedsysBundle:Redsys:result'),
-            array('_method' => 'POST')
-        ));
 
         $this->loaded = true;
 

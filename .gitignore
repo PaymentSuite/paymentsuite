@@ -1,6 +1,0 @@
-.DS_Store
-composer.lock
-composer.phar
-phpunit.xml
-phpcs.log
-vendor

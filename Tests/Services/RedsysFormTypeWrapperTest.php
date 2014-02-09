@@ -28,7 +28,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
 
     const terminal = '001';
 
-    const merchantUrl = '"t';
+    const merchantUrl = 't';
 
     const merchantUrlOk = 'x';
 
@@ -47,8 +47,6 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
     private $paymentEventDispatcher;
 
     private $redsysMethod;
-
-    private $templating;
 
     private $redsysFormTypeWrapper;
 
@@ -76,9 +74,14 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->templating = $this->getMock('Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine', array(), array(), '', false, false);
-
-        $this->redsysFormTypeWrapper = new RedsysFormTypeWrapper($this->factory, $this->paymentBridge, $this::merchantCode, $this::secretKey, $this::url);
+        $this->redsysFormTypeWrapper = new RedsysFormTypeWrapper($this->factory,
+            $this->paymentBridge,
+            $this::merchantCode,
+            $this::secretKey,
+            $this::url,
+            $this::merchantUrl,
+            $this::merchantUrlOk,
+            $this::merchantUrlKo);
     }
 
     public function testFormCreation()
@@ -87,7 +90,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
 
         $formData = array(
             'Ds_Merchant_Amount' => $amount * 100,
-            'Ds_Merchant_MerchantSignature' => '0136C8FAC4ED9C0B162EC29031879218F4FDC385',
+            'Ds_Merchant_MerchantSignature' => 'D42DE69C83F647F3E40BD69A9199C5097B7B5353',
             'Ds_Merchant_MerchantCode'      => $this::merchantCode,
             'Ds_Merchant_Currency'          => '978',
             'Ds_Merchant_Terminal'          => $this::terminal,
@@ -131,7 +134,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             ->will($this->returnValue('EUR'));
 
 
-        $formView = $this->redsysFormTypeWrapper->buildForm($this::merchantUrl, $this::merchantUrlOk, $this::merchantUrlKo);
+        $formView = $this->redsysFormTypeWrapper->buildForm();
 
         $children = $formView->children;
 

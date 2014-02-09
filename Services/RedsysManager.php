@@ -54,7 +54,9 @@ class RedsysManager
     /**
      * @var SecretKey
      */
-    private $secretKey;
+    protected $secretKey;
+
+
 
     /**
      * Construct method for redsys manager
@@ -62,31 +64,29 @@ class RedsysManager
      * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
      * @param RedsysFormTypeWrapper $redsysFormTypeWrapper Redsys form typ wrapper
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
-     * @param TimedTwigEngine $templating Twig Templating Engine
      * @param $secretKey Secret Key
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, RedsysFormTypeWrapper $redsysFormTypeWrapper, PaymentBridgeInterface $paymentBridge,TimedTwigEngine $templating, $secretKey)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher,
+                                RedsysFormTypeWrapper $redsysFormTypeWrapper,
+                                PaymentBridgeInterface $paymentBridge,
+                                $secretKey)
     {
         $this->paymentEventDispatcher   = $paymentEventDispatcher;
         $this->redsysFormTypeWrapper    = $redsysFormTypeWrapper;
         $this->paymentBridge            = $paymentBridge;
-        $this->templating               = $templating;
         $this->secretKey                = $secretKey;
+
     }
 
 
     /**
      * Tries to process a payment through Redsys
      *
-     * @param $Ds_Merchant_MerchantURL
-     * @param $Ds_Merchant_UrlOK
-     * @param $Ds_Merchant_UrlKO
-     *
      * @return RedsysManager Self object
      *
      * @throws PaymentOrderNotFoundException
      */
-    public function processPayment($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO)
+    public function processPayment()
     {
         $redsysMethod = new RedsysMethod();
         /**
@@ -110,11 +110,9 @@ class RedsysManager
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $redsysMethod);
 
 
-        $formView = $this->redsysFormTypeWrapper->buildForm($Ds_Merchant_MerchantURL, $Ds_Merchant_UrlOK, $Ds_Merchant_UrlKO);
+        $formView = $this->redsysFormTypeWrapper->buildForm();
 
-        return $this->templating->renderResponse('RedsysBundle:Redsys:process.html.twig',array(
-            'redsys_form' => $formView,
-        ));
+        return $formView;
     }
 
     /**
