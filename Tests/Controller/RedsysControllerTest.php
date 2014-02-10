@@ -4,8 +4,15 @@ namespace PaymentSuite\RedsysBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class DefaultControllerTest
+ * @package PaymentSuite\RedsysBundle\Tests\Controller
+ */
 class DefaultControllerTest extends WebTestCase
 {
+    /**
+     * Test execute controller
+     */
     public function testExecute()
     {
         $client = static::createClient();

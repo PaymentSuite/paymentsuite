@@ -52,7 +52,9 @@ class RedsysManager
     protected $paymentBridge;
 
     /**
-     * @var SecretKey
+     * @var string
+     *
+     * Secret key
      */
     protected $secretKey;
 
@@ -80,9 +82,9 @@ class RedsysManager
 
 
     /**
-     * Tries to process a payment through Redsys
+     * Creates form view for Redsys payment
      *
-     * @return RedsysManager Self object
+     * @return \Symfony\Component\Form\FormView
      *
      * @throws PaymentOrderNotFoundException
      */
@@ -116,7 +118,7 @@ class RedsysManager
     }
 
     /**
-     * Tries to process a payment through Redsys
+     * Processes the POST request sent by Redsys
      *
      * @param $parameters Array with response parameters
      *
@@ -124,6 +126,7 @@ class RedsysManager
      *
      * @throws InvalidSignatureException
      * @throws ParameterNotReceivedException
+     * @throws PaymentException
      */
     public function processResult(array $parameters)
     {
@@ -152,7 +155,7 @@ class RedsysManager
         }
 
         /**
-         * Adding to PaymentMethod transaction information
+         * Adding transaction information to PaymentMethod
          *
          * This information is only available in PaymentOrderSuccess event
          */
@@ -166,7 +169,6 @@ class RedsysManager
             ->setDsHour($dsHour)
             ->setDsSecurePayment($dsSecurePayment);
 
-
         /**
          * Payment paid done
          *
@@ -177,7 +179,7 @@ class RedsysManager
         /**
          * when a transaction is successful, $Ds_Response has a value between 0 and 99
          */
-        if (intval($dsResponse)<0 || intval($dsResponse)>99 ) {
+        if ($this->transactionSuccessful($dsResponse)) {
             /**
              * Payment paid failed
              *
@@ -198,8 +200,34 @@ class RedsysManager
         return $this;
     }
 
+    /**
+     * Returns true if the transaction was successful
+     *
+     * @param string $dsResponse Response code
+     * @return boolean
+     */
+    protected function transactionSuccessful($dsResponse){
+        /**
+         * When a transaction is successful, $Ds_Response has a value between 0 and 99
+         */
+        if (intval($dsResponse)<0 || intval($dsResponse)>99 ) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-
+    /**
+     * Returns the expected signature
+     *
+     * @param string $amount Amount
+     * @param string $order Order
+     * @param string $merchantCode Merchant Code
+     * @param string $currency Currency
+     * @param string $response Response code
+     * @param string $secret Secret
+     * @return Signature string String
+     */
     protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret){
 
         $signature = $amount . $order . $merchantCode . $currency . $response . $secret;
@@ -208,6 +236,12 @@ class RedsysManager
 
     }
 
+    /**
+     * Checks that all the required parameters are received
+     *
+     * @param array $parameters Parameters
+     * @throws \PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
+     */
     protected function checkResultParameters(array $parameters){
         $list = array(
                     'Ds_Date',
@@ -233,7 +267,5 @@ class RedsysManager
                throw new ParameterNotReceivedException($item);
             }
         }
-
-
     }
 }

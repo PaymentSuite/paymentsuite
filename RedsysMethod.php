@@ -29,18 +29,53 @@ class RedsysMethod implements PaymentMethodInterface
      */
     private $dsResponse;
 
+    /**
+     * @var string
+     *
+     * Transaction date
+     */
     private $dsDate;
 
+    /**
+     * @var string
+     *
+     * Transaction hour
+     */
     private $dsHour;
 
+    /**
+     *  @var string
+     *
+     * Transaction secure payment
+     */
     private $dsSecurePayment;
 
+    /**
+     *  @var string
+     *
+     * Transaction card country
+     */
     private $dsCardCountry;
 
+    /**
+     *  @var string
+     *
+     * Transaction authorisation code
+     */
     private $dsAuthorisationCode;
 
+    /**
+     *  @var string
+     *
+     * Transaction consumer language
+     */
     private $dsConsumerLanguage;
 
+    /**
+     *  @var string
+     *
+     * Transaction card type
+     */
     private $dsCardType;
 
     /**
@@ -78,6 +113,8 @@ class RedsysMethod implements PaymentMethodInterface
 
     }
     /**
+     * set Authorisation code
+     *
      * @param string $dsAuthorisationCode
      *
      * @return RedsysMethod self Object
@@ -90,6 +127,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Authorisation code
+     *
      * @return string
      */
     public function getDsAuthorisationCode()
@@ -98,6 +137,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     *  Set Card country
+     *
      * @param string $dsCardCountry
      *
      * @return RedsysMethod self Object
@@ -110,6 +151,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Card country
+     *
      * @return string
      */
     public function getDsCardCountry()
@@ -118,6 +161,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Set Card type
+     *
      * @param string $dsCardType
      *
      * @return RedsysMethod self Object
@@ -130,6 +175,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Card type
+     *
      * @return string
      */
     public function getDsCardType()
@@ -138,6 +185,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Set consumer language
+     *
      * @param string $dsConsumerLanguage
      *
      * @return RedsysMethod self Object
@@ -150,6 +199,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Consumer language
+     *
      * @return string
      */
     public function getDsConsumerLanguage()
@@ -158,6 +209,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Set date
+     *
      * @param string $dsDate
      *
      * @return RedsysMethod self Object
@@ -170,6 +223,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get date
+     *
      * @return string
      */
     public function getDsDate()
@@ -178,6 +233,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Set hour
+     *
      * @param string $dsHour
      *
      * @return RedsysMethod self Object
@@ -190,6 +247,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Hour
+     *
      * @return string
      */
     public function getDsHour()
@@ -198,6 +257,8 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Set Secure payment
+     *
      * @param string $dsSecurePayment
      *
      * @return RedsysMethod self Object
@@ -210,13 +271,13 @@ class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
+     * Get Secure payment
+     *
      * @return string
      */
     public function getDsSecurePayment()
     {
         return $this->dsSecurePayment;
     }
-
-
 
 }

@@ -27,7 +27,7 @@ class RedsysRoutesLoader implements LoaderInterface
     /**
      * @var string
      *
-     * Execution route name
+     * Execute route name
      */
     private $controllerExecuteRouteName;
 
@@ -35,18 +35,21 @@ class RedsysRoutesLoader implements LoaderInterface
     /**
      * @var string
      *
-     * Execution controller route
+     * Execute route
      */
     private $controllerExecuteRoute;
 
-    /*
-     *
-     */
-    private $controllerResultRouteName;
     /**
      * @var string
      *
-     * Result controller route
+     * Result route name
+     */
+    private $controllerResultRouteName;
+
+    /**
+     * @var string
+     *
+     * Result route
      */
     private $controllerResultRoute;
 
@@ -64,7 +67,7 @@ class RedsysRoutesLoader implements LoaderInterface
      * @param string $controllerExecuteRouteName Controller Execute route name
      * @param string $controllerExecuteRoute     Controller Execute route
      * @param string $controllerResultRouteName Controller Result route name
-     * * @param string $controllerResultRoute Controller Result route
+     * @param string $controllerResultRoute Controller Result route
      */
     public function __construct($controllerExecuteRouteName,
                                 $controllerExecuteRoute,

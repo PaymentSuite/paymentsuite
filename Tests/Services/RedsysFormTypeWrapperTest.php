@@ -11,43 +11,101 @@
  */
 
 
-namespace Acme\DemoBundle\Tests\Utility;
+namespace PaymentSuite\RedsysBundle\Tests\Services;
 
 use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 use Symfony\Component\Form\Test\TypeTestCase;
-use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
-use Symfony\Component\Form\FormView;
+
+/**
+ * Class RedsysFormTypeWrapperTest
+ * @package PaymentSuite\RedsysBundle\Tests\Services
+ */
 class RedsysFormTypeWrapperTest extends TypeTestCase
 {
 
-    const  merchantCode = '327234688';
+    /**
+     * @var string
+     *
+     * Merchant code
+     */
+    const merchantCode = '327234688';
 
+    /**
+     * @var string
+     */
     const secretKey = 'qwertyasdf0123456789';
 
+    /**
+     * @var string
+     */
     const url = 'https://sis-t.redsys.es:25443/sis/realizarPago';
 
+    /**
+     * @var string
+     */
     const terminal = '001';
 
+    /**
+     * @var string
+     */
     const merchantUrl = 't';
 
+    /**
+     * @var string
+     */
     const merchantUrlOk = 'x';
 
+    /**
+     * @var string
+     */
     const merchantUrlKo = 'z';
 
+    /**
+     * @var string
+     */
     const transactionType = '0';
 
+    /**
+     * @var string
+     */
     const prodDesc = 'desc';
 
+    /**
+     * @var string
+     */
     const titular = 'tit';
 
+    /**
+     * @var string
+     */
     const name = 'name';
 
+    /**
+     * @var PaymentBridge
+     *
+     * Payment bridge object
+     */
     private $paymentBridge;
 
+    /**
+     * @var PaymentEventDispatcher
+     *
+     * Payment event dispatcher object
+     */
     private $paymentEventDispatcher;
 
+    /**
+     * @var RedsysMethod
+     *
+     * Redsys method object
+     */
     private $redsysMethod;
 
+    /**
+     * @var RedsysFormTypeWrapper
+     *
+     * Redsys form type manager object
+     */
     private $redsysFormTypeWrapper;
 
 
@@ -84,6 +142,9 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             $this::merchantUrlKo);
     }
 
+    /**
+     * Test form creation
+     */
     public function testFormCreation()
     {
         $amount = 10;
@@ -133,11 +194,9 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             ->method('getCurrency')
             ->will($this->returnValue('EUR'));
 
-
         $formView = $this->redsysFormTypeWrapper->buildForm();
 
         $children = $formView->children;
-
 
         foreach (array_keys($formData) as $key) {
             $this->assertArrayHasKey($key, $children);

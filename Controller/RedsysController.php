@@ -55,8 +55,7 @@ class RedsysController extends Controller
     {
 
         try {
-            $this
-                ->get('redsys.manager')
+            $this->get('redsys.manager')
                 ->processResult($request->request->all());
 
             $redirectUrl = $this->container->getParameter('redsys.success.route');

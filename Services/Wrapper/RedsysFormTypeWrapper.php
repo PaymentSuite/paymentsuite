@@ -29,7 +29,6 @@ class RedsysFormTypeWrapper
      */
     protected $formFactory;
 
-
     /**
      * @var PaymentBridge
      *
@@ -38,35 +37,44 @@ class RedsysFormTypeWrapper
     private $paymentBridge;
 
     /**
-     * @var MerchantCode
+     * @var string
+     *
+     * Merchant code
      */
     private $merchantCode;
 
     /**
-     * @var SecretKey
+     * @var string
+     *
+     * Secret key
      */
     private $secretKey;
 
     /**
-     * @var Url
+     * @var string
+     *
+     * Url
      */
     private $url;
 
-    /*
-    * @var dsMerchantMerchantURL
+    /**
+    * @var string
+    *
+    * Merchant url
     */
     protected $dsMerchantMerchantURL;
 
-    /*
-     * @var dsMerchantUrlOK
+    /**
+     * @var string
      *
+     * Merchant url ok
      */
     protected $dsMerchantUrlOK;
 
-    /*
-     * @ dsMerchantUrlKO
+    /**
+     * @var string
      *
-     *
+     * Merchant url ko
      */
     protected $dsMerchantUrlKO;
 
@@ -75,9 +83,12 @@ class RedsysFormTypeWrapper
      *
      * @param FormFactory $formFactory Form factory
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
-     * @param $merchantCode merchant code
-     * @param $secretKey secret key
-     * @param $url gateway url
+     * @param string $merchantCode merchant code
+     * @param string $secretKey secret key
+     * @param string $url gateway url
+     * @param string $Ds_Merchant_MerchantURL merchant url
+     * @param string $Ds_Merchant_UrlOK merchant url ok
+     * @param string $Ds_Merchant_UrlKO merchant url ko
      *
      */
     public function __construct(FormFactory $formFactory,
@@ -89,11 +100,11 @@ class RedsysFormTypeWrapper
                                 $Ds_Merchant_UrlOK,
                                 $Ds_Merchant_UrlKO)
     {
-        $this->formFactory = $formFactory;
-        $this->paymentBridge = $paymentBridge;
-        $this->merchantCode = $merchantCode;
-        $this->secretKey    = $secretKey;
-        $this->url          = $url;
+        $this->formFactory              = $formFactory;
+        $this->paymentBridge            = $paymentBridge;
+        $this->merchantCode             = $merchantCode;
+        $this->secretKey                = $secretKey;
+        $this->url                      = $url;
         $this->Ds_Merchant_MerchantURL  = $Ds_Merchant_MerchantURL;
         $this->Ds_Merchant_UrlOK        = $Ds_Merchant_UrlOK;
         $this->Ds_Merchant_UrlKO        = $Ds_Merchant_UrlKO;
@@ -197,14 +208,14 @@ class RedsysFormTypeWrapper
     /**
      * Creates signature to be sent to Redsys
      *
-     * @param $amount
-     * @param $order
-     * @param $merchantCode
-     * @param $currency
-     * @param $transactionType
-     * @param $merchantURL
-     * @param $secret
-     * @return string
+     * @param string $amount Amount
+     * @param string $order Order number
+     * @param string $merchantCode Merchant code
+     * @param string $currency Currency
+     * @param string $transactionType Transaction type
+     * @param string $merchantURL Merchant url
+     * @param string $secret Secret key
+     * @return string Signature
      */
     protected function shopSignature($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret){
 
@@ -217,7 +228,7 @@ class RedsysFormTypeWrapper
     /**
      * Translates standard currency to Redsys currency code
      *
-     * @param $currency
+     * @param string $currency Currency
      * @return string
      * @throws \PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException
      */
@@ -262,8 +273,8 @@ class RedsysFormTypeWrapper
     /**
      * Formats order number to be Redsys compliant
      *
-     * @param $orderNumber
-     * @return string
+     * @param string $orderNumber Order number
+     * @return string $orderNumber
      */
     protected function formatOrderNumber($orderNumber){
         //Falta comprobar que empieza por 4 numericos y que como mucho tiene 12 de longitud

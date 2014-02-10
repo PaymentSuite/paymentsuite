@@ -8,7 +8,7 @@ services:
             redsys.merchant.code: %redsys.merchant.code%
             redsys.secret.key: %redsys.secret.key%
             redsys.url: %redsys.url%
-            redsys.merchant.url: %redsys.controller.result.route%
+            redsys.merchant.route: %redsys.controller.result.route%
             redsys.success.route: %redsys.success.route%
             redsys.fail.route: %redsys.fail.route%
 

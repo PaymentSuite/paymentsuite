@@ -10,19 +10,41 @@
  * Gonzalo Vilaseca 2014
  */
 
-
-namespace Acme\DemoBundle\Tests\Utility;
+namespace PaymentSuite\RedsysBundle\Tests\Services;
 
 use PaymentSuite\RedsysBundle\Services\RedsysManager;
 
+/**
+ * Redsys manager test
+ */
 class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var PaymentBridge
+     *
+     * Payment bridge object
+     */
     private $paymentBridge;
 
+    /**
+     * @var PaymentEventDispatcher
+     *
+     * Payment event dispatcher object
+     */
     private $paymentEventDispatcher;
 
+    /**
+     * @var RedsysManager
+     *
+     * Redsys manager object
+     */
     private $redsysManager;
 
+    /**
+     * @var RedsysMethod
+     *
+     * Redsys method object
+     */
     private $redsysMethod;
 
 
