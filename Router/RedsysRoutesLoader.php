@@ -17,6 +17,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use RuntimeException;
 
 /**
  * Redsys router
@@ -39,10 +40,10 @@ class RedsysRoutesLoader implements LoaderInterface
      */
     private $controllerExecuteRoute;
 
-    /**
+    /*
      * @var string
-     *
-     * Result route name
+     * 
+     * Result controller route name
      */
     private $controllerResultRouteName;
 
@@ -66,13 +67,14 @@ class RedsysRoutesLoader implements LoaderInterface
      *
      * @param string $controllerExecuteRouteName Controller Execute route name
      * @param string $controllerExecuteRoute     Controller Execute route
-     * @param string $controllerResultRouteName Controller Result route name
-     * @param string $controllerResultRoute Controller Result route
+     * @param string $controllerResultRouteName  Controller Result route name
+     * @param string $controllerResultRoute      Controller Result route
+
      */
-    public function __construct($controllerExecuteRouteName,
-                                $controllerExecuteRoute,
-                                $controllerResultRouteName,
-                                $controllerResultRoute)
+    public function __construct( $controllerExecuteRouteName,
+                                 $controllerExecuteRoute,
+                                 $controllerResultRouteName,
+                                 $controllerResultRoute )
     {
         $this->controllerExecuteRouteName = $controllerExecuteRouteName;
         $this->controllerExecuteRoute = $controllerExecuteRoute;
@@ -93,7 +95,7 @@ class RedsysRoutesLoader implements LoaderInterface
     public function load($resource, $type = null)
     {
         if ($this->loaded) {
-           throw new \RuntimeException('Do not add this loader twice');
+           throw new RuntimeException('Do not add this loader twice');
         }
 
         $routes = new RouteCollection();
