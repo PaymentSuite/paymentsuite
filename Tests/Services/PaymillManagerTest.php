@@ -35,14 +35,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      */
     const API_TOKEN = '2374932748923';
 
-
     /**
      * @var integer
      *
      * Card amount
      */
     const ORDER_AMOUNT = 10;
-
 
     /**
      * @var string
@@ -51,14 +49,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      */
     const ORDER_DESCRIPTION = 'This is my card description';
 
-
     /**
      * @var PaymentManager
      *
      * Payment manager object
      */
     private $paymillManager;
-
 
     /**
      * @var PaymentEventDispatcher
@@ -67,14 +63,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      */
     private $paymentEventDispatcher;
 
-
     /**
      * @var PaymillTransactionWrapper
      *
      * Wrapper for Paypall Transaction instance
      */
     private $paymillTransactionWrapper;
-
 
     /**
      * @var CardWrapper
@@ -83,7 +77,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      */
     private $paymentBridge;
 
-
     /**
      * @var PaymillMethod class
      *
@@ -91,14 +84,12 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      */
     private $paymillMethod;
 
-
     /**
      * @var Transaction class
      *
      * Paymill Transaction response class
      */
     private $paymillResponseTransaction;
-
 
     /**
      * Setup method
@@ -133,7 +124,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->paymillManager = new PaymillManager($this->paymentEventDispatcher, $this->paymillTransactionWrapper, $this->paymentBridge);
     }
-
 
     /**
      * Testing different ammunts
@@ -180,7 +170,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
     }
-
 
     /**
      * Testing payment error
@@ -284,7 +273,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
         $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
     }
 
-
     /**
      * Testing payment error
      *
@@ -336,7 +324,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                 'order_description' =>  self::ORDER_DESCRIPTION
             )));
-
 
         $this->paymillResponseTransaction
             ->expects($this->once())

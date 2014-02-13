@@ -51,7 +51,7 @@
                 cardholder: cardholder
             },  paymillResponseHandler);
         } else {
-            
+
             $("#paymill_view_submit").removeAttr("disabled");
         }
 
@@ -82,11 +82,11 @@
             $('#paymill_view_credit_card_expiration_month').val('1');
             $('#paymill_view_credit_card_expiration_year').val('2013');
             $('#paymill_view_credit_card_security').val('000');
-            
+
             $('#paymill-payment-error').hide();
             $('#paymill_view_api_token').val(result.token);
             $("#paymill_form").get(0).submit();
         }
-    }    
+    }
 
 </script>

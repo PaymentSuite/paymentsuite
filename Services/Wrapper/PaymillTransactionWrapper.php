@@ -28,7 +28,6 @@ class PaymillTransactionWrapper
      */
     private $apiKey;
 
-
     /**
      * Construct method for paymill transaction wrapper
      *
@@ -39,7 +38,6 @@ class PaymillTransactionWrapper
     {
         $this->apiKey = $privateKey;
     }
-
 
     /**
      * Create new Transaction with a set of params

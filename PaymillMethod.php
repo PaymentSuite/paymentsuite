@@ -16,7 +16,6 @@ namespace PaymentSuite\PaymillBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use Paymill\Models\Response\Transaction;
 
-
 /**
  * PaymillMethod class
  */
@@ -33,14 +32,12 @@ class PaymillMethod implements PaymentMethodInterface
         return 'Paymill';
     }
 
-
     /**
      * @var string
      *
      * Credit Card number
      */
     private $creditCardNumber;
-
 
     /**
      * @var string
@@ -49,14 +46,12 @@ class PaymillMethod implements PaymentMethodInterface
      */
     private $creditCardOwner;
 
-
     /**
      * @var integer
      *
      * Credit card expiration year
      */
     private $creditCardExpirationYear;
-
 
     /**
      * @var integer
@@ -65,14 +60,12 @@ class PaymillMethod implements PaymentMethodInterface
      */
     private $creditCardExpirationMonth;
 
-
     /**
      * @var string
      *
      * Credit card security value
      */
     private $creditCardSecurity;
-
 
     /**
      * @var string
@@ -81,14 +74,12 @@ class PaymillMethod implements PaymentMethodInterface
      */
     private $apiToken;
 
-
     /**
      * @var integer
      *
      * Paymill transaction id
      */
     private $transactionId;
-
 
     /**
      * @var string
@@ -97,14 +88,12 @@ class PaymillMethod implements PaymentMethodInterface
      */
     private $transactionStatus;
 
-
     /**
      * @var Paymill\Models\Response\Transaction
      *
      * Transaction
      */
     private $transaction;
-
 
     /**
      * set currency
@@ -120,7 +109,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get currency
      *
@@ -130,7 +118,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->currency;
     }
-
 
     /**
      * set Credit card number
@@ -146,7 +133,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit card number
      *
@@ -156,7 +142,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->creditCardNumber;
     }
-
 
     /**
      * set Credit card owner
@@ -172,7 +157,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit card owner
      *
@@ -182,7 +166,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->creditCardOwner;
     }
-
 
     /**
      * set Credit card expiration year
@@ -198,7 +181,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit card expiration year
      *
@@ -208,7 +190,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->creditCardExpirationYear;
     }
-
 
     /**
      * set Credit card expiration month
@@ -224,7 +205,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit card expiration month
      *
@@ -234,7 +214,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->creditCardExpirationMonth;
     }
-
 
     /**
      * set Credit card security
@@ -250,7 +229,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit card security
      *
@@ -260,7 +238,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->creditCardSecurity;
     }
-
 
     /**
      * set Api token
@@ -276,7 +253,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Api token
      *
@@ -286,7 +262,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->apiToken;
     }
-
 
     /**
      * set Transaction id
@@ -302,7 +277,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Transaction id
      *
@@ -312,7 +286,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->transactionId;
     }
-
 
     /**
      * set Transaction status
@@ -328,7 +301,6 @@ class PaymillMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Transaction status
      *
@@ -338,7 +310,6 @@ class PaymillMethod implements PaymentMethodInterface
     {
         return $this->transactionStatus;
     }
-
 
     /**
      * Set Transaction
@@ -353,7 +324,6 @@ class PaymillMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get transaction

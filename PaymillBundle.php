@@ -15,7 +15,6 @@ namespace PaymentSuite\PaymillBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Paymill payment bundle
  */

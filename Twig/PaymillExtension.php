@@ -33,14 +33,12 @@ class PaymillExtension extends Twig_Extension
      */
     private $formFactory;
 
-
     /**
      * @var Twig_Environment
      *
      * Twig environment
      */
     private $environment;
-
 
     /**
      * @var string
@@ -49,14 +47,12 @@ class PaymillExtension extends Twig_Extension
      */
     private $publicKey;
 
-
     /**
      * @var PaymentBridgeInterfaces
      *
      * Payment Bridge
      */
     private $paymentBridgeInterface;
-
 
     /**
      * Construct method
@@ -72,7 +68,6 @@ class PaymillExtension extends Twig_Extension
         $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
 
-
     /**
      * Init runtime
      *
@@ -87,7 +82,6 @@ class PaymillExtension extends Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -100,7 +94,6 @@ class PaymillExtension extends Twig_Extension
             new Twig_SimpleFunction('paymill_scripts', array($this, 'renderPaymentScripts'))
         );
     }
-
 
     /**
      * Render paymill form view
@@ -116,7 +109,6 @@ class PaymillExtension extends Twig_Extension
         ));
     }
 
-
     /**
      * Render paymill scripts view
      *
@@ -129,7 +121,6 @@ class PaymillExtension extends Twig_Extension
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
-
 
     /**
      * return extension name

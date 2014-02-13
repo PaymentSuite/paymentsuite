@@ -19,7 +19,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymillBundle\PaymillMethod;
 
-
 /**
  * PaymillController
  */
@@ -58,7 +57,6 @@ class PaymillController extends Controller
             $redirectAppend = $this->container->getParameter('paymill.success.order.append');
             $redirectAppendField = $this->container->getParameter('paymill.success.order.field');
 
-
         } catch (PaymentException $e) {
 
             /**
@@ -77,7 +75,6 @@ class PaymillController extends Controller
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
-
 
     /**
      * Given some data, creates a PaymillMethod object

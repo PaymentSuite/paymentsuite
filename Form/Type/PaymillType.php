@@ -31,7 +31,6 @@ class PaymillType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * @var Router
      *
@@ -39,14 +38,12 @@ class PaymillType extends AbstractType
      */
     private $router;
 
-
     /**
      * @var string
      *
      * Execution route name
      */
     private $controllerRouteName;
-
 
     /**
      * Formtype construct method
@@ -61,7 +58,6 @@ class PaymillType extends AbstractType
         $this->router = $router;
         $this->controllerRouteName = $controllerRouteName;
     }
-
 
     /**
      * Buildform function
@@ -133,7 +129,6 @@ class PaymillType extends AbstractType
             ))
             ->add('submit', 'submit');
     }
-
 
     /**
      * Return unique name for this form

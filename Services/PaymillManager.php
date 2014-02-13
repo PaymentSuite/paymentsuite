@@ -36,7 +36,6 @@ class PaymillManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var PaymillTransactionWrapper
      *
@@ -44,14 +43,12 @@ class PaymillManager
      */
     protected $paymillTransactionWrapper;
 
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
     protected $paymentBridge;
-
 
     /**
      * Construct method for paymill manager
@@ -66,7 +63,6 @@ class PaymillManager
         $this->paymillTransactionWrapper = $paymillTransactionWrapper;
         $this->paymentBridge = $paymentBridge;
     }
-
 
     /**
      * Tries to process a payment through Paymill
@@ -93,7 +89,6 @@ class PaymillManager
             throw new PaymentAmountsNotMatchException;
         }
 
-
         /**
          * At this point, order must be created given a card, and placed in PaymentBridge
          *
@@ -108,7 +103,6 @@ class PaymillManager
 
             throw new PaymentOrderNotFoundException;
         }
-
 
         /**
          * Order exists right here
@@ -146,12 +140,11 @@ class PaymillManager
         return $this;
     }
 
-
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
      *
-     * @param Paymill\Models\Response\Transaction   $transaction   Transaction
-     * @param PaymillMethod                         $paymentMethod Payment method
+     * @param Paymill\Models\Response\Transaction $transaction   Transaction
+     * @param PaymillMethod                       $paymentMethod Payment method
      *
      * @return PaymillManager Self object
      *
@@ -183,7 +176,6 @@ class PaymillManager
 
             throw new PaymentException;
         }
-
 
         /**
          * Adding to PaymentMethod transaction information
