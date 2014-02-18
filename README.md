@@ -52,3 +52,7 @@ bankwire_payment_routes:
 ```
 
 Bankwire payment button must point to route `bankwire_execute` without any parameter
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/bankwirebundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
