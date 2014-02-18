@@ -108,3 +108,7 @@ As every project need its own form design, you should overwrite in
 `app/Resources/PaypalExpressCheckout/views/PaypalExpressCheckout/view.html.twig`, paypal form render
 template placed in
 `PaymentSuite/PaypalExpressCheckout/Bundle/Resources/views/PaypalExpressCheckout/view.html.twig`.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/paypalexpresscheckoutbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
