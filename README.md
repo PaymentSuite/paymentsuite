@@ -37,3 +37,7 @@ The philosophy that leads us to do this project is simply no need to repeat in
 every project the same lines of code ( yes, we love Open Source ). We want every
 E-commerce based in Symfony2 to meet us, to join us and contribute to new
 platform.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/paymentcorebundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
