@@ -149,3 +149,7 @@ Testing and more documentation
 
 For testing, you just have to use sandbox settings.
 More details about Google Wallet API you can find in this [web](https://developers.google.com/wallet/).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/googlewalletbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
