@@ -86,3 +86,7 @@ The bundle routes must be parsed by the framework, so these lines must be includ
         type: dineromail
 
 DineroMail payment button must point to route `dineromail_execute` without any parameter
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/dineromailbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
