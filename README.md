@@ -24,3 +24,7 @@ Configure the PagosOnline configuration in your `config.yml`
         test: false
         account_id: XXXXXXXXXX
         
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/pagosonlinegatewaybundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
