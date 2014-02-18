@@ -113,3 +113,7 @@ As every project need its own form design, you should overwrite in
 `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render
 template placed in
 `PaymentSuite/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/paymillbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
