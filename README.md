@@ -115,3 +115,7 @@ For testing you can use these example
 [these examples](http://developer.authorize.net/testingfaqs/).  
 More detail about Authorizenet API you can find in this
 [web](http://developer.authorize.net/).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/authorizenetbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
