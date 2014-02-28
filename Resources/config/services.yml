@@ -1,0 +1,41 @@
+services:
+
+    webpay.form.type.wrapper:
+        class: %webpay.form.type.wrapper.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+            webpay.kcc.cgi.uri: %webpay.kcc.cgi.uri%
+        tags:
+            - { name: form.type, alias: webpay_view }
+
+    # webpay.transaction.wrapper:
+    #     class: %webpay.transaction.wrapper.class%
+    #     arguments:
+    #         webpay.private.key: %webpay.private.key%
+    #         webpay.api.endpoint: %webpay.api.endpoint%
+
+
+    # webpay.manager:
+    #     class: %webpay.manager.class%
+    #     arguments:
+    #         payment.event.dispatcher: @payment.event.dispatcher
+    #         payment.transaction.wrapper: @webpay.transaction.wrapper
+    #         payment.bridge: @payment.bridge
+
+    # webpay.twig.extension:
+    #     class: %webpay.twig.extension.class%
+    #     arguments:
+    #         webpay.public.key: %webpay.public.key%
+    #         form.factory: @form.factory
+    #         payment.bridge: @payment.bridge
+    #     tags:
+    #         - { name: twig.extension }
+
+    webpay.routes.loader:
+        class: %webpay.routes.loader.class%
+        arguments:
+            webpay.controller.route.name: %webpay.controller.route.name%
+            webpay.controller.route: %webpay.controller.route%
+        tags:
+            - { name: routing.loader }
