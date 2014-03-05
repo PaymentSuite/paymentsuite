@@ -18,6 +18,11 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 class WebpayMethod implements PaymentMethodInterface
 {
     /**
+     * Webpay method name
+     */
+    const WEBPAY_METHOD_NAME = 'Webpay';
+
+    /**
      * @var float
      *
      * amount
@@ -27,9 +32,16 @@ class WebpayMethod implements PaymentMethodInterface
     /**
      * @var string
      *
-     * order reference
+     * order transaction id
      */
-    protected $reference;
+    protected $transactionId;
+
+    /**
+     * @var string
+     *
+     * session id
+     */
+    protected $sessionId;
 
     /**
      * Get Webpay method name
@@ -38,7 +50,7 @@ class WebpayMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'Webpay';
+        return $this::WEBPAY_METHOD_NAME;
     }
 
     /**
@@ -66,26 +78,26 @@ class WebpayMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set reference
+     * Set transaction id
      *
-     * @param string $reference Reference
+     * @param string $transactionId Transaction Id
      *
      * @return WebpayMethod self Object
      */
-    public function setReference($reference)
+    public function setTransactionId($transactionId)
     {
-        $this->reference = $reference;
+        $this->transactionId = $transactionId;
 
         return $this;
     }
 
     /**
-     * Get reference
+     * Get transaction id
      *
      * @return string
      */
-    public function getReference()
+    public function getTransactionId()
     {
-        return $this->reference;
+        return $this->transactionId;
     }
 }

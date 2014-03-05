@@ -31,8 +31,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('controller_route')
+                ->scalarNode('controller_route_execute')
                     ->defaultValue('/payment/webpay/execute')
+                ->end()
+                ->scalarNode('controller_route_confirmation')
+                    ->defaultValue('/payment/webpay/confirmation')
                 ->end()
                 ->arrayNode('kcc')
                     ->children()

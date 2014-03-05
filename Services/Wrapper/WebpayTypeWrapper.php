@@ -11,6 +11,7 @@
 namespace PaymentSuite\WebpayBundle\Services\Wrapper;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -26,7 +27,7 @@ class WebpayTypeWrapper
     protected $formFactory;
 
     /**
-     * @var PaymentBridge
+     * @var PaymentBridgeInterface
      *
      * Payment bridge
      */
@@ -60,7 +61,7 @@ class WebpayTypeWrapper
      * @param string $okRoute   Ok route
      * @param string $failRoute Fail route
      *
-     * @return Form
+     * @return FormBuilderInterface
      */
     public function buildForm($sessionId, $okRoute, $failRoute)
     {

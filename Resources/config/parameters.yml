@@ -1,9 +1,7 @@
 parameters:
 
-    #webpay.api.endpoint: "https://api.webpay.com/v2/"
-    webpay.controller.route.name: "webpay_execute"
+    webpay.controller.route.execute.name: "webpay_execute"
+    webpay.controller.route.confirmation.name: "webpay_confirmation"
     webpay.form.type.wrapper.class: "PaymentSuite\\WebpayBundle\\Services\\Wrapper\\WebpayTypeWrapper"
-    #webpay.transaction.wrapper.class: "PaymentSuite\\WebpayBundle\\Services\\Wrapper\\WebpayTransactionWrapper"
-    #webpay.manager.class: "PaymentSuite\\WebpayBundle\\Services\\WebpayManager"
-    #webpay.twig.extension.class: "PaymentSuite\\WebpayBundle\\Twig\\WebpayExtension"
+    webpay.manager.class: "PaymentSuite\\WebpayBundle\\Services\\WebpayManager"
     webpay.routes.loader.class: "PaymentSuite\\WebpayBundle\\Router\\WebpayRoutesLoader"

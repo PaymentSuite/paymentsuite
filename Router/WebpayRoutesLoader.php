@@ -20,20 +20,33 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class WebpayRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *
      * Execution route name
      */
-    private $controllerRouteName;
+    private $controllerExecuteRouteName;
 
     /**
      * @var string
      *
      * Execution controller route
      */
-    private $controllerRoute;
+    private $controllerExecuteRoute;
+
+    /**
+     * @var string
+     *
+     * Confirmation route name
+     */
+    private $controllerConfirmationRouteName;
+
+    /**
+     * @var string
+     *
+     * Confirmation controller route
+     */
+    private $controllerConfirmationRoute;
 
     /**
      * @var boolean
@@ -45,13 +58,17 @@ class WebpayRoutesLoader implements LoaderInterface
     /**
      * Construct method
      *
-     * @param string $controllerRouteName Controller route name
-     * @param string $controllerRoute     Controller route
+     * @param string $executeRouteName      Controller Execute route name
+     * @param string $executeRoute          Controller Execute route
+     * @param string $confirmationRouteName Controller Confirmation route name
+     * @param string $confirmationRoute     Controller Confirmation route
      */
-    public function __construct($controllerRouteName, $controllerRoute)
+    public function __construct($executeRouteName, $executeRoute, $confirmationRouteName, $confirmationRoute)
     {
-        $this->controllerRouteName = $controllerRouteName;
-        $this->controllerRoute = $controllerRoute;
+        $this->executeRouteName = $executeRouteName;
+        $this->executeRoute = $executeRoute;
+        $this->confirmationRouteName = $confirmationRouteName;
+        $this->confirmationRoute = $confirmationRoute;
     }
 
     /**
@@ -62,7 +79,7 @@ class WebpayRoutesLoader implements LoaderInterface
      *
      * @return RouteCollection
      *
-     * @throws RuntimeException Loader is added twice
+     * @throws \RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)
     {
@@ -72,8 +89,11 @@ class WebpayRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-        $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
+        $routes->add($this->controllerExecuteRouteName, new Route($this->controllerExecuteRoute, array(
             '_controller'   =>  'WebpayBundle:Webpay:execute',
+        )));
+        $routes->add($this->controllerConfirmationRouteName, new Route($this->controllerConfirmationRoute, array(
+            '_controller'   =>  'WebpayBundle:Webpay:confirmation',
         )));
 
         $this->loaded = true;
