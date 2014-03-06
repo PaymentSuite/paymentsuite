@@ -65,6 +65,14 @@ interface PaymentBridgeInterface
 
 
     /**
+     * Return if order has already been paid
+     *
+     * @return boolean
+     */
+    public function isOrderPaid();
+
+
+    /**
      * Common methods
      */
 
