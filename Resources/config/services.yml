@@ -20,8 +20,10 @@ services:
         class: %webpay.routes.loader.class%
         arguments:
             webpay.controller.route.execute.name: %webpay.controller.route.execute.name%
+            webpay.controller.route.execute.schemes: %webpay.controller.route.execute.schemes%
             webpay.controller.route.execute: %webpay.controller.route.execute%
             webpay.controller.route.confirmation.name: %webpay.controller.route.confirmation.name%
+            webpay.controller.route.confirmation.schemes: %webpay.controller.route.confirmation.schemes%
             webpay.controller.route.confirmation: %webpay.controller.route.confirmation%
         tags:
             - { name: routing.loader }

@@ -25,49 +25,67 @@ class WebpayRoutesLoader implements LoaderInterface
      *
      * Execution route name
      */
-    private $executeRouteName;
+    protected $executeRouteName;
+
+    /**
+     * @var string
+     *
+     * Execution route schemes
+     */
+    protected $executeRouteSchemes;
 
     /**
      * @var string
      *
      * Execution controller route
      */
-    private $executeRoute;
+    protected $executeRoute;
 
     /**
      * @var string
      *
      * Confirmation route name
      */
-    private $confirmationRouteName;
+    protected $confirmationRouteName;
+
+    /**
+     * @var string
+     *
+     * Confirmation route schemes
+     */
+    protected $confirmationRouteSchemes;
 
     /**
      * @var string
      *
      * Confirmation controller route
      */
-    private $confirmationRoute;
+    protected $confirmationRoute;
 
     /**
      * @var boolean
      *
      * Route is loaded
      */
-    private $loaded = false;
+    protected $loaded = false;
 
     /**
      * Construct method
      *
-     * @param string $executeRouteName      Controller Execute route name
-     * @param string $executeRoute          Controller Execute route
-     * @param string $confirmationRouteName Controller Confirmation route name
-     * @param string $confirmationRoute     Controller Confirmation route
+     * @param string $executeRouteName         Controller Execute route name
+     * @param string $executeRouteSchemes      Controller Execute route schemes
+     * @param string $executeRoute             Controller Execute route
+     * @param string $confirmationRouteName    Controller Confirmation route name
+     * @param string $confirmationRouteSchemes Controller Confirmation route schemes
+     * @param string $confirmationRoute        Controller Confirmation route
      */
-    public function __construct($executeRouteName, $executeRoute, $confirmationRouteName, $confirmationRoute)
+    public function __construct($executeRouteName, $executeRouteSchemes, $executeRoute, $confirmationRouteName, $confirmationRouteSchemes, $confirmationRoute)
     {
         $this->executeRouteName = $executeRouteName;
+        $this->executeRouteSchemes = $executeRouteSchemes;
         $this->executeRoute = $executeRoute;
         $this->confirmationRouteName = $confirmationRouteName;
+        $this->confirmationRouteSchemes = $confirmationRouteSchemes;
         $this->confirmationRoute = $confirmationRoute;
     }
 
@@ -89,8 +107,20 @@ class WebpayRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-        $routes->add($this->executeRouteName, new Route($this->executeRoute, array('_controller' => 'WebpayBundle:Webpay:execute')));
-        $routes->add($this->confirmationRouteName, new Route($this->confirmationRoute, array('_controller' => 'WebpayBundle:Webpay:confirmation')));
+        $routes->add($this->executeRouteName, new Route(
+            $this->executeRoute,
+            array('_controller' => 'WebpayBundle:Webpay:execute'),
+            array(),
+            array(),
+            '',
+            $this->executeRouteSchemes));
+        $routes->add($this->confirmationRouteName, new Route(
+            $this->confirmationRoute,
+            array('_controller' => 'WebpayBundle:Webpay:confirmation'),
+            array(),
+            array(),
+            '',
+            $this->confirmationRouteSchemes));
         $this->loaded = true;
 
         return $routes;

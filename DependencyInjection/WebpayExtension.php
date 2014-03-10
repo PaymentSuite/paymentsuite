@@ -31,7 +31,9 @@ class WebpayExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('webpay.controller.route.execute', $config['controller_route_execute']);
+        $container->setParameter('webpay.controller.route.execute.schemes', $config['controller_route_execute_schemes']);
         $container->setParameter('webpay.controller.route.confirmation', $config['controller_route_confirmation']);
+        $container->setParameter('webpay.controller.route.confirmation.schemes', $config['controller_route_confirmation_schemes']);
 
         $container->setParameter('webpay.kcc.path', $config['kcc']['path']);
         $container->setParameter('webpay.kcc.cgi.uri', $config['kcc']['cgi_uri']);
