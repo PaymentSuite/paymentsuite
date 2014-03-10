@@ -89,8 +89,8 @@ class WebpayRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-        $routes->add($this->executeRouteName, new Route($this->executeRoute, ['_controller' => 'WebpayBundle:Webpay:execute']));
-        $routes->add($this->confirmationRouteName, new Route($this->confirmationRoute, ['_controller' => 'WebpayBundle:Webpay:confirmation']));
+        $routes->add($this->executeRouteName, new Route($this->executeRoute, array('_controller' => 'WebpayBundle:Webpay:execute')));
+        $routes->add($this->confirmationRouteName, new Route($this->confirmationRoute, array('_controller' => 'WebpayBundle:Webpay:confirmation')));
         $this->loaded = true;
 
         return $routes;

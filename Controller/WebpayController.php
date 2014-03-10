@@ -28,6 +28,16 @@ use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
 class WebpayController extends Controller
 {
     /**
+     * Webpay accepted response
+     */
+    const WEBPAY_ACCEPTED = 'ACEPTADO';
+
+    /**
+     * Webpay rejected response
+     */
+    const WEBPAY_REJECTED = 'RECHAZADO';
+
+    /**
      * Payment execution
      *
      * @param Request $request Request element
@@ -59,13 +69,13 @@ class WebpayController extends Controller
         $successRoute = $this->container->getParameter('webpay.success.route');
         $successRouteAppend = $this->container->getParameter('webpay.success.order.append');
         $successRouteAppendField = $this->container->getParameter('webpay.success.order.field');
-        $successRouteData = $successRouteAppend ? [$successRouteAppendField => $orderId] : [];
+        $successRouteData = $successRouteAppend ? array($successRouteAppendField => $orderId) : array();
         $successUrl = $this->generateUrl($successRoute, $successRouteData, true);
 
         $failRoute = $this->container->getParameter('webpay.fail.route');
         $failRouteAppend = $this->container->getParameter('webpay.fail.order.append');
         $failRouteAppendField = $this->container->getParameter('webpay.fail.order.field');
-        $failRouteData = $failRouteAppend ? [$failRouteAppendField => $orderId] : [];
+        $failRouteData = $failRouteAppend ? array($failRouteAppendField => $orderId) : array();
         $failUrl = $this->generateUrl($failRoute, $failRouteData, true);
 
         // Notify payment done
@@ -79,7 +89,7 @@ class WebpayController extends Controller
             ->getForm()
             ->createView();
 
-        return ['webpay_form' => $formView];
+        return array('webpay_form' => $formView);
     }
 
     /**
@@ -93,7 +103,7 @@ class WebpayController extends Controller
      */
     public function confirmationAction(Request $request)
     {
-        $status='ACEPTADO';
+        $status = WebpayController::WEBPAY_ACCEPTED;
         $paymentMethod = new WebpayMethod();
         $transaction = new Normal();
         $transaction->setAccion($request->request->get('TBK_ACCION'))
@@ -113,18 +123,18 @@ class WebpayController extends Controller
             ->setOrdenCompra($request->request->get('TBK_ORDEN_COMPRA'))
             ->setRespuesta($request->request->get('TBK_RESPUESTA'))
             ->setTipoPago($request->request->get('TBK_TIPO_PAGO'))
-            ->setTipoTransaccion($request->request->get('TBK_TIPO_TRANSACCION'))
-            ->setVci($request->request->get('TBK_VCI'));
+            ->setVci($request->request->get('TBK_VCI'))
+            ->setTipoTransaccion($request->request->get('TBK_TIPO_TRANSACCION'));
         $paymentMethod->setTransaction($transaction);
 
         try {
             $this->get('webpay.manager')->confirmPayment($paymentMethod, $request->request->all());
         } catch (PaymentOrderNotFoundException $e) {
-            $status = 'RECHAZADO';
+            $status = WebpayController::WEBPAY_REJECTED;
         } catch (WebpayMacCheckException $e) {
-            $status = 'RECHAZADO';
+            $status = WebpayController::WEBPAY_REJECTED;
         } catch (PaymentAmountsNotMatchException $e) {
-            $status = 'RECHAZADO';
+            $status = WebpayController::WEBPAY_REJECTED;
         } catch (PaymentException $e) {
         }
 
