@@ -10,6 +10,7 @@
 
 namespace PaymentSuite\WebpayBundle\Controller;
 
+use PaymentSuite\WebpayBundle\Models\Normal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,34 +52,34 @@ class WebpayController extends Controller
             throw new PaymentOrderNotFoundException;
         }
 
-        $tbkOrdenCompra = $paymentBridge->getOrderId();
-        $tbkIdSesion = $this->get('webpay.manager')->processPayment();
+        $orderId = $paymentBridge->getOrderId();
+        $sessionId = $this->get('webpay.manager')->processPayment();
 
         // Generate ok and fail URLs
         $successRoute = $this->container->getParameter('webpay.success.route');
         $successRouteAppend = $this->container->getParameter('webpay.success.order.append');
         $successRouteAppendField = $this->container->getParameter('webpay.success.order.field');
-        $successRouteData = $successRouteAppend ? array($successRouteAppendField => $tbkOrdenCompra) : array();
+        $successRouteData = $successRouteAppend ? [$successRouteAppendField => $orderId] : [];
         $successUrl = $this->generateUrl($successRoute, $successRouteData, true);
 
         $failRoute = $this->container->getParameter('webpay.fail.route');
         $failRouteAppend = $this->container->getParameter('webpay.fail.order.append');
         $failRouteAppendField = $this->container->getParameter('webpay.fail.order.field');
-        $failRouteData = $failRouteAppend ? array($failRouteAppendField => $tbkOrdenCompra) : array();
+        $failRouteData = $failRouteAppend ? [$failRouteAppendField => $orderId] : [];
         $failUrl = $this->generateUrl($failRoute, $failRouteData, true);
 
         // Notify payment done
-        $paymentMethod->setTransactionId($tbkIdSesion);
+        $paymentMethod->setSessionId($sessionId);
         $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 
         // Generate form
         $formView = $this
             ->get('webpay.form.type.wrapper')
-            ->buildForm($tbkIdSesion, $successUrl, $failUrl)
+            ->buildForm($sessionId, $successUrl, $failUrl)
             ->getForm()
             ->createView();
 
-        return array('webpay_form' => $formView);
+        return ['webpay_form' => $formView];
     }
 
     /**
@@ -94,15 +95,36 @@ class WebpayController extends Controller
     {
         $status='ACEPTADO';
         $paymentMethod = new WebpayMethod();
+        $transaction = new Normal();
+        $transaction->setAccion($request->request->get('TBK_ACCION'))
+            ->setCodigoAutorizacion($request->request->get('TBK_CODIGO_AUTORIZACION'))
+            ->setCodigoComercio($request->request->get('TBK_CODIGO_COMERCIO'))
+            ->setCodigoComercioEnc($request->request->get('TBK_CODIGO_COMERCIO_ENC'))
+            ->setFechaContable($request->request->get('TBK_FECHA_CONTABLE'))
+            ->setFechaExpiracion($request->request->get('TBK_FECHA_EXPIRACION'))
+            ->setFechaTransaccion($request->request->get('TBK_FECHA_TRANSACCION'))
+            ->setFinalNumeroTarjeta($request->request->get('TBK_FINAL_NUMERO_TARJETA'))
+            ->setHoraTransaccion($request->request->get('TBK_HORA_TRANSACCION'))
+            ->setIdSesion($request->request->get('TBK_ID_SESION'))
+            ->setIdTransaccion($request->request->get('TBK_ID_TRANSACCION'))
+            ->setMac($request->request->get('TBK_MAC'))
+            ->setMonto($request->request->get('TBK_MONTO'))
+            ->setNumeroCuotas($request->request->get('TBK_NUMERO_CUOTAS'))
+            ->setOrdenCompra($request->request->get('TBK_ORDEN_COMPRA'))
+            ->setRespuesta($request->request->get('TBK_RESPUESTA'))
+            ->setTipoPago($request->request->get('TBK_TIPO_PAGO'))
+            ->setTipoTransaccion($request->request->get('TBK_TIPO_TRANSACCION'))
+            ->setVci($request->request->get('TBK_VCI'));
+        $paymentMethod->setTransaction($transaction);
 
         try {
             $this->get('webpay.manager')->confirmPayment($paymentMethod, $request->request->all());
         } catch (PaymentOrderNotFoundException $e) {
-            $status = 'RECHAZADO1';
+            $status = 'RECHAZADO';
         } catch (WebpayMacCheckException $e) {
-            $status = 'RECHAZADO2';
+            $status = 'RECHAZADO';
         } catch (PaymentAmountsNotMatchException $e) {
-            $status = 'RECHAZADO3';
+            $status = 'RECHAZADO';
         } catch (PaymentException $e) {
         }
 

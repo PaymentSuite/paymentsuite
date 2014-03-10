@@ -11,6 +11,7 @@
 namespace PaymentSuite\WebpayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\WebpayBundle\Models\Transaction;
 
 /**
  * WebpayMethod
@@ -23,23 +24,16 @@ class WebpayMethod implements PaymentMethodInterface
     const WEBPAY_METHOD_NAME = 'Webpay';
 
     /**
-     * @var float
+     * @var \PaymentSuite\WebpayBundle\Models\Transaction
      *
-     * amount
+     * Transaction
      */
-    protected $amount;
+    protected $transaction;
 
     /**
      * @var string
      *
-     * order transaction id
-     */
-    protected $transactionId;
-
-    /**
-     * @var string
-     *
-     * session id
+     * Session Id
      */
     protected $sessionId;
 
@@ -54,50 +48,50 @@ class WebpayMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set amount
+     * Sets Transaction
      *
-     * @param float $amount Amount
+     * @param \PaymentSuite\WebpayBundle\Models\Transaction $transaction Transaction
      *
-     * @return WebpayMethod self Object
+     * @return WebpayMethod Self object
      */
-    public function setAmount($amount)
+    public function setTransaction($transaction)
     {
-        $this->amount = $amount;
+        $this->transaction = $transaction;
 
         return $this;
     }
 
     /**
-     * Get amount
+     * Get Transaction
      *
-     * @return float amount
+     * @return \PaymentSuite\WebpayBundle\Models\Transaction Transaction
      */
-    public function getAmount()
+    public function getTransaction()
     {
-        return $this->amount;
+        return $this->transaction;
     }
 
     /**
-     * Set transaction id
+     * Sets SessionId
      *
-     * @param string $transactionId Transaction Id
+     * @param string $sessionId SessionId
      *
-     * @return WebpayMethod self Object
+     * @return WebpayMethod Self object
      */
-    public function setTransactionId($transactionId)
+    public function setSessionId($sessionId)
     {
-        $this->transactionId = $transactionId;
+        $this->sessionId = $sessionId;
 
         return $this;
     }
 
     /**
-     * Get transaction id
+     * Get SessionId
      *
-     * @return string
+     * @return string SessionId
      */
-    public function getTransactionId()
+    public function getSessionId()
     {
-        return $this->transactionId;
+        return $this->sessionId;
     }
 }

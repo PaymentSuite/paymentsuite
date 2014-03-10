@@ -70,24 +70,12 @@ class WebpayTypeWrapper
             ->createNamedBuilder(null)
             ->setAction($this->cgiUri . '/tbk_bp_pago.cgi')
             ->setMethod('POST')
-            ->add('TBK_TIPO_TRANSACCION', 'hidden', array(
-                'data'  =>  'TR_NORMAL',
-            ))
-            ->add('TBK_MONTO', 'hidden', array(
-                'data'  =>  floor($this->paymentBridge->getAmount() * 100),
-            ))
-            ->add('TBK_ORDEN_COMPRA', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getOrderId(),
-            ))
-            ->add('TBK_ID_SESION', 'hidden', array(
-                'data'  =>  $sessionId,
-            ))
-            ->add('TBK_URL_EXITO', 'hidden', array(
-                'data'  =>  $okRoute,
-            ))
-            ->add('TBK_URL_FRACASO', 'hidden', array(
-                'data'  =>  $failRoute,
-            ));
+            ->add('TBK_TIPO_TRANSACCION', 'hidden', ['data' => 'TR_NORMAL'])
+            ->add('TBK_MONTO', 'hidden', ['data' => floor($this->paymentBridge->getAmount() * 100)])
+            ->add('TBK_ORDEN_COMPRA', 'hidden', ['data' => $this->paymentBridge->getOrderId()])
+            ->add('TBK_ID_SESION', 'hidden', ['data' => $sessionId])
+            ->add('TBK_URL_EXITO', 'hidden', ['data' => $okRoute])
+            ->add('TBK_URL_FRACASO', 'hidden', ['data' => $failRoute]);
 
         return $formBuilder;
     }

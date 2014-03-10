@@ -5,8 +5,10 @@ namespace PaymentSuite\WebpayBundle\Services;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentDuplicatedException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\WebpayBundle\Models\Normal;
 use PaymentSuite\WebpayBundle\WebpayMethod;
 use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
 
@@ -55,17 +57,17 @@ class WebpayManager
      */
     public function processPayment()
     {
-        $tbkOrdenCompra = $this->paymentBridge->getOrderId();
-        $tbkTotal = floor($this->paymentBridge->getAmount() * 100);
-        $tbkIdSesion = $tbkOrdenCompra . date('Ymdhis');
+        $orderId = $this->paymentBridge->getOrderId();
+        $amount = floor($this->paymentBridge->getAmount() * 100);
+        $sessionId = $orderId . date('Ymdhis');
 
         // Generate session log file for KCC
-        $file = fopen($this->kccPath . '/log/datos' . $tbkIdSesion . '.log', 'w');
-        $line = $tbkTotal . ';' . $tbkOrdenCompra;
+        $file = fopen($this->kccPath . '/log/datos' . $sessionId . '.log', 'w');
+        $line = $amount . ';' . $orderId;
         fwrite($file, $line);
         fclose($file);
 
-        return $tbkIdSesion;
+        return $sessionId;
     }
 
     /**
@@ -78,20 +80,19 @@ class WebpayManager
      * @throws \PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException
      * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException
      * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
+     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentDuplicatedException
      *
      * @return WebpayManager Self object
      */
     public function confirmPayment(WebpayMethod $paymentMethod, array $postData)
     {
         $paymentBridge = $this->paymentBridge;
-
-        $tbkRespuesta = $postData['TBK_RESPUESTA'];
-        $tbkOrdenCompra = $postData['TBK_ORDEN_COMPRA'];
-        $tbkMonto = $postData['TBK_MONTO'];
-        $tbkIdSesion = $postData['TBK_ID_SESION'];
-
-        $paymentMethod->setTransactionId($tbkIdSesion);
-        $paymentMethod->setAmount($tbkMonto);
+        /** @var Normal $trans */
+        $trans = $paymentMethod->getTransaction();
+        $tbkRespuesta = $trans->getRespuesta();
+        $tbkOrdenCompra = $trans->getOrdenCompra();
+        $tbkMonto = $trans->getMonto();
+        $paymentMethod->setSessionId($trans->getIdSesion());
 
         // Check TBK_ORDEN_COMPRA
         $this->eventDispatcher->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
@@ -100,13 +101,13 @@ class WebpayManager
         }
 
         // Check TBK_RESPUESTA
-        if ($tbkRespuesta != '0') {
+        if ($tbkRespuesta !== '0') {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             throw new PaymentException;
         }
 
         // Check MAC
-        $fileMacName = $this->kccPath . '/log/MAC01Normal' . $paymentMethod->getTransactionId() . '.txt';
+        $fileMacName = $this->kccPath . '/log/MAC01Normal' . $trans->getIdSesion() . '.txt';
         $fileMac = fopen($fileMacName, 'w');
         foreach ($postData as $key => $val) {
             fwrite($fileMac, "$key=$val&");
@@ -120,7 +121,7 @@ class WebpayManager
         }
 
         // Check MONTO
-        $fileMontoName = $this->kccPath . '/log/datos' . $paymentMethod->getTransactionId() . '.log';
+        $fileMontoName = $this->kccPath . '/log/datos' . $trans->getIdSesion() . '.log';
         if (!$fileMonto = fopen($fileMontoName, 'r')) {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             throw new PaymentAmountsNotMatchException;
@@ -138,10 +139,9 @@ class WebpayManager
         }
 
         // Check DUPLICIDAD
-        /*if ($order->current_state != Configuration::get('WEBPAY_WAIT_STATUS')) {
-            $order->setCurrentState(Configuration::get('PS_OS_CANCELED'));
-            die('RECHAZADO');
-        }*/
+        if ($paymentBridge->isOrderPaid()) {
+            throw new PaymentDuplicatedException;
+        }
 
         $this->eventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
 
