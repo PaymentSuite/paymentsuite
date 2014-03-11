@@ -1,7 +1,7 @@
-/* TEAM */            
+/* TEAM */
 Creator : Marc Morera
 Contact: yuhu at mmoreram dot com
-Twitter: mmoreram                   
+Twitter: mmoreram
 Location: Barcelona, Catalunya, Catalunya.
 
 /* THANKS */

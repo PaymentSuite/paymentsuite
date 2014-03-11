@@ -32,7 +32,7 @@ class PaymentEventDispatcher
 
     /**
      * @var EventDispatcherInterface
-     * 
+     *
      * Event dispatcher
      */
     private $eventDispatcher;
