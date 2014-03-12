@@ -48,6 +48,13 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     private $orderNumber;
 
     /**
+     * @var SomeExtraData
+     *
+     * Some extra data given by payment response
+     */
+    private $someExtraData;
+
+    /**
      * @return float
      */
     public function getAmount()
@@ -58,7 +65,7 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     /**
      * @param float $amount
      *
-     * @return PaypalExpressCheckout self Object
+     * @return PaypalExpressCheckoutMethod self Object
      */
     public function setAmount($amount)
     {
@@ -78,7 +85,7 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     /**
      * @param string $orderNumber
      *
-     * @return PaypalExpressCheckout self Object
+     * @return PaypalExpressCheckoutMethod self Object
      */
     public function setOrderNumber($orderNumber)
     {
@@ -87,5 +94,29 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
         return $this;
     }
 
+    /**
+     * Set some extra data
+     *
+     * @param string $someExtraData Some extra data
+     *
+     * @return PaypalExpressCheckoutMethod self Object
+     */
+    public function setSomeExtraData($someExtraData)
+    {
+        $this->someExtraData = $someExtraData;
+
+        return $this;
+    }
+
+
+    /**
+     * Get some extra data
+     *
+     * @return array Some extra data
+     */
+    public function getSomeExtraData()
+    {
+        return $someExtraData;
+    }
 
 }

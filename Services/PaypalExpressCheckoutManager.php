@@ -62,6 +62,41 @@ class PaypalExpressCheckoutManager
         $this->paymentBridge = $paymentBridge;
     }
 
+    /**
+     * See also PaypalExpressCheckout Api Integration : https://devtools-paypal.com/guide/expresscheckout/php?success=true&token=EC-39A62694YH391933H&PayerID=22GDTKRPSZFWS
+     * Initiate the payment : SetExpressCheckout
+     *
+     */
+    public function preparePayment()
+    {
+        // todo: how to cleanly call Paypal SDK here ?
 
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
+    }
 
+    /**
+     * Executes the payment : DoExpressCheckoutPayment
+     *
+     */
+    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod)
+    {
+        // todo: how to cleanly call Paypal SDK here ?
+
+        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+
+        // todo: check for the payment status and throws an event if success
+        // or... fail
+        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
+        
+    }
+
+    /**
+     * Get the payment status : GetExpressCheckoutDetails
+     *
+     */
+    public function getPaymentStatus()
+    {
+        
+    }
 }
