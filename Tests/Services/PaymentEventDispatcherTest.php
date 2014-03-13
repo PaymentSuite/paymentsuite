@@ -29,7 +29,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     private $paymentBridge;
 
-
     /**
      * @var PaymentMethodInterface
      *
@@ -37,14 +36,12 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     private $paymentMethod;
 
-
     /**
      * @var EventDispatcher
      *
      * Event dispatcher
      */
     private $eventDispatcher;
-
 
     /**
      * Setup
@@ -64,7 +61,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->paymentMethod = $this->getMock('\PaymentSuite\PaymentCoreBundle\PaymentMethodInterface');
     }
 
-
     /**
      * Testing notifyPaymentOrderLoad
      */
@@ -78,7 +74,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->paymentMethod);
     }
-
 
     /**
      * Testing notifyPaymentOrderCreated
@@ -94,7 +89,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->paymentMethod);
     }
 
-
     /**
      * Testing notifyPaymentDone
      */
@@ -109,7 +103,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->paymentMethod);
     }
 
-
     /**
      * Testing notifyPaymentSuccess
      */
@@ -123,7 +116,6 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
         $paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $this->paymentMethod);
     }
-
 
     /**
      * Testing notifyPaymentFail

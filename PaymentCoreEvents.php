@@ -27,7 +27,6 @@ class PaymentCoreEvents
      */
     const PAYMENT_ORDER_LOAD = 'payment.order.load';
 
-
     /**
      * This event is thrown when an order must be created.
      *
@@ -35,7 +34,6 @@ class PaymentCoreEvents
      * event.class : PaymentOrderCreatedEvent
      */
     const PAYMENT_ORDER_CREATED = 'payment.order.created';
-
 
     /**
      * This event is thrown when an order is paid, no matter the result
@@ -45,7 +43,6 @@ class PaymentCoreEvents
      */
     const PAYMENT_ORDER_DONE = 'payment.order.done';
 
-
     /**
      * This event is thrown when an order is paid succesfuly
      *
@@ -53,7 +50,6 @@ class PaymentCoreEvents
      * event.class : PaymentOrderSuccessEvent
      */
     const PAYMENT_ORDER_SUCCESS = 'payment.order.success';
-
 
     /**
      * This event is thrown when an order can't be paid for any reason

@@ -13,8 +13,6 @@
 
 namespace PaymentSuite\PaymentCoreBundle\Exception;
 
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-
 /**
  * PaymentDuplicatedException
  */

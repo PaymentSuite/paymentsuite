@@ -28,7 +28,6 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
      */
     private $event;
 
-
     /**
      * @var PaymentBridge
      *
@@ -36,14 +35,12 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
      */
     private $paymentBridge;
 
-
     /**
      * @var PaymentMethodInterface
      *
      * Payment method object
      */
     private $paymentMethod;
-
 
     /**
      * Setup
@@ -56,7 +53,6 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
         $this->event = new PaymentOrderLoadEvent($this->paymentBridge, $this->paymentMethod);
     }
 
-
     /**
      * Testing if event instances Event Framework class
      */
@@ -65,7 +61,6 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $this->event);
     }
 
-
     /**
      * Testing getPaymentBridge
      */
@@ -73,7 +68,6 @@ class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->paymentBridge, $this->event->getPaymentBridge());
     }
-
 
     /**
      * Testing getPaymentMethod

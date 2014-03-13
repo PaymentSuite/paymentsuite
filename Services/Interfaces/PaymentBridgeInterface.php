@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\PaymentCoreBundle\Services\interfaces;
+namespace PaymentSuite\PaymentCoreBundle\Services\Interfaces;
 
 /**
  * Interface for PaymentBridge
@@ -35,7 +35,6 @@ interface PaymentBridgeInterface
      */
     public function setOrder($order);
 
-
     /**
      * Get order
      *
@@ -44,7 +43,6 @@ interface PaymentBridgeInterface
      * @return Object Order object
      */
     public function getOrder();
-
 
     /**
      * Get order given an identifier and stores locally
@@ -55,7 +53,6 @@ interface PaymentBridgeInterface
      */
     public function findOrder($orderId);
 
-
     /**
      * Return order identifier value
      *
@@ -63,14 +60,12 @@ interface PaymentBridgeInterface
      */
     public function getOrderId();
 
-
     /**
      * Return if order has already been paid
      *
      * @return boolean
      */
     public function isOrderPaid();
-
 
     /**
      * Common methods
@@ -90,7 +85,6 @@ interface PaymentBridgeInterface
      * @return string
      */
     public function getCurrency();
-
 
     /**
      * Get extra data

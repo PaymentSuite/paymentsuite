@@ -37,7 +37,6 @@ class PaymentEventDispatcher
      */
     private $eventDispatcher;
 
-
     /**
      * Construct method
      *
@@ -47,7 +46,6 @@ class PaymentEventDispatcher
     {
         $this->eventDispatcher = $eventDispatcher;
     }
-
 
     /**
      * Notifies when order must be created
@@ -66,7 +64,6 @@ class PaymentEventDispatcher
         return $this;
     }
 
-
     /**
      * Notifies when order must be created
      *
@@ -83,7 +80,6 @@ class PaymentEventDispatcher
 
         return $this;
     }
-
 
     /**
      * Notifies when order payment process is done
@@ -103,7 +99,6 @@ class PaymentEventDispatcher
         return $this;
     }
 
-
     /**
      * Notifies when payment process is done and succeded.
      *
@@ -120,7 +115,6 @@ class PaymentEventDispatcher
 
         return $this;
     }
-
 
     /**
      * Notifies when payment is done and failed

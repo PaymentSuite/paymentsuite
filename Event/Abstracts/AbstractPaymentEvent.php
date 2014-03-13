@@ -30,14 +30,12 @@ abstract class AbstractPaymentEvent extends Event
      */
     private $paymentBridge;
 
-
     /**
      * @var PaymentMethodInterface
      *
      * Payment method object
      */
     private $paymentMethod;
-
 
     /**
      * Construct method
@@ -51,7 +49,6 @@ abstract class AbstractPaymentEvent extends Event
         $this->paymentMethod = $paymentMethod;
     }
 
-
     /**
      * Get Order Wrapper
      *
@@ -61,7 +58,6 @@ abstract class AbstractPaymentEvent extends Event
     {
         return $this->paymentBridge;
     }
-
 
     /**
      * Get Payment Method

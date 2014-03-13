@@ -13,7 +13,6 @@
 
 namespace PaymentSuite\PaymentCoreBundle;
 
-
 /**
  * Interface for all type of payments
  */
