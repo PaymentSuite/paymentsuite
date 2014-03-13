@@ -86,11 +86,11 @@ payment form.
 
 PaypalExpressCheckout gives you all form view as requested by the payment module.
 
-``` twig
+``` jinja
 {% block content %}
-        <div class="payment-wrapper">
-            {{ paypal_render() }}
-        </div>
+    <div class="payment-wrapper">
+        {{ paypal_render() }}
+    </div>
 {% endblock content %}
 
 {% block foot_script %}
