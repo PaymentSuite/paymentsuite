@@ -12,14 +12,12 @@ Paymill - Payment Suite
 Table of contents
 -----
 
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-2. [Creating PaymillBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
+1. [PaymentSuite Docs](docs.paymentsuite.org)
 3. [Configuration](#configuration)
 4. [Extra Data](#extra-data)
 5. [Router](#router)
 6. [Display](#display)
 7. [Customize](#customize)
-8. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
 
 
 Configuration
@@ -91,7 +89,7 @@ payment form.
 
 PaymillBundle gives you all form view as requested by the payment module.
 
-``` twig
+``` jinja
 {% block content %}
         <div class="payment-wrapper">
             {{ paymill_render() }}
@@ -113,7 +111,3 @@ As every project need its own form design, you should overwrite in
 `app/Resources/PaymillBundle/views/Paymill/view.html.twig`, paymill form render
 template placed in
 `PaymentSuite/Paymill/Bundle/Resources/views/Paymill/view.html.twig`.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/paymillbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
