@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymillBundle\Services\Wrapper;
 
 use Paymill\Request;
-use Paymill\Models\Request\Transaction;
+use Paymill\Models\Response\Transaction;
 use Paymill\Services\PaymillException;
 
 /**
@@ -30,10 +30,9 @@ class PaymillTransactionWrapper
     /**
      * Construct method for paymill transaction wrapper
      *
-     * @param string $privateKey  Private key
-     * @param string $apiEndpoint Api endpoint
+     * @param string $privateKey Private key
      */
-    public function __construct($privateKey, $apiEndpoint)
+    public function __construct($privateKey)
     {
         $this->apiKey = $privateKey;
     }

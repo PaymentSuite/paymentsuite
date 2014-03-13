@@ -35,6 +35,13 @@ class PaymillMethod implements PaymentMethodInterface
     /**
      * @var string
      *
+     * Currency
+     */
+    private $currency;
+
+    /**
+     * @var string
+     *
      * Credit Card number
      */
     private $creditCardNumber;
@@ -89,7 +96,7 @@ class PaymillMethod implements PaymentMethodInterface
     private $transactionStatus;
 
     /**
-     * @var Paymill\Models\Response\Transaction
+     * @var Transaction
      *
      * Transaction
      */

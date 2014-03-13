@@ -13,8 +13,6 @@ services:
         class: %paymill.transaction.wrapper.class%
         arguments:
             paymill.private.key: %paymill.private.key%
-            paymill.api.endpoint: %paymill.api.endpoint%
-
 
     paymill.manager:
         class: %paymill.manager.class%

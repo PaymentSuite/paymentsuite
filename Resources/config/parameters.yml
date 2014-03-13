@@ -1,6 +1,5 @@
 parameters:
 
-    paymill.api.endpoint: "https://api.paymill.com/v2/"
     paymill.controller.route.name: "paymill_execute"
     paymill.form.type.class: "PaymentSuite\\PaymillBundle\\Form\\Type\\PaymillType"
     paymill.transaction.wrapper.class: "PaymentSuite\\PaymillBundle\\Services\\Wrapper\\PaymillTransactionWrapper"
