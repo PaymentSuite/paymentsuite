@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author  Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
  * Marc Morera 2013
@@ -28,7 +28,6 @@ use Paymill\Services\PaymillException;
  */
 class PaymillManager
 {
-
     /**
      * @var PaymentEventDispatcher
      *
@@ -57,7 +56,11 @@ class PaymillManager
      * @param PaymillTransactionWrapper $paymillTransactionWrapper Paymill Transaction wrapper
      * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymillTransactionWrapper $paymillTransactionWrapper, PaymentBridgeInterface $paymentBridge)
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        PaymillTransactionWrapper $paymillTransactionWrapper,
+        PaymentBridgeInterface $paymentBridge
+    )
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymillTransactionWrapper = $paymillTransactionWrapper;
@@ -115,9 +118,9 @@ class PaymillManager
          */
         $extraData = $this->paymentBridge->getExtraData();
         $params = array(
-            'amount' => intval($paymentBridgeAmount),
-            'currency' => $this->paymentBridge->getCurrency(),
-            'token' => $paymentMethod->getApiToken(),
+            'amount'      => intval($paymentBridgeAmount),
+            'currency'    => $this->paymentBridge->getCurrency(),
+            'token'       => $paymentMethod->getApiToken(),
             'description' => $extraData['order_description'],
         );
 
@@ -132,7 +135,7 @@ class PaymillManager
              */
             $transaction = new Transaction();
             $transaction->setStatus('failed');
-            $transaction->setDescription($e->getCode().' '.$e->getMessage());
+            $transaction->setDescription($e->getCode() . ' ' . $e->getMessage());
         }
 
         $this->processTransaction($transaction, $paymentMethod);
@@ -143,8 +146,8 @@ class PaymillManager
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
      *
-     * @param Paymill\Models\Response\Transaction $transaction   Transaction
-     * @param PaymillMethod                       $paymentMethod Payment method
+     * @param Transaction   $transaction   Transaction
+     * @param PaymillMethod $paymentMethod Payment method
      *
      * @return PaymillManager Self object
      *
@@ -152,7 +155,6 @@ class PaymillManager
      */
     private function processTransaction(Transaction $transaction, PaymillMethod $paymentMethod)
     {
-
         /**
          * Payment paid done
          *

@@ -5,7 +5,7 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author  Marc Morera <yuhu@mmoreram.com>
  * @package PaymillBundle
  *
  * Marc Morera 2013
@@ -22,7 +22,6 @@ use Paymill\Services\PaymillException;
  */
 class PaymillTransactionWrapper
 {
-
     /**
      * @var string Paymill private API key
      */
@@ -42,12 +41,12 @@ class PaymillTransactionWrapper
     /**
      * Create new Transaction with a set of params
      *
-     * @param $amount      amount as int (ex: 4200 for 42.00)
-     * @param $currency    currency code (EUR, USD...)
-     * @param $token       transaction token
-     * @param $description transaction description (optional, default "")
+     * @param string $amount      amount as int (ex: 4200 for 42.00)
+     * @param string $currency    currency code (EUR, USD...)
+     * @param string $token       transaction token
+     * @param string $description transaction description (optional, default "")
      *
-     * @return mixed
+     * @return Transaction
      *
      * @throws PaymillException if transaction creation fails
      */
@@ -55,14 +54,17 @@ class PaymillTransactionWrapper
     {
         $service = new Request($this->apiKey);
         $transaction = new Transaction();
-        $transaction->setAmount($amount)
+        $transaction
+            ->setAmount($amount)
             ->setCurrency($currency)
             ->setToken($token)
             ->setDescription($description);
 
+        /**
+         * @var Transaction $response
+         */
         $response = $service->create($transaction);
 
-        //response here has to be a Transaction object
         return $response;
     }
 }
