@@ -12,7 +12,7 @@ Paymill - Payment Suite
 Table of contents
 -----
 
-1. [PaymentSuite Docs](docs.paymentsuite.org)
+1. [PaymentSuite Docs](http://docs.paymentsuite.org)
 3. [Configuration](#configuration)
 4. [Extra Data](#extra-data)
 5. [Router](#router)
