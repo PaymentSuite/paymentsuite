@@ -9,7 +9,5 @@ Payment Suite Project
 [![Dependency Status](https://www.versioneye.com/user/projects/52d968bcec13750ec70002fc/badge.png)](https://www.versioneye.com/user/projects/52d968bcec13750ec70002fc)
 [![Total Downloads](https://poser.pugx.org/paymentsuite/payment-core-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/payment-core-bundle)
 
-Documentation
-
-Docs are hosted at readthedocs.org: [Payment Suite docs](http://paymentsuite.readthedocs.org/en/latest/)
+Docs are hosted at readthedocs.org: [Payment Suite docs](http://docs.paymentsuite.org)
 
