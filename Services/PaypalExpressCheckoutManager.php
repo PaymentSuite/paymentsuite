@@ -43,6 +43,13 @@ class PaypalExpressCheckoutManager
     protected $paymentBridge;
 
     /**
+     * @var PaypalExpressCheckoutTransactionWrapper $paypalWrapper
+     *
+     * Paypal Express Checkout wrapper
+     */
+    protected $paypalWrapper;
+
+    /**
      * @var Array config
      *
      * Paypal Express Checkout configuration
@@ -55,11 +62,13 @@ class PaypalExpressCheckoutManager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaypalExpressCheckoutTransactionWrapper Paypal Wrapper
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
+        $this->paypalWrapper = $paypalWrapper;
     }
 
     /**
@@ -67,36 +76,37 @@ class PaypalExpressCheckoutManager
      * Initiate the payment : SetExpressCheckout
      *
      */
-    public function preparePayment()
+    public function preparePayment(PaypalExpressCheckoutMethod $paypalMethod, $orderParameters)
     {
-        // todo: how to cleanly call Paypal SDK here ?
-
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
+        $this->paypalWrapper->request('SetExpressCheckout', $orderParameters);
+        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paypalMethod);
     }
 
     /**
      * Executes the payment : DoExpressCheckoutPayment
      *
      */
-    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod)
+    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod, $orderParameters)
     {
-        // todo: how to cleanly call Paypal SDK here ?
+        $this->paypalWrapper->request('DoExpressCheckoutPayment',$orderParameters);
 
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
-        // todo: check for the payment status and throws an event if success
-        // or... fail
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
-        $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-        
+        if ($this->getPaymentStatus($this->paypalWrapper) == 'PaymentActionCompleted'){
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paypalMethod);
+        }else {
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($paymentBridge, $paypalMethod);
+        }
     }
 
     /**
      * Get the payment status : GetExpressCheckoutDetails
      *
      */
-    public function getPaymentStatus()
+    public function getPaymentStatus(PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
     {
-        
+        $response = $paypalWrapper->request('GetExpressCheckoutDetails', $paypalWrapper->getToken());
+
+        return $response['CHECKOUTSTATUS'];
     }
 }

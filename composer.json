@@ -24,7 +24,6 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.14",
-        "paypal/merchant-sdk-php":"v3.6.106",
         "paymentsuite/payment-core-bundle": ">=1.1"
     },
     "require-dev": {

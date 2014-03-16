@@ -1,1 +1,2 @@
 parameters:
+    paypal_checkout.api_endpoint: https://api-3t.sandbox.paypal.com/nvp
