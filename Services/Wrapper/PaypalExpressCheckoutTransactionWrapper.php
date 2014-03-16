@@ -27,7 +27,10 @@ class PaypalExpressCheckoutTransactionWrapper
         $this->user = $user;
         $this->pwd = $pwd;
         $this->signature = $signature;
-        $this->endpoint = str_replace('sandbox.','', $this->endpoint);
+        $this->endpoint = $endpoint;
+        if (true === $debug) {
+            $this->endpoint = str_replace('sandbox.','', $this->endpoint);
+        }
     }
 
     public function request($method, $params) {
