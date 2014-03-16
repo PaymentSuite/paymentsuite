@@ -3,11 +3,19 @@ services:
         class: PaymentSuite\PaypalExpressCheckoutBundle\Router\PaypalExpressCheckoutRoutesLoader
         tags:
             - { name: routing.loader }
+
     paypal_express_checkout.wrapper:
         class: PaymentSuite\PaypalExpressCheckoutBundle\Services\Wrapper\PaypalExpressCheckoutTransactionWrapper
         arguments:
-            - %paypal_checkout.username%
-            - %paypal_checkout.password%
-            - %paypal_checkout.signature%
-            - %paypal_checkout.api_endpoint%
-            - %paypal_checkout.debug%
+            name: %paypal_checkout.username%
+            password: %paypal_checkout.password%
+            signature: %paypal_checkout.signature%
+            endpoint: %paypal_checkout.api_endpoint%
+            debug: %paypal_checkout.debug%
+
+    paypal_express_checkout.manager:
+        class: PaymentSuite\PaypalExpressCheckoutBundle\Services\PaypalExpressCheckoutManager
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.transaction.wrapper: @paypal_express_checkout.wrapper
+            payment.bridge: @payment.bridge

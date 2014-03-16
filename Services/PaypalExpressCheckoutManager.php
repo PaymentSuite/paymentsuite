@@ -105,8 +105,8 @@ class PaypalExpressCheckoutManager
      */
     public function getPaymentStatus(PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
     {
-        $response = $paypalWrapper->request('GetExpressCheckoutDetails', $paypalWrapper->getToken());
-
+        $paypalWrapper->request('GetExpressCheckoutDetails', $paypalWrapper->getToken());
+        $response = $paypalWrapper->getResponse();
         return $response['CHECKOUTSTATUS'];
     }
 }

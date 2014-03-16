@@ -72,4 +72,9 @@ class PaypalExpressCheckoutTransactionWrapper
     {
         return $this->response['TOKEN'];
     }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
 }
