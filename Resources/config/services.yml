@@ -17,10 +17,8 @@ services:
         arguments:
             safetypay.controller.route: %safetypay.controller.route%
             safetypay.controller.route.name: %safetypay.controller.route.name%
-            safetypay.controller.route.success: %safetypay.controller.route.success%
-            safetypay.controller.route.success.name: %safetypay.controller.route.success.name%
-            safetypay.controller.route.fail: %safetypay.controller.route.fail%
-            safetypay.controller.route.fail.name: %safetypay.controller.route.fail.name%
+            safetypay.controller.route.confirm: %safetypay.controller.route.confirm%
+            safetypay.controller.route.confirm.name: %safetypay.controller.route.confirm.name%
 
         tags:
             - { name: routing.loader }
@@ -30,4 +28,7 @@ services:
       arguments:
           safetypay.response.format: %safetypay.response.format%
           safetypay.token: %safetypay.token%
-          pagosonline.signature: %safetypay.signature%
+          safetypay.signature: %safetypay.signature%
+          payment.bridge: @payment.bridge
+          payment.event.dispatcher: @payment.event.dispatcher
+          key: %safetypay.key%

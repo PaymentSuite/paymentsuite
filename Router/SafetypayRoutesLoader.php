@@ -41,34 +41,17 @@ class SafetypayRoutesLoader implements LoaderInterface
     /**
      * @var string
      *
-     * Execution controller route success
+     * Execution controller route confirm
      */
-    private $controllerRouteSuccess;
+    private $controllerRouteConfirm;
 
 
     /**
      * @var string
      *
-     * Execution controller route  success name
+     * Execution controller route  confirm name
      */
-    private $controllerRouteSuccessName;
-
-
-    /**
-     * @var string
-     *
-     * Execution controller route fail
-     */
-    private $controllerRouteFail;
-
-
-    /**
-     * @var string
-     *
-     * Execution controller route fail name
-     */
-    private $controllerRouteFailName;
-
+    private $controllerRouteConfirmName;
 
     /**
      * @var boolean
@@ -81,21 +64,17 @@ class SafetypayRoutesLoader implements LoaderInterface
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName Controller route name
-     * @param $controllerRouteSuccess Controller route
-     * @param $controllerRouteSuccessName Controller route name
-     * @param $controllerRouteFail
-     * @param $controllerRouteFailName
+     * @param String $controllerRouteConfirm Controller route confirm
+     * @param String $controllerRouteConfirmName Controller route name confirm
      */
-    public function __construct($controllerRoute, $controllerRouteName, $controllerRouteSuccess, $controllerRouteSuccessName, $controllerRouteFail, $controllerRouteFailName)
+    public function __construct($controllerRoute, $controllerRouteName, $controllerRouteConfirm, $controllerRouteConfirmName)
     {
         $this->controllerRoute = $controllerRoute;
         $this->controllerRouteName = $controllerRouteName;
-        $this->controllerRouteSuccess = $controllerRouteSuccess;
-        $this->controllerRouteSuccessName = $controllerRouteSuccessName;
-        $this->controllerRouteFail = $controllerRouteFail;
-        $this->controllerRouteFailName = $controllerRouteFailName;
+        $this->controllerRouteConfirm = $controllerRouteConfirm;
+        $this->controllerRouteConfirmName = $controllerRouteConfirmName;
     }
 
 
@@ -123,12 +102,8 @@ class SafetypayRoutesLoader implements LoaderInterface
         )));
 
 
-        $routes->add($this->controllerRouteSuccessName, new Route($this->controllerRouteSuccess, array(
-            '_controller'   =>  'SafetypayBundle:Safetypay:success',
-        )));
-
-        $routes->add($this->controllerRouteFailName, new Route($this->controllerRouteFail, array(
-            '_controller'   =>  'SafetypayBundle:Safetypay:fail',
+        $routes->add($this->controllerRouteConfirmName, new Route($this->controllerRouteConfirm, array(
+            '_controller'   =>  'SafetypayBundle:Safetypay:confirm',
         )));
 
         $this->loaded = true;

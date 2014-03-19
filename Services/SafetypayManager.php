@@ -2,6 +2,11 @@
 
 namespace Scastells\SafetypayBundle\Services;
 
+use Scastells\SafetypayBundle\SafetypayBundle;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use Scastells\SafetypayBundle\SafetypayMethod;
+
 /**
  * SafetyPay Manager
  *
@@ -14,7 +19,6 @@ class SafetypayManager
      * Date in UNIX Timestamp
      */
     private $requestDateTime;
-
 
     /**
      * @var string
@@ -30,7 +34,6 @@ class SafetypayManager
      */
     private $urlGetTokenExpress;
 
-
     /**
      * @var string
      *
@@ -38,58 +41,85 @@ class SafetypayManager
      */
      private $signatureKey;
 
+    /**
+     * @var PaymentBridge
+     *
+     * Payment bridge
+     */
+    private $paymentBridge;
 
     /**
-     * @param string $responseFormat
-     * @param string $urlGetTokenExpress
-     * @param string $signatureKey
+     * @var PaymentEventDispatcher
+     *
+     * Payment event dispatcher
      */
 
-    public function __construct($responseFormat = 'XML', $urlGetTokenExpress, $signatureKey)
+    protected $eventDispatcher;
+
+    /**
+     * @var string
+     *
+     * key
+     */
+    private $key;
+
+    /**
+     * @param string                 $responseFormat
+     * @param string                 $urlGetTokenExpress
+     * @param string                 $signatureKey
+     * @param PaymentBridgeInterface $paymentBridge
+     * @param PaymentEventDispatcher $eventDispatcher
+     *
+     * @param String                 $key
+     */
+    public function __construct($responseFormat = 'XML', $urlGetTokenExpress, $signatureKey,
+                                PaymentBridgeInterface $paymentBridge, PaymentEventDispatcher $eventDispatcher, $key)
     {
         $this->responseFormat = $responseFormat;
         $this->urlGetTokenExpress = $urlGetTokenExpress;
         $this->signatureKey = $signatureKey;
         $this->requestDateTime = $this->getDateIso8601(time());
+        $this->paymentBridge = $paymentBridge;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->key = $key;
     }
 
     /**
      * @param $aData
-     * @param string $pListByConcat
-     * @param bool $pOtherRequestDateTime
+     * @param  string $pListByConcat
+     * @param  bool   $pOtherRequestDateTime
      * @return mixed
      */
     public function getSignature($aData, $pListByConcat = '', $pOtherRequestDateTime = false)
     {
         $stringToConcat = '';
-        foreach (explode(',', $pListByConcat) as $key => $value)
-        {
+        foreach (explode(',', $pListByConcat) as $key => $value) {
             $stringToConcat .= $aData[rtrim(ltrim($value))];
         }
-        return hash('sha256', ($pOtherRequestDateTime? '' : $this->requestDateTime.$stringToConcat.$this->signatureKey));
+        echo '<br/>';
+        var_dump($this->signatureKey);
+        echo '<br/>';
+        return hash('sha256', ($pOtherRequestDateTime? '' : $this->requestDateTime).$stringToConcat.$this->signatureKey);
     }
-
 
     /**
      * Function use for safetyPay module
      * @param $int_date
      * @return bool|string
      */
-    function getDateIso8601($int_date)
+    public function getDateIso8601($int_date)
     {
         $date_mod       = date('Y-m-d\TH:i:s', $int_date);
         $pre_timezone   = date('O', $int_date);
         $time_zone      = substr($pre_timezone, 0, 3) . ':' . substr($pre_timezone, 3, 2);
         $pos            = strpos($time_zone, "-");
 
-        if ($pos === false)
-        {   // nothing
+        if ($pos === false) {   // nothing
         } else
             if ($pos != 0)
                 $date_mod = $time_zone;
             else
-                if (is_string($pos) && !$pos)
-                {   // nothing
+                if (is_string($pos) && !$pos) {   // nothing
                 } else
                     if ($pos != 0)
                         $date_mod = $time_zone;
@@ -97,14 +127,12 @@ class SafetypayManager
         return $date_mod;
     }
 
-
     public function getUrlToken($_data, $html_link = true)
     {
         $data = array();
         $responseFormat = '';
-        while(list($n,$v) = each($_data))
-        {
-            if ($n == 'ResponseFormat'){
+        while (list($n,$v) = each($_data)) {
+            if ($n == 'ResponseFormat') {
                 $responseFormat = urlencode($v);
             }
             $data[] = "$n=" . urlencode($v);
@@ -150,25 +178,22 @@ class SafetypayManager
         }
 
         // Response Format as XML
-        if ($responseFormat == 'XML')
-        {
+        if ($responseFormat == 'XML') {
             $search = "/<ErrorNumber(?:.*?)>(.*)<\/ErrorNumber>/U";
             preg_match_all($search, $result[1], $match_error);
 
-            if ((int)$match_error[1][0] != 0)
-            {
+            if ((int) $match_error[1][0] != 0) {
                 $search = "/<Description(?:.*?)>(.*)<\/Description>/U";
                 preg_match_all($search, $result[1], $match_errordesc);
+
                 return '<span style="color:red;">Error: ' . '(' . $match_error[1][0] . ') ' . $match_errordesc[1][0] . '</span>';// return error message
-            }
-            else
-            {
+            } else {
                 $search = "/<ClientRedirectURL(?:.*?)>(.*)<\/ClientRedirectURL>/U";
                 preg_match_all($search, $result[1], $match);
+
                 return (($html_link)? '<a href="' . $match[1][0] . '" target="_blank">SafetyPay</a>': $match[1][0]);// return Token URL EXPRESS
             }
-        }
-        else
+        } else
             // Response Format as CSV
         {
             $match = explode(',', $result[1], 4);
@@ -188,12 +213,35 @@ class SafetypayManager
     }
 
     /**
-     * @return bool|time|string
+     * @return time
      */
     public function getRequestDateTime()
     {
         return $this->requestDateTime;
     }
 
+    /**
+     * Post url update the order status
+     *
+     * @param SafetypayMethod $paymentMethod
+     * @param                 $postData
+     */
+    public function confirmPayment(SafetypayMethod $paymentMethod, $postData)
+    {
+        $paymentMethod->setReference($postData['MerchantReferenceNo']);
+        $paymentBridge = $this->paymentBridge;
+        $signature = $this->getSignature($postData, 'RequestDateTime, MerchantReferenceNo', true);
 
+        if ($postData['ApiKey'] !== '' || $postData['Signature'] !== '') {
+
+            if ($this->key == $postData['ApiKey']) {
+                if ($postData['Signature'] == $signature) {
+
+                    $this->eventDispatcher->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
+                    $this->eventDispatcher->notifyPaymentOrderAccepted($paymentBridge, $paymentMethod);
+                }
+            }
+        }
+
+    }
 }

@@ -13,10 +13,11 @@ namespace Scastells\SafetypayBundle\Services\Wrapper;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mmoreram\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Scastells\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
-use Mmoreram\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use Scastells\SafetypayBundle\SafetypayMethod;
 
 /**
  * SafetypayBundle manager
@@ -94,15 +95,16 @@ class SafetypayTypeWrapper
     /**
      * Builds form given success and fail urls
      *
-     * @param $responseRoute
-     * @param $failRoute
-     * @param $safetyPayTransaction
-     * @throws \Mmoreram\PaymentCoreBundle\Exception\PaymentException
+     * @param String $successRoute
+     * @param String $failRoute
+     * @param Integer $safetyPayTransaction
+     * @param SafetypayMethod $paymentMethod
+     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      * @return FormBuilder
      */
-    public function buildForm($responseRoute, $failRoute, $safetyPayTransaction)
+    public function buildForm($successRoute, $failRoute, $safetyPayTransaction, SafetypayMethod $paymentMethod)
     {
-
+        //var_dump($this->safetyPayManager->getDateIso8601(time()));die();
         $formBuilder = $this
             ->formFactory
             ->createNamedBuilder(null);
@@ -111,13 +113,13 @@ class SafetypayTypeWrapper
             'Apikey'                => $this->key,
             'RequestDateTime'       => $this->safetyPayManager->getRequestDateTime(),
             'CurrencyCode'          => $this->paymentBridge->getCurrency(),
-            'Amount'                => $this->paymentBridge->getAmount(),
+            'Amount'                => number_format($this->paymentBridge->getAmount(), 2, '.', ''),
             'MerchantReferenceNo'   => $safetyPayTransaction,
             'Language'              => 'ES',
             'TrackingCode'          => '',
             'ExpirationTime'        => $this->expiration,
             'FilterBy'              => '',
-            'TransactionOkURL'      => $responseRoute,
+            'TransactionOkURL'      => $successRoute,
             'TransactionErrorURL'   => $failRoute,
             'ResponseFormat'        => $this->safetyPayManager->getresponseFormat()
         );
@@ -128,6 +130,9 @@ class SafetypayTypeWrapper
             TrackingCode, ExpirationTime, TransactionOkURL,
             TransactionErrorURL'
         );
+
+        $paymentMethod->setRequestDateTime($elements['RequestDateTime']);
+        $paymentMethod->setSignature($elements['signature']);
 
         $urlToken = $this->safetyPayManager->getUrlToken($elements, false);
         //Token no valid
