@@ -104,7 +104,6 @@ class SafetypayTypeWrapper
      */
     public function buildForm($successRoute, $failRoute, $safetyPayTransaction, SafetypayMethod $paymentMethod)
     {
-        //var_dump($this->safetyPayManager->getDateIso8601(time()));die();
         $formBuilder = $this
             ->formFactory
             ->createNamedBuilder(null);

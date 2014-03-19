@@ -96,9 +96,7 @@ class SafetypayManager
         foreach (explode(',', $pListByConcat) as $key => $value) {
             $stringToConcat .= $aData[rtrim(ltrim($value))];
         }
-        echo '<br/>';
-        var_dump($this->signatureKey);
-        echo '<br/>';
+
         return hash('sha256', ($pOtherRequestDateTime? '' : $this->requestDateTime).$stringToConcat.$this->signatureKey);
     }
 
