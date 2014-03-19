@@ -46,8 +46,10 @@ class SafetypayController extends controller
             throw new PaymentOrderNotFoundException;
         }
 
-        $safetyPayTransaction = $paymentBridge->getOrderId() . date('Ymdhis');
-        $paymentMethod->setReference($paymentBridge->getOrderId() . date('Ymdhis'));
+        $safetyPayTransaction = $paymentBridge->getOrderId() . '#' . date('Ymdhis');
+        $paymentMethod->setReference($paymentBridge->getOrderId() . '#' . date('Ymdhis'));
+//        $safetyPayTransaction = $paymentBridge->getOrderId() . date('Ymdhis');
+//        $paymentMethod->setReference($paymentBridge->getOrderId() . date('Ymdhis'));
 
         /**
          * Loading success route for returning from safetypay
@@ -126,6 +128,7 @@ class SafetypayController extends controller
             'RequestDateTime'     => $request->request->get('RequestDateTime'),
             'Signature'           => $request->request->get('Signature')
         );
+
         $this->get('safetypay.manager')->confirmPayment($paymentMethod, $postData);
 
         return new Response();

@@ -222,21 +222,22 @@ class SafetypayManager
      * Post url update the order status
      *
      * @param SafetypayMethod $paymentMethod
-     * @param                 $postData
+     * @param Array           $postData
      */
     public function confirmPayment(SafetypayMethod $paymentMethod, $postData)
     {
         $paymentMethod->setReference($postData['MerchantReferenceNo']);
+        $paymentMethod->setRequestDateTime($postData['RequestDateTime']);
+        $paymentMethod->setSignature($postData['Signature']);
+
         $paymentBridge = $this->paymentBridge;
         $signature = $this->getSignature($postData, 'RequestDateTime, MerchantReferenceNo', true);
-
         if ($postData['ApiKey'] !== '' || $postData['Signature'] !== '') {
 
             if ($this->key == $postData['ApiKey']) {
                 if ($postData['Signature'] == $signature) {
-
                     $this->eventDispatcher->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
-                    $this->eventDispatcher->notifyPaymentOrderAccepted($paymentBridge, $paymentMethod);
+                    $this->eventDispatcher->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
                 }
             }
         }
