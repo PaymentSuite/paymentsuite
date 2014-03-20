@@ -24,5 +24,11 @@
     "target-dir": "PaymentSuite/SafetypayBundle",
     "autoload": {
         "psr-0": { "PaymentSuite\\SafetypayBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
