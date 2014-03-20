@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\SafetypayBundle\Router;
+namespace PaymentSuite\SafetypayBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

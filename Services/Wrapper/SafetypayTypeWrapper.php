@@ -9,15 +9,15 @@
  *
  */
 
-namespace Scastells\SafetypayBundle\Services\Wrapper;
+namespace PaymentSuite\SafetypayBundle\Services\Wrapper;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
-use Scastells\SafetypayBundle\Services\SafetypayManager;
+use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use Scastells\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\SafetypayBundle\SafetypayMethod;
 
 /**
  * SafetypayBundle manager

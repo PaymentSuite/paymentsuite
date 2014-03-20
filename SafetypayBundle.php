@@ -1,12 +1,11 @@
 <?php
 
-namespace Scastells\SafetypayBundle;
+namespace PaymentSuite\SafetypayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class SafetypayBundle
- * @package Scastells\SafetypayBundle
  */
 class SafetypayBundle extends Bundle
 {

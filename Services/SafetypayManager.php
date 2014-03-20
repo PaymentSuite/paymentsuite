@@ -1,11 +1,11 @@
 <?php
 
-namespace Scastells\SafetypayBundle\Services;
+namespace PaymentSuite\SafetypayBundle\Services;
 
-use Scastells\SafetypayBundle\SafetypayBundle;
+use PaymentSuite\SafetypayBundle\SafetypayBundle;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Scastells\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\SafetypayBundle\SafetypayMethod;
 
 /**
  * SafetyPay Manager

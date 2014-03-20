@@ -9,7 +9,7 @@
  *
  */
 
-namespace Scastells\SafetypayBundle\DependencyInjection;
+namespace PaymentSuite\SafetypayBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

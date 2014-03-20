@@ -1,5 +1,5 @@
 {
-    "name": "scastells/safetypay-bundle",
+    "name": "paymentsuite/safetypay-bundle",
     "type": "symfony-bundle",
     "description": "SafetyPay Bundle, part of Mmoreram Payment Suite",
     "keywords": ["safetypay", "payment", "ecommerce"],
@@ -21,8 +21,8 @@
         "twig/twig": "~1.11",
         "paymentsuite/payment-core-bundle": "~1.1"
     },
-    "target-dir": "Scastells/SafetypayBundle",
+    "target-dir": "PaymentSuite/SafetypayBundle",
     "autoload": {
-        "psr-0": { "Scastells\\SafetypayBundle": "" }
+        "psr-0": { "PaymentSuite\\SafetypayBundle": "" }
     }
 }

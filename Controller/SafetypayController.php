@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\SafetypayBundle\Controller;
+namespace PaymentSuite\SafetypayBundle\Controller;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Scastells\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\SafetypayBundle\SafetypayMethod;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**

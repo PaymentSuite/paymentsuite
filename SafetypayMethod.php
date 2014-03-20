@@ -1,6 +1,6 @@
 <?php
 
-namespace Scastells\SafetypayBundle;
+namespace PaymentSuite\SafetypayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
