@@ -8,7 +8,7 @@
  * @package WebpayBundle
  */
 
-namespace PaymentSuite\WebpayBundle\Models;
+namespace PaymentSuite\WebpayBundle\Model;
 
 /**
  * Normal Transaction Model

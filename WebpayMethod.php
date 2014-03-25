@@ -11,7 +11,7 @@
 namespace PaymentSuite\WebpayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-use PaymentSuite\WebpayBundle\Models\Transaction;
+use PaymentSuite\WebpayBundle\Model\Transaction;
 
 /**
  * WebpayMethod
@@ -24,7 +24,7 @@ class WebpayMethod implements PaymentMethodInterface
     const WEBPAY_METHOD_NAME = 'Webpay';
 
     /**
-     * @var \PaymentSuite\WebpayBundle\Models\Transaction
+     * @var \PaymentSuite\WebpayBundle\Model\Transaction
      *
      * Transaction
      */
@@ -50,7 +50,7 @@ class WebpayMethod implements PaymentMethodInterface
     /**
      * Sets Transaction
      *
-     * @param \PaymentSuite\WebpayBundle\Models\Transaction $transaction Transaction
+     * @param \PaymentSuite\WebpayBundle\Model\Transaction $transaction Transaction
      *
      * @return WebpayMethod Self object
      */
@@ -64,7 +64,7 @@ class WebpayMethod implements PaymentMethodInterface
     /**
      * Get Transaction
      *
-     * @return \PaymentSuite\WebpayBundle\Models\Transaction Transaction
+     * @return \PaymentSuite\WebpayBundle\Model\Transaction Transaction
      */
     public function getTransaction()
     {

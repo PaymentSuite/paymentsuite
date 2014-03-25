@@ -8,7 +8,7 @@
  * @package WebpayBundle
  */
 
-namespace PaymentSuite\WebpayBundle\Models;
+namespace PaymentSuite\WebpayBundle\Model;
 
 /**
  * Abstract Model class for transaction models

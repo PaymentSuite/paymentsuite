@@ -10,7 +10,7 @@
 
 namespace PaymentSuite\WebpayBundle\Controller;
 
-use PaymentSuite\WebpayBundle\Models\Normal;
+use PaymentSuite\WebpayBundle\Model\Normal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;

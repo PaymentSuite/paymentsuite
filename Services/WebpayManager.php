@@ -8,7 +8,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentDuplicatedException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\WebpayBundle\Models\Normal;
+use PaymentSuite\WebpayBundle\Model\Normal;
 use PaymentSuite\WebpayBundle\WebpayMethod;
 use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
 
