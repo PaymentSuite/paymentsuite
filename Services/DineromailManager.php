@@ -5,6 +5,7 @@ namespace PaymentSuite\DineromailBundle\Services;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\DineromailBundle\DineromailMethod;
+use Psr\Log\LoggerInterface;
 
 /**
  * Dineromail manager
@@ -12,6 +13,9 @@ use PaymentSuite\DineromailBundle\DineromailMethod;
 class DineromailManager
 {
 
+    const STATUS_PENDING = 1;
+    const STATUS_ACCEPTED = 2;
+    const STATUS_DENIED = 3;
     /**
      * @var PaymentEventDispatcher
      *
@@ -81,7 +85,7 @@ class DineromailManager
      * @param $merchantPwd
      * @param $logger
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $countryId, $merchantId, $merchantPwd, $logger)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $countryId, $merchantId, $merchantPwd, LoggerInterface $logger)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
@@ -139,7 +143,6 @@ class DineromailManager
                 $result .= fgets($fp);
             fclose($fp);
             $result = explode("\r\n\r\n", $result, 2);
-            $header = isset($result[0]) ? $result[0] : '';
             $content = isset($result[1]) ? str_replace("&", "", $result[1]) : '';
             $xmlStart = strpos($content, '<?');
             $xml = new \SimpleXMLElement(substr($content, $xmlStart, strrpos($content, '>') - $xmlStart + 1));
@@ -164,24 +167,25 @@ class DineromailManager
 
         $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction: '.$xml->asXML());
 
-        switch ($xml->ESTADO)
+        switch($status = $xml->ESTADO)
         {
-            case 1: // Pending, nothing to do
+            case self::STATUS_PENDING:
                 break;
-            case 2: // Accepted
+            case self::STATUS_ACCEPTED:
+            case self::STATUS_DENIED:
                 $paymentMethod->setDineromailTransactionId($xml->ID);
                 $paymentMethod->setAmount($xml->MONTO);
                 $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
-                $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
-                break;
-            case 3: // Denied
-                $paymentMethod->setDineromailTransactionId($xml->ID);
-                $paymentMethod->setAmount($xml->MONTO);
-                $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
-                $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
                 break;
             default:
-                break;
+        }
+
+        if ($status == self::STATUS_ACCEPTED) {
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        }
+
+        if ($status == self::STATUS_DENIED) {
+            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
         }
 
         return $this;
