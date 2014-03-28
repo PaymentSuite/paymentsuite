@@ -1,50 +1,44 @@
 services:
-    payu.encode:
-      class: Symfony\Component\Serializer\Encoder\JsonEncoder
 
-    payu.decode:
-      class: Symfony\Component\Serializer\Encoder\JsonDecoder
-
-    payu.form.type:
-        class: %payu.form.type.class%
-        arguments:
-            router: @router
-            payment.bridge: @payment.bridge
-            pagosonline.controller.route.name: %payu.controller.route.name%
-        tags:
-            - { name: form.type, alias: payu_view }
+    payu.encoder:
+        class: %payu.encoder.class%
 
     payu.manager:
-            class: %payu.manager.class%
-            arguments:
-                payment.event.dispatcher: @payment.event.dispatcher
-                payment.bridge: @payment.bridge
-                payu.host: %payu.host%
-                logger: @logger
-                payu.login: %payu.login%
-                payu.key: %payu.key%
-                payu.account_id: %payu.account_id%
-                payu.merchant_id: %payu.merchant_id%
-                payu.mode_test: %payu.mode_test%
-                encoder: @payu.encode
-
-
-
-    payu.twig.extension:
-        class: %payu.twig.extension.class%
+        class: %payu.manager.class%
         arguments:
-            form.factory: @form.factory
-            payment.bridge: @payment.bridge
-        tags:
-            - { name: twig.extension }
+            merchant.key: %payu.merchant.key%
+            merchant.id: %payu.merchant.id%
+            serializer: @serializer
 
-    payu.routes.loader:
-        class: %payu.routes.loader.class%
+    payu.visanet.routes.loader:
+        class: %payu.visanet.routes.loader.class%
         arguments:
-          payu.controller.route: %payu.controller.route%
-          payu.controller.route.name: %payu.controller.route.name%
-          payu.controller.route.response: %payu.controller.route.response%
-          payu.controller.route.response.name: %payu.controller.route.response.name%
-         # container: @service_container
+            payu.visanet.controller.route.execute.name: %payu.visanet.controller.route.execute.name%
+            payu.visanet.controller.route.execute.schemes: %payu.visanet.controller.route.execute.schemes%
+            payu.visanet.controller.route.execute: %payu.visanet.controller.route.execute%
         tags:
             - { name: routing.loader }
+    #
+    # Factories
+    #
+    payu.factory.payurequest:
+        class: %payu.factory.payurequest.class%
+        arguments:
+            payu.language: %payu.language%
+            payu.test: %payu.test%
+            payu.merchant.factory: @payu.factory.merchant
+
+    payu.factory.payutransaction:
+        class: %payu.factory.payutransaction.class%
+
+    payu.factory.merchant:
+        class: %payu.factory.merchant.class%
+        arguments:
+            payu.merchant.login: %payu.merchant.login%
+            payu.merchant.key: %payu.merchant.key%
+
+    payu.factory.order:
+        class: %payu.factory.order.class%
+        arguments:
+            payu.merchant.id: %payu.merchant.id%
+            payu.language: %payu.language%

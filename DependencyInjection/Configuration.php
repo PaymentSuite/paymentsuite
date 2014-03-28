@@ -1,21 +1,23 @@
 <?php
 
 /**
- * BanwireGatewayBundle for Symfony2
+ * PayuBundle for Symfony2
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package BanwireGatewayBundle
- *
+ * @package PayuBundle
  */
 
-namespace Scastells\PayuBundle\DependencyInjection;
+namespace PaymentSuite\PayuBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
+ *
+ * To learn more see
+ * {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
 class Configuration implements ConfigurationInterface
 {
@@ -29,67 +31,40 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('host')
+                ->scalarNode('language')
                     ->isRequired()
-                    ->cannotBeEmpty()
+                    ->validate()
+                    ->ifNotInArray(array('en', 'es', 'pt'))
+                        ->thenInvalid('Invalid language "%s"')
+                    ->end()
                 ->end()
-                ->scalarNode('host_report')
-                    ->isRequired()
-                    ->cannotBeEmpty()
+                ->booleanNode('test')
+                    ->defaultFalse()
                 ->end()
-                ->scalarNode('login')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('key')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('merchant_id')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('account_id')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('mode_test')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('controller_route')
-                    ->defaultValue('/payment/payu/execute')
-                ->end()
-                ->scalarNode('controller_route_response')
-                    ->defaultValue('/payment/payu/response')
-                ->end()
-                ->arrayNode('payment_success')
+                ->arrayNode('merchant')
                     ->children()
-                        ->scalarNode('route')
+                        ->scalarNode('login')
                             ->isRequired()
                             ->cannotBeEmpty()
                         ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('payment_fail')
-                    ->children()
-                        ->scalarNode('route')
+                        ->scalarNode('key')
                             ->isRequired()
                             ->cannotBeEmpty()
                         ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
+                        ->scalarNode('id')
+                            ->isRequired()
+                            ->cannotBeEmpty()
                         ->end()
                     ->end()
+                ->end()
+                ->scalarNode('visanet_controller_route_execute')
+                    ->defaultValue('/payment/visanet/execute')
+                ->end()
+                ->scalarNode('visanet_controller_route_execute_schemes')
+                    ->defaultValue('https')
+                ->end()
+                ->scalarNode('encoder_class')
+                    ->defaultValue('Symfony\Component\Serializer\Encoder\JsonEncoder')
                 ->end()
             ->end();
 

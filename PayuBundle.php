@@ -9,15 +9,20 @@
  *
  */
 
-namespace Scastells\PayuBundle;
+namespace PaymentSuite\PayuBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use PaymentSuite\PayuBundle\DependencyInjection\Compiler\SerializerPass;
 
 
 /**
- * PayuBundle payment bundle
+ * Payu payment bundle
  */
 class PayuBundle extends Bundle
 {
-
+    public function build(ContainerBuilder $builder)
+    {
+        $builder->addCompilerPass(new SerializerPass());
+    }
 }

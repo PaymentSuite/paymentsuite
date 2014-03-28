@@ -6,10 +6,9 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @package PayuBundle
- *
  */
 
-namespace Scastells\PayuBundle\Router;
+namespace PaymentSuite\PayuBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -17,77 +16,61 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * PayU router
+ * Visanet router
  */
-class PayuRoutesLoader implements LoaderInterface
+class VisanetRoutesLoader implements LoaderInterface
 {
+    /**
+     * @var string
+     *
+     * Execution route name
+     */
+    protected $executeRouteName;
 
     /**
      * @var string
-     * 
+     *
+     * Execution route schemes
+     */
+    protected $executeRouteSchemes;
+
+    /**
+     * @var string
+     *
      * Execution controller route
      */
-    private $controllerRoute;
-
-
-    /**
-     * @var string
-     * 
-     * Execution controller route name
-     */
-    private $controllerRouteName;
-
-
-    /**
-     * @var string
-     *
-     * Execution controller route response
-     */
-    private $controllerRouteResponse;
-
-
-    /**
-     * @var string
-     *
-     * Execution controller route  response name
-     */
-    private $controllerRouteResponseName;
-
+    protected $executeRoute;
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
-    private $loaded = false;
-
+    protected $loaded = false;
 
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
-     * @param string $controllerRouteName Controller route name
-     * @param $controllerRouteResponse Controller route
-     * @param $controllerRouteResponseName Controller route name
+     * @param string $executeRouteName    Execute route name
+     * @param string $executeRouteSchemes Execute route schemes
+     * @param string $executeRoute        Execute route
      */
-    public function __construct($controllerRoute, $controllerRouteName, $controllerRouteResponse, $controllerRouteResponseName)
+    public function __construct($executeRouteName, $executeRouteSchemes, $executeRoute)
     {
-        $this->controllerRoute = $controllerRoute;
-        $this->controllerRouteName = $controllerRouteName;
-        $this->controllerRouteResponse = $controllerRouteResponse;
-        $this->controllerRouteResponseName = $controllerRouteResponseName;
+        $this->executeRouteName = $executeRouteName;
+        $this->executeRouteSchemes = $executeRouteSchemes;
+        $this->executeRoute = $executeRoute;
     }
-
 
     /**
      * Loads a resource.
      *
-     * @param mixed $resource The resource
-     * @param string $type The resource type
+     * @param mixed  $resource The resource
+     * @param string $type     The resource type
      *
-     * @throws \RuntimeException Loader is added twice
      * @return RouteCollection
      *
+     * @throws \RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)
     {
@@ -97,20 +80,21 @@ class PayuRoutesLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-
-        $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
-                '_controller'   =>  'PayuBundle:Payu:execute',
-        )));
-
-
-        $routes->add($this->controllerRouteResponseName, new Route($this->controllerRouteResponse, array(
-            '_controller'   =>  'PayuBundle:Payu:response',
-        )));
+        $routes->add(
+            $this->executeRouteName,
+            new Route(
+                $this->executeRoute,
+                array('_controller' => 'PayuBundle:Visanet:execute'),
+                array(),
+                array(),
+                '',
+                $this->executeRouteSchemes
+            )
+        );
         $this->loaded = true;
 
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -122,9 +106,8 @@ class PayuRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'payu' === $type;
+        return 'visanet' === $type;
     }
-
 
     /**
      * Gets the loader resolver.
@@ -134,7 +117,6 @@ class PayuRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

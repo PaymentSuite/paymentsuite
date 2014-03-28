@@ -1,8 +1,9 @@
 parameters:
 
-    payu.controller.route.name: "payu_execute"
-    payu.controller.route.response.name: "payu_response"
-    payu.form.type.class: "Scastells\\PayuBundle\\Form\\Type\\PayuType"
-    payu.routes.loader.class: "Scastells\\PayuBundle\\Router\\PayuRoutesLoader"
-    payu.manager.class: "Scastells\\PayuBundle\\Services\\PayuManager"
-    payu.twig.extension.class: "Scastells\\PayuBundle\\Twig\\PayuExtension"
+    payu.manager.class: "PaymentSuite\\PayuBundle\\Services\\PayuManager"
+    payu.visanet.controller.route.execute.name: "payu_visanet_execute"
+    payu.visanet.routes.loader.class: "PaymentSuite\\PayuBundle\\Router\\VisanetRoutesLoader"
+    payu.factory.payurequest.class: "PaymentSuite\\PayuBundle\\Factory\\PayuRequestFactory"
+    payu.factory.payutransaction.class: "PaymentSuite\\PayuBundle\\Factory\\PayuTransactionFactory"
+    payu.factory.merchant.class: "PaymentSuite\\PayuBundle\\Factory\\MerchantFactory"
+    payu.factory.order.class: "PaymentSuite\\PayuBundle\\Factory\\OrderFactory"
