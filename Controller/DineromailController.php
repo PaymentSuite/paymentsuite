@@ -39,7 +39,7 @@ class DineromailController extends Controller
      * @Method("POST")
      * @Template()
      */
-    public function executeAction(Request $request)
+    public function executeAction()
     {
         $paymentMethod = new DineromailMethod;
         $paymentBridge = $this->get('payment.bridge');
@@ -121,9 +121,6 @@ class DineromailController extends Controller
      */
     public function processAction(Request $request)
     {
-        $paymentBridge = $this->get('payment.bridge');
-        $paymentMethod = new DineromailMethod();
-
         if ($notificacion = $request->request->get('Notificacion')) {
             $xml = simplexml_load_string($notificacion);
             if ($xml instanceof \SimpleXMLElement) {
