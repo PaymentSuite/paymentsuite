@@ -10,9 +10,12 @@
 
 namespace PaymentSuite\PayuBundle\Controller;
 
+use PaymentSuite\PayuBundle\Model\AdditionalValue;
 use PaymentSuite\PayuBundle\Model\AuthorizationAndCaptureTransaction;
 use PaymentSuite\PayuBundle\Model\Order;
 use PaymentSuite\PayuBundle\Model\SubmitTransactionRequest;
+use PaymentSuite\PayuBundle\Model\User;
+use PaymentSuite\PayuBundle\PayuAdditionalValueTypes;
 use PaymentSuite\PayuBundle\PayuRequestTypes;
 use PaymentSuite\PayuBundle\PayuTransactionTypes;
 use PaymentSuite\PayuBundle\Services\PayuManager;
@@ -54,25 +57,38 @@ class VisanetController extends Controller
             throw new PaymentOrderNotFoundException;
         }
 
+        /** @var $manager PayuManager */
+        $manager = $this->get('payu.manager');
+
         $reference = $paymentBridge->getExtraData()['reference'];
         $amount = $paymentBridge->getAmount();
         $currency = $paymentBridge->getCurrency();
+        $userEmail = $paymentBridge->getExtraData()['customer_email'];
 
-        /** @var $manager PayuManager */
-        $manager = $this->get('payu.manager');
+        /** @var $buyer User */
+        $buyer = $this->get('payu.factory.user')->create();
+        $buyer->setEmailAddress($userEmail);
+        /** @var $additionalValue AdditionalValue */
+        $additionalValue = $this->get('payu.factory.additionalvalue')->create();
+        $additionalValue->setValue($amount);
+        $additionalValue->setCurrency($currency);
         /** @var $order Order */
         $order = $this->get('payu.factory.order')->create();
         $order->setReferenceCode($reference);
         $order->setDescription($paymentBridge->getExtraData()['description']);
         $order->setSignature($manager->getSignature($reference, $amount, $currency));
+        $order->setBuyer($buyer);
+        $order->setAdditionalValues($additionalValue, PayuAdditionalValueTypes::TYPE_TX_VALUE);
         /** @var $transaction AuthorizationAndCaptureTransaction */
         $transaction = $this->get('payu.factory.payutransaction')->create(PayuTransactionTypes::TYPE_AUTHORIZATION_AND_CAPTURE);
         $transaction->setOrder($order);
+        $transaction->setPaymentMethod('VISA');
+        $transaction->setSource('WEB');
         /** @var $request SubmitTransactionRequest */
         $request = $this->get('payu.factory.payurequest')->create(PayuRequestTypes::TYPE_SUBMIT_TRANSACTION);
         $request->setTransaction($transaction);
 
-        $response = $manager->processAuthorizationAndCapture($request);
+        $response = $manager->processPaymentRequest($request);
         $orderId = $paymentBridge->getOrderId();
 /*        $sessionId = $this->get('Payu.manager')->processPayment();
 

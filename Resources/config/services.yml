@@ -6,6 +6,7 @@ services:
     payu.manager:
         class: %payu.manager.class%
         arguments:
+            use.stg: %payu.use.stg%
             merchant.key: %payu.merchant.key%
             merchant.id: %payu.merchant.id%
             serializer: @serializer
@@ -40,5 +41,11 @@ services:
     payu.factory.order:
         class: %payu.factory.order.class%
         arguments:
-            payu.merchant.id: %payu.merchant.id%
+            payu.account.id: %payu.merchant.account_id%
             payu.language: %payu.language%
+
+    payu.factory.user:
+        class: %payu.factory.user.class%
+
+    payu.factory.additionalvalue:
+        class: %payu.factory.additionalvalue.class%

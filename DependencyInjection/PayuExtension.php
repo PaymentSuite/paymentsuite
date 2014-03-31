@@ -34,10 +34,12 @@ class PayuExtension extends Extension
         $container->setParameter('payu.encoder.class', $config['encoder_class']);
 
         $container->setParameter('payu.language', $config['language']);
+        $container->setParameter('payu.use.stg', $config['use_stg_servers']);
         $container->setParameter('payu.test', $config['test']);
         $container->setParameter('payu.merchant.login', $config['merchant']['login']);
         $container->setParameter('payu.merchant.key', $config['merchant']['key']);
         $container->setParameter('payu.merchant.id', $config['merchant']['id']);
+        $container->setParameter('payu.merchant.account_id', $config['merchant']['account_id']);
 
         $container->setParameter('payu.visanet.controller.route.execute', $config['visanet_controller_route_execute']);
         $container->setParameter('payu.visanet.controller.route.execute.schemes', $config['visanet_controller_route_execute_schemes']);

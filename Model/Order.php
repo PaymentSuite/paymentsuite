@@ -112,13 +112,17 @@ class Order
     /**
      * Sets AdditionalValues
      *
-     * @param array $additionalValues AdditionalValues
+     * @param AdditionalValue $additionalValue Additional Value
+     * @param string          $type            Additional Value type
      *
      * @return Order Self object
      */
-    public function setAdditionalValues($additionalValues)
+    public function setAdditionalValues(AdditionalValue $additionalValue, $type)
     {
-        $this->additionalValues = $additionalValues;
+        $value = [
+            $type => $additionalValue
+        ];
+        $this->additionalValues = $value;
 
         return $this;
     }
