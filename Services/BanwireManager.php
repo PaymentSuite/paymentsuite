@@ -20,7 +20,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\BanwireBundle\BanwireMethod;
-use Buzz\Browser as Buzz;
 
 /**
  * Banwire manager
@@ -59,15 +58,6 @@ class BanwireManager
      */
     private $api;
 
-
-    /**
-     * @var Buzz
-     *
-     * Buzz
-     */
-    private $buzz;
-
-
     /**
      * Construct method for banwire manager
      *
@@ -77,11 +67,10 @@ class BanwireManager
      * @param $api                   $api
      * @param $logger                $logger
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, Buzz $buzz, $user, $api)
+    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, $user, $api)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
-        $this->buzz = $buzz;
         $this->user = $user;
         $this->api = $api;
     }
@@ -90,7 +79,6 @@ class BanwireManager
     /**
      * Tries to process a payment through Banwire
      *
-     * @param Buzz
      * @param BanwireMethod $paymentMethod Payment method
      * @param float         $amount        Amount
      *
@@ -108,7 +96,6 @@ class BanwireManager
          * If both amounts are different, execute Exception
          */
         if (abs($amount - $paymentBridgeAmount) > 0.00001) {
-
             throw new PaymentAmountsNotMatchException;
         }
 
@@ -124,7 +111,6 @@ class BanwireManager
          * Order Not found Exception must be thrown just here
          */
         if (!$this->paymentBridge->getOrder()) {
-
             throw new PaymentOrderNotFoundException;
         }
 

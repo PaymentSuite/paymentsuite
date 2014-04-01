@@ -19,7 +19,6 @@
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
-        "sensio/buzz-bundle": "1.0.0",
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "target-dir": "PaymentSuite/BanwireBundle",
