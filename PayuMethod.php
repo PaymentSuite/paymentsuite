@@ -11,6 +11,7 @@
 namespace PaymentSuite\PayuBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PayuBundle\Model\TransactionResponse;
 
 /**
  * PayuMethod
@@ -23,6 +24,13 @@ class PayuMethod implements PaymentMethodInterface
     const METHOD_NAME = 'Payu';
 
     /**
+     * @var TransactionResponse
+     *
+     * Transaction
+     */
+    protected $transaction;
+
+    /**
      * Get Payu method name
      *
      * @return string Payment name
@@ -30,5 +38,29 @@ class PayuMethod implements PaymentMethodInterface
     public function getPaymentName()
     {
         return $this::METHOD_NAME;
+    }
+
+    /**
+     * Sets Transaction
+     *
+     * @param \PaymentSuite\PayuBundle\Model\TransactionResponse $transaction Transaction
+     *
+     * @return PayuMethod Self object
+     */
+    public function setTransaction($transaction)
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    /**
+     * Get Transaction
+     *
+     * @return \PaymentSuite\PayuBundle\Model\TransactionResponse Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
     }
 }

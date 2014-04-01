@@ -1,8 +1,5 @@
 services:
 
-    payu.encoder:
-        class: %payu.encoder.class%
-
     payu.manager:
         class: %payu.manager.class%
         arguments:

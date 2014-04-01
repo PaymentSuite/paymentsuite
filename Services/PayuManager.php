@@ -11,14 +11,26 @@
 namespace PaymentSuite\PayuBundle\Services;
 
 use JMS\Serializer\Serializer;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuRequest;
 use PaymentSuite\PayuBundle\Model\PaymentResponse;
+use PaymentSuite\PayuBundle\Model\TransactionResponse;
 
 /**
  * PayuManager
  */
 class PayuManager
 {
+    /**
+     * Payu Response success code
+     */
+    const PAYU_CODE_SUCCESS = 'SUCCESS';
+
+    /**
+     * Payu Response error code
+     */
+    const PAYU_CODE_ERROR = 'ERROR';
+
     /**
      * Payu Payment server
      */
@@ -102,13 +114,18 @@ class PayuManager
      *
      * @param PayuRequest $request Payu Request
      *
-     * @return PaymentResponse Payu Response
+     * @return TransactionResponse Payu Response
      */
     public function processPaymentRequest(PayuRequest $request)
     {
+        /** @var PaymentResponse $response */
         $response = $this->processRequest($request, $this->paymentServer, 'PaymentSuite\PayuBundle\Model\PaymentResponse');
 
-        die(var_dump($response));
+        if ($response->getCode() != self::PAYU_CODE_SUCCESS) {
+            throw new PaymentException($response->getError());
+        }
+
+        return $response->getTransactionResponse();
     }
 
     /**
@@ -152,8 +169,6 @@ class PayuManager
         ));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
         $jsonResponse = curl_exec($ch);
-        //$jsonResponse = '{"code":"SUCCESS","error":null,"transactionResponse":{"orderId":3230260,"transactionId":"1fe526f7-6c42-422b-92b2-0d8e3e43cc72","state":"ERROR","paymentNetworkResponseCode":null,"paymentNetworkResponseErrorMessage":null,"trazabilityCode":null,"authorizationCode":null,"pendingReason":null,"responseCode":"ENTITY_DECLINED","errorCode":"ENTITY_NO_RESPONSE","responseMessage":null,"transactionDate":null,"transactionTime":null,"operationDate":null,"extraParameters":null}}';
-        //$jsonResponse = '{"code":"SUCCESS","error":null,"transactionResponse":{"orderId":38549360,"transactionId":"7c384b37-507d-4c7b-8a49-4f74c2e8ef7c","state":"PENDING","paymentNetworkResponseCode":null,"paymentNetworkResponseErrorMessage":null,"trazabilityCode":"0500560091711403310831171620","authorizationCode":null,"pendingReason":"AWAITING_NOTIFICATION","responseCode":"PENDING_TRANSACTION_CONFIRMATION","errorCode":null,"responseMessage":null,"transactionDate":null,"transactionTime":null,"operationDate":1396272692675,"extraParameters":{"VISANET_PE_URL":"https://www.multimerchantvisanet.com/formularioweb/formulariopago.asp"}}}';
         $response = $this->serializer->deserialize($jsonResponse, $responseClass, 'json');
 
         return $response;

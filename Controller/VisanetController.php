@@ -10,6 +10,7 @@
 
 namespace PaymentSuite\PayuBundle\Controller;
 
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PayuBundle\Model\AdditionalValue;
 use PaymentSuite\PayuBundle\Model\AuthorizationAndCaptureTransaction;
 use PaymentSuite\PayuBundle\Model\Order;
@@ -88,38 +89,53 @@ class VisanetController extends Controller
         $request = $this->get('payu.factory.payurequest')->create(PayuRequestTypes::TYPE_SUBMIT_TRANSACTION);
         $request->setTransaction($transaction);
 
-        $response = $manager->processPaymentRequest($request);
-        $orderId = $paymentBridge->getOrderId();
-/*        $sessionId = $this->get('Payu.manager')->processPayment();
+        try {
+            $redirectRoute = '';
+            $redirectData = '';
+            $response = $manager->processPaymentRequest($request);
 
-        // Generate ok and fail URLs
-        $successRoute = $this->container->getParameter('Payu.success.route');
-        $successRouteAppend = $this->container->getParameter('Payu.success.order.append');
-        $successRouteAppendField = $this->container->getParameter('Payu.success.order.field');
-        $successRouteData = $successRouteAppend ? array($successRouteAppendField => $orderId) : array();
-        $successUrl = $this->generateUrl($successRoute, $successRouteData, true);
+            $paymentMethod->setTransaction($response);
+            $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 
-        $failRoute = $this->container->getParameter('Payu.fail.route');
-        $failRouteAppend = $this->container->getParameter('Payu.fail.order.append');
-        $failRouteAppendField = $this->container->getParameter('Payu.fail.order.field');
-        $failRouteData = $failRouteAppend ? array($failRouteAppendField => $orderId) : array();
-        $failUrl = $this->generateUrl($failRoute, $failRouteData, true);
+            switch ($response->getState()) {
+                case 'APPROVED':
+                    $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
+                    $redirectRoute = $this->container->getParameter('payu.success.route');
+                    $redirectData = $this->container->getParameter('payu.success.order.append')
+                        ? array($this->container->getParameter('payu.success.order.field') => $paymentBridge->getOrderId())
+                        : array();
+                    break;
+                case 'PENDING':
+                    if (!$response->getExtraParameters()['VISANET_PE_URL'] || !$response->getTrazabilityCode()) {
+                        $redirectRoute = $this->container->getParameter('payu.success.route');
+                        $redirectData = $this->container->getParameter('payu.success.order.append')
+                            ? array($this->container->getParameter('payu.success.order.field') => $paymentBridge->getOrderId())
+                            : array();
+                    }
+                    break;
+                default:
+                    $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
+                    $redirectRoute = $this->container->getParameter('payu.fail.route');
+                    $redirectData = $this->container->getParameter('payu.fail.order.append')
+                        ? array($this->container->getParameter('payu.fail.order.field') => $paymentBridge->getOrderId())
+                        : array();
+                    break;
+            }
+        } catch (PaymentException $e) {
+            $redirectRoute = $this->container->getParameter('payu.fail.route');
+            $redirectData = $this->container->getParameter('payu.fail.order.append')
+                ? array($this->container->getParameter('payu.fail.order.field') => $paymentBridge->getOrderId())
+                : array();
+        }
 
-        // Notify payment done
-        $paymentMethod->setSessionId($sessionId);
-        $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
+        if ($redirectRoute){
 
-        // Generate form
-        $formView = $this
-            ->get('Payu.form.type.wrapper')
-            ->buildForm($sessionId, $successUrl, $failUrl)
-            ->getForm()
-            ->createView();
-*/
+            return $this->redirect($this->generateUrl($redirectRoute, $redirectData));
+        }
 
         return array(
-            'visanet_url' => '',
-            'visanet_eticket' => ''
+            'visanet_url' => $response->getExtraParameters()['VISANET_PE_URL'],
+            'visanet_eticket' => $response->getTrazabilityCode()
         );
     }
 }

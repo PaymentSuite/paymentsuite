@@ -344,4 +344,28 @@ class TransactionResponse
     {
         return $this->trazabilityCode;
     }
+
+    /**
+     * Sets ExtraParameters
+     *
+     * @param array $extraParameters ExtraParameters
+     *
+     * @return TransactionResponse Self object
+     */
+    public function setExtraParameters($extraParameters)
+    {
+        $this->extraParameters = $extraParameters;
+
+        return $this;
+    }
+
+    /**
+     * Get ExtraParameters
+     *
+     * @return array ExtraParameters
+     */
+    public function getExtraParameters()
+    {
+        return $this->extraParameters;
+    }
 }
