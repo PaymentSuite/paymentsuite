@@ -23,9 +23,9 @@ class PaypalExpressCheckoutTransactionWrapper
     public $errors = array();
     public $response = null;
 
-    public function __construct($user, $pwd, $signature, $endpoint, $debug = false) {
+    public function __construct($user, $password, $signature, $endpoint, $debug = false) {
         $this->user = $user;
-        $this->pwd = $pwd;
+        $this->password = $password;
         $this->signature = $signature;
         $this->endpoint = $endpoint;
         if (true === $debug) {
@@ -39,7 +39,7 @@ class PaypalExpressCheckoutTransactionWrapper
                 'VERSION' => '74.0',
                 'USER'   => $this->user,
                 'SIGNATURE' => $this->signature,
-                'PWD'    => $this->pwd
+                'PWD'    => $this->password
         ));
         $params = http_build_query($params);
         $curl = curl_init();
