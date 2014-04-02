@@ -35,4 +35,25 @@ class PayuRequestTypes
      * SUBMIT_TRANSACTION request
      */
     const TYPE_SUBMIT_TRANSACTION = 'SUBMIT_TRANSACTION';
+
+    /**
+     * @var string
+     *
+     * TRANSACTION_RESPONSE_DETAIL request
+     */
+    const TYPE_TRANSACTION_RESPONSE_DETAIL = 'TRANSACTION_RESPONSE_DETAIL';
+
+    /**
+     * @var string
+     *
+     * ORDER_DETAIL request
+     */
+    const TYPE_ORDER_DETAIL = 'ORDER_DETAIL';
+
+    /**
+     * @var string
+     *
+     * ORDER_DETAIL_BY_REFERENCE_CODE request
+     */
+    const TYPE_ORDER_DETAIL_BY_REFERENCE_CODE = 'ORDER_DETAIL_BY_REFERENCE_CODE';
 }

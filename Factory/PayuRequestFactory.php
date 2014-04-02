@@ -11,9 +11,12 @@
 namespace PaymentSuite\PayuBundle\Factory;
 
 use PaymentSuite\PayuBundle\Model\GetPaymentMethodsRequest;
-use PaymentSuite\PayuBundle\Model\PayuRequest;
+use PaymentSuite\PayuBundle\Model\Abstracts\PayuRequest;
+use PaymentSuite\PayuBundle\Model\OrderDetailByReferenceCodeRequest;
+use PaymentSuite\PayuBundle\Model\OrderDetailRequest;
 use PaymentSuite\PayuBundle\Model\PingRequest;
 use PaymentSuite\PayuBundle\Model\SubmitTransactionRequest;
+use PaymentSuite\PayuBundle\Model\TransactionResponseDetailRequest;
 use PaymentSuite\PayuBundle\PayuRequestTypes;
 
 /**
@@ -74,6 +77,15 @@ class PayuRequestFactory
                 break;
             case PayuRequestTypes::TYPE_SUBMIT_TRANSACTION:
                 $request = new SubmitTransactionRequest();
+                break;
+            case PayuRequestTypes::TYPE_TRANSACTION_RESPONSE_DETAIL:
+                $request = new TransactionResponseDetailRequest();
+                break;
+            case PayuRequestTypes::TYPE_ORDER_DETAIL:
+                $request = new OrderDetailRequest();
+                break;
+            case PayuRequestTypes::TYPE_ORDER_DETAIL_BY_REFERENCE_CODE:
+                $request = new OrderDetailByReferenceCodeRequest();
                 break;
             default:
                 throw new \Exception('Request type '.$type.' not supported');

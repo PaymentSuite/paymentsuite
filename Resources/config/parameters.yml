@@ -9,3 +9,4 @@ parameters:
     payu.factory.order.class: "PaymentSuite\\PayuBundle\\Factory\\OrderFactory"
     payu.factory.user.class: "PaymentSuite\\PayuBundle\\Factory\\UserFactory"
     payu.factory.additionalvalue.class: "PaymentSuite\\PayuBundle\\Factory\\AdditionalValueFactory"
+    payu.factory.details.class: "PaymentSuite\\PayuBundle\\Factory\\PayuDetailsFactory"

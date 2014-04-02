@@ -8,36 +8,18 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle;
+namespace PaymentSuite\PayuBundle\Model;
 
-use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
- * PayuMethod
+ * TransactionResponseDetailPayload Model
  */
-class PayuMethod implements PaymentMethodInterface
+class TransactionResponseDetailPayload
 {
     /**
-     * Method name
-     */
-    const METHOD_NAME = 'Payu';
-
-    /**
      * @var string
-     *
-     * orderId
-     */
-    protected $orderId;
-
-    /**
-     * @var string
-     *
-     * transactionId
-     */
-    protected $transactionId;
-
-    /**
-     * @var string
+     * @JMS\Type("string")
      *
      * state
      */
@@ -45,6 +27,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * responseCode
      */
@@ -52,6 +35,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * paymentNetworkResponseCode
      */
@@ -59,6 +43,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * paymentNetworkResponseErrorMessage
      */
@@ -66,6 +51,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * trazabilityCode
      */
@@ -73,6 +59,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * authorizationCode
      */
@@ -80,6 +67,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * responseMessage
      */
@@ -87,6 +75,7 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var string
+     * @JMS\Type("string")
      *
      * operationDate
      */
@@ -94,51 +83,18 @@ class PayuMethod implements PaymentMethodInterface
 
     /**
      * @var array
+     * @JMS\Type("array")
      *
      * extraParameters
      */
     protected $extraParameters;
 
     /**
-     * Get Payu method name
-     *
-     * @return string Payment name
-     */
-    public function getPaymentName()
-    {
-        return $this::METHOD_NAME;
-    }
-
-    /**
-     * Sets State
-     *
-     * @param string $state State
-     *
-     * @return PayuMethod Self object
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     * Get State
-     *
-     * @return string State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
      * Sets AuthorizationCode
      *
      * @param string $authorizationCode AuthorizationCode
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setAuthorizationCode($authorizationCode)
     {
@@ -162,7 +118,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param array $extraParameters ExtraParameters
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setExtraParameters($extraParameters)
     {
@@ -186,7 +142,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param string $operationDate OperationDate
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setOperationDate($operationDate)
     {
@@ -210,7 +166,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param string $paymentNetworkResponseCode PaymentNetworkResponseCode
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setPaymentNetworkResponseCode($paymentNetworkResponseCode)
     {
@@ -234,7 +190,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param string $paymentNetworkResponseErrorMessage PaymentNetworkResponseErrorMessage
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setPaymentNetworkResponseErrorMessage($paymentNetworkResponseErrorMessage)
     {
@@ -258,7 +214,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param string $responseCode ResponseCode
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setResponseCode($responseCode)
     {
@@ -282,7 +238,7 @@ class PayuMethod implements PaymentMethodInterface
      *
      * @param string $responseMessage ResponseMessage
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setResponseMessage($responseMessage)
     {
@@ -302,11 +258,35 @@ class PayuMethod implements PaymentMethodInterface
     }
 
     /**
+     * Sets State
+     *
+     * @param string $state State
+     *
+     * @return TransactionResponseDetailPayload Self object
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get State
+     *
+     * @return string State
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
      * Sets TrazabilityCode
      *
      * @param string $trazabilityCode TrazabilityCode
      *
-     * @return PayuMethod Self object
+     * @return TransactionResponseDetailPayload Self object
      */
     public function setTrazabilityCode($trazabilityCode)
     {
@@ -323,53 +303,5 @@ class PayuMethod implements PaymentMethodInterface
     public function getTrazabilityCode()
     {
         return $this->trazabilityCode;
-    }
-
-    /**
-     * Sets OrderId
-     *
-     * @param string $orderId OrderId
-     *
-     * @return PayuMethod Self object
-     */
-    public function setOrderId($orderId)
-    {
-        $this->orderId = $orderId;
-
-        return $this;
-    }
-
-    /**
-     * Get OrderId
-     *
-     * @return string OrderId
-     */
-    public function getOrderId()
-    {
-        return $this->orderId;
-    }
-
-    /**
-     * Sets TransactionId
-     *
-     * @param string $transactionId TransactionId
-     *
-     * @return PayuMethod Self object
-     */
-    public function setTransactionId($transactionId)
-    {
-        $this->transactionId = $transactionId;
-
-        return $this;
-    }
-
-    /**
-     * Get TransactionId
-     *
-     * @return string TransactionId
-     */
-    public function getTransactionId()
-    {
-        return $this->transactionId;
     }
 }

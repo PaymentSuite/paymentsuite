@@ -7,6 +7,10 @@ services:
             merchant.key: %payu.merchant.key%
             merchant.id: %payu.merchant.id%
             serializer: @serializer
+            request.factory: @payu.factory.payurequest
+            details.factory: @payu.factory.details
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.bridge: @payment.bridge
 
     payu.visanet.routes.loader:
         class: %payu.visanet.routes.loader.class%
@@ -46,3 +50,6 @@ services:
 
     payu.factory.additionalvalue:
         class: %payu.factory.additionalvalue.class%
+
+    payu.factory.details:
+        class: %payu.factory.details.class%

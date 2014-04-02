@@ -94,7 +94,16 @@ class VisanetController extends Controller
             $redirectData = '';
             $response = $manager->processPaymentRequest($request);
 
-            $paymentMethod->setTransaction($response);
+            $paymentMethod
+                ->setState($response->getState())
+                ->setResponseMessage($response->getResponseMessage())
+                ->setResponseCode($response->getResponseCode())
+                ->setPaymentNetworkResponseErrorMessage($response->getPaymentNetworkResponseErrorMessage())
+                ->setAuthorizationCode($response->getAuthorizationCode())
+                ->setExtraParameters($response->getExtraParameters())
+                ->setOperationDate($response->getOperationDate())
+                ->setPaymentNetworkResponseCode($response->getPaymentNetworkResponseCode())
+                ->setTrazabilityCode($response->getTrazabilityCode());
             $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 
             switch ($response->getState()) {

@@ -12,9 +12,20 @@ namespace PaymentSuite\PayuBundle\Services;
 
 use JMS\Serializer\Serializer;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PayuBundle\Factory\PayuDetailsFactory;
+use PaymentSuite\PayuBundle\Factory\PayuRequestFactory;
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuRequest;
 use PaymentSuite\PayuBundle\Model\PaymentResponse;
 use PaymentSuite\PayuBundle\Model\TransactionResponse;
+use PaymentSuite\PayuBundle\Model\TransactionResponseDetailDetails;
+use PaymentSuite\PayuBundle\Model\TransactionResponseDetailPayload;
+use PaymentSuite\PayuBundle\Model\TransactionResponseDetailRequest;
+use PaymentSuite\PayuBundle\Model\TransactionResponseDetailResponse;
+use PaymentSuite\PayuBundle\PayuDetailsTypes;
+use PaymentSuite\PayuBundle\PayuMethod;
+use PaymentSuite\PayuBundle\PayuRequestTypes;
 
 /**
  * PayuManager
@@ -87,14 +98,48 @@ class PayuManager
     protected $serializer;
 
     /**
+     * @var PayuRequestFactory
+     *
+     * requestFactory
+     */
+    protected $requestFactory;
+
+    /**
+     * @var PayuDetailsFactory
+     *
+     * detailsFactory
+     */
+    protected $detailsFactory;
+
+    /**
+     * @var PaymentEventDispatcher
+     *
+     * paymentEventDispatcher
+     */
+    protected $paymentEventDispatcher;
+
+    /**
+     * @var PaymentBridgeInterface
+     *
+     * paymentBridge
+     */
+    protected $paymentBridge;
+
+    /**
      * Construct method
      *
-     * @param boolean    $useStage    Use Payu stage servers
-     * @param string     $merchantKey Merchant Key
-     * @param string     $merchantId  Merchant Id
-     * @param Serializer $serializer  Serializer
+     * @param boolean            $useStage       Use Payu stage servers
+     * @param string             $merchantKey    Merchant Key
+     * @param string             $merchantId     Merchant Id
+     * @param Serializer         $serializer     Serializer
+     * @param PayuRequestFactory $requestFactory Request Factory
+     * @param PayuDetailsFactory $detailsFactory Details Factory
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      */
-    public function __construct($useStage, $merchantKey, $merchantId, Serializer $serializer)
+    public function __construct($useStage, $merchantKey, $merchantId, Serializer $serializer,
+                                PayuRequestFactory $requestFactory, PayuDetailsFactory $detailsFactory,
+                                PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge)
     {
         if ($useStage) {
             $this->paymentServer = $this::PAYU_PAYMENT_STAGE_SERVER;
@@ -104,9 +149,13 @@ class PayuManager
             $this->reportServer = $this::PAYU_REPORT_SERVER;
         }
         $this->useStage = $useStage;
-        $this->serializer = $serializer;
         $this->merchantKey = $merchantKey;
         $this->merchantId = $merchantId;
+        $this->serializer = $serializer;
+        $this->requestFactory = $requestFactory;
+        $this->detailsFactory = $detailsFactory;
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
+        $this->paymentBridge = $paymentBridge;
     }
 
     /**
@@ -129,6 +178,25 @@ class PayuManager
     }
 
     /**
+     * Process Payment Request
+     *
+     * @param TransactionResponseDetailRequest $request TransactionResponseDetail Request
+     *
+     * @return TransactionResponseDetailPayload TransactionResponseDetail Payload
+     */
+    public function processTransactionResponseDetailRequest(TransactionResponseDetailRequest $request)
+    {
+        /** @var TransactionResponseDetailResponse $response */
+        $response = $this->processRequest($request, $this->reportServer, 'PaymentSuite\PayuBundle\Model\TransactionResponseDetailResponse');
+
+        if ($response->getCode() != self::PAYU_CODE_SUCCESS) {
+            throw new PaymentException($response->getError());
+        }
+
+        return $response->getResult()->getPayload();
+    }
+
+    /**
      * Calculate signature
      *
      * @return string Transaction signature
@@ -138,6 +206,51 @@ class PayuManager
         $signature = md5($this->merchantKey.'~'.$this->merchantId.'~'.$reference.'~'.$amount.'~'.$currency);
 
         return $signature;
+    }
+
+    /**
+     * Check transaction status
+     *
+     * @param string $transactionId Payu transaction ID
+     */
+    public function checkTransactionStatus($transactionId)
+    {
+        /** @var TransactionResponseDetailDetails $details */
+        $details = $this->detailsFactory->create(PayuDetailsTypes::TYPE_TRANSACTION_RESPONSE_DETAIL);
+        $details->setTransactionId($transactionId);
+        /** @var $request TransactionResponseDetailRequest */
+        $request = $this->requestFactory->create(PayuRequestTypes::TYPE_TRANSACTION_RESPONSE_DETAIL);
+        $request->setDetails($details);
+
+        try {
+            $payload = $this->processTransactionResponseDetailRequest($request);
+            $paymentMethod = new PayuMethod();
+            $paymentMethod
+                ->setTransactionId($transactionId)
+                ->setState($payload->getState())
+                ->setResponseMessage($payload->getResponseMessage())
+                ->setResponseCode($payload->getResponseCode())
+                ->setPaymentNetworkResponseErrorMessage($payload->getPaymentNetworkResponseErrorMessage())
+                ->setAuthorizationCode($payload->getAuthorizationCode())
+                ->setExtraParameters($payload->getExtraParameters())
+                ->setOperationDate($payload->getOperationDate())
+                ->setPaymentNetworkResponseCode($payload->getPaymentNetworkResponseCode())
+                ->setTrazabilityCode($payload->getTrazabilityCode());
+
+            switch ($payload->getState()) {
+                case 'APPROVED':
+                    $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+                    $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+                    break;
+                case 'PENDING':
+                    break;
+                default:
+                    $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+                    $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
+                    break;
+            }
+        } catch (PaymentException $e) {
+        }
     }
 
     /**
