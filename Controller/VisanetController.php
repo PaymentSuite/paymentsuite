@@ -10,6 +10,13 @@
 
 namespace PaymentSuite\PayuBundle\Controller;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PayuBundle\Model\AdditionalValue;
 use PaymentSuite\PayuBundle\Model\AuthorizationAndCaptureTransaction;
@@ -20,11 +27,6 @@ use PaymentSuite\PayuBundle\PayuAdditionalValueTypes;
 use PaymentSuite\PayuBundle\PayuRequestTypes;
 use PaymentSuite\PayuBundle\PayuTransactionTypes;
 use PaymentSuite\PayuBundle\Services\PayuManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PayuBundle\VisanetMethod;
 
@@ -46,7 +48,7 @@ class VisanetController extends Controller
      *
      * @Template()
      */
-    public function executeAction(Request $request)
+    public function executeAction()
     {
         $paymentMethod = new VisanetMethod();
         $paymentBridge = $this->get('payment.bridge');
@@ -79,6 +81,7 @@ class VisanetController extends Controller
         $order->setDescription($paymentBridge->getExtraData()['description']);
         $order->setSignature($manager->getSignature($reference, $amount, $currency));
         $order->setBuyer($buyer);
+        $order->setNotifyUrl($this->generateUrl('payu_notify', array(), UrlGeneratorInterface::ABSOLUTE_URL));
         $order->setAdditionalValues($additionalValue, PayuAdditionalValueTypes::TYPE_TX_VALUE);
         /** @var $transaction AuthorizationAndCaptureTransaction */
         $transaction = $this->get('payu.factory.payutransaction')->create(PayuTransactionTypes::TYPE_AUTHORIZATION_AND_CAPTURE);

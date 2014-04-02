@@ -1,8 +1,10 @@
 parameters:
 
-    payu.manager.class: "PaymentSuite\\PayuBundle\\Services\\PayuManager"
+    payu.controller.route.notify.name: "payu_notify"
+    payu.routes.loader.class: "PaymentSuite\\PayuBundle\\Router\\PayuRoutesLoader"
     payu.visanet.controller.route.execute.name: "payu_visanet_execute"
     payu.visanet.routes.loader.class: "PaymentSuite\\PayuBundle\\Router\\VisanetRoutesLoader"
+    payu.manager.class: "PaymentSuite\\PayuBundle\\Services\\PayuManager"
     payu.factory.payurequest.class: "PaymentSuite\\PayuBundle\\Factory\\PayuRequestFactory"
     payu.factory.payutransaction.class: "PaymentSuite\\PayuBundle\\Factory\\PayuTransactionFactory"
     payu.factory.merchant.class: "PaymentSuite\\PayuBundle\\Factory\\MerchantFactory"

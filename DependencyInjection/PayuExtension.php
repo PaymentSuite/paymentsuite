@@ -31,8 +31,6 @@ class PayuExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-//        $container->setParameter('payu.encoder.class', $config['encoder_class']);
-
         $container->setParameter('payu.language', $config['language']);
         $container->setParameter('payu.use.stg', $config['use_stg_servers']);
         $container->setParameter('payu.test', $config['test']);
@@ -41,6 +39,8 @@ class PayuExtension extends Extension
         $container->setParameter('payu.merchant.id', $config['merchant']['id']);
         $container->setParameter('payu.merchant.account_id', $config['merchant']['account_id']);
 
+        $container->setParameter('payu.controller.route.notify', $config['payu_controller_route_notify']);
+        $container->setParameter('payu.controller.route.notify.schemes', $config['payu_controller_route_notify_schemes']);
         $container->setParameter('payu.visanet.controller.route.execute', $config['visanet_controller_route_execute']);
         $container->setParameter('payu.visanet.controller.route.execute.schemes', $config['visanet_controller_route_execute_schemes']);
 

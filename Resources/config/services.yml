@@ -12,6 +12,15 @@ services:
             payment.event.dispatcher: @payment.event.dispatcher
             payment.bridge: @payment.bridge
 
+    payu.routes.loader:
+        class: %payu.routes.loader.class%
+        arguments:
+            payu.controller.route.notify.name: %payu.controller.route.notify.name%
+            payu.controller.route.notify.schemes: %payu.controller.route.notify.schemes%
+            payu.controller.route.notify: %payu.controller.route.notify%
+        tags:
+            - { name: routing.loader }
+
     payu.visanet.routes.loader:
         class: %payu.visanet.routes.loader.class%
         arguments:
@@ -20,6 +29,7 @@ services:
             payu.visanet.controller.route.execute: %payu.visanet.controller.route.execute%
         tags:
             - { name: routing.loader }
+
     #
     # Factories
     #
