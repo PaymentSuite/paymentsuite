@@ -11,7 +11,7 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\DependencyInjection;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -50,5 +50,6 @@ class PaypalExpressCheckoutExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');
+        //$loader->load('routing.yml');
     }
 }

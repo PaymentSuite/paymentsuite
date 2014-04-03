@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\Controller;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -37,6 +37,51 @@ class PaypalExpressCheckoutController extends Controller
      */
     public function executeAction(Request $request)
     {
-        
+
+
+        try {
+            $data = $request;
+            $paymentMethod = $this->createPaypalExpressCheckoutMethod($data);
+            $this
+                ->get('paypal_express_checkout.manager')
+                ->processPayment($paymentMethod, $ordersParameters);
+
+            $redirectUrl = $this->container->getParameter('paypal_express_checkout.success.route');
+            $redirectAppend = $this->container->getParameter('paypal_express_checkout.success.order.append');
+            $redirectAppendField = $this->container->getParameter('paypal_express_checkout.success.order.field');
+
+
+        } catch (PaymentException $e) {
+
+            /**
+             * Must redirect to fail route
+             */
+            $redirectUrl = $this->container->getParameter('paypal_express_checkout.fail.route');
+            $redirectAppend = $this->container->getParameter('paypal_express_checkout.fail.order.append');
+            $redirectAppendField = $this->container->getParameter('paypal_express_checkout.fail.order.field');
+        }
+
+        $redirectData   = $redirectAppend
+                        ? array(
+                            $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
+                        )
+                        : array();
+
+        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+    }
+
+
+    /**
+     * Given some data, creates a PaymillMethod object
+     *
+     * @param array $data Data
+     *
+     * @return PaymillMethod PaymillMethod instance
+     */
+    private function createPaypalExpressCheckoutMethod(array $data)
+    {
+        $paymentMethod = new PaypalExpressCheckoutMethod;
+
+        return $paymentMethod;
     }
 }

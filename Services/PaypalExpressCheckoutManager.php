@@ -11,14 +11,14 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\Services;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\PaypalExpressCheckout\PaypalExpressCheckoutMethod;
+use PaymentSuite\PaypalExpressCheckoutBundle\PaypalExpressCheckoutMethod;
 use PayPal\CoreComponentTypes\BasicAmountType;
 
 

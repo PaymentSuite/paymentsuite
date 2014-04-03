@@ -11,7 +11,7 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\DependencyInjection;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultTrue()
                 ->end()
                 ->scalarNode('controller_route')
-                    ->defaultValue('/payment/paypal_express_checkout/execute')
+                    ->defaultValue('/payment/paypal_checkout/execute')
                 ->end()
 
                 ->arrayNode('payment_success')

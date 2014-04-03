@@ -11,7 +11,7 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\Services\Wrapper;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\Services\Wrapper;
 
 class PaypalExpressCheckoutTransactionWrapper
 {

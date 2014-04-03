@@ -1,2 +1,3 @@
 parameters:
     paypal_checkout.api_endpoint: https://api-3t.sandbox.paypal.com/nvp
+    paypal_checkout.controller.route.name: "paypal_express_checkout_execute"

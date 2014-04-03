@@ -11,10 +11,9 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout;
+namespace PaymentSuite\PaypalExpressCheckoutBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-use PayPal\Api\Payer;
 
 /**
  * PaypalMethod class
@@ -29,7 +28,7 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'paypal_express_checkout';
+        return 'paypal_checkout';
     }
 
     /**

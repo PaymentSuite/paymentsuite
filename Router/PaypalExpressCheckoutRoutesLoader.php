@@ -11,7 +11,7 @@
  * Mickael Andrieu 2013
  */
 
-namespace PaymentSuite\PaypalExpressCheckout\Router;
+namespace PaymentSuite\PaypalExpressCheckoutBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -99,7 +99,7 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'paypal_express_checkout' === $type;
+        return 'paypal_checkout' === $type;
     }
 
 
