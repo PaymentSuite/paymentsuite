@@ -12,6 +12,7 @@ namespace PaymentSuite\PayuBundle\Services;
 
 use JMS\Serializer\Serializer;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PayuBundle\Factory\PayuDetailsFactory;
@@ -32,6 +33,16 @@ use PaymentSuite\PayuBundle\PayuRequestTypes;
  */
 class PayuManager
 {
+    /**
+     * Payu notification success code
+     */
+    const PAYU_NOTIF_SUCCESS = '4';
+
+    /**
+     * Payu notification validating code
+     */
+    const PAYU_NOTIF_VALIDATING = '7';
+
     /**
      * Payu Response success code
      */
@@ -250,6 +261,36 @@ class PayuManager
                     break;
             }
         } catch (PaymentException $e) {
+        }
+    }
+
+    /**
+     * Process Notification Request from PayU
+     *
+     * @param string $transactionId Transaction ID
+     */
+    public function processNotification($transactionId, $state)
+    {
+        $paymentEventDispatcher = $this->paymentEventDispatcher;
+        $paymentBridge = $this->paymentBridge;
+        $paymentMethod = new PayuMethod();
+        $paymentMethod->setTransactionId($transactionId);
+
+        $paymentEventDispatcher->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
+
+        if (!$paymentBridge->getOrder()) {
+            throw new PaymentOrderNotFoundException;
+        }
+
+        switch ($state) {
+            case self::PAYU_NOTIF_SUCCESS:
+                $paymentEventDispatcher->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
+                break;
+            case self::PAYU_NOTIF_VALIDATING:
+                break;
+            default:
+                $paymentEventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
+                break;
         }
     }
 

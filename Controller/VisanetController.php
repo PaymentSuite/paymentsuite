@@ -11,7 +11,6 @@
 namespace PaymentSuite\PayuBundle\Controller;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -38,9 +37,7 @@ class VisanetController extends Controller
     /**
      * Payment execution
      *
-     * @param Request $request Request element
-     *
-     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException
+     * @throws PaymentOrderNotFoundException
      *
      * @return Response
      *
@@ -98,6 +95,8 @@ class VisanetController extends Controller
             $response = $manager->processPaymentRequest($request);
 
             $paymentMethod
+                ->setTransactionId($response->getTransactionId())
+                ->setOrderId($response->getOrderId())
                 ->setState($response->getState())
                 ->setResponseMessage($response->getResponseMessage())
                 ->setResponseCode($response->getResponseCode())
@@ -118,7 +117,7 @@ class VisanetController extends Controller
                         : array();
                     break;
                 case 'PENDING':
-                    if (!$response->getExtraParameters()['VISANET_PE_URL'] || !$response->getTrazabilityCode()) {
+                    if (!($response->getExtraParameters()['VISANET_PE_URL'] && $response->getTrazabilityCode())) {
                         $redirectRoute = $this->container->getParameter('payu.success.route');
                         $redirectData = $this->container->getParameter('payu.success.order.append')
                             ? array($this->container->getParameter('payu.success.order.field') => $paymentBridge->getOrderId())
@@ -140,8 +139,7 @@ class VisanetController extends Controller
                 : array();
         }
 
-        if ($redirectRoute){
-
+        if ($redirectRoute) {
             return $this->redirect($this->generateUrl($redirectRoute, $redirectData));
         }
 

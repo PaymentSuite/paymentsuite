@@ -11,9 +11,12 @@
 namespace PaymentSuite\PayuBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PayuBundle\Services\PayuManager;
 
 /**
  * PayuController
@@ -31,8 +34,23 @@ class PayuController extends Controller
      */
     public function notifyAction(Request $request)
     {
-        $this->get('logger')->addInfo('PayuNotify', $request->request->all());
+        $response = new Response();
 
-        return new Response();
+        $transactionId = $request->request->get('transaction_id');
+        $state = $request->request->get('state_pol');
+        if ($transactionId && $state) {
+            try {
+                /** @var $manager PayuManager */
+                $manager = $this->get('payu.manager');
+                $manager->processNotification($transactionId, $state);
+            }
+            catch (\Exception $e) {
+                $response->setStatusCode(500);
+            }
+        } else {
+            $response->setStatusCode(500);
+        }
+
+        return $response;
     }
 }
