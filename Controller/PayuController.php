@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 use PaymentSuite\PayuBundle\Services\PayuManager;
 
 /**
@@ -35,6 +35,11 @@ class PayuController extends Controller
     public function notifyAction(Request $request)
     {
         $response = new Response();
+
+        /** @var $logger PaymentLogger */
+        $paymentLogger = $this->get('payment.logger');
+        $paymentLogger->setPaymentBundle("Payu");
+        $paymentLogger->log('Transaction notification received: '.$request->request->all());
 
         $transactionId = $request->request->get('transaction_id');
         $state = $request->request->get('state_pol');

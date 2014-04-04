@@ -11,6 +11,7 @@
 namespace PaymentSuite\PayuBundle\Services;
 
 use JMS\Serializer\Serializer;
+
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
@@ -139,14 +140,14 @@ class PayuManager
     /**
      * Construct method
      *
-     * @param boolean            $useStage       Use Payu stage servers
-     * @param string             $merchantKey    Merchant Key
-     * @param string             $merchantId     Merchant Id
-     * @param Serializer         $serializer     Serializer
-     * @param PayuRequestFactory $requestFactory Request Factory
-     * @param PayuDetailsFactory $detailsFactory Details Factory
+     * @param boolean                $useStage               Use Payu stage servers
+     * @param string                 $merchantKey            Merchant Key
+     * @param string                 $merchantId             Merchant Id
+     * @param Serializer             $serializer             Serializer
+     * @param PayuRequestFactory     $requestFactory         Request Factory
+     * @param PayuDetailsFactory     $detailsFactory         Details Factory
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      */
     public function __construct($useStage, $merchantKey, $merchantId, Serializer $serializer,
                                 PayuRequestFactory $requestFactory, PayuDetailsFactory $detailsFactory,
@@ -174,6 +175,8 @@ class PayuManager
      *
      * @param PayuRequest $request Payu Request
      *
+     * @throws PaymentException
+     *
      * @return TransactionResponse Payu Response
      */
     public function processPaymentRequest(PayuRequest $request)
@@ -193,6 +196,8 @@ class PayuManager
      *
      * @param TransactionResponseDetailRequest $request TransactionResponseDetail Request
      *
+     * @throws PaymentException
+     *
      * @return TransactionResponseDetailPayload TransactionResponseDetail Payload
      */
     public function processTransactionResponseDetailRequest(TransactionResponseDetailRequest $request)
@@ -209,6 +214,10 @@ class PayuManager
 
     /**
      * Calculate signature
+     *
+     * @param string $reference Order reference
+     * @param string $amount    Order amount
+     * @param string $currency  Order currency
      *
      * @return string Transaction signature
      */
@@ -268,6 +277,9 @@ class PayuManager
      * Process Notification Request from PayU
      *
      * @param string $transactionId Transaction ID
+     * @param string $state         Transaction state
+     *
+     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException
      */
     public function processNotification($transactionId, $state)
     {
