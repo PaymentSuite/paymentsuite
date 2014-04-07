@@ -4,3 +4,12 @@ services:
         class: %payment.event.dispatcher.class%
         arguments:
             event.dispatcher: @event_dispatcher
+
+    payment.logger:
+        class: %payment.logger.class%
+        arguments:
+            logger: @logger
+            active: %payment.logger.active%
+            level: %payment.logger.level%
+        tags:
+            - { name: monolog.logger, channel: 'paymentsuite' }
