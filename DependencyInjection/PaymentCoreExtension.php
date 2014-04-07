@@ -31,7 +31,10 @@ class PaymentCoreExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('payment.logger.active', $config['logger']['active']);
+        $container->setParameter('payment.logger.level', $config['logger']['level']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
