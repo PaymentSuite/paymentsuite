@@ -11,6 +11,7 @@ services:
             details.factory: @payu.factory.details
             payment.event.dispatcher: @payment.event.dispatcher
             payment.bridge: @payment.bridge
+            payment.logger: @payment.logger
 
     payu.routes.loader:
         class: %payu.routes.loader.class%

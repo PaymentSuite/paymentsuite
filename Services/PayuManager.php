@@ -16,6 +16,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 use PaymentSuite\PayuBundle\Factory\PayuDetailsFactory;
 use PaymentSuite\PayuBundle\Factory\PayuRequestFactory;
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuRequest;
@@ -136,6 +137,12 @@ class PayuManager
      * paymentBridge
      */
     protected $paymentBridge;
+    /**
+     * @var \PaymentSuite\PaymentCoreBundle\Services\PaymentLogger
+     *
+     * paymentLogger
+     */
+    private $paymentLogger;
 
     /**
      * Construct method
@@ -148,10 +155,12 @@ class PayuManager
      * @param PayuDetailsFactory     $detailsFactory         Details Factory
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
+     * @param PaymentLogger          $paymentLogger          Payment Logger
      */
     public function __construct($useStage, $merchantKey, $merchantId, Serializer $serializer,
                                 PayuRequestFactory $requestFactory, PayuDetailsFactory $detailsFactory,
-                                PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge)
+                                PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge,
+                                PaymentLogger $paymentLogger)
     {
         if ($useStage) {
             $this->paymentServer = $this::PAYU_PAYMENT_STAGE_SERVER;
@@ -168,6 +177,8 @@ class PayuManager
         $this->detailsFactory = $detailsFactory;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
+        $this->paymentLogger = $paymentLogger;
+        $this->paymentLogger->setPaymentBundle(PayuMethod::METHOD_NAME);
     }
 
     /**
@@ -318,6 +329,7 @@ class PayuManager
     protected function processRequest(PayuRequest $request, $host, $responseClass)
     {
         $jsonData = $this->serializer->serialize($request, 'json');
+        $this->paymentLogger->log('Request: '.$jsonData);
 
         $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -335,6 +347,8 @@ class PayuManager
         ));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
         $jsonResponse = curl_exec($ch);
+
+        $this->paymentLogger->log('Response: '.$jsonResponse);
         $response = $this->serializer->deserialize($jsonResponse, $responseClass, 'json');
 
         return $response;
