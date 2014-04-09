@@ -9,6 +9,7 @@ services:
             signature: %safetypay.signature%
             safetypay.manager: @safetypay.manager
             expiration: %safetypay.expiration%
+            payment.logger: @payment.logger
         tags:
             - { name: form.type, alias: safetypay_view }
 
@@ -32,3 +33,4 @@ services:
           payment.bridge: @payment.bridge
           payment.event.dispatcher: @payment.event.dispatcher
           key: %safetypay.key%
+          payment.logger: @payment.logger

@@ -18,6 +18,7 @@ use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 
 /**
  * SafetypayBundle manager
@@ -70,18 +71,31 @@ class SafetypayTypeWrapper
      */
     private $expiration;
 
+    /**
+     * @var PaymentLogger
+     *
+     * paymentLogger
+     */
+    private $paymentLogger;
 
     /**
      * Formtype construct method
      *
-     * @param FormFactory $formFactory Form factory
+     * @param FormFactory            $formFactory Form factory
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
-     * @param $key
-     * @param $signature
-     * @param safetypayManager $safetyPayManager
-     * @param $expiration
+     * @param string                 $key
+     * @param string                 $signature
+     * @param safetypayManager       $safetyPayManager
+     * @param string                 $expiration
+     * @param PaymentLogger          $paymentLogger
      */
-    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridge, $key, $signature, safetypayManager $safetyPayManager, $expiration)
+    public function __construct(FormFactory $formFactory,
+                                PaymentBridgeInterface $paymentBridge,
+                                $key,
+                                $signature,
+                                safetypayManager $safetyPayManager,
+                                $expiration,
+                                PaymentLogger $paymentLogger)
     {
         $this->formFactory = $formFactory;
         $this->paymentBridge = $paymentBridge;
@@ -89,6 +103,7 @@ class SafetypayTypeWrapper
         $this->signature = $signature;
         $this->safetyPayManager = $safetyPayManager;
         $this->expiration = $expiration;
+        $this->paymentLogger = $paymentLogger;
     }
 
 
@@ -123,6 +138,9 @@ class SafetypayTypeWrapper
             'ResponseFormat'        => $this->safetyPayManager->getresponseFormat()
         );
 
+        $this->paymentLogger->setPaymentBundle($paymentMethod->getPaymentName());
+        $jsonData = json_encode($elements);
+        $this->paymentLogger->log('Request: '.$jsonData);
         $elements['signature'] = $this->safetyPayManager->getSignature(
             $elements,
             'CurrencyCode, Amount, MerchantReferenceNo, Language,

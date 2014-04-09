@@ -6,6 +6,7 @@ use PaymentSuite\SafetypayBundle\SafetypayBundle;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 
 /**
  * SafetyPay Manager
@@ -63,17 +64,29 @@ class SafetypayManager
      */
     private $key;
 
+     /**
+     * @var PaymentLogger
+     *
+     * paymentLogger
+     */
+    private $paymentLogger;
+
     /**
      * @param string                 $responseFormat
      * @param string                 $urlGetTokenExpress
      * @param string                 $signatureKey
      * @param PaymentBridgeInterface $paymentBridge
      * @param PaymentEventDispatcher $eventDispatcher
-     *
      * @param String                 $key
+     * @param PaymentLogger          $paymentLogger
      */
-    public function __construct($responseFormat = 'XML', $urlGetTokenExpress, $signatureKey,
-                                PaymentBridgeInterface $paymentBridge, PaymentEventDispatcher $eventDispatcher, $key)
+    public function __construct($responseFormat = 'XML',
+                                $urlGetTokenExpress,
+                                $signatureKey,
+                                PaymentBridgeInterface $paymentBridge,
+                                PaymentEventDispatcher $eventDispatcher,
+                                $key,
+                                PaymentLogger $paymentLogger)
     {
         $this->responseFormat = $responseFormat;
         $this->urlGetTokenExpress = $urlGetTokenExpress;
@@ -82,6 +95,7 @@ class SafetypayManager
         $this->paymentBridge = $paymentBridge;
         $this->eventDispatcher = $eventDispatcher;
         $this->key = $key;
+        $this->paymentLogger = $paymentLogger;
     }
 
     /**
@@ -226,6 +240,9 @@ class SafetypayManager
      */
     public function confirmPayment(SafetypayMethod $paymentMethod, $postData)
     {
+        $this->paymentLogger->setPaymentBundle($paymentMethod->getPaymentName());
+        $jsonData = json_encode($postData);
+        $this->paymentLogger->log('Response: ' .$jsonData);
         $paymentMethod->setReference($postData['MerchantReferenceNo']);
         $paymentMethod->setRequestDateTime($postData['RequestDateTime']);
         $paymentMethod->setSignature($postData['Signature']);
