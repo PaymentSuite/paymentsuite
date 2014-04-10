@@ -1,5 +1,5 @@
 {
-    "name": "paymentsuite/paypal-express_checkout-bundle",
+    "name": "paymentsuite/paypal-express-checkout-bundle",
     "type": "symfony-bundle",
     "description": "Paypal Express Checkout Bundle, part of PaymentSuite Project",
     "keywords": ["paypal", "payment", "ecommerce"],
@@ -29,8 +29,8 @@
     "require-dev": {
         "phpunit/phpunit": "4.*"
     },
-    "target-dir": "PaymentSuite/PaypalExpressCheckout",
+    "target-dir": "PaymentSuite/PaypalExpressCheckoutBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\PaypalExpressCheckout": "" }
+        "psr-0": { "PaymentSuite\\PaypalExpressCheckoutBundle": "" }
     }
 }
