@@ -51,7 +51,7 @@ class PaymentEventDispatcher
      * Notifies when order must be created
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param PaymentMethodInterface $paymentMethod Patment method
+     * @param PaymentMethodInterface $paymentMethod Payment method
      *
      * @return PaymentEventDispatcher self Object
      */
@@ -68,7 +68,7 @@ class PaymentEventDispatcher
      * Notifies when order must be created
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param PaymentMethodInterface $paymentMethod Patment method
+     * @param PaymentMethodInterface $paymentMethod Payment method
      *
      * @return PaymentEventDispatcher self Object
      */
@@ -87,7 +87,7 @@ class PaymentEventDispatcher
      * It doesn't matters if process its been success or failed
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param PaymentMethodInterface $paymentMethod Patment method
+     * @param PaymentMethodInterface $paymentMethod Payment method
      *
      * @return PaymentEventDispatcher self Object
      */
@@ -103,7 +103,7 @@ class PaymentEventDispatcher
      * Notifies when payment process is done and succeded.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param PaymentMethodInterface $paymentMethod Patment method
+     * @param PaymentMethodInterface $paymentMethod Payment method
      *
      * @return PaymentEventDispatcher self Object
      */
@@ -120,7 +120,7 @@ class PaymentEventDispatcher
      * Notifies when payment is done and failed
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param PaymentMethodInterface $paymentMethod Patment method
+     * @param PaymentMethodInterface $paymentMethod Payment method
      *
      * @return PaymentEventDispatcher self Object
      */
