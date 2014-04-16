@@ -20,14 +20,14 @@
         "symfony/dependency-injection": ">=2.2.3",
         "twig/twig": "~1.11",
         "stripe/stripe-php": "v1.10.1",
-        "paymentsuite/payment-core-bundle": "1.1"
+        "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "target-dir": "dpcat237/StripeBundle",
+    "target-dir": "PaymentSuite/StripeBundle",
     "autoload": {
-        "psr-0": { "dpcat237\\StripeBundle": "" }
+        "psr-0": { "PaymentSuite\\StripeBundle": "" }
     },
     "minimum-stability": "stable",
     "extra": {
