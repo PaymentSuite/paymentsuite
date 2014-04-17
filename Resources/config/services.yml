@@ -14,7 +14,6 @@ services:
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
             payment.bridge: @payment.bridge
-            buzz: @buzz
             banwire.user: %banwire.user%
             banwire.api: %banwire.api%
 
