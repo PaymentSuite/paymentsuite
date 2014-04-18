@@ -4,9 +4,9 @@ Stripe - Payment Suite
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113/mini.png)](https://insight.sensiolabs.com/projects/c580f420-08a7-49f3-a55f-b834aabad113)
 [![Build Status](https://travis-ci.org/PaymentSuite/StripeBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/StripeBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/StripeBundle/badges/quality-score.png?s=4d9dff8533c0f853d67949d6ce9b348a85bf5437)](https://scrutinizer-ci.com/g/PaymentSuite/StripeBundle/)
-[![Latest Stable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/dpcat237/stripe-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
-[![Total Downloads](https://poser.pugx.org/dpcat237/stripe-bundle/downloads.png)](https://packagist.org/packages/dpcat237/stripe-bundle)
+[![Latest Stable Version](https://poser.pugx.org/paymentsuite/stripe-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/stripe-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/stripe-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/stripe-bundle)
+[![Total Downloads](https://poser.pugx.org/paymentsuite/stripe-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/stripe-bundle)
 
 About Stripe Bundle
 -----
@@ -53,7 +53,7 @@ And register the bundle in your appkernel.php file
 return array(
    // ...
    new PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
-   new dpcat237\StripeBundle\StripeBundle(),
+   new PaymentSuite\StripeBundle\StripeBundle(),
 );
 ```
 
