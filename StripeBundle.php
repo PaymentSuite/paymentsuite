@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\StripeBundle;
+namespace PaymentSuite\StripeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

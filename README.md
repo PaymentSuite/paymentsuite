@@ -36,7 +36,7 @@ You have to add require line into you composer.json file
 ``` yml
 "require": {
    // ...
-   "dpcat237/stripe-bundle": "1.0.1"
+   "paymentsuite/stripe-bundle": "1.0.1"
 }
 ```
 

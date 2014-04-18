@@ -11,13 +11,13 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\StripeBundle\Controller;
+namespace PaymentSuite\StripeBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use dpcat237\StripeBundle\StripeMethod;
+use PaymentSuite\StripeBundle\StripeMethod;
 
 
 /**

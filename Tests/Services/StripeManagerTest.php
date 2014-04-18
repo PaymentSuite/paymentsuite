@@ -11,9 +11,9 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\StripeBundle\Tests\Services;
+namespace PaymentSuite\StripeBundle\Tests\Services;
 
-use dpcat237\StripeBundle\Services\StripeManager;
+use PaymentSuite\StripeBundle\Services\StripeManager;
 
 /**
  * Stripe manager
@@ -118,7 +118,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->stripeTransactionWrapper = $this
-            ->getMockBuilder('dpcat237\StripeBundle\Services\Wrapper\StripeTransactionWrapper')
+            ->getMockBuilder('PaymentSuite\StripeBundle\Services\Wrapper\StripeTransactionWrapper')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -128,7 +128,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->stripeMethod = $this
-            ->getMockBuilder('dpcat237\StripeBundle\StripeMethod')
+            ->getMockBuilder('PaymentSuite\StripeBundle\StripeMethod')
             ->disableOriginalConstructor()
             ->getMock();
 

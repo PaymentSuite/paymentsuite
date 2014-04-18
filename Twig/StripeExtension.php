@@ -11,13 +11,13 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\StripeBundle\Twig;
+namespace PaymentSuite\StripeBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
-use dpcat237\StripeBundle\Router\StripeRoutesLoader;
+use PaymentSuite\StripeBundle\Router\StripeRoutesLoader;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**

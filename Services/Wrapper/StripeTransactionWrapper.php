@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\StripeBundle\Services\Wrapper;
+namespace PaymentSuite\StripeBundle\Services\Wrapper;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Stripe;
