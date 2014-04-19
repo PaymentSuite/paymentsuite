@@ -1,5 +1,5 @@
 parameters:
     googlewallet.api.endpoint: "https://api.googlewallet.com/"
-    googlewallet.manager.class: "dpcat237\\GoogleWalletBundle\\Services\\GoogleWalletManager"
-    googlewallet.twig.extension.class: "dpcat237\\GoogleWalletBundle\\Twig\\GoogleWalletExtension"
-    googlewallet.routes.loader.class: "dpcat237\\GoogleWalletBundle\\Router\\GoogleWalletRoutesLoader"
+    googlewallet.manager.class: "PaymentSuite\\GoogleWalletBundle\\Services\\GoogleWalletManager"
+    googlewallet.twig.extension.class: "PaymentSuite\\GoogleWalletBundle\\Twig\\GoogleWalletExtension"
+    googlewallet.routes.loader.class: "PaymentSuite\\GoogleWalletBundle\\Router\\GoogleWalletRoutesLoader"

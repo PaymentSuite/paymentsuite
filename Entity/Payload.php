@@ -10,7 +10,7 @@
  *
  */
 
-namespace dpcat237\GoogleWalletBundle\Entity;
+namespace PaymentSuite\GoogleWalletBundle\Entity;
 
 class Payload {
     /**

@@ -11,14 +11,14 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\GoogleWalletBundle\Twig;
+namespace PaymentSuite\GoogleWalletBundle\Twig;
 
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_Environment;
 
-use dpcat237\GoogleWalletBundle\Router\GoogleWalletRoutesLoader;
-use dpcat237\GoogleWalletBundle\Services\GoogleWalletManager;
+use PaymentSuite\GoogleWalletBundle\Router\GoogleWalletRoutesLoader;
+use PaymentSuite\GoogleWalletBundle\Services\GoogleWalletManager;
 
 /**
  * Text utilities extension

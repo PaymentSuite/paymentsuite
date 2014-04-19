@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\GoogleWalletBundle\Controller;
+namespace PaymentSuite\GoogleWalletBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 /**
  * Class GoogleWalletController
  * 
- * @package dpcat237\GoogleWalletBundle\Controller
+ * @package Controller
  */
 class GoogleWalletController extends Controller
 {

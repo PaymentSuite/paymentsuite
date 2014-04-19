@@ -10,7 +10,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\GoogleWalletBundle\Exception;
+namespace PaymentSuite\GoogleWalletBundle\Exception;
 
 use Exception;
 

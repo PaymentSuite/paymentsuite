@@ -3,9 +3,9 @@ Google Wallet - Payment Suite
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/00ce64e6-62b4-49f3-9f23-cdcaa04c43f9/mini.png)](https://insight.sensiolabs.com/projects/00ce64e6-62b4-49f3-9f23-cdcaa04c43f9)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/GoogleWalletBundle/badges/quality-score.png?s=a90b67126880c247e0b520e4fa0c50c1101ae55a)](https://scrutinizer-ci.com/g/PaymentSuite/GoogleWalletBundle/)
-[![Latest Stable Version](https://poser.pugx.org/dpcat237/google-wallet-bundle/v/stable.png)](https://packagist.org/packages/dpcat237/google-wallet-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/dpcat237/google-wallet-bundle/v/unstable.png)](https://packagist.org/packages/dpcat237/google-wallet-bundle)
-[![Total Downloads](https://poser.pugx.org/dpcat237/google-wallet-bundle/downloads.png)](https://packagist.org/packages/dpcat237/google-wallet-bundle)
+[![Latest Stable Version](https://poser.pugx.org/paymentsuite/google-wallet-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/google-wallet-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/google-wallet-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/google-wallet-bundle)
+[![Total Downloads](https://poser.pugx.org/paymentsuite/google-wallet-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/google-wallet-bundle)
 
 About GoogleWalletBundle
 -----
@@ -37,7 +37,7 @@ You have to add require line into you composer.json file
 ``` yml
 "require": {
    // ...
-   "dpcat237/google-wallet-bundle": "1.0.1"
+   "paymentsuite/google-wallet-bundle": "1.0.1"
 }
 ```
 
@@ -54,7 +54,7 @@ And register the bundle in your appkernel.php file
 return array(
    // ...
    new PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
-   new dpcat237\StripeBundle\GoogleWalletBundle(),
+   new PaymentSuite\StripeBundle\GoogleWalletBundle(),
 );
 ```
 

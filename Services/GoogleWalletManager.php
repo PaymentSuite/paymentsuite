@@ -11,16 +11,16 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\GoogleWalletBundle\Services;
+namespace PaymentSuite\GoogleWalletBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
-use dpcat237\GoogleWalletBundle\Entity\Payload;
-use dpcat237\GoogleWalletBundle\Helper\JWTHelper;
-use dpcat237\GoogleWalletBundle\GoogleWalletMethod;
+use PaymentSuite\GoogleWalletBundle\Entity\Payload;
+use PaymentSuite\GoogleWalletBundle\Helper\JWTHelper;
+use PaymentSuite\GoogleWalletBundle\GoogleWalletMethod;
 
 /**
  * GoogleWallet manager

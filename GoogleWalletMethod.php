@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\GoogleWalletBundle;
+namespace PaymentSuite\GoogleWalletBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
