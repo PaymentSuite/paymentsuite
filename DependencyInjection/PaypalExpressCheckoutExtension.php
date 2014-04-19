@@ -33,23 +33,22 @@ class PaypalExpressCheckoutExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('paypal_checkout.username', $config['username']);
-        $container->setParameter('paypal_checkout.password', $config['password']);
-        $container->setParameter('paypal_checkout.signature', $config['signature']);
-        $container->setParameter('paypal_checkout.debug', $config['debug']);
+        $container->setParameter('paypal_express_checkout.username', $config['username']);
+        $container->setParameter('paypal_express_checkout.password', $config['password']);
+        $container->setParameter('paypal_express_checkout.signature', $config['signature']);
+        $container->setParameter('paypal_express_checkout.debug', $config['debug']);
+        $container->setParameter('paypal_express_checkout.controller.route', $config['controller_route']);
 
-        $container->setParameter('paypal_checkout.success.route', $config['payment_success']['route']);
-        $container->setParameter('paypal_checkout.success.order.append', $config['payment_success']['order_append']);
-        $container->setParameter('paypal_checkout.success.order.field', $config['payment_success']['order_append_field']);
+        $container->setParameter('paypal_express_checkout.success.route', $config['payment_success']['route']);
+        $container->setParameter('paypal_express_checkout.success.order.append', $config['payment_success']['order_append']);
+        $container->setParameter('paypal_express_checkout.success.order.field', $config['payment_success']['order_append_field']);
 
-        $container->setParameter('paypal_checkout.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('paypal_checkout.fail.order.append', $config['payment_fail']['order_append']);
-        $container->setParameter('paypal_checkout.fail.order.field', $config['payment_fail']['order_append_field']);
-
+        $container->setParameter('paypal_express_checkout.fail.route', $config['payment_fail']['route']);
+        $container->setParameter('paypal_express_checkout.fail.order.append', $config['payment_fail']['order_append']);
+        $container->setParameter('paypal_express_checkout.fail.order.field', $config['payment_fail']['order_append_field']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');
-        //$loader->load('routing.yml');
     }
 }
