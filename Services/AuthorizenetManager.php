@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Services;
+namespace PaymentSuite\AuthorizenetBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
@@ -19,8 +19,8 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
-use dpcat237\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper;
-use dpcat237\AuthorizenetBundle\AuthorizenetMethod;
+use PaymentSuite\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper;
+use PaymentSuite\AuthorizenetBundle\AuthorizenetMethod;
 
 /**
  * Authorizenet manager

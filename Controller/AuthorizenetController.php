@@ -11,14 +11,14 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Controller;
+namespace PaymentSuite\AuthorizenetBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use dpcat237\AuthorizenetBundle\AuthorizenetMethod;
+use PaymentSuite\AuthorizenetBundle\AuthorizenetMethod;
 
 
 /**

@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Form\Type;
+namespace PaymentSuite\AuthorizenetBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

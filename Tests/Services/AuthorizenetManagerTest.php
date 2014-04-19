@@ -11,9 +11,9 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Tests\Services;
+namespace PaymentSuite\AuthorizenetBundle\Tests\Services;
 
-use dpcat237\AuthorizenetBundle\Services\AuthorizenetManager;
+use PaymentSuite\AuthorizenetBundle\Services\AuthorizenetManager;
 
 /**
  * Authorizenet manager
@@ -114,7 +114,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->authorizenetTransactionWrapper = $this
-            ->getMockBuilder('dpcat237\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper')
+            ->getMockBuilder('PaymentSuite\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -124,7 +124,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->authorizenetMethod = $this
-            ->getMockBuilder('dpcat237\AuthorizenetBundle\AuthorizenetMethod')
+            ->getMockBuilder('PaymentSuite\AuthorizenetBundle\AuthorizenetMethod')
             ->disableOriginalConstructor()
             ->getMock();
 

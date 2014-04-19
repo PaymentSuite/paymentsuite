@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle;
+namespace PaymentSuite\AuthorizenetBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

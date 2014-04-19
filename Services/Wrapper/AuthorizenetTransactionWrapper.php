@@ -11,7 +11,7 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Services\Wrapper;
+namespace PaymentSuite\AuthorizenetBundle\Services\Wrapper;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 

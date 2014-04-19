@@ -11,13 +11,13 @@
  * Denys Pasishnyi 2013
  */
 
-namespace dpcat237\AuthorizenetBundle\Twig;
+namespace PaymentSuite\AuthorizenetBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use Twig_Extension,
     Twig_SimpleFunction;
 
-use dpcat237\AuthorizenetBundle\Router\AuthorizenetRoutesLoader;
+use PaymentSuite\AuthorizenetBundle\Router\AuthorizenetRoutesLoader;
 
 /**
  * Text utilities extension
