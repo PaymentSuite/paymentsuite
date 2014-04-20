@@ -29,7 +29,7 @@ paypal_checkout:
     signature: XXXXXXXXXX
     debug: true|false
 
-    # By default, controller route is /payment/paypal/execute
+    # By default, controller route is /payment/paypal_checkout/execute
     controller_route: /my/custom/route
 
     # Configuration for payment success redirection
@@ -39,20 +39,18 @@ paypal_checkout:
     #    taking order_append_field value as parameter name and
     #    PaymentOrderWrapper->getOrderId() value
     payment_success:
-        route: card_thanks
+        route: payment_success
         order_append: true
         order_append_field: order_id
 
     # Configuration for payment fail redirection
     #
     # Route defines which route will redirect if payment fails
-    # If card_append is true, Bundle will append card identifier into route
-    #    taking card_append_field value as parameter name and
-    #    PaymentCardWrapper->getCardId() value
+
     payment_fail:
-        route: card_view
-        card_append: false
-        card_append_field: card_id
+        route: payment_failed
+        order_append: false
+        order_append_field: order_id
 ```
 
 Extra Data
@@ -66,9 +64,9 @@ Router
 -----
 
 PaypalExpressCheckout allows developer to specify the route of controller where paymill
-payment is processed.  
+payment is processed.
 By default, this value is `/payment/paypal/execute` but this value can be
-changed in configuration file.  
+changed in configuration file.
 Anyway, the bundle routes must be parsed by the framework, so these lines must
 be included into routing.yml file.
 
@@ -89,14 +87,9 @@ PaypalExpressCheckout gives you all form view as requested by the payment module
 ``` jinja
 {% block content %}
     <div class="payment-wrapper">
-        {{ paypal_render() }}
+        {{ paypal_express_checkout_render() }}
     </div>
 {% endblock content %}
-
-{% block foot_script %}
-    {{ parent() }}
-    {{ paypal_scripts() }}
-{% endblock foot_script %}
 ```
 
 Customize
@@ -105,9 +98,9 @@ Customize
 `paypal_render()` only print form in a simple way.
 
 As every project need its own form design, you should overwrite in
-`app/Resources/PaypalExpressCheckout/views/PaypalExpressCheckout/view.html.twig`, paypal form render
+`app/Resources/PaypalExpressCheckoutBundle/views/PaypalExpressCheckout/view.html.twig`, paypal form render
 template placed in
-`PaymentSuite/PaypalExpressCheckout/Bundle/Resources/views/PaypalExpressCheckout/view.html.twig`.
+`PaymentSuite/PaypalExpressCheckoutBundle/Resources/views/PaypalExpressCheckout/view.html.twig`.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/paypalexpresscheckoutbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
