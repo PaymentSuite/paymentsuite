@@ -76,8 +76,9 @@ class PaypalExpressCheckoutManager
      * Initiate the payment : SetExpressCheckout
      *
      */
-    public function preparePayment(PaypalExpressCheckoutMethod $paypalMethod, $orderParameters)
+    public function preparePayment(PaypalExpressCheckoutMethod $paypalMethod)
     {
+        $orderParameters = $paymentMethod->getSomeExtraData();
         $this->paypalWrapper->request('SetExpressCheckout', $orderParameters);
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paypalMethod);
 
@@ -88,8 +89,9 @@ class PaypalExpressCheckoutManager
      * Executes the payment : DoExpressCheckoutPayment
      *
      */
-    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod, $orderParameters)
+    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod)
     {
+        $orderParameters = $paymentMethod->getSomeExtraData();
         $this->paypalWrapper->request('DoExpressCheckoutPayment',$orderParameters);
 
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
@@ -99,6 +101,8 @@ class PaypalExpressCheckoutManager
         }else {
             $this->paymentEventDispatcher->notifyPaymentOrderFail($paymentBridge, $paypalMethod);
         }
+
+        return $this->getPaymentStatus();
     }
 
     /**

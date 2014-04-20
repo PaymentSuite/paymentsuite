@@ -64,7 +64,7 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
      *
      * @param Twig_Environment $environment Twig environment
      *
-     * @return PaymillExtension self object
+     * @return PaypalExpressCheckoutExtension self object
      */
     public function initRuntime(\Twig_Environment $environment)
     {
@@ -86,7 +86,7 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
     }
 
     /**
-     * Render paymill form view
+     * Render paypal express checkout form view
      *
      * @return string view html
      */

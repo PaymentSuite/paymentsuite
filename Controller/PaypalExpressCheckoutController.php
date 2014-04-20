@@ -41,11 +41,11 @@ class PaypalExpressCheckoutController extends Controller
         $form->handleRequest($request);
 
         try {
-            $data = $request;
+            $data = $form->getData();
             $paymentMethod = $this->createPaypalExpressCheckoutMethod($data);
             $this
                 ->get('paypal_express_checkout.manager')
-                ->preparePayment($paymentMethod, $ordersParameters);
+                ->preparePayment($paymentMethod);
 
             $redirectUrl = $this->container->getParameter('paypal_express_checkout.success.route');
             $redirectAppend = $this->container->getParameter('paypal_express_checkout.success.order.append');
@@ -82,7 +82,10 @@ class PaypalExpressCheckoutController extends Controller
     private function createPaypalExpressCheckoutMethod(array $data)
     {
         $paymentMethod = new PaypalExpressCheckoutMethod;
-
+        $paymentMethod->setAmount($data['amount'])
+            ->setCurrency($data['currency'])
+            ->setSomeExtraData($data['paypal_express_params'])
+        ;
         return $paymentMethod;
     }
 }

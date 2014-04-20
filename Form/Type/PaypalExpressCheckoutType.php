@@ -80,6 +80,9 @@ class PaypalExpressCheckoutType extends AbstractType
             ->add('currency', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getCurrency()
             ))
+            ->add('paypal_express_params', 'hidden', array(
+                'data'  => $options['paypal_express_params']
+            ))
             ->add('submit', 'submit');
     }
 

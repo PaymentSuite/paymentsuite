@@ -16,19 +16,19 @@ namespace PaymentSuite\PaypalExpressCheckoutBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * PaypalMethod class
+ * PaypalExpressCheckoutMethod class
  */
 class PaypalExpressCheckoutMethod implements PaymentMethodInterface
 {
 
     /**
-     * Get Paypal method name
+     * Get PaypalExpressCheckout method name
      *
      * @return string Payment name
      */
     public function getPaymentName()
     {
-        return 'paypal_checkout';
+        return 'paypal_express_checkout';
     }
 
     /**
