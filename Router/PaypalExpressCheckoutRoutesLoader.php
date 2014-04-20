@@ -80,7 +80,7 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
 
         $routes = new RouteCollection();
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
-            '_controller'   =>  'PaypalExpressCheckout:PaypalExpressCheckout:execute',
+            '_controller'   =>  'PaypalExpressCheckoutBundle:PaypalExpressCheckout:execute',
         )));
 
         $this->loaded = true;
@@ -99,7 +99,7 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
      */
     public function supports($resource, $type = null)
     {
-        return 'paypal_checkout' === $type;
+        return 'paypal_express_checkout' === $type;
     }
 
 

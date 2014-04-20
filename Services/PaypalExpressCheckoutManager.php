@@ -80,6 +80,8 @@ class PaypalExpressCheckoutManager
     {
         $this->paypalWrapper->request('SetExpressCheckout', $orderParameters);
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paypalMethod);
+
+        return $this->paypalWrapper->getToken();
     }
 
     /**

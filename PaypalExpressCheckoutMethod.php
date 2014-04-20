@@ -38,7 +38,6 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
      */
     private $amount;
 
-
     /**
      * @var string
      *
@@ -107,7 +106,6 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get some extra data
      *
@@ -117,5 +115,4 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     {
         return $someExtraData;
     }
-
 }

@@ -37,14 +37,15 @@ class PaypalExpressCheckoutController extends Controller
      */
     public function executeAction(Request $request)
     {
-
+        $form = $this->get('form.factory')->create('paypal_express_checkout_view');
+        $form->handleRequest($request);
 
         try {
             $data = $request;
             $paymentMethod = $this->createPaypalExpressCheckoutMethod($data);
             $this
                 ->get('paypal_express_checkout.manager')
-                ->processPayment($paymentMethod, $ordersParameters);
+                ->preparePayment($paymentMethod, $ordersParameters);
 
             $redirectUrl = $this->container->getParameter('paypal_express_checkout.success.route');
             $redirectAppend = $this->container->getParameter('paypal_express_checkout.success.order.append');

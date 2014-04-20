@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('paypal_checkout');
+        $rootNode = $treeBuilder->root('paypal_express_checkout');
 
         $rootNode
             ->children()

@@ -1,3 +1,0 @@
-paypal_checkout_routes:
-    resource: .
-    type: paypal_checkout
