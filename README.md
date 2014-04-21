@@ -21,7 +21,7 @@ Configuration
 Configure the PaypalExpressCheckout configuration in your `config.yml`
 
 ``` yml
-paypal_checkout:
+paypal_express_checkout:
 
     # Api definition
     username: XXXXXXXXXX
