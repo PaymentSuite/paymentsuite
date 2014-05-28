@@ -106,7 +106,7 @@ class PayuMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return $this::METHOD_NAME;
+        return self::METHOD_NAME;
     }
 
     /**
