@@ -1,0 +1,7 @@
+parameters:
+
+    webpay.controller.route.execute.name: "webpay_execute"
+    webpay.controller.route.confirmation.name: "webpay_confirmation"
+    webpay.form.type.wrapper.class: "PaymentSuite\\WebpayBundle\\Services\\Wrapper\\WebpayTypeWrapper"
+    webpay.manager.class: "PaymentSuite\\WebpayBundle\\Services\\WebpayManager"
+    webpay.routes.loader.class: "PaymentSuite\\WebpayBundle\\Router\\WebpayRoutesLoader"
