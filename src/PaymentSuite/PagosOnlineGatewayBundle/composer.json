@@ -1,0 +1,34 @@
+{
+    "name": "paymentsuite/pagosonline-gateway-bundle",
+    "type": "symfony-bundle",
+    "description": "Pagosonlie gateway Bundle, part of PaymentSuite Project",
+    "keywords": ["pagosonline", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santi Catells",
+            "email": "santi.castells@fancybox.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "paymentsuite/payment-core-bundle": "~1.1"
+    },
+    "target-dir": "PaymentSuite/PagosonlineGatewayBundle",
+    "autoload": {
+        "psr-0": { "PaymentSuite\\PagosonlineGatewayBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
