@@ -1,0 +1,4 @@
+parameters:
+
+    payment.event.dispatcher.class: "PaymentSuite\\PaymentCoreBundle\\Services\\PaymentEventDispatcher"
+    payment.logger.class: "PaymentSuite\\PaymentCoreBundle\\Services\\PaymentLogger"
