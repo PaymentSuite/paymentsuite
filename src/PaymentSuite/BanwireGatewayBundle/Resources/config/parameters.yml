@@ -1,0 +1,7 @@
+parameters:
+
+    banwire_gateway.gateway: "https://banwire.com/pago_express"
+    banwire_gateway.controller.route.name: "banwire_gateway_execute"
+    banwire_gateway.controller.route.response.name: "banwire_gateway_response"
+    banwire_gateway.form.type.wrapper.class: "PaymentSuite\\BanwireGatewayBundle\\Services\\Wrapper\\BanwireGatewayTypeWrapper"
+    banwire_gateway.routes.loader.class: "PaymentSuite\\BanwireGatewayBundle\\Router\\BanwireGatewayRoutesLoader"

@@ -1,0 +1,22 @@
+services:
+
+    banwire_gateway.form.type.wrapper:
+        class: %banwire_gateway.form.type.wrapper.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+            banwire_gateway.user: %banwire_gateway.user%
+            banwire_gateway.cps: %banwire_gateway.cps%
+            banwire_gateway.gateway: %banwire_gateway.gateway%
+        tags:
+            - { name: form.type, alias: banwiregateway_view }
+
+    banwire_gateway.routes.loader:
+        class: %banwire_gateway.routes.loader.class%
+        arguments:
+            banwire_gateway.controller.route: %banwire_gateway.controller.route%
+            banwire_gateway.controller.route.name: %banwire_gateway.controller.route.name%
+            banwire_gateway.controller.route.response: %banwire_gateway.controller.route.response%
+            banwire_gateway.controller.route.response.name: %banwire_gateway.controller.route.response.name%
+        tags:
+            - { name: routing.loader }
