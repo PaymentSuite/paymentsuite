@@ -1,0 +1,13 @@
+/* TEAM */            
+Creator : Mickael Andrieu
+Contact: mickael dot andrieu at sensiolabs dot com
+Twitter: mickael_andrieu                   
+Location: Paris, France.
+
+
+
+/* THANKS */
+https://developer.paypal.com
+http://github.com
+http://symfony.com
+Fabien Potencier

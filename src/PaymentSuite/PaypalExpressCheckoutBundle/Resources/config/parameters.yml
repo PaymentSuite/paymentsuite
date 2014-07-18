@@ -1,0 +1,8 @@
+parameters:
+
+    paypal_express_checkout.api_endpoint: https://api-3t.sandbox.paypal.com/nvp
+    paypal_express_checkout.controller.route.name: "paypal_express_checkout_execute"
+    paypal_express_checkout.routes.loader.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Router\\PaypalExpressCheckoutRoutesLoader"
+    paypal_express_checkout.wrapper.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Services\\Wrapper\\PaypalExpressCheckoutTransactionWrapper"
+    paypal_express_checkout.manager.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Services\\PaypalExpressCheckoutManager"
+    paypal_express_checkout.twig.extension.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Twig\\PaypalExpressCheckoutExtension"
