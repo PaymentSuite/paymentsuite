@@ -1,0 +1,30 @@
+{% block payment_form %}
+
+    <ul id="authorizenet_payment_error">
+
+    </ul>
+
+    {{ form_start(authorizenet_form, {action: url(authorizenet_execute_route), attr: {"id" : "payment-form", "method": "GET"}}) }}
+    <span class="payment-errors"></span>
+
+    <div class="form-row">
+        <label>
+            <span>Card number</span>
+            {{ form_widget(authorizenet_form.credit_cart, {'attr': {'data-authorizenet': 'number'}}) }}
+        </label>
+    </div>
+
+    <div class="form-row">
+        <label>
+            <span>Expiration (MM/YY)</span>
+            {{ form_widget(authorizenet_form.credit_cart_expiration_month, {'attr': {'data-authorizenet': 'exp-month'}}) }}
+        </label>
+        <span> / </span>
+        {{ form_widget(authorizenet_form.credit_cart_expiration_year, {'attr': {'data-authorizenet': 'exp-year'}}) }}
+    </div>
+
+    <button type="submit" id="payment-submit">Submit Payment</button>
+
+    {{ form_end(authorizenet_form) }}
+
+{% endblock payment_form %}
