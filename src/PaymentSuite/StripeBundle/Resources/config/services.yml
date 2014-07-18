@@ -1,0 +1,35 @@
+services:
+    stripe.form.type:
+        class: %stripe.form.type.class%
+        arguments:
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: form.type, alias: stripe_view }
+
+    stripe.transaction.wrapper:
+        class: %stripe.transaction.wrapper.class%
+        arguments:
+            stripe.private.key: %stripe.private.key%
+
+    stripe.manager:
+        class: %stripe.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            stripe.transaction.wrapper: @stripe.transaction.wrapper
+            payment.bridge: @payment.bridge
+
+    stripe.twig.extension:
+        class: %stripe.twig.extension.class%
+        arguments:
+            stripe.public.key: %stripe.public.key%
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: twig.extension }
+
+    stripe.routes.loader:
+        class: %stripe.routes.loader.class%
+        arguments:
+            stripe.controller.route: %stripe.controller.route%
+        tags:
+            - { name: routing.loader }
