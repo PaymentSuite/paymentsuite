@@ -1,0 +1,38 @@
+{
+    "name": "paymentsuite/dineromail-bundle",
+    "type": "symfony-bundle",
+    "description": "DineroMail Bundle, part of PaymentSuite Project",
+    "keywords": ["dineromail", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Morera",
+            "email": "yuhu@mmoreram.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "paymentsuite/payment-core-bundle": "~1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "monolog/monolog": "~1.3"
+    },
+    "target-dir": "PaymentSuite/DineromailBundle",
+    "autoload": {
+        "psr-0": { "PaymentSuite\\DineromailBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
