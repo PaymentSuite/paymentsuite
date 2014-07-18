@@ -1,0 +1,34 @@
+{
+    "name": "paymentsuite/banwire-bundle",
+    "type": "symfony-bundle",
+    "description": "Banwire Bundle, part of PaymentSuite Project",
+    "keywords": ["Banwire", "payment", "ecommerce", "PaymentSuite"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santi Castells",
+            "email": "santi.castells@fancybox.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "paymentsuite/payment-core-bundle": "~1.1"
+    },
+    "target-dir": "PaymentSuite/BanwireBundle",
+    "autoload": {
+        "psr-0": { "PaymentSuite\\BanwireBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

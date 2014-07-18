@@ -1,0 +1,7 @@
+parameters:
+
+    banwire.controller.route.name: "banwire_execute"
+    banwire.form.type.class: "PaymentSuite\\BanwireBundle\\Form\\Type\\BanwireType"
+    banwire.manager.class: "PaymentSuite\\BanwireBundle\\Services\\BanwireManager"
+    banwire.twig.extension.class: "PaymentSuite\\BanwireBundle\\Twig\\BanwireExtension"
+    banwire.routes.loader.class: "PaymentSuite\\BanwireBundle\\Router\\BanwireRoutesLoader"
