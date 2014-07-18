@@ -14,13 +14,8 @@
 namespace PaymentSuite\PaypalExpressCheckoutBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaypalExpressCheckoutBundle\PaypalExpressCheckoutMethod;
-use PayPal\CoreComponentTypes\BasicAmountType;
-
 
 /**
  * Paypal Express Checkout manager
@@ -33,7 +28,6 @@ class PaypalExpressCheckoutManager
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
-
 
     /**
      * @var PaymentBridgeInterface
@@ -56,12 +50,11 @@ class PaypalExpressCheckoutManager
      */
     protected $config;
 
-
     /**
      * Construct method for paypal manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param PaypalExpressCheckoutTransactionWrapper Paypal Wrapper
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
@@ -96,9 +89,9 @@ class PaypalExpressCheckoutManager
 
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
-        if ($this->getPaymentStatus($this->paypalWrapper) == 'PaymentActionCompleted'){
+        if ($this->getPaymentStatus($this->paypalWrapper) == 'PaymentActionCompleted') {
             $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paypalMethod);
-        }else {
+        } else {
             $this->paymentEventDispatcher->notifyPaymentOrderFail($paymentBridge, $paypalMethod);
         }
 
@@ -113,6 +106,7 @@ class PaypalExpressCheckoutManager
     {
         $paypalWrapper->request('GetExpressCheckoutDetails', $paypalWrapper->getToken());
         $response = $paypalWrapper->getResponse();
+
         return $response['CHECKOUTSTATUS'];
     }
 }

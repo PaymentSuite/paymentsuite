@@ -18,7 +18,6 @@ use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-
 /**
  * Banwire router
  */
@@ -32,14 +31,12 @@ class BanwireRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var string
      *
      * Name controller route
      */
     private $controllerRouteName;
-
 
     /**
      * @var boolean
@@ -48,11 +45,10 @@ class BanwireRoutesLoader implements LoaderInterface
      */
     private $loaded = false;
 
-
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName
      */
     public function __construct($controllerRouteName, $controllerRoute)
@@ -60,7 +56,6 @@ class BanwireRoutesLoader implements LoaderInterface
         $this->controllerRouteName = $controllerRouteName;
         $this->controllerRoute = $controllerRoute;
     }
-
 
     /**
      * Loads a resource.
@@ -89,7 +84,6 @@ class BanwireRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -103,7 +97,6 @@ class BanwireRoutesLoader implements LoaderInterface
         return 'banwire' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -112,7 +105,6 @@ class BanwireRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

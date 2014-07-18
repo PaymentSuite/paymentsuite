@@ -15,8 +15,6 @@ namespace PaymentSuite\RedsysBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
-
 /**
  * RedsysMethod class
  */

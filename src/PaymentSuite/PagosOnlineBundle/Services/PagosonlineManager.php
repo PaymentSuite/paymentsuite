@@ -1,7 +1,6 @@
 <?php
 
-
-namespace PaymentSuite\PagosonlineBundle\Services;
+namespace PaymentSuite\PagosOnlineBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
@@ -23,8 +22,6 @@ class PagosonlineManager
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
-
-
 
     /**
      * @var PaymentBridgeInterface
@@ -53,7 +50,7 @@ class PagosonlineManager
      * Construct method for pagosonline manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param $logger
      * @param $accountId
      * @param PagosonlineCommManager $pagosonlineComm
@@ -67,12 +64,11 @@ class PagosonlineManager
         $this->pagosonlineComm = $pagosonlineComm;
     }
 
-
     /**
      * Tries to process a payment through Pagosonline
      *
      * @param PagosonlineMethod $paymentMethod Payment method
-     * @param float         $amount        Amount
+     * @param float             $amount        Amount
      *
      * @return PagosonlineManager Self object
      *
@@ -91,7 +87,6 @@ class PagosonlineManager
 
             throw new PaymentAmountsNotMatchException;
         }
-
 
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
@@ -148,11 +143,10 @@ class PagosonlineManager
         return $this;
     }
 
-
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
      *
-     * @param array         $autWS
+     * @param array             $autWS
      * @param PagosonlineMethod $paymentMethod Payment method
      *
      * @return PagosonlineManager Self object
@@ -190,6 +184,7 @@ class PagosonlineManager
         /**
          * Log the response of gateway
          */
+
         return $this;
     }
 }

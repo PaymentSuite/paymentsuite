@@ -33,14 +33,12 @@ class StripeExtension extends Twig_Extension
      */
     protected $formFactory;
 
-
     /**
      * @var Twig_Environment
      *
      * Twig environment
      */
     private $environment;
-
 
     /**
      * @var string
@@ -49,14 +47,12 @@ class StripeExtension extends Twig_Extension
      */
     private $publicKey;
 
-
     /**
      * @var PaymentBridgeInterface
      *
      * Currency wrapper
      */
     private $paymentBridgeInterface;
-
 
     /**
      * Construct method
@@ -72,7 +68,6 @@ class StripeExtension extends Twig_Extension
         $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
 
-
     /**
      * Init runtime
      *
@@ -87,7 +82,6 @@ class StripeExtension extends Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -100,7 +94,6 @@ class StripeExtension extends Twig_Extension
             new Twig_SimpleFunction('stripe_scripts', array($this, 'renderPaymentScripts'))
         );
     }
-
 
     /**
      * Render stripe form view
@@ -117,7 +110,6 @@ class StripeExtension extends Twig_Extension
         ));
     }
 
-
     /**
      * Render stripe scripts view
      *
@@ -130,7 +122,6 @@ class StripeExtension extends Twig_Extension
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
-
 
     /**
      * return extension name

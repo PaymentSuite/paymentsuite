@@ -1,7 +1,6 @@
 <?php
 
-
-namespace PaymentSuite\PagosonlineCommBundle;
+namespace PaymentSuite\PagosOnlineCommBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

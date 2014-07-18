@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\SafetypayBundle;
+namespace PaymentSuite\SafetyPayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
@@ -22,7 +22,6 @@ class SafetypayMethod implements PaymentMethodInterface
      * Safetypay amount
      */
     private $amount;
-
 
     /**
      * @var string
@@ -103,7 +102,6 @@ class SafetypayMethod implements PaymentMethodInterface
         return $this->reference;
     }
 
-
     /**
      * set amount
      *
@@ -117,7 +115,6 @@ class SafetypayMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get amount

@@ -69,7 +69,6 @@ class AuthorizenetManager
      */
     protected $paymentBridge;
 
-
     /**
      * Construct method for authorizenet manager
      *
@@ -88,10 +87,9 @@ class AuthorizenetManager
         $this->tranKey = $tranKey;
     }
 
-
     /**
      * Check and set param for payment
-     * 
+     *
      * @param AuthorizenetMethod $paymentMethod Payment method
      *
      * @return AuthorizenetManager self Object
@@ -159,14 +157,13 @@ class AuthorizenetManager
     private function convertPostValues($postValues)
     {
         $postString = "";
-        foreach( $postValues as $key => $value ) {
+        foreach ($postValues as $key => $value) {
             $postString .= "$key=" . urlencode( $value ) . "&";
         }
         $postString = rtrim( $postString, "& " );
 
         return $postString;
     }
-
 
     /**
      * Tries to process a payment through Authorizenet
@@ -215,7 +212,6 @@ class AuthorizenetManager
             ->setTransactionId($transaction[37])
             ->setTransactionStatus('paid')
             ->setTransactionResponse($transaction);
-
 
         /**
          * Payment paid successfully

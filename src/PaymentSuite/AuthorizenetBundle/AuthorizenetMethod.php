@@ -15,7 +15,6 @@ namespace PaymentSuite\AuthorizenetBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
 /**
  * AuthorizenetMethod class
  */
@@ -24,14 +23,13 @@ class AuthorizenetMethod implements PaymentMethodInterface
 
     /**
      * Get Authorizenet method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
     {
         return 'Authorizenet';
     }
-
 
     /**
      * @var string
@@ -40,14 +38,12 @@ class AuthorizenetMethod implements PaymentMethodInterface
      */
     private $apiToken;
 
-
     /**
      * @var string
      *
      * Credit Cart number
      */
     private $creditCartNumber;
-
 
     /**
      * @var string
@@ -56,14 +52,12 @@ class AuthorizenetMethod implements PaymentMethodInterface
      */
     private $creditCartOwner;
 
-
     /**
      * @var integer
      *
      * Credit cart expiration year
      */
     private $creditCartExpirationYear;
-
 
     /**
      * @var integer
@@ -72,14 +66,12 @@ class AuthorizenetMethod implements PaymentMethodInterface
      */
     private $creditCartExpirationMonth;
 
-
     /**
      * @var string
      *
      * Credit cart security value
      */
     private $creditCartSecurity;
-
 
     /**
      * @var integer
@@ -88,7 +80,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
      */
     private $transactionId;
 
-
     /**
      * @var array
      *
@@ -96,14 +87,12 @@ class AuthorizenetMethod implements PaymentMethodInterface
      */
     private $transactionResponse;
 
-
     /**
      * @var string
      *
      * Transaction status
      */
     private $transactionStatus;
-
 
     /**
      * set Credit cart number
@@ -119,7 +108,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit cart number
      *
@@ -129,7 +117,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->creditCartNumber;
     }
-
 
     /**
      * set Credit cart owner
@@ -145,7 +132,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit cart owner
      *
@@ -155,7 +141,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->creditCartOwner;
     }
-
 
     /**
      * set Credit cart expiration year
@@ -171,7 +156,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit cart expiration year
      *
@@ -181,7 +165,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->creditCartExpirationYear;
     }
-
 
     /**
      * set Credit cart expiration month
@@ -197,7 +180,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit cart expiration month
      *
@@ -207,7 +189,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->creditCartExpirationMonth;
     }
-
 
     /**
      * set Credit cart security
@@ -223,7 +204,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Credit cart security
      *
@@ -233,7 +213,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->creditCartSecurity;
     }
-
 
     /**
      * set Api token
@@ -249,7 +228,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Api token
      *
@@ -259,7 +237,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->apiToken;
     }
-
 
     /**
      * set Transaction id
@@ -275,7 +252,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Transaction id
      *
@@ -285,7 +261,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->transactionId;
     }
-
 
     /**
      * set Transaction response
@@ -301,7 +276,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get Transaction response
      *
@@ -311,7 +285,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
     {
         return $this->transactionResponse;
     }
-
 
     /**
      * set Transaction status
@@ -326,7 +299,6 @@ class AuthorizenetMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get Transaction status

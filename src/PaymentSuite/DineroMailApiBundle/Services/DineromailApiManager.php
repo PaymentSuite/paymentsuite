@@ -1,7 +1,6 @@
 <?php
 
-
-namespace PaymentSuite\DineromailApiBundle\Services;
+namespace PaymentSuite\DineroMailApiBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
@@ -24,8 +23,6 @@ class DineromailApiManager
      */
     protected $paymentEventDispatcher;
 
-
-
     /**
      * @var PaymentBridgeInterface
      *
@@ -33,12 +30,10 @@ class DineromailApiManager
      */
     protected $paymentBridge;
 
-
     /**
      * soap structure
      */
     protected $soapCredentials;
-
 
     /**
      * @var string
@@ -46,7 +41,6 @@ class DineromailApiManager
      * user dineromailapi
      */
     private $apiUserName;
-
 
     /**
      * @var string
@@ -62,14 +56,12 @@ class DineromailApiManager
      */
     private $apiNs;
 
-
     /**
      * @var string                           $credit_card
      *
      * url api dineromailapi prefix
      */
     private $apiPrefix;
-
 
     /**
      * @var logger
@@ -88,7 +80,7 @@ class DineromailApiManager
      * Construct method for dineromailapi manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param $apiUserName
      * @param $apiPassword
      * @param $logger
@@ -111,17 +103,16 @@ class DineromailApiManager
         $this->dineromail_api_debug = $dineromail_api_debug;
     }
 
-
     /**
      * Tries to process a payment through DineromailApi
      *
      * @param DineromailApiMethod $paymentMethod Payment method
-     * @param float $amount Amount
+     * @param float               $amount        Amount
      * @param env
      *
      * @throws PaymentAmountsNotMatchException
      * @throws PaymentOrderNotFoundException
-     * @return DineromailAPiManager Self object
+     * @return DineromailAPiManager            Self object
      */
     public function processPayment(DineromailApiMethod $paymentMethod, $amount)
     {
@@ -134,7 +125,6 @@ class DineromailApiManager
 
             throw new PaymentAmountsNotMatchException;
         }
-
 
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
@@ -211,7 +201,7 @@ class DineromailApiManager
      * @param array() $items
      * @param array() $buyer
      * @param array() $creditCard
-     * @param string $cardType
+     * @param string  $cardType
      *
      * @return object
      */
@@ -226,8 +216,7 @@ class DineromailApiManager
             //to debug dineromail API, we use the credit card select
             //to map success/fail values to pass to the transaction_id
             //field, which dineromail API uses
-            switch ($cardType)
-            {
+            switch ($cardType) {
                 case 'VISA': // OK
                     $merchantTransactionId = '1';
                     break;
@@ -249,7 +238,7 @@ class DineromailApiManager
 
          $stringItems = '';
          $soapItems = array();
-         foreach($items as &$item){
+         foreach ($items as &$item) {
              /* UGLY HACK NEEDED UNTIL PAYMENTBRIDGE HIERARCHY WILL BE REFACTORED */
              $item['Amount'] = number_format($item['Amount'] / 100, 2, '.', '');
              $stringItems .= $item['Amount'].$item['Code'].$item['Currency'].$item['Description'].$item['Name'].$item['Quantity'];
@@ -290,7 +279,6 @@ class DineromailApiManager
         return $client->DoPAymentWithCreditCard($request)->DoPaymentWithCreditCardResult;
     }
 
-
     /**
      * @param $data
      * @param $typeName
@@ -301,14 +289,13 @@ class DineromailApiManager
         return new SoapVar($data, SOAP_ENC_OBJECT, $typeName, $this->apiNs);
     }
 
-
     /**
      *
      * @param $result \soap response
      * @param DineromailApiMethod $paymentMethod Payment method
      *
      * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
-     * @return DineromailApiMethod Self object
+     * @return DineromailApiMethod                                        Self object
      *
      */
     private function processTransaction($result, DineromailApiMethod $paymentMethod)
@@ -325,8 +312,7 @@ class DineromailApiManager
          */
         $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
 
-        switch ($result->Status)
-        {
+        switch ($result->Status) {
             case 'OK':
             case 'COMPLETED':
                 $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);

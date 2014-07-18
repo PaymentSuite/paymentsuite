@@ -40,7 +40,7 @@
  * @version    1.1.0-dev
  */
 
-namespace PaymentSuite\PagosonlineCommBundle\Lib;
+namespace PaymentSuite\PagosOnlineCommBundle\Lib;
 
 use DOMElement;
 use DOMText;
@@ -50,9 +50,10 @@ use XMLSecEnc;
 use XMLSecurityDSig;
 use XMLSecurityKey;
 
-require('xmlseclibs.php');
+require 'xmlseclibs.php';
 
-class WSSESoap {
+class WSSESoap
+{
     const WSSENS = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
     const WSUNS = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
     const WSUNAME = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0';
@@ -65,7 +66,8 @@ class WSSESoap {
     private $secNode = NULL;
     public $signAllHeaders = FALSE;
 
-    private function locateSecurityHeader($bMustUnderstand = TRUE, $setActor = NULL) {
+    private function locateSecurityHeader($bMustUnderstand = TRUE, $setActor = NULL)
+    {
         if ($this->secNode == NULL) {
             $headers = $this->SOAPXPath->query('//wssoap:Envelope/wssoap:Header');
             $header = $headers->item(0);
@@ -98,10 +100,12 @@ class WSSESoap {
             }
             $this->secNode = $secnode;
         }
+
         return $this->secNode;
     }
 
-    public function __construct($doc, $bMustUnderstand = TRUE, $setActor=NULL) {
+    public function __construct($doc, $bMustUnderstand = TRUE, $setActor=NULL)
+    {
         $this->soapDoc = $doc;
         $this->envelope = $doc->documentElement;
         $this->soapNS = $this->envelope->namespaceURI;
@@ -112,7 +116,8 @@ class WSSESoap {
         $this->locateSecurityHeader($bMustUnderstand, $setActor);
     }
 
-    public function addTimestamp($secondsToExpire=3600) {
+    public function addTimestamp($secondsToExpire=3600)
+    {
         /* Add the WSU timestamps */
         $security = $this->locateSecurityHeader();
 
@@ -127,7 +132,8 @@ class WSSESoap {
         }
     }
 
-    public function addUserToken($userName, $password=NULL, $passwordDigest=FALSE) {
+    public function addUserToken($userName, $password=NULL, $passwordDigest=FALSE)
+    {
         if ($passwordDigest && empty($password)) {
             throw new Exception("Cannot calculate the digest without a password");
         }
@@ -164,7 +170,8 @@ class WSSESoap {
         $token->appendChild($created);
     }
 
-    public function addBinaryToken($cert, $isPEMFormat=TRUE, $isDSig=TRUE) {
+    public function addBinaryToken($cert, $isPEMFormat=TRUE, $isDSig=TRUE)
+    {
         $security = $this->locateSecurityHeader();
         $data = XMLSecurityDSig::get509XCert($cert, $isPEMFormat);
 
@@ -178,7 +185,8 @@ class WSSESoap {
         return $token;
     }
 
-    public function attachTokentoSig($token) {
+    public function attachTokentoSig($token)
+    {
         if (! ($token instanceof DOMElement)) {
             throw new Exception('Invalid parameter: BinarySecurityToken element expected');
         }
@@ -204,7 +212,8 @@ class WSSESoap {
         }
     }
 
-    public function signSoapDoc($objKey, $options = NULL) {
+    public function signSoapDoc($objKey, $options = NULL)
+    {
         $objDSig = new XMLSecurityDSig();
 
         $objDSig->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
@@ -244,7 +253,7 @@ class WSSESoap {
 
         $insertTop = TRUE;
         if (is_array($options) && isset($options["insertBefore"])) {
-            $insertTop = (bool)$options["insertBefore"];
+            $insertTop = (bool) $options["insertBefore"];
         }
         $objDSig->appendSignature($this->secNode, $insertTop);
 
@@ -276,7 +285,8 @@ class WSSESoap {
         }
     }
 
-    public function addEncryptedKey($node, $key, $token, $options = NULL) {
+    public function addEncryptedKey($node, $key, $token, $options = NULL)
+    {
         if (! $key->encKey) {
             return FALSE;
         }
@@ -335,6 +345,7 @@ class WSSESoap {
                     }
                     $dataNode = new DOMText(base64_encode($data));
                     $reference->appendChild($dataNode);
+
                     return TRUE;
                 }
             }
@@ -348,10 +359,11 @@ class WSSESoap {
         return TRUE;
     }
 
-    public function AddReference($baseNode, $guid) {
+    public function AddReference($baseNode, $guid)
+    {
         $refList = NULL;
         $child = $baseNode->firstChild;
-        while($child) {
+        while ($child) {
             if (($child->namespaceURI == XMLSecEnc::XMLENCNS) && ($child->localName == 'ReferenceList')) {
                 $refList = $child;
                 break;
@@ -368,8 +380,8 @@ class WSSESoap {
         $dataref->setAttribute('URI', '#'.$guid);
     }
 
-    public function EncryptBody($siteKey, $objKey, $token) {
-
+    public function EncryptBody($siteKey, $objKey, $token)
+    {
         $enc = new XMLSecEnc();
         foreach ($this->envelope->childNodes AS $node) {
             if ($node->namespaceURI == $this->soapNS && $node->localName == 'Body') {
@@ -388,7 +400,7 @@ class WSSESoap {
         $encNode->setAttribute('Id', $guid);
 
         $refNode = $encNode->firstChild;
-        while($refNode && $refNode->nodeType != XML_ELEMENT_NODE) {
+        while ($refNode && $refNode->nodeType != XML_ELEMENT_NODE) {
             $refNode = $refNode->nextSibling;
         }
         if ($refNode) {
@@ -399,8 +411,8 @@ class WSSESoap {
         }
     }
 
-    public function encryptSoapDoc($siteKey, $objKey, $options=NULL, $encryptSignature=TRUE) {
-
+    public function encryptSoapDoc($siteKey, $objKey, $options=NULL, $encryptSignature=TRUE)
+    {
         $enc = new XMLSecEnc();
 
         $xpath = new DOMXPath($this->envelope->ownerDocument);
@@ -428,8 +440,8 @@ class WSSESoap {
         $this->addEncryptedKey($signode, $enc, $siteKey, $options);
     }
 
-    public function decryptSoapDoc($doc, $options) {
-
+    public function decryptSoapDoc($doc, $options)
+    {
         $privKey = NULL;
         $privKey_isFile = FALSE;
         $privKey_isCert = FALSE;
@@ -492,11 +504,13 @@ class WSSESoap {
         return TRUE;
     }
 
-    public function saveXML() {
+    public function saveXML()
+    {
         return $this->soapDoc->saveXML();
     }
 
-    public function save($file) {
+    public function save($file)
+    {
         return $this->soapDoc->save($file);
     }
-} 
+}

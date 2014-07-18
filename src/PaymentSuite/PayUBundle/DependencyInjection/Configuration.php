@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\DependencyInjection;
+namespace PaymentSuite\PayUBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

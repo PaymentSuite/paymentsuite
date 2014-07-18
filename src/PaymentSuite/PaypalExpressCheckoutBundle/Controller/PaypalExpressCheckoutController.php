@@ -51,7 +51,6 @@ class PaypalExpressCheckoutController extends Controller
             $redirectAppend = $this->container->getParameter('paypal_express_checkout.success.order.append');
             $redirectAppendField = $this->container->getParameter('paypal_express_checkout.success.order.field');
 
-
         } catch (PaymentException $e) {
 
             /**
@@ -71,7 +70,6 @@ class PaypalExpressCheckoutController extends Controller
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 
-
     /**
      * Given some data, creates a PaymillMethod object
      *
@@ -86,6 +84,7 @@ class PaypalExpressCheckoutController extends Controller
             ->setCurrency($data['currency'])
             ->setSomeExtraData($data['paypal_express_params'])
         ;
+
         return $paymentMethod;
     }
 }

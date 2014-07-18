@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\SafetypayBundle\DependencyInjection;
+namespace PaymentSuite\SafetyPayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

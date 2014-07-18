@@ -39,7 +39,6 @@ class GoogleWalletExtension extends Twig_Extension
      */
     private $googlewalletManager;
 
-
     /**
      * Construct method
      *
@@ -49,7 +48,6 @@ class GoogleWalletExtension extends Twig_Extension
     {
         $this->googlewalletManager = $googlewalletManager;
     }
-
 
     /**
      * Init runtime
@@ -65,7 +63,6 @@ class GoogleWalletExtension extends Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -78,7 +75,6 @@ class GoogleWalletExtension extends Twig_Extension
             new Twig_SimpleFunction('googlewallet_scripts', array($this, 'renderPaymentScripts'))
         );
     }
-
 
     /**
      * Render googlewallet form view
@@ -93,7 +89,6 @@ class GoogleWalletExtension extends Twig_Extension
         ));
     }
 
-
     /**
      * Render googlewallet scripts view
      *
@@ -103,7 +98,6 @@ class GoogleWalletExtension extends Twig_Extension
     {
         return $this->environment->display('GoogleWalletBundle:GoogleWallet:scripts.html.twig');
     }
-
 
     /**
      * return extension name

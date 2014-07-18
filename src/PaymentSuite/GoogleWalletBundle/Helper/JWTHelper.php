@@ -28,7 +28,6 @@ class JWTHelper extends Helper
      */
     public $name = 'JWTHelper';
 
-
     /**
      * Returns the canonical name of this helper.
      *
@@ -40,13 +39,13 @@ class JWTHelper extends Helper
     }
 
     /**
-     * @param string $jwt The JWT
-     * @param string|null $key The secret key
-     * @param bool $verify Don't skip verification process
+     * @param string      $jwt    The JWT
+     * @param string|null $key    The secret key
+     * @param bool        $verify Don't skip verification process
      *
      * @throws UnexpectedValueException
      * @throws DomainException
-     * @return object The JWT's payload as a PHP object
+     * @return object                   The JWT's payload as a PHP object
      */
     public static function decode($jwt, $key = null, $verify = true)
     {
@@ -72,6 +71,7 @@ class JWTHelper extends Helper
                 throw new UnexpectedValueException('Signature verification failed');
             }
         }
+
         return $payload;
     }
 
@@ -98,12 +98,12 @@ class JWTHelper extends Helper
     }
 
     /**
-     * @param string $msg The message to sign
-     * @param string $key The secret key
+     * @param string $msg    The message to sign
+     * @param string $key    The secret key
      * @param string $method The signing algorithm
      *
      * @throws DomainException
-     * @return string An encrypted message
+     * @return string          An encrypted message
      */
     public static function sign($msg, $key, $method = 'HS256')
     {
@@ -115,6 +115,7 @@ class JWTHelper extends Helper
         if (empty($methods[$method])) {
             throw new DomainException('Algorithm not supported');
         }
+
         return hash_hmac($methods[$method], $msg, $key, true);
     }
 
@@ -122,17 +123,17 @@ class JWTHelper extends Helper
      * @param string $input JSON string
      *
      * @throws DomainException
-     * @return object Object representation of JSON string
+     * @return object          Object representation of JSON string
      */
     public static function jsonDecode($input)
     {
         $obj = json_decode($input);
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             JWT::handleJsonError($errno);
-        }
-        else if ($obj === null && $input !== 'null') {
+        } elseif ($obj === null && $input !== 'null') {
             throw new DomainException('Null result with non-null input');
         }
+
         return $obj;
     }
 
@@ -140,17 +141,17 @@ class JWTHelper extends Helper
      * @param object|array $input A PHP object or array
      *
      * @throws DomainException
-     * @return string JSON representation of the PHP object or array
+     * @return string          JSON representation of the PHP object or array
      */
     public static function jsonEncode($input)
     {
         $json = json_encode($input);
         if (function_exists('json_last_error') && $errno = json_last_error()) {
             JWT::handleJsonError($errno);
-        }
-        else if ($json === 'null' && $input !== null) {
+        } elseif ($json === 'null' && $input !== null) {
             throw new DomainException('Null result with non-null input');
         }
+
         return $json;
     }
 
@@ -166,6 +167,7 @@ class JWTHelper extends Helper
             $padlen = 4 - $remainder;
             $input .= str_repeat('=', $padlen);
         }
+
         return base64_decode(strtr($input, '-_', '+/'));
     }
 

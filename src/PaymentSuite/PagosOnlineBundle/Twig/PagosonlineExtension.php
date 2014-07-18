@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\PagosonlineBundle\Twig;
+namespace PaymentSuite\PagosOnlineBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -18,7 +18,6 @@ class PagosonlineExtension extends \Twig_Extension
      */
     private $formFactory;
 
-
     /**
      * @var \Twig_Environment
      *
@@ -26,15 +25,12 @@ class PagosonlineExtension extends \Twig_Extension
      */
     private $environment;
 
-
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
     private $paymentBridgeInterface;
-
 
     /**
      * Construct method
@@ -47,7 +43,6 @@ class PagosonlineExtension extends \Twig_Extension
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
-
 
     /**
      * Init runtime
@@ -63,7 +58,6 @@ class PagosonlineExtension extends \Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -75,7 +69,6 @@ class PagosonlineExtension extends \Twig_Extension
             new \Twig_SimpleFunction('pagosonline_render', array($this, 'renderPaymentView')),
         );
     }
-
 
     /**
      * Render pagosonline form view
@@ -90,7 +83,6 @@ class PagosonlineExtension extends \Twig_Extension
 
     }
 
-
     /**
      * Render pagosonline scripts view
      */
@@ -100,7 +92,6 @@ class PagosonlineExtension extends \Twig_Extension
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
-
 
     /**
      * return extension name

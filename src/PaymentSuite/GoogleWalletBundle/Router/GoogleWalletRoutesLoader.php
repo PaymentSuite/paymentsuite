@@ -55,7 +55,6 @@ class GoogleWalletRoutesLoader implements LoaderInterface
         $this->routeCallback = $routeCallback;
     }
 
-
     /**
      * Loads a resource.
      *
@@ -82,7 +81,6 @@ class GoogleWalletRoutesLoader implements LoaderInterface
 
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.

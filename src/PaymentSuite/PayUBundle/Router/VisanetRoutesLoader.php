@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Router;
+namespace PaymentSuite\PayUBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;

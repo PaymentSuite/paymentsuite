@@ -15,7 +15,6 @@ namespace PaymentSuite\BanwireBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * BanwireBundle payment bundle
  */

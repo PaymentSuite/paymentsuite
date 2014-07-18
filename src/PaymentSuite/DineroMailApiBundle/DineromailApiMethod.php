@@ -9,10 +9,9 @@
  *
  */
 
-namespace PaymentSuite\DineromailApiBundle;
+namespace PaymentSuite\DineroMailApiBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-
 
 /**
  * DineromailApiMethod class
@@ -22,14 +21,13 @@ class DineromailApiMethod implements PaymentMethodInterface
 
     /**
      * Get DineromailApiMethod method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
     {
         return 'DineromailApi';
     }
-
 
     /**
      * @var float
@@ -38,14 +36,12 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
     private $amount;
 
-
     /*
      * @var string
      *
      * Credit card owner
      */
     private $cardName;
-
 
     /*
      * @var string
@@ -54,14 +50,12 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
     private $cardType;
 
-
     /**
      * @var string
      *
      * Credit card number
      */
     private $cardNum;
-
 
     /**
      * @var integer
@@ -70,14 +64,12 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
     private $cardExpMonth;
 
-
     /*
      * @var integer
      *
      * Card expiration year
      */
     private $cardExpYear;
-
 
     /*
      * @var string
@@ -86,14 +78,12 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
     private $cardSecurity;
 
-
     /**
      * @var string
      *
      * dineromail transactionid
      */
     private $dineromailApiTransactionId;
-
 
     /**
      * @var string
@@ -102,7 +92,6 @@ class DineromailApiMethod implements PaymentMethodInterface
      */
 
     private $dineromailApiReference;
-
 
     /**
      * @var integer
@@ -155,7 +144,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param float $amount
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setAmount($amount)
     {
@@ -175,7 +164,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param int $cardExpMonth
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardExpMonth($cardExpMonth)
     {
@@ -195,7 +184,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardExpYear
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardExpYear($cardExpYear)
     {
@@ -215,7 +204,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardName
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardName($cardName)
     {
@@ -235,7 +224,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param string $cardNum
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardNum($cardNum)
     {
@@ -252,11 +241,10 @@ class DineromailApiMethod implements PaymentMethodInterface
         return $this->cardNum;
     }
 
-
     /**
      * @param mixed $cardSecurity
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardSecurity($cardSecurity)
     {
@@ -276,7 +264,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardType
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardType($cardType)
     {
@@ -296,7 +284,7 @@ class DineromailApiMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardQuota
      *
-     * @return  DineromailApiMethod self Object
+     * @return DineromailApiMethod self Object
      */
     public function setCardQuota($cardQuota)
     {

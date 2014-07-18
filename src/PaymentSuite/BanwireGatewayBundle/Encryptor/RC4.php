@@ -27,14 +27,12 @@ class RC4
         $b = 0;
         $intLength = 0;
         $intLength = strlen($strPwd);
-        for($i = 0; $i <= 255; $i++)
-        { // For a = 0 To 255
+        for ($i = 0; $i <= 255; $i++) { // For a = 0 To 255
             $this->_key[$i] = ord(substr($strPwd,$i%$intLength,1));
             $this->_sbox[$i] = $i;
         }
         $b = 0;
-        for($i = 0; $i <= 255; $i++)
-        { // For a = 0 To 255
+        for ($i = 0; $i <= 255; $i++) { // For a = 0 To 255
             $b = ($b + $this->_sbox[$i] + $this->_key[$i])%256;
             $tempSwap = $this->_sbox[$i];
             $this->_sbox[$i] = $this->_sbox[$b];
@@ -52,8 +50,7 @@ class RC4
         $k;
         $cipherby = 0;
         $cipher = "";
-        for($a = 0; $a < strlen($plaintxt); $a++)
-        {
+        for ($a = 0; $a < strlen($plaintxt); $a++) {
             $i = ($i + 1)%256;
             $j = ($j + $this->_sbox[$i])%256;
             $temp = $this->_sbox[$i];
@@ -63,6 +60,7 @@ class RC4
             $cipherby = ord(substr($plaintxt,$a,1)) ^ $k;
             $cipher = $cipher.chr($cipherby);
         }
+
         return $cipher;
     }
 
@@ -75,14 +73,14 @@ class RC4
     private function _StringToHexString($b)
     {
         $sb = "";
-        for($i = 0; $i < strlen($b); $i++)
-        {
+        for ($i = 0; $i < strlen($b); $i++) {
             $tmpb = $b;
             $v = ord(substr($tmpb, $i, 1)) & 0xFF;
             if($v < 16)
                 $sb = $sb.'0';
             $sb = $sb.dechex($v);
         }
+
         return $sb;
     }
 
@@ -96,12 +94,12 @@ class RC4
     {
         $Result = "";
         $len = strlen($s)/2;
-        for($i=0; $i < $len; $i++)
-        {
+        for ($i=0; $i < $len; $i++) {
             $index = $i * 2;
             $v = intval(substr($s,$index,2),16);
             $Result = $Result.chr($v);
         }
+
         return $Result;
     }
 
@@ -115,6 +113,7 @@ class RC4
     {
         $this->_semilla = is_null($semilla) ? $this->_semilla : $semilla;
         if(is_null($this->_semilla) || is_null($string)) return FALSE;
+
         return $this->_StringToHexString($this->_Salaa($string, $this->_semilla));
     }
 
@@ -128,6 +127,7 @@ class RC4
     {
         $this->_semilla = is_null($semilla) ? $this->_semilla : $semilla;
         if(is_null($this->_semilla) || is_null($string)) return FALSE;
+
         return $this->_Salaa($this->_HexStringToString($string), $this->_semilla);
     }
 

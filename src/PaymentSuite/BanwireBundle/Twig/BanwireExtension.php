@@ -29,7 +29,6 @@ class BanwireExtension extends \Twig_Extension
      */
     private $formFactory;
 
-
     /**
      * @var \Twig_Environment
      *
@@ -37,15 +36,12 @@ class BanwireExtension extends \Twig_Extension
      */
     private $environment;
 
-
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
     private $paymentBridgeInterface;
-
 
     /**
      * Construct method
@@ -58,7 +54,6 @@ class BanwireExtension extends \Twig_Extension
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
-
 
     /**
      * Init runtime
@@ -74,7 +69,6 @@ class BanwireExtension extends \Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -86,7 +80,6 @@ class BanwireExtension extends \Twig_Extension
             new \Twig_SimpleFunction('banwire_render', array($this, 'renderPaymentView')),
         );
     }
-
 
     /**
      * Render banwire form view
@@ -101,7 +94,6 @@ class BanwireExtension extends \Twig_Extension
 
     }
 
-
     /**
      * Render banwire scripts view
      */
@@ -111,7 +103,6 @@ class BanwireExtension extends \Twig_Extension
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
-
 
     /**
      * return extension name

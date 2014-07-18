@@ -30,7 +30,6 @@ class StripeTransactionWrapper
      */
     protected $privateKey;
 
-
     /**
      * Construct method for stripe transaction wrapper
      *
@@ -41,13 +40,12 @@ class StripeTransactionWrapper
         $this->privateKey = $privateKey;
     }
 
-
     /**
      * Create new Transaction with a set of params
      *
      * @param array $params Set of params
      *
-     * @return array Result of transaction
+     * @return array            Result of transaction
      * @throws PaymentException
      */
     public function create(array $params)

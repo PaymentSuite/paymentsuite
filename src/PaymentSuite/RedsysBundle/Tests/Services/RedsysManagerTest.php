@@ -47,7 +47,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
      */
     private $redsysMethod;
 
-
     /**
      * Setup method
      */
@@ -84,12 +83,11 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
      */
-    public function testParameterNotReceivedException(){
+    public function testParameterNotReceivedException()
+    {
         $parameters = array(
             'Ds_Signature'       => 'X',
         );
-
-
 
         $result = $this->redsysManager->processResult($parameters);
 
@@ -98,8 +96,8 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PaymentSuite\RedsysBundle\Exception\InvalidSignatureException
      */
-    public function testInvalidSignatureException(){
-
+    public function testInvalidSignatureException()
+    {
         $parameters = array(
             'Ds_Date'       => 'X',
             'Ds_Hour'       => 'X',
@@ -120,7 +118,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
         );
 
-
         $this->redsysManager->processResult($parameters);
 
     }
@@ -128,8 +125,8 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
-    public function testPaymentError(){
-
+    public function testPaymentError()
+    {
         $dsResponse = '100';
 
         $dsAuthorisationCode = '222FFF';
@@ -236,11 +233,10 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->redsysManager->processResult($parameters);
 
-
     }
 
-    public function testPaymentSuccess(){
-
+    public function testPaymentSuccess()
+    {
         $dsResponse = 0;
 
         $dsAuthorisationCode = '222FFF';
@@ -276,8 +272,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_Card_Type'  => $dsCardType,
 
         );
-
-
 
         $this
             ->paymentEventDispatcher

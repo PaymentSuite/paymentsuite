@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\DineromailApiBundle\Router;
+namespace PaymentSuite\DineroMailApiBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -16,7 +16,6 @@ class DineromailApiRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var string
      *
@@ -27,7 +26,7 @@ class DineromailApiRoutesLoader implements LoaderInterface
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName
      */
     public function __construct($controllerRouteName, $controllerRoute)
@@ -36,14 +35,12 @@ class DineromailApiRoutesLoader implements LoaderInterface
         $this->controllerRoute = $controllerRoute;
     }
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Loads a resource.
@@ -66,9 +63,9 @@ class DineromailApiRoutesLoader implements LoaderInterface
             '_controller'   =>  'DineromailApiBundle:DineromailApi:execute',
         )));
         $this->loaded = true;
+
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -83,7 +80,6 @@ class DineromailApiRoutesLoader implements LoaderInterface
         return 'dineromail_api' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -92,7 +88,6 @@ class DineromailApiRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

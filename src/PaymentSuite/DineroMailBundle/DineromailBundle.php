@@ -11,10 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle;
+namespace PaymentSuite\DineroMailBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 
 /**
  * Dineromail payment bundle

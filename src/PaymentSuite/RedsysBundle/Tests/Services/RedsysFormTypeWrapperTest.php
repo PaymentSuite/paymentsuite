@@ -10,7 +10,6 @@
  * Gonzalo Vilaseca 2014
  */
 
-
 namespace PaymentSuite\RedsysBundle\Tests\Services;
 
 use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
@@ -107,8 +106,6 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
      * Redsys form type manager object
      */
     private $redsysFormTypeWrapper;
-
-
 
     /**
      * Setup method

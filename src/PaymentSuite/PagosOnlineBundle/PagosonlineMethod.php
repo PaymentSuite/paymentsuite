@@ -1,9 +1,8 @@
 <?php
 
-namespace PaymentSuite\PagosonlineBundle;
+namespace PaymentSuite\PagosOnlineBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-
 
 /**
  * PaymillMethod class
@@ -21,14 +20,12 @@ class PagosonlineMethod implements PaymentMethodInterface
         return 'Pagosonline';
     }
 
-
     /**
      * @var float
      *
      * Pagosonline amount
      */
     private $amount;
-
 
     /*
      * @var string
@@ -37,14 +34,12 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $cardName;
 
-
     /*
      * @var string
      *
      * Credit card type
      */
     private $cardType;
-
 
     /**
      * @var string
@@ -53,14 +48,12 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $cardNum;
 
-
     /**
      * @var integer
      *
      * Card expiration month
      */
     private $cardExpMonth;
-
 
     /*
      * @var integer
@@ -69,14 +62,12 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $cardExpYear;
 
-
     /*
      * @var string
      *
      * Card security value
      */
     private $cardSecurity;
-
 
     /*
      * @var integer
@@ -85,14 +76,12 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $cardQuota;
 
-
     /**
      * @var string
      *
      * user agent
      */
     private $userAgent;
-
 
     /**
      * @var string
@@ -101,7 +90,6 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $clientIp;
 
-
     /**
      * @var string
      *
@@ -109,14 +97,12 @@ class PagosonlineMethod implements PaymentMethodInterface
      */
     private $cookie;
 
-
     /**
      * @var string
      *
      * pagosonline transactionid
      */
     private $pagosonlineTransactionId;
-
 
     /**
      * @var string
@@ -169,7 +155,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param float $amount
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setAmount($amount)
     {
@@ -189,7 +175,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param int $cardExpMonth
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardExpMonth($cardExpMonth)
     {
@@ -209,7 +195,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardExpYear
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardExpYear($cardExpYear)
     {
@@ -229,7 +215,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardName
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardName($cardName)
     {
@@ -249,7 +235,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param string $cardNum
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardNum($cardNum)
     {
@@ -269,7 +255,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardQuota
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardQuota($cardQuota)
     {
@@ -289,7 +275,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardSecurity
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardSecurity($cardSecurity)
     {
@@ -309,7 +295,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardType
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCardType($cardType)
     {
@@ -329,7 +315,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param string $clientIp
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setClientIp($clientIp)
     {
@@ -349,7 +335,7 @@ class PagosonlineMethod implements PaymentMethodInterface
     /**
      * @param string $userAgent
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setUserAgent($userAgent)
     {
@@ -366,11 +352,10 @@ class PagosonlineMethod implements PaymentMethodInterface
         return $this->userAgent;
     }
 
-
     /**
      * @param string cookie
      *
-     * @return  PagosonlineMethod self Object
+     * @return PagosonlineMethod self Object
      */
     public function setCookie($cookie)
     {

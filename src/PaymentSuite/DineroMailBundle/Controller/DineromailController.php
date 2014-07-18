@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle\Controller;
+namespace PaymentSuite\DineroMailBundle\Controller;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\DineromailBundle\DineromailMethod;
-
 
 /**
  * DineromailController
@@ -49,7 +48,6 @@ class DineromailController extends Controller
          */
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 
-
         /**
          * Order Not found Exception must be thrown just here
          */
@@ -75,7 +73,6 @@ class DineromailController extends Controller
                                 : array();
 
         $successRoute = $this->generateUrl($redirectSuccessUrl, $redirectSuccessData, true);
-
 
         /**
          * Loading fail route for returning from dineroMail
@@ -109,7 +106,6 @@ class DineromailController extends Controller
         );
     }
 
-
     /**
      * Payment process
      *
@@ -124,10 +120,10 @@ class DineromailController extends Controller
         if ($notificacion = $request->request->get('Notificacion')) {
             $xml = simplexml_load_string($notificacion);
             if ($xml instanceof \SimpleXMLElement) {
-                switch ((string)$xml->tiponotificacion) {
+                switch ((string) $xml->tiponotificacion) {
                     case '1':
                         foreach ($xml->operaciones->operacion as $oper) {
-                            $this->get('dineromail.manager')->checkTransactionStatus((string)$oper->id);
+                            $this->get('dineromail.manager')->checkTransactionStatus((string) $oper->id);
                         }
                         break;
                     default:

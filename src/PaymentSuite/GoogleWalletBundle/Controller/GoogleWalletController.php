@@ -20,7 +20,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Class GoogleWalletController
- * 
+ *
  * @package Controller
  */
 class GoogleWalletController extends Controller
@@ -39,8 +39,7 @@ class GoogleWalletController extends Controller
     {
         $params = array();
         $content = $this->get("request")->getContent();
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $params = json_decode($content, true); // 2nd param to get as array
         }
         $response = $params['response'];

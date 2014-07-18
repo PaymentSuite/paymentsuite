@@ -46,7 +46,6 @@ class AuthorizenetExtension extends Extension
         $container->setParameter('authorizenet.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('authorizenet.fail.order.field', $config['payment_fail']['order_append_field']);
 
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');

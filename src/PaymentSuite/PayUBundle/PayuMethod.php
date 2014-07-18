@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle;
+namespace PaymentSuite\PayUBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 

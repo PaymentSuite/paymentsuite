@@ -20,7 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\AuthorizenetBundle\AuthorizenetMethod;
 
-
 /**
  * AuthorizenetController
  */

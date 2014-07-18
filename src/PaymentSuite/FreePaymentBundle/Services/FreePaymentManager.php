@@ -30,14 +30,12 @@ class FreePaymentManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
     protected $paymentBridge;
-
 
     /**
      * Construct method for freepayment manager
@@ -50,7 +48,6 @@ class FreePaymentManager
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
     }
-
 
     /**
      * Tries to process a payment through Paymill

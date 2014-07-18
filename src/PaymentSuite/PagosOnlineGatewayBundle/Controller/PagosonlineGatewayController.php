@@ -9,13 +9,11 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle\Controller;
+namespace PaymentSuite\PagosOnlineGatewayBundle\Controller;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
@@ -48,7 +46,6 @@ class PagosonlineGatewayController extends Controller
          */
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 
-
         /**
          * Order Not found Exception must be thrown just here
          */
@@ -56,7 +53,6 @@ class PagosonlineGatewayController extends Controller
 
             throw new PaymentOrderNotFoundException;
         }
-
 
         /**
          * Loading success route for returning from pagosonline
@@ -94,12 +90,12 @@ class PagosonlineGatewayController extends Controller
             ->buildForm($responseRoute, $confirmRoute)
             ->getForm($successRoute)
             ->createView();
+
         return array(
 
             'pagosonline_gateway_form' => $formView,
         );
     }
-
 
     /**
      * Payment reponse
@@ -154,16 +150,17 @@ class PagosonlineGatewayController extends Controller
         $orderPaidStatus = 4;
 
         if (strtoupper($signatureHash) == $signature) {
-            
+
             if ($statusPol == $orderPaidStatus) {
-                
+
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderSuccess($paymentBridge, $paymentMethod);
 
             } else {
-                
+
                 $this->get('payment.event.dispatcher')->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
             }
         }
+
         return new Response();
     }
 
@@ -185,7 +182,7 @@ class PagosonlineGatewayController extends Controller
         $orderRefPol = explode("#",$orderRef);
         $orderId = $orderRefPol[0];
         $orderPaidStatus = 4;
-        
+
         if ($statusPol == $orderPaidStatus) {
 
             $redirectUrl = $this->container->getParameter('pagosonline_gateway.success.route');
@@ -208,6 +205,7 @@ class PagosonlineGatewayController extends Controller
                 )
                 : array();
         }
+
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

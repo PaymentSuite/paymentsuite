@@ -15,7 +15,6 @@ namespace PaymentSuite\FreePaymentBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Free payment bundle
  */

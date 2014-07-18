@@ -8,9 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle;
-
-use PaymentSuite\PayuBundle\PayuMethod;
+namespace PaymentSuite\PayUBundle;
 
 /**
  * VisanetMethod

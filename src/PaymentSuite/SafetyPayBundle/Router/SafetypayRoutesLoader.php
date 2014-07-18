@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\SafetypayBundle\Router;
+namespace PaymentSuite\SafetyPayBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -24,19 +24,17 @@ class SafetypayRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
 
-
     /**
      * @var string
-     * 
+     *
      * Execution controller route name
      */
     private $controllerRouteName;
-
 
     /**
      * @var string
@@ -44,7 +42,6 @@ class SafetypayRoutesLoader implements LoaderInterface
      * Execution controller route confirm
      */
     private $controllerRouteConfirm;
-
 
     /**
      * @var string
@@ -55,18 +52,17 @@ class SafetypayRoutesLoader implements LoaderInterface
 
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
 
-
     /**
      * Construct method
      *
-     * @param string $controllerRoute     Controller route
-     * @param string $controllerRouteName Controller route name
-     * @param String $controllerRouteConfirm Controller route confirm
+     * @param string $controllerRoute            Controller route
+     * @param string $controllerRouteName        Controller route name
+     * @param String $controllerRouteConfirm     Controller route confirm
      * @param String $controllerRouteConfirmName Controller route name confirm
      */
     public function __construct($controllerRoute, $controllerRouteName, $controllerRouteConfirm, $controllerRouteConfirmName)
@@ -77,12 +73,11 @@ class SafetypayRoutesLoader implements LoaderInterface
         $this->controllerRouteConfirmName = $controllerRouteConfirmName;
     }
 
-
     /**
      * Loads a resource.
      *
-     * @param mixed $resource The resource
-     * @param string $type The resource type
+     * @param mixed  $resource The resource
+     * @param string $type     The resource type
      *
      * @throws \RuntimeException Loader is added twice
      * @return RouteCollection
@@ -101,7 +96,6 @@ class SafetypayRoutesLoader implements LoaderInterface
                 '_controller'   =>  'SafetypayBundle:Safetypay:execute',
         )));
 
-
         $routes->add($this->controllerRouteConfirmName, new Route($this->controllerRouteConfirm, array(
             '_controller'   =>  'SafetypayBundle:Safetypay:confirm',
         )));
@@ -110,7 +104,6 @@ class SafetypayRoutesLoader implements LoaderInterface
 
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -125,7 +118,6 @@ class SafetypayRoutesLoader implements LoaderInterface
         return 'safetypay' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -134,7 +126,6 @@ class SafetypayRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

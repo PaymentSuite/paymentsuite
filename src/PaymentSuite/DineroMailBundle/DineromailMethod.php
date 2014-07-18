@@ -11,10 +11,9 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle;
+namespace PaymentSuite\DineroMailBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-
 
 /**
  * DineromailMethod class
@@ -32,7 +31,6 @@ class DineromailMethod implements PaymentMethodInterface
         return 'Dineromail';
     }
 
-
     /**
      * @var float
      *
@@ -40,14 +38,12 @@ class DineromailMethod implements PaymentMethodInterface
      */
     private $amount;
 
-
     /**
      * @var string
      *
      * dineromail transactionid
      */
     private $dineromailTransactionId;
-
 
     /**
      * set amount
@@ -63,7 +59,6 @@ class DineromailMethod implements PaymentMethodInterface
         return $this;
     }
 
-
     /**
      * Get amount
      *
@@ -73,7 +68,6 @@ class DineromailMethod implements PaymentMethodInterface
     {
         return $this->amount;
     }
-
 
     /**
      * @param string $dineromailTransactionId

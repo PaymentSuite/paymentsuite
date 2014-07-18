@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\DineromailApiBundle\Controller;
+namespace PaymentSuite\DineroMailApiBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,7 +27,6 @@ class DineromailApiController extends Controller
         $form = $this->get('form.factory')->create('dineromail_api_view');
         $form->handleRequest($request);
 
-
         if ($form->isValid()) {
 
             $data = $form->getData();
@@ -41,7 +40,7 @@ class DineromailApiController extends Controller
                 ->setCardExpYear($data['card_exp_year'])
                 ->setCardSecurity($data['card_ccv2'])
                 ->setCardQuota($data['card_quotas']);
-            try{
+            try {
                 $this->get('dineromail_api.manager')
                     ->processPayment($paymentMethod, $data['amount']);
 
@@ -59,7 +58,6 @@ class DineromailApiController extends Controller
                 $redirectAppendField = $this->container->getParameter('dineromail_api.fail.order.field');
             }
 
-
         } else {
 
             /**
@@ -75,6 +73,7 @@ class DineromailApiController extends Controller
                 $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
             )
             : array();
+
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

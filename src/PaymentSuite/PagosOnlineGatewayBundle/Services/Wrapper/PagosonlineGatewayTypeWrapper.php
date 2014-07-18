@@ -9,10 +9,8 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle\Services\Wrapper;
+namespace PaymentSuite\PagosOnlineGatewayBundle\Services\Wrapper;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
 
@@ -24,19 +22,17 @@ class PagosonlineGatewayTypeWrapper
 
     /**
      * @var FormFactory
-     * 
+     *
      * Form factory
      */
     protected $formFactory;
 
-
     /**
      * @var PaymentBridge
-     * 
+     *
      * Payment bridge
      */
     private $paymentBridge;
-
 
     /**
      * @var string
@@ -45,22 +41,19 @@ class PagosonlineGatewayTypeWrapper
      */
     private $key;
 
-
     /**
      * @var string
-     * 
+     *
      * User id
      */
     private $userId;
 
-
     /**
      * @var  boolean
-     * 
+     *
      * Seller name
      */
     private $test;
-
 
     /**
      * @var string
@@ -69,7 +62,6 @@ class PagosonlineGatewayTypeWrapper
      */
     private $gateway;
 
-
     /**
      * @var string
      *
@@ -77,11 +69,10 @@ class PagosonlineGatewayTypeWrapper
      */
     private $response;
 
-
     /**
      * Formtype construct method
      *
-     * @param FormFactory $formFactory Form factory
+     * @param FormFactory            $formFactory   Form factory
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
      * @param $key encryption key
      * @param $userId user id
@@ -98,7 +89,6 @@ class PagosonlineGatewayTypeWrapper
         $this->test = $test;
         $this->gateway = $gateway;
     }
-
 
     /**
      * Builds form given success and fail urls
@@ -188,6 +178,7 @@ class PagosonlineGatewayTypeWrapper
                 'data'  =>  'Pagar',
             ))
             ;
+
         return $formBuilder;
     }
 

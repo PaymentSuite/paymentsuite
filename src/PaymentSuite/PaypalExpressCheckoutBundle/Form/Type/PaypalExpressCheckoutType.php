@@ -96,5 +96,3 @@ class PaypalExpressCheckoutType extends AbstractType
         return 'paypal_express_checkout_view';
     }
 }
-
-

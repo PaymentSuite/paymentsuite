@@ -15,7 +15,6 @@ namespace PaymentSuite\PaypalExpressCheckoutBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Paypal payment bundle
  */

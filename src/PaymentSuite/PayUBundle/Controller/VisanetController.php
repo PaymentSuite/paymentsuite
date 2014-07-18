@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Controller;
+namespace PaymentSuite\PayUBundle\Controller;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

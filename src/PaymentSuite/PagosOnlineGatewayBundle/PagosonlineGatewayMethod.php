@@ -7,10 +7,9 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle;
+namespace PaymentSuite\PagosOnlineGatewayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-
 
 /**
  * PagosOnlineMethod class
@@ -20,14 +19,13 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
 
     /**
      * Get pagosOnline method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
     {
         return 'PagosonlineGateway';
     }
-
 
     /**
      * @var float
@@ -36,14 +34,12 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
      */
     private $amount;
 
-
     /**
      * @var string
      *
      * pagosonline gateway transactionid
      */
     private $pagosonlineGatewayTransactionId;
-
 
     /**
      * @var string
@@ -53,7 +49,6 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
 
     private $pagosonlineGatewayReference;
 
-
     /**
      * @var string reference
      *
@@ -61,7 +56,6 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
      */
 
     private $reference;
-
 
     /**
      * @var status
@@ -77,6 +71,7 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
     public function setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -108,7 +103,6 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
         return $this->pagosonlineGatewayTransactionId;
     }
 
-
     /**
      * @param string $pagosonlineGatewayReference
      *
@@ -129,7 +123,6 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
         return $this->pagosonlineGatewayReference;
     }
 
-
     /**
      * set amount
      *
@@ -143,7 +136,6 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get amount
@@ -172,6 +164,5 @@ class PagosonlineGatewayMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
 }

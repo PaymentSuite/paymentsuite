@@ -15,7 +15,6 @@ namespace PaymentSuite\FreePaymentBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
 /**
  * FreePaymentMethod class
  */
@@ -28,7 +27,6 @@ class FreePaymentMethod implements PaymentMethodInterface
      * method name
      */
     const PAYMENT_METHOD_NAME = 'FreePayment';
-
 
     /**
      * Get Free payment method name

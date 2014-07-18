@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Factory;
+namespace PaymentSuite\PayUBundle\Factory;
 
 use PaymentSuite\PayuBundle\Model\AuthorizationAndCaptureTransaction;
 use PaymentSuite\PayuBundle\Model\CaptureRefundVoidTransaction;

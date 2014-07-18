@@ -23,7 +23,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var integer
-     * 
+     *
      * Cart amount
      */
     const CART_AMOUNT = 1234;
@@ -51,7 +51,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var string
-     * 
+     *
      * Cart description
      */
     const CART_DESCRIPTION = 'This is my cart description';
@@ -70,38 +70,33 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
      */
     const TRAN_KEY = 'tran_key';
 
-
     /**
      * @var PaymentManager
-     * 
+     *
      * Payment manager object
      */
     private $authorizenetManager;
 
-
     /**
      * @var PaymentEventDispatcher
-     * 
+     *
      * Paymetn event dispatcher object
      */
     private $paymentEventDispatcher;
 
-
     /**
      * @var AuthorizenetTransactionWrapper
-     * 
+     *
      * Wrapper for Paypall Transaction instance
      */
     private $authorizenetTransactionWrapper;
 
-
     /**
      * @var AuthorizenetMethod class
-     * 
+     *
      * Authorizenet Method object
      */
     private $authorizenetMethod;
-
 
     /**
      * Setup method
@@ -130,7 +125,6 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->authorizenetManager = new AuthorizenetManager($this->paymentEventDispatcher, $this->authorizenetTransactionWrapper, $this->paymentBridge, self::LOGIN_ID, self::TRAN_KEY);
     }
-
 
     /**
      * Testing payment error
@@ -210,7 +204,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         );
 
         $postString = "";
-        foreach( $postValues as $key => $value ) {
+        foreach ($postValues as $key => $value) {
             $postString .= "$key=" . urlencode( $value ) . "&";
         }
         $postString = rtrim( $postString, "& " );
@@ -256,7 +250,6 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->authorizenetManager->processPayment($this->authorizenetMethod, self::CART_AMOUNT);
     }
-
 
     /**
      * Testing payment error
@@ -335,7 +328,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         );
 
         $postString = "";
-        foreach( $postValues as $key => $value ) {
+        foreach ($postValues as $key => $value) {
             $postString .= "$key=" . urlencode( $value ) . "&";
         }
         $postString = rtrim( $postString, "& " );

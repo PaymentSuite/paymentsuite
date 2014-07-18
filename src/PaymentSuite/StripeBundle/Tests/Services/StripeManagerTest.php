@@ -23,14 +23,14 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @var string
-     * 
+     *
      * Currency
      */
     const CURRENCY = 'USD';
 
     /**
      * @var integer
-     * 
+     *
      * Cart amount
      */
     const CART_AMOUNT = 50000;
@@ -42,14 +42,12 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
      */
     const CART_NUMBER = 4242424242424242;
 
-
     /**
      * @var integer
      *
      * Cart expire month
      */
     const CART_EXPIRE_MONTH = 12;
-
 
     /**
      * @var integer
@@ -58,54 +56,47 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
      */
     const CART_EXPIRE_YEAR = 2017;
 
-
     /**
      * @var string
-     * 
+     *
      * Cart description
      */
     const CART_DESCRIPTION = 'This is my cart description';
 
-
     /**
      * @var PaymentManager
-     * 
+     *
      * Payment manager object
      */
     private $stripeManager;
 
-
     /**
      * @var PaymentEventDispatcher
-     * 
+     *
      * Paymetn event dispatcher object
      */
     private $paymentEventDispatcher;
 
-
     /**
      * @var StripeTransactionWrapper
-     * 
+     *
      * Wrapper for Paypall Transaction instance
      */
     private $stripeTransactionWrapper;
 
-
     /**
      * @var PaymentBridgeInterface
-     * 
+     *
      * Payment bridge object
      */
     private $paymentBridgeInterface;
 
-
     /**
      * @var StripeMethod class
-     * 
+     *
      * Stripe Method object
      */
     private $stripeMethod;
-
 
     /**
      * Setup method
@@ -134,7 +125,6 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->stripeManager = new StripeManager($this->paymentEventDispatcher, $this->stripeTransactionWrapper, $this->paymentBridge);
     }
-
 
     /**
      * Testing different ammunts
@@ -181,7 +171,6 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->stripeManager->processPayment($this->stripeMethod, self::CART_AMOUNT);
     }
-
 
     /**
      * Testing payment error
@@ -275,7 +264,6 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->stripeManager->processPayment($this->stripeMethod, self::CART_AMOUNT);
     }
-
 
     /**
      * Testing payment error

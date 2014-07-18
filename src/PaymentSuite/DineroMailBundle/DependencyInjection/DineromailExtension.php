@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle\DependencyInjection;
+namespace PaymentSuite\DineroMailBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -50,7 +50,6 @@ class DineromailExtension extends Extension
         $container->setParameter('dineromail.fail.route', $config['payment_fail']['route']);
         $container->setParameter('dineromail.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('dineromail.fail.order.field', $config['payment_fail']['order_append_field']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

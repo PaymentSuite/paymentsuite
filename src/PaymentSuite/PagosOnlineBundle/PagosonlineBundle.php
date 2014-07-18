@@ -1,10 +1,8 @@
 <?php
 
-
-namespace PaymentSuite\PagosonlineBundle;
+namespace PaymentSuite\PagosOnlineBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 
 /**
  * Pagosonline payment bundle

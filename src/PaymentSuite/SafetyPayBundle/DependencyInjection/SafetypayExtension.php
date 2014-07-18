@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\SafetypayBundle\DependencyInjection;
+namespace PaymentSuite\SafetyPayBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -46,7 +46,6 @@ class SafetypayExtension extends Extension
         $container->setParameter('safetypay.fail.route', $config['payment_fail']['route']);
         $container->setParameter('safetypay.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('safetypay.fail.order.field', $config['payment_fail']['order_append_field']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

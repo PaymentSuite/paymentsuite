@@ -15,7 +15,6 @@ namespace PaymentSuite\GoogleWalletBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
 /**
  * GoogleWalletMethod class
  */
@@ -24,14 +23,13 @@ class GoogleWalletMethod implements PaymentMethodInterface
 
     /**
      * Get Google Wallet method name
-     * 
+     *
      * @return string Payment name
      */
     public function getPaymentName()
     {
         return 'Google Wallet';
     }
-
 
     /**
      * @var string
@@ -60,7 +58,6 @@ class GoogleWalletMethod implements PaymentMethodInterface
      * Transaction status
      */
     private $transactionStatus;
-
 
     /**
      * set Api token

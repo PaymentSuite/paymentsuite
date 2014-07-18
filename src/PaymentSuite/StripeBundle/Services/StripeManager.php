@@ -42,7 +42,6 @@ class StripeManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var StripeTransactionWrapper
      *
@@ -50,14 +49,12 @@ class StripeManager
      */
     protected $transactionWrapper;
 
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
     protected $paymentBridge;
-
 
     /**
      * Construct method for stripe manager
@@ -73,13 +70,12 @@ class StripeManager
         $this->paymentBridge = $paymentBridge;
     }
 
-
     /**
      * Check and set param for payment
-     * 
+     *
      * @param StripeMethod $paymentMethod Payment method
      * @param float        $amount        Amount
-     * 
+     *
      * @return StripeManager self Object
      *
      * @throws PaymentAmountsNotMatchException
@@ -135,7 +131,6 @@ class StripeManager
         return $this;
     }
 
-
     /**
      * Tries to process a payment through Stripe
      *
@@ -184,7 +179,6 @@ class StripeManager
             ->setTransactionId($transaction['id'])
             ->setTransactionStatus('paid')
             ->setTransactionResponse($transaction);
-
 
         /**
          * Payment paid successfully

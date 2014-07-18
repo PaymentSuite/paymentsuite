@@ -31,7 +31,6 @@ class BankwireRoutesLoader implements LoaderInterface
      */
     const ROUTE_EXECUTE_NAME = 'bankwire_execute';
 
-
     /**
      * @var string
      *
@@ -39,14 +38,12 @@ class BankwireRoutesLoader implements LoaderInterface
      */
     private $controllerExecuteRoute;
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Construct method
@@ -57,7 +54,6 @@ class BankwireRoutesLoader implements LoaderInterface
     {
         $this->controllerExecuteRoute = $controllerExecuteRoute;
     }
-
 
     /**
      * Loads a resource.
@@ -87,7 +83,6 @@ class BankwireRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -101,7 +96,6 @@ class BankwireRoutesLoader implements LoaderInterface
         return 'bankwire' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -110,7 +104,6 @@ class BankwireRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

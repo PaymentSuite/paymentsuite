@@ -9,10 +9,9 @@
  *
  */
 
-namespace PaymentSuite\DineromailApiBundle;
+namespace PaymentSuite\DineroMailApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 
 /**
  * DineromailApiBundle payment bundle

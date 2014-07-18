@@ -4,7 +4,7 @@ namespace PaymentSuite\BanwireGatewayBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-class BanwiregatewayMethod implements PaymentMethodInterface
+class BanwireGatewayMethod implements PaymentMethodInterface
 {
     /**
      * Get BanwireGateway method name
@@ -23,7 +23,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
      */
     private $amount;
 
-
     /**
      * @var string
      *
@@ -31,12 +30,10 @@ class BanwiregatewayMethod implements PaymentMethodInterface
      */
     private $reference;
 
-
     /**
      * @var string
      */
     private $banwireGatewayTransactionId;
-
 
     /**
      * @var string
@@ -47,7 +44,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
      * @var string
      */
     private $banwireId;
-
 
     /**
      * @param string codeError
@@ -89,7 +85,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
         return $this->banwireGatewayTransactionId;
     }
 
-
     /**
      * @param string $reference
      *
@@ -110,7 +105,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
         return $this->reference;
     }
 
-
     /**
      * set amount
      *
@@ -124,7 +118,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get amount
@@ -149,7 +142,6 @@ class BanwiregatewayMethod implements PaymentMethodInterface
 
         return $this;
     }
-
 
     /**
      * Get banwire gateway id

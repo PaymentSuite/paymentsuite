@@ -15,7 +15,6 @@ namespace PaymentSuite\BankwireBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Bankwire payment bundle
  */

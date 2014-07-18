@@ -31,7 +31,6 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
      */
     private $controllerRouteName;
 
-
     /**
      * @var string
      *
@@ -39,14 +38,12 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Construct method
@@ -59,7 +56,6 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
         $this->controllerRouteName = $controllerRouteName;
         $this->controllerRoute = $controllerRoute;
     }
-
 
     /**
      * Loads a resource.
@@ -88,7 +84,6 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -102,7 +97,6 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
         return 'paypal_express_checkout' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -111,7 +105,6 @@ class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

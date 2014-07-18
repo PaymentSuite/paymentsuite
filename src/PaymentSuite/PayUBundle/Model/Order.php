@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Model;
+namespace PaymentSuite\PayUBundle\Model;
 
 /**
  * Order Model

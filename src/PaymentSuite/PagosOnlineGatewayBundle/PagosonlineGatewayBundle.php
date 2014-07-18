@@ -9,10 +9,9 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle;
+namespace PaymentSuite\PagosOnlineGatewayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 
 /**
  * PagosonlineGateway payment bundle

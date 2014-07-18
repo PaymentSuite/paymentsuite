@@ -15,7 +15,6 @@ namespace PaymentSuite\GoogleWalletBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * GoogleWallet payment bundle
  */

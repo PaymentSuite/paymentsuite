@@ -11,12 +11,12 @@
  * Mickaël Andrieu 2014
  */
 
-namespace PaymentSuite\DineromailBundle\Services;
+namespace PaymentSuite\DineromailBundle\Tests\Services;
 
-use PaymentSuite\DineromailBundle\Services\DineromailManager;
 use PaymentSuite\DineromailBundle\DineromailMethod;
+use PaymentSuite\DineroMailBundle\Services\DineromailManager;
 
-class DineromailManagerTest extends \PHPUnit_Framework_TestCase
+class DineromailManagerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var DineromailManager paymentManager

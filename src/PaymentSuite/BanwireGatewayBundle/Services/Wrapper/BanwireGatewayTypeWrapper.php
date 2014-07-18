@@ -11,8 +11,6 @@
 
 namespace PaymentSuite\BanwireGatewayBundle\Services\Wrapper;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
 use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
@@ -25,19 +23,17 @@ class BanwireGatewayTypeWrapper
 
     /**
      * @var FormFactory
-     * 
+     *
      * Form factory
      */
     protected $formFactory;
 
-
     /**
      * @var PaymentBridge
-     * 
+     *
      * Payment bridge
      */
     private $paymentBridge;
-
 
     /**
      * @var string
@@ -46,14 +42,12 @@ class BanwireGatewayTypeWrapper
      */
     private $cps;
 
-
     /**
      * @var string
-     * 
+     *
      * User id
      */
     private $user;
-
 
     /**
      * @var string
@@ -62,7 +56,6 @@ class BanwireGatewayTypeWrapper
      */
     private $gateway;
 
-
     /**
      * @var RC4
      *
@@ -70,11 +63,10 @@ class BanwireGatewayTypeWrapper
      */
     private $encryptor;
 
-
     /**
      * Formtype construct method
      *
-     * @param FormFactory $formFactory Form factory
+     * @param FormFactory            $formFactory   Form factory
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
      * @param $user
      * @param $cps
@@ -89,7 +81,6 @@ class BanwireGatewayTypeWrapper
         $this->gateway = $gateway;
         $this->encryptor = new RC4($this->cps);
     }
-
 
     /**
      * Builds form given success and fail urls
@@ -113,7 +104,6 @@ class BanwireGatewayTypeWrapper
         );
         //echo $this->cps;die();
         $formKey = $this->encryptor->encrypt(implode('',$fields));
-
 
         $formBuilder
             ->setAction($this->gateway)
@@ -144,6 +134,7 @@ class BanwireGatewayTypeWrapper
                 'data'  =>  'Pagar',
             ))
             ;
+
         return $formBuilder;
     }
 

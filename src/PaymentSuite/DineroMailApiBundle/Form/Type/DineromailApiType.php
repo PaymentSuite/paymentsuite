@@ -1,12 +1,11 @@
 <?php
 
-namespace PaymentSuite\DineromailApiBundle\Form\Type;
+namespace PaymentSuite\DineroMailApiBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Validator\Constraints\Collection;
 
 class DineromailApiType extends AbstractType
 {
@@ -18,14 +17,12 @@ class DineromailApiType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * @var Router
      *
      * Router instance
      */
     private $router;
-
 
     /**
      * @var string
@@ -34,13 +31,12 @@ class DineromailApiType extends AbstractType
      */
     private $controllerRouteName;
 
-
     /**
      * FormType construct method
      *
      * @param \Symfony\Component\Routing\Router $router
-     * @param PaymentBridgeInterface $paymentBridge Payment bridge
-     * @param string $controllerRouteName
+     * @param PaymentBridgeInterface            $paymentBridge       Payment bridge
+     * @param string                            $controllerRouteName
      * @internal param \Symfony\Component\Routing\Router $router
      */
     public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)

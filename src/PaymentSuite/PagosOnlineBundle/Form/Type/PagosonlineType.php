@@ -1,12 +1,11 @@
 <?php
 
-namespace PaymentSuite\PagosonlineBundle\Form\Type;
+namespace PaymentSuite\PagosOnlineBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Validator\Constraints\Collection;
 
 class PagosonlineType extends AbstractType
 {
@@ -18,14 +17,12 @@ class PagosonlineType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * @var Router
      *
      * Router instance
      */
     private $router;
-
 
     /**
      * @var string
@@ -34,13 +31,12 @@ class PagosonlineType extends AbstractType
      */
     private $controllerRouteName;
 
-
     /**
      * Formtype construct method
      *
      * @param \Symfony\Component\Routing\Router $router
-     * @param PaymentBridgeInterface $paymentBridge Payment bridge
-     * @param string $controllerRouteName
+     * @param PaymentBridgeInterface            $paymentBridge       Payment bridge
+     * @param string                            $controllerRouteName
      * @internal param \Symfony\Component\Routing\Router $router
      */
     public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
@@ -89,7 +85,7 @@ class PagosonlineType extends AbstractType
              */
             ->add('card_exp_month', 'choice', array(
                 'required' => true,
-                'choices' => array_combine(array_map(function($v){return str_pad($v, 2, '0', STR_PAD_LEFT);},range(1,12)), range(1, 12)),
+                'choices' => array_combine(array_map(function ($v) {return str_pad($v, 2, '0', STR_PAD_LEFT);},range(1,12)), range(1, 12)),
             ))
             ->add('card_exp_year', 'choice', array(
                 'required' => true,

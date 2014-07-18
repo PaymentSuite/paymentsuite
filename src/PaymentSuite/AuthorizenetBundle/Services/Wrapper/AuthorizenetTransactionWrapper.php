@@ -28,26 +28,24 @@ class AuthorizenetTransactionWrapper
      */
     protected $endpoint;
 
-
     /**
      * Construct method for Authorize.Net transaction wrapper
      *
-     * @param string $endpointTest test endpoint
-     * @param string $endpointLive live endpoint
-     * @param boolean $testMode    boolean to activate test or live mode
+     * @param string  $endpointTest test endpoint
+     * @param string  $endpointLive live endpoint
+     * @param boolean $testMode     boolean to activate test or live mode
      */
     public function __construct($endpointTest, $endpointLive, $testMode)
     {
         $this->endpoint =($testMode)? $endpointTest : $endpointLive;
     }
 
-
     /**
      * Create new Transaction with a set of params
      *
      * @param string $params Set of params
      *
-     * @return array Result of transaction
+     * @return array            Result of transaction
      * @throws PaymentException
      */
     public function create($params)

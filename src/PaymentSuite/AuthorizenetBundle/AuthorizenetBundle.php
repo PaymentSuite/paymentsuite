@@ -15,7 +15,6 @@ namespace PaymentSuite\AuthorizenetBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Authorizenet payment bundle
  */

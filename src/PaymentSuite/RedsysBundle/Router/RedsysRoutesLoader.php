@@ -32,7 +32,6 @@ class RedsysRoutesLoader implements LoaderInterface
      */
     private $controllerExecuteRouteName;
 
-
     /**
      * @var string
      *
@@ -42,7 +41,7 @@ class RedsysRoutesLoader implements LoaderInterface
 
     /*
      * @var string
-     * 
+     *
      * Result controller route name
      */
     private $controllerResultRouteName;
@@ -61,7 +60,6 @@ class RedsysRoutesLoader implements LoaderInterface
      */
     private $loaded = false;
 
-
     /**
      * Construct method
      *
@@ -71,10 +69,10 @@ class RedsysRoutesLoader implements LoaderInterface
      * @param string $controllerResultRoute      Controller Result route
 
      */
-    public function __construct( $controllerExecuteRouteName,
+    public function __construct($controllerExecuteRouteName,
                                  $controllerExecuteRoute,
                                  $controllerResultRouteName,
-                                 $controllerResultRoute )
+                                 $controllerResultRoute)
     {
         $this->controllerExecuteRouteName = $controllerExecuteRouteName;
         $this->controllerExecuteRoute = $controllerExecuteRoute;
@@ -108,13 +106,11 @@ class RedsysRoutesLoader implements LoaderInterface
             array('_method' => 'POST'),
         )));
 
-
         $this->loaded = true;
 
         return $routes;
 
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -129,7 +125,6 @@ class RedsysRoutesLoader implements LoaderInterface
         return 'redsys' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -138,7 +133,6 @@ class RedsysRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

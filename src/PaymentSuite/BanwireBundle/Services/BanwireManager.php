@@ -11,7 +11,6 @@
  * Marc Morera 2013
  */
 
-
 namespace PaymentSuite\BanwireBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -34,8 +33,6 @@ class BanwireManager
      */
     protected $paymentEventDispatcher;
 
-
-
     /**
      * @var PaymentBridgeInterface
      *
@@ -50,7 +47,6 @@ class BanwireManager
      */
     private $user;
 
-
     /**
      * @var string
      *
@@ -62,8 +58,8 @@ class BanwireManager
      * Construct method for banwire manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
-     * @param string                 $user              User
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
+     * @param string                 $user                   User
      * @param $api                   $api
      * @param $logger                $logger
      */
@@ -74,7 +70,6 @@ class BanwireManager
         $this->user = $user;
         $this->api = $api;
     }
-
 
     /**
      * Tries to process a payment through Banwire
@@ -98,7 +93,6 @@ class BanwireManager
         if (abs($amount - $paymentBridgeAmount) > 0.00001) {
             throw new PaymentAmountsNotMatchException;
         }
-
 
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
@@ -159,7 +153,6 @@ class BanwireManager
         return $this;
     }
 
-
     /**
      * Given a paymillTransaction response, as an array, prform desired operations
      *
@@ -204,6 +197,7 @@ class BanwireManager
         /**
          * Log the response of gateway
          */
+
         return $this;
     }
 }

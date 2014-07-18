@@ -24,19 +24,17 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
 
-
     /**
      * @var string
-     * 
+     *
      * Execution controller route name
      */
     private $controllerRouteName;
-
 
     /**
      * @var string
@@ -45,7 +43,6 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
      */
     private $controllerRouteResponse;
 
-
     /**
      * @var string
      *
@@ -53,19 +50,17 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
      */
     private $controllerRouteResponseName;
 
-
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
 
-
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName Controller route name
      * @param $controllerRouteResponse Controller route
      * @param $controllerRouteResponseName Controller route name
@@ -78,12 +73,11 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
         $this->controllerRouteResponseName = $controllerRouteResponseName;
     }
 
-
     /**
      * Loads a resource.
      *
-     * @param mixed $resource The resource
-     * @param string $type The resource type
+     * @param mixed  $resource The resource
+     * @param string $type     The resource type
      *
      * @throws \RuntimeException Loader is added twice
      * @return RouteCollection
@@ -102,7 +96,6 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
                 '_controller'   =>  'BanwireGatewayBundle:BanwireGateway:execute',
         )));
 
-
         $routes->add($this->controllerRouteResponseName, new Route($this->controllerRouteResponse, array(
             '_controller'   =>  'BanwireGatewayBundle:BanwireGateway:response',
         )));
@@ -110,7 +103,6 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
 
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -125,7 +117,6 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
         return 'banwire_gateway' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -134,7 +125,6 @@ class BanwireGatewayRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

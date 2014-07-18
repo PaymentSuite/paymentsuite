@@ -31,7 +31,6 @@ class AuthorizenetRoutesLoader implements LoaderInterface
      */
     const ROUTE_NAME = 'authorizenet_execute';
 
-
     /**
      * @var string
      *
@@ -39,14 +38,12 @@ class AuthorizenetRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Construct method
@@ -57,7 +54,6 @@ class AuthorizenetRoutesLoader implements LoaderInterface
     {
         $this->controllerRoute = $controllerRoute;
     }
-
 
     /**
      * Loads a resource.
@@ -86,7 +82,6 @@ class AuthorizenetRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -100,7 +95,6 @@ class AuthorizenetRoutesLoader implements LoaderInterface
         return 'authorizenet' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -109,7 +103,6 @@ class AuthorizenetRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

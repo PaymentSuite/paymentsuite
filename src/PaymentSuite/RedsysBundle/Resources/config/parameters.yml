@@ -4,5 +4,3 @@ parameters:
     redsys.routes.loader.class: "PaymentSuite\\RedsysBundle\\Router\\RedsysRoutesLoader"
     redsys.controller.execute.route.name: "redsys_execute"
     redsys.controller.result.route.name: "redsys_result"
-
-    

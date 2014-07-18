@@ -11,10 +11,8 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle\Services\Wrapper;
+namespace PaymentSuite\DineroMailBundle\Services\Wrapper;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
 
@@ -31,14 +29,12 @@ class DineromailTypeWrapper
      */
     protected $formFactory;
 
-
     /**
      * @var PaymentBridge
      *
      * Payment bridge
      */
     private $paymentBridge;
-
 
     /**
      * @var string
@@ -47,14 +43,12 @@ class DineromailTypeWrapper
      */
     private $endPoint;
 
-
     /**
      * @var string
      *
      * Merchant
      */
     private $merchant;
-
 
     /**
      * @var string
@@ -63,14 +57,12 @@ class DineromailTypeWrapper
      */
     private $sellerName;
 
-
     /**
      * @var string
      *
      * url of header image ( full url )
      */
     private $headerImage;
-
 
     /**
      * @var boolean
@@ -79,14 +71,12 @@ class DineromailTypeWrapper
      */
     private $urlRedirectEnabled;
 
-
     /**
      * @var array
      *
      * Methods available, imploded by comma
      */
     private $paymentMethodsAvailable;
-
 
     /**
      * @var integer
@@ -98,7 +88,6 @@ class DineromailTypeWrapper
      * * 4 - México
      */
     private $country;
-
 
     /**
      * Formtype construct method
@@ -126,13 +115,12 @@ class DineromailTypeWrapper
         $this->country = $country;
     }
 
-
     /**
      * Builds form given success and fail urls
      *
-     * @param string $dineromailSuccessUrl      Success route url
-     * @param string $dineromailFailUrl         Fail route url
-     * @param string $dineromailTransactionId   Transaction Id
+     * @param string $dineromailSuccessUrl    Success route url
+     * @param string $dineromailFailUrl       Fail route url
+     * @param string $dineromailTransactionId Transaction Id
      *
      * @return Form
      */
@@ -169,7 +157,6 @@ class DineromailTypeWrapper
                 'data'  =>  $this->headerImage,
             ))
 
-
             /**
              * Payment bridge data
              */
@@ -182,7 +169,6 @@ class DineromailTypeWrapper
             ->add('currency', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getCurrency(),
             ))
-
 
             /**
              * Extra data
@@ -203,7 +189,6 @@ class DineromailTypeWrapper
                 'data'  =>  $extraData['language'],
             ))
 
-
             /**
              * Options injected in method
              */
@@ -216,7 +201,6 @@ class DineromailTypeWrapper
             ->add('pending_url', 'hidden', array(
                 'data'  =>  $dineromailSuccessUrl,
             ));
-
 
         $iteration = 1;
 

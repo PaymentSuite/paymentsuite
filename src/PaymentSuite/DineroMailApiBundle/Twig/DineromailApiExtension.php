@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\DineromailApiBundle\Twig;
+namespace PaymentSuite\DineroMailApiBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -18,7 +18,6 @@ class DineromailApiExtension extends \Twig_Extension
      */
     private $formFactory;
 
-
     /**
      * @var \Twig_Environment
      *
@@ -26,15 +25,12 @@ class DineromailApiExtension extends \Twig_Extension
      */
     private $environment;
 
-
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
     private $paymentBridgeInterface;
-
 
     /**
      * Construct method
@@ -47,7 +43,6 @@ class DineromailApiExtension extends \Twig_Extension
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
     }
-
 
     /**
      * Init runtime
@@ -63,7 +58,6 @@ class DineromailApiExtension extends \Twig_Extension
         return $this;
     }
 
-
     /**
      * Return all filters
      *
@@ -75,7 +69,6 @@ class DineromailApiExtension extends \Twig_Extension
             new \Twig_SimpleFunction('dineromail_api_render', array($this, 'renderPaymentView')),
         );
     }
-
 
     /**
      * Render dineromail form view
@@ -89,7 +82,6 @@ class DineromailApiExtension extends \Twig_Extension
 
     }
 
-
     /**
      * Render dineromail scripts view
      */
@@ -99,7 +91,6 @@ class DineromailApiExtension extends \Twig_Extension
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
     }
-
 
     /**
      * return extension name

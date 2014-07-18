@@ -1,20 +1,18 @@
 <?php
-namespace PaymentSuite\PagosonlineCommBundle\Services;
+namespace PaymentSuite\PagosOnlineCommBundle\Services;
 
 use DOMDocument;
 use SoapClient;
 use PaymentSuite\PagosonlineCommBundle\Lib\WSSESoap;
 
-class PagosonlineCommManager extends SoapClient{
-
-
+class PagosonlineCommManager extends SoapClient
+{
     /**
      * @var string
      *
      * user pagosonline
      */
     private $userId;
-
 
     /**
      * @var string
@@ -23,14 +21,12 @@ class PagosonlineCommManager extends SoapClient{
      */
     private $wsdl;
 
-
     /**
      * @var string
      *
      * password pagosonline
      */
     private $password;
-
 
     public function __construct($userId, $password, $wsdl)
     {
@@ -40,8 +36,8 @@ class PagosonlineCommManager extends SoapClient{
         parent::__construct($this->wsdl);
     }
 
-    function __doRequest($request, $location, $action, $version, $one_way = Null) {
-
+    public function __doRequest($request, $location, $action, $version, $one_way = Null)
+    {
         //var_dump($request);
         $doc = new DOMDocument('1.0');
         $doc->loadXML($request);
@@ -53,4 +49,4 @@ class PagosonlineCommManager extends SoapClient{
         //var_dump($objWSSE->saveXML());
         return parent::__doRequest($objWSSE->saveXML(), $location, $action, $version);
     }
-} 
+}

@@ -6,8 +6,6 @@ use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\BanwireGatewayBundle\BanwireGatewayMethod;
@@ -39,7 +37,6 @@ class BanwireGatewayController extends controller
          */
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 
-
         /**
          * Order Not found Exception must be thrown just here
          */
@@ -47,7 +44,6 @@ class BanwireGatewayController extends controller
 
             throw new PaymentOrderNotFoundException;
         }
-
 
         /**
          * Loading success route for returning from banwire
@@ -74,7 +70,6 @@ class BanwireGatewayController extends controller
 
         $responseRoute = $this->generateUrl($redirectResponseUrl, array('reference'=> $paymentMethod->getReference()), true);
 
-
         /**
          * Build form
          */
@@ -83,12 +78,12 @@ class BanwireGatewayController extends controller
             ->buildForm($responseRoute)
             ->getForm($successRoute)
             ->createView();
+
         return array(
 
             'banwire_gateway_form' => $formView,
         );
     }
-
 
     /**
      * Payment response
@@ -134,8 +129,7 @@ class BanwireGatewayController extends controller
         $paymentMethod->setCodeError($codeError);
         $paymentMethod->setBanwireId($banwireId);
         $string = implode('', $request->request->all());
-        if ($encrypt->encrypt($string) == $key)
-        {
+        if ($encrypt->encrypt($string) == $key) {
             if ($response == 'ok') {
 
                 if ($paymentBridge->getAmount() - $request->request->get('monto') != 0) {
@@ -191,6 +185,7 @@ class BanwireGatewayController extends controller
                 )
                 : array();
         }
+
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

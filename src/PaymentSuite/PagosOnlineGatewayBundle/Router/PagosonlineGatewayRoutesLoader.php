@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle\Router;
+namespace PaymentSuite\PagosOnlineGatewayBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -24,19 +24,17 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
 
     /**
      * @var string
-     * 
+     *
      * Execution controller route
      */
     private $controllerRoute;
 
-
     /**
      * @var string
-     * 
+     *
      * Execution controller route name
      */
     private $controllerRouteName;
-
 
     /**
      * @var string
@@ -45,14 +43,12 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
      */
     private $controllerRouteConfirmation;
 
-
     /**
      * @var string
      *
      * Execution controller route confirmation name
      */
     private $controllerRouteConfirmationName;
-
 
     /**
      * @var string
@@ -61,7 +57,6 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
      */
     private $controllerRouteResponse;
 
-
     /**
      * @var string
      *
@@ -69,19 +64,17 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
      */
     private $controllerRouteResponseName;
 
-
     /**
      * @var boolean
-     * 
+     *
      * Route is loaded
      */
     private $loaded = false;
 
-
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName Controller route name
      * @param $controllerRouteConfirmation Controller route
      * @param $controllerRouteConfirmationName Controller route name
@@ -98,15 +91,14 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
         $this->controllerRouteResponseName = $controllerRouteResponseName;
     }
 
-
     /**
      * Loads a resource.
      *
      * @param mixed  $resource The resource
      * @param string $type     The resource type
-     * 
+     *
      * @return RouteCollection
-     * 
+     *
      * @throws RuntimeException Loader is added twice
      */
     public function load($resource, $type = null)
@@ -134,7 +126,6 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -148,7 +139,6 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
         return 'pagosonline_gateway' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -157,7 +147,6 @@ class PagosonlineGatewayRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

@@ -17,7 +17,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Validator\Constraints\Collection;
 
 class BanwireType extends AbstractType
 {
@@ -29,7 +28,6 @@ class BanwireType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * @var Router
      *
@@ -37,14 +35,12 @@ class BanwireType extends AbstractType
      */
     private $router;
 
-
     /**
      * @var string
      *
      * Execution route name
      */
     private $controllerRouteName;
-
 
     /**
      * Formtype construct method
@@ -59,7 +55,6 @@ class BanwireType extends AbstractType
         $this->router = $router;
         $this->controllerRouteName = $controllerRouteName;
     }
-
 
     /**
      * Buildform function
@@ -127,7 +122,6 @@ class BanwireType extends AbstractType
             ))
             ->add('submit', 'submit');
     }
-
 
     /**
      * Return unique name for this form

@@ -71,7 +71,6 @@ class BanwireManagerTest extends \PHPUnit_Framework_TestCase
         $this->paymentManager->processPayment($this->paymentMethod, $amount);
     }
 
-
     /**
      * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
      */

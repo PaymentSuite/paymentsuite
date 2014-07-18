@@ -16,8 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use PaymentSuite\RedsysBundle\RedsysMethod;
-
 
 /**
  * RedsysController
@@ -37,6 +35,7 @@ class RedsysController extends Controller
     public function executeAction(Request $request)
     {
         $formView = $this->get('redsys.manager')->processPayment();
+
         return $this->render('RedsysBundle:Redsys:process.html.twig',array(
             'redsys_form' => $formView,
         ));
@@ -61,7 +60,6 @@ class RedsysController extends Controller
             $redirectUrl = $this->container->getParameter('redsys.success.route');
             $redirectAppend = $this->container->getParameter('redsys.success.order.append');
             $redirectAppendField = $this->container->getParameter('redsys.success.order.field');
-
 
         } catch (PaymentException $e) {
 

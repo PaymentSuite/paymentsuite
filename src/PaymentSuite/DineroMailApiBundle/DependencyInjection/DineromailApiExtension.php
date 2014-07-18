@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\DineromailApiBundle\DependencyInjection;
+namespace PaymentSuite\DineroMailApiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -28,7 +28,6 @@ class DineromailApiExtension extends Extension
         $container->setParameter('dineromail_api.api_user_name', $config['api_user_name']);
         $container->setParameter('dineromail_api.api_password', $config['api_password']);
         $container->setParameter('dineromail_api.api_prefix', $config['api_prefix']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

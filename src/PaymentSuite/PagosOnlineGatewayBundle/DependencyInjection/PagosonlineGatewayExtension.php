@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle\DependencyInjection;
+namespace PaymentSuite\PagosOnlineGatewayBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -36,7 +36,7 @@ class PagosonlineGatewayExtension extends Extension
         $container->setParameter('pagosonline_gateway.user_id', $config['user_id']);
         $container->setParameter('pagosonline_gateway.account_id', $config['account_id']);
         $container->setParameter('pagosonline_gateway.test', $config['test']);
-        
+
         $container->setParameter('pagosonline_gateway.controller.route.confirmation', $config['controller_route_confirmation']);
         $container->setParameter('pagosonline_gateway.controller.route.response', $config['controller_route_response']);
 
@@ -47,7 +47,6 @@ class PagosonlineGatewayExtension extends Extension
         $container->setParameter('pagosonline_gateway.fail.route', $config['payment_fail']['route']);
         $container->setParameter('pagosonline_gateway.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('pagosonline_gateway.fail.order.field', $config['payment_fail']['order_append_field']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');

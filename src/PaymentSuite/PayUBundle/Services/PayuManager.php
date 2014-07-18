@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Services;
+namespace PaymentSuite\PayUBundle\Services;
 
 use JMS\Serializer\Serializer;
 

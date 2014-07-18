@@ -39,7 +39,6 @@ class AuthorizenetExtension extends Twig_Extension
      */
     private $environment;
 
-
     /**
      * Construct method
      *

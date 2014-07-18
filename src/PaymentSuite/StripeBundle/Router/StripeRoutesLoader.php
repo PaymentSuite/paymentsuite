@@ -31,7 +31,6 @@ class StripeRoutesLoader implements LoaderInterface
      */
     const ROUTE_NAME = 'stripe_execute';
 
-
     /**
      * @var string
      *
@@ -39,14 +38,12 @@ class StripeRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Construct method
@@ -57,7 +54,6 @@ class StripeRoutesLoader implements LoaderInterface
     {
         $this->controllerRoute = $controllerRoute;
     }
-
 
     /**
      * Loads a resource.
@@ -86,7 +82,6 @@ class StripeRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -100,7 +95,6 @@ class StripeRoutesLoader implements LoaderInterface
         return 'stripe' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -109,7 +103,6 @@ class StripeRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

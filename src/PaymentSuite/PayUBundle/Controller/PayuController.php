@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Controller;
+namespace PaymentSuite\PayUBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,8 +48,7 @@ class PayuController extends Controller
                 /** @var $manager PayuManager */
                 $manager = $this->get('payu.manager');
                 $manager->processNotification($transactionId, $state);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $response->setStatusCode(500);
             }
         } else {

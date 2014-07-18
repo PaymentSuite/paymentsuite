@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * Class DefaultControllerTest
  * @package PaymentSuite\RedsysBundle\Tests\Controller
  */
-class DefaultControllerTest extends WebTestCase
+class RedsysControllerTest extends WebTestCase
 {
     /**
      * Test execute controller
@@ -26,7 +26,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('form')->count() > 0);
 
         $this->assertTrue($crawler->filter('input[type="hidden"]')->count() > 9);
-
 
     }
 }

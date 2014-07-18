@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\PagosonlineBundle\Router;
+namespace PaymentSuite\PagosOnlineBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -16,14 +16,12 @@ class PagosonlineRoutesLoader implements LoaderInterface
      */
    // const ROUTE_NAME = 'pagosonline_execute';
 
-
     /**
      * @var string
      *
      * Execution controller route
      */
     private $controllerRoute;
-
 
     /**
      * @var string
@@ -35,7 +33,7 @@ class PagosonlineRoutesLoader implements LoaderInterface
     /**
      * Construct method
      *
-     * @param string $controllerRoute Controller route
+     * @param string $controllerRoute     Controller route
      * @param string $controllerRouteName
      */
     public function __construct($controllerRouteName, $controllerRoute, $container)
@@ -45,14 +43,12 @@ class PagosonlineRoutesLoader implements LoaderInterface
         $this->controllerRoute = $controllerRoute;
     }
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Loads a resource.
@@ -77,9 +73,9 @@ class PagosonlineRoutesLoader implements LoaderInterface
             '_controller'   =>  'PagosonlineBundle:Pagosonline:execute',
         )));
         $this->loaded = true;
+
         return $routes;
     }
-
 
     /**
      * Returns true if this class supports the given resource.
@@ -94,7 +90,6 @@ class PagosonlineRoutesLoader implements LoaderInterface
         return 'pagosonline' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -103,7 +98,6 @@ class PagosonlineRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

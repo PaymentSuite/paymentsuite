@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\DineromailBundle\Services;
+namespace PaymentSuite\DineroMailBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
@@ -23,14 +23,12 @@ class DineromailManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
     protected $paymentBridge;
-
 
     /**
      * @var array
@@ -43,14 +41,12 @@ class DineromailManager
         3 => 'chile',
         4 => 'mexico');
 
-
     /**
      * @var integer
      *
      * Country ID
      */
     private $countryId;
-
 
     /**
      * @var string
@@ -59,7 +55,6 @@ class DineromailManager
      */
     private $merchantId;
 
-
     /**
      * @var string
      *
@@ -67,19 +62,17 @@ class DineromailManager
      */
     private $merchantPwd;
 
-
     /**
      * @var logger
      *
      */
     private $logger;
 
-
     /**
      * Construct method for dineromail manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param $countryId
      * @param $merchantId
      * @param $merchantPwd
@@ -95,13 +88,12 @@ class DineromailManager
         $this->logger = $logger;
     }
 
-
     /**
      * Checks transaction status
      *
-     * @param string         $transactionId        Transaction Id to check
+     * @param string $transactionId Transaction Id to check
      *
-     * @return  DineromailManager   Self object
+     * @return DineromailManager Self object
      */
     public function checkTransactionStatus($transactionId)
     {
@@ -114,13 +106,12 @@ class DineromailManager
         return $this;
     }
 
-
     /**
      * Queries transaction info
      *
-     * @param string         $transactionId        Transaction Id
+     * @param string $transactionId Transaction Id
      *
-     * @return SimpleXMLElement     TransactionId details if successfull query, null otherwise
+     * @return SimpleXMLElement TransactionId details if successfull query, null otherwise
      */
     public function queryTransaction($transactionId)
     {
@@ -130,8 +121,7 @@ class DineromailManager
             '</ID></OPERACIONES></CONSULTA></DETALLE></REPORTE>';
         $parsedUrl = parse_url($url);
 
-        if ($fp = fsockopen($parsedUrl['host'], 80))
-        {
+        if ($fp = fsockopen($parsedUrl['host'], 80)) {
             fwrite($fp, "POST {$parsedUrl['path']} HTTP/1.1\r\n");
             fwrite($fp, "Host: {$parsedUrl['host']}\r\n");
             fwrite($fp, "Content-type: application/x-www-form-urlencoded\r\n");
@@ -154,12 +144,11 @@ class DineromailManager
         return null;
     }
 
-
     /**
      * Given a Dineromail response, as a SimpleXMLElement, perform desired operations
      *
-     * @param   SimpleXMLElement    $xml            Dineromail response
-     * @return  DineromailManager   Self object
+     * @param  SimpleXMLElement  $xml Dineromail response
+     * @return DineromailManager Self object
      */
     public function processTransaction($xml)
     {
@@ -167,8 +156,7 @@ class DineromailManager
 
         $this->logger->addInfo($paymentMethod->getPaymentName().'processTransaction: '.$xml->asXML());
 
-        switch($status = $xml->ESTADO)
-        {
+        switch ($status = $xml->ESTADO) {
             case self::STATUS_PENDING:
                 break;
             case self::STATUS_ACCEPTED:

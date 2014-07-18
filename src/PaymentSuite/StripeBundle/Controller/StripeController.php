@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\StripeBundle\StripeMethod;
 
-
 /**
  * StripeController
  */
@@ -73,12 +72,11 @@ class StripeController extends Controller
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 
-
     /**
      * Given some data, creates a StripeMethod object
      *
      * @param array $data Data
-     * 
+     *
      * @return StripeMethod StripeMethod instance
      */
     private function createStripeMethod(array $data)

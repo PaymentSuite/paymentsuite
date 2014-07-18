@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Model\Abstracts;
+namespace PaymentSuite\PayUBundle\Model\Abstracts;
 
 use PaymentSuite\PayuBundle\Model\Merchant;
 

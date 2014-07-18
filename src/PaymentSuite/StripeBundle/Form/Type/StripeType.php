@@ -30,7 +30,6 @@ class StripeType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * Form type construct method
      *
@@ -40,7 +39,6 @@ class StripeType extends AbstractType
     {
         $this->paymentBridge = $paymentBridge;
     }
-
 
     /**
      * Build form function
@@ -74,7 +72,6 @@ class StripeType extends AbstractType
                 'data'  =>  ''
             ));
     }
-
 
     /**
      * Return unique name for this form

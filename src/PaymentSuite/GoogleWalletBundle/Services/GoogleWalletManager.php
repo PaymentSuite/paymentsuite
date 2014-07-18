@@ -51,7 +51,6 @@ class GoogleWalletManager
      */
     private $secretKey;
 
-
     /**
      * Construct method for googlewallet manager
      *

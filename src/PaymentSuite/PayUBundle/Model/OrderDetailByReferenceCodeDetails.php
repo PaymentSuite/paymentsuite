@@ -8,13 +8,13 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Model;
+namespace PaymentSuite\PayUBundle\Model;
 
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuDetails;
 
 /**
  * OrderDetailByReferenceCodeDetailsDetail Details Model
  */
-class OrderDetailByReferenceCodeDetailsDetails extends PayuDetails
+class OrderDetailByReferenceCodeDetails extends PayuDetails
 {
 }

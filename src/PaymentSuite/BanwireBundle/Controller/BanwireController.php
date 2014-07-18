@@ -38,11 +38,9 @@ class BanwireController extends Controller
         $form = $this->get('form.factory')->create('banwire_view');
         $form->handleRequest($request);
 
-
         if ($form->isValid()) {
 
             $data = $form->getData();
-
 
             $paymentMethod = new BanwireMethod();
             $paymentMethod
@@ -52,7 +50,7 @@ class BanwireController extends Controller
                 ->setCardExpMonth($data['card_exp_month'])
                 ->setCardExpYear($data['card_exp_year'])
                 ->setCardSecurity($data['card_ccv2']);
-            try{
+            try {
                 $this->get('banwire.manager')
                     ->processPayment($paymentMethod, $data['amount']);
 
@@ -69,7 +67,6 @@ class BanwireController extends Controller
                 $redirectAppend = $this->container->getParameter('banwire.fail.order.append');
                 $redirectAppendField = $this->container->getParameter('banwire.fail.order.field');
             }
-
 
         } else {
 

@@ -8,9 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Model\Abstracts;
-
-use JMS\Serializer\Annotation as JMS;
+namespace PaymentSuite\PayUBundle\Model\Abstracts;
 
 /**
  * Abstract Model class for report response models

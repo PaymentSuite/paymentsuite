@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\PagosonlineBundle\Controller;
+namespace PaymentSuite\PagosOnlineBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -28,11 +28,9 @@ class PagosonlineController extends Controller
         $form = $this->get('form.factory')->create('pagosonline_view');
         $form->handleRequest($request);
 
-
         if ($form->isValid()) {
 
             $data = $form->getData();
-
 
             $paymentMethod = new PagosonlineMethod();
             $paymentMethod
@@ -46,7 +44,7 @@ class PagosonlineController extends Controller
                 ->setUserAgent($_SERVER['HTTP_USER_AGENT'])
                 ->setClientIp($this->getRequest()->getClientIp())
                 ->setCookie($paymentMethod->getPaymentName());
-            try{
+            try {
                 $this->get('pagosonline.manager')
                     ->processPayment($paymentMethod, $data['amount']);
 
@@ -64,7 +62,6 @@ class PagosonlineController extends Controller
                 $redirectAppendField = $this->container->getParameter('pagosonline.fail.order.field');
             }
 
-
         } else {
 
             /**
@@ -80,6 +77,7 @@ class PagosonlineController extends Controller
                 $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
             )
             : array();
+
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
 }

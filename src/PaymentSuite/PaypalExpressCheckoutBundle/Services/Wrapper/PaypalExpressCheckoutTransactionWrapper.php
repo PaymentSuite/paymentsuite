@@ -23,7 +23,8 @@ class PaypalExpressCheckoutTransactionWrapper
     public $errors = array();
     public $response = null;
 
-    public function __construct($user, $password, $signature, $endpoint, $debug = false) {
+    public function __construct($user, $password, $signature, $endpoint, $debug = false)
+    {
         $this->user = $user;
         $this->password = $password;
         $this->signature = $signature;
@@ -33,7 +34,8 @@ class PaypalExpressCheckoutTransactionWrapper
         }
     }
 
-    public function request($method, $params) {
+    public function request($method, $params)
+    {
         $params = array_merge($params, array(
                 'METHOD' => $method,
                 'VERSION' => '74.0',
@@ -55,17 +57,19 @@ class PaypalExpressCheckoutTransactionWrapper
         $response = curl_exec($curl);
         $responseArray = array();
         parse_str($response, $responseArray);
-        if(curl_errno($curl)){
+        if (curl_errno($curl)) {
             $this->errors = curl_error($curl);
             curl_close($curl);
+
             return false;
-        }else{
-            if($responseArray['ACK'] == 'Success'){
+        } else {
+            if ($responseArray['ACK'] == 'Success') {
                 curl_close($curl);
                 $this->reponse = $responseArray;
-            }else{
+            } else {
                 $this->errors = $responseArray;
                 curl_close($curl);
+
                 return false;
             }
         }

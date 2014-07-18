@@ -9,7 +9,7 @@
  *
  */
 
-namespace PaymentSuite\PagosonlineGatewayBundle\DependencyInjection;
+namespace PaymentSuite\PagosOnlineGatewayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -30,7 +30,6 @@ class AuthorizenetType extends AbstractType
      */
     private $paymentBridge;
 
-
     /**
      * Form type construct method
      *
@@ -40,7 +39,6 @@ class AuthorizenetType extends AbstractType
     {
         $this->paymentBridge = $paymentBridge;
     }
-
 
     /**
      * Build form function
@@ -64,7 +62,6 @@ class AuthorizenetType extends AbstractType
                 'choices' => array_combine(range(13, 25), range(13, 25)),
             ));
     }
-
 
     /**
      * Return unique name for this form

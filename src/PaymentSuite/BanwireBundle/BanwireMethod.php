@@ -15,7 +15,6 @@ namespace PaymentSuite\BanwireBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
 /**
  * BanwireMethod class
  */
@@ -32,14 +31,12 @@ class BanwireMethod implements PaymentMethodInterface
         return 'Banwire';
     }
 
-
     /**
      * @var float
      *
      * Banwire amount
      */
     private $amount;
-
 
     /*
      * @var string
@@ -48,14 +45,12 @@ class BanwireMethod implements PaymentMethodInterface
      */
     private $cardName;
 
-
     /*
      * @var string
      *
      * Credit card type
      */
     private $cardType;
-
 
     /**
      * @var string
@@ -64,14 +59,12 @@ class BanwireMethod implements PaymentMethodInterface
      */
     private $cardNum;
 
-
     /**
      * @var integer
      *
      * Card expiration month
      */
     private $cardExpMonth;
-
 
     /*
      * @var integer
@@ -80,7 +73,6 @@ class BanwireMethod implements PaymentMethodInterface
      */
     private $cardExpYear;
 
-
     /*
      * @var string
      *
@@ -88,14 +80,12 @@ class BanwireMethod implements PaymentMethodInterface
      */
     private $cardSecurity;
 
-
     /**
      * @var string
      *
      * banwire transactionid
      */
     private $banwireTransactionId;
-
 
     /**
      * @var string
@@ -148,7 +138,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param float $amount
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setAmount($amount)
     {
@@ -168,7 +158,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param int $cardExpMonth
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardExpMonth($cardExpMonth)
     {
@@ -188,7 +178,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardExpYear
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardExpYear($cardExpYear)
     {
@@ -208,7 +198,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardName
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardName($cardName)
     {
@@ -228,7 +218,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param string $cardNum
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardNum($cardNum)
     {
@@ -245,11 +235,10 @@ class BanwireMethod implements PaymentMethodInterface
         return $this->cardNum;
     }
 
-
     /**
      * @param mixed $cardSecurity
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardSecurity($cardSecurity)
     {
@@ -269,7 +258,7 @@ class BanwireMethod implements PaymentMethodInterface
     /**
      * @param mixed $cardType
      *
-     * @return  BanwireMethod self Object
+     * @return BanwireMethod self Object
      */
     public function setCardType($cardType)
     {

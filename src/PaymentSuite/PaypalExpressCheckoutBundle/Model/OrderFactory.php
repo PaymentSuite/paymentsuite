@@ -26,7 +26,7 @@ class OrderFactory
         $total = 0;
         $totalTVA = 0;
         $this->products = $products;
-        foreach($this->products as $product) {
+        foreach ($this->products as $product) {
             $total += $product->getPrice();
             $totalTVA += $product->getPriceTVA();
         }

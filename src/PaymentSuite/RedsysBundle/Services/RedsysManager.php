@@ -21,7 +21,6 @@ use PaymentSuite\RedsysBundle\RedsysMethod;
 use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
 use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
 
 /**
  * Redsys manager
@@ -35,7 +34,6 @@ class RedsysManager
      * Payment event dispatcher
      */
     protected $paymentEventDispatcher;
-
 
     /**
      * @var Wrapper\RedsysFormTypeWrapper
@@ -58,14 +56,12 @@ class RedsysManager
      */
     protected $secretKey;
 
-
-
     /**
      * Construct method for redsys manager
      *
-     * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param RedsysFormTypeWrapper $redsysFormTypeWrapper Redsys form typ wrapper
-     * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param RedsysFormTypeWrapper  $redsysFormTypeWrapper  Redsys form typ wrapper
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param $secretKey Secret Key
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher,
@@ -79,7 +75,6 @@ class RedsysManager
         $this->secretKey                = $secretKey;
 
     }
-
 
     /**
      * Creates form view for Redsys payment
@@ -110,7 +105,6 @@ class RedsysManager
          * Order exists right here
          */
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $redsysMethod);
-
 
         $formView = $this->redsysFormTypeWrapper->buildForm();
 
@@ -150,7 +144,7 @@ class RedsysManager
         $dsConsumerLanguage     = $parameters['Ds_ConsumerLanguage'];
         $dsCardType             = $parameters['Ds_Card_Type'];
 
-        if ($dsSignature != $this->expectedSignature($dsAmount, $dsOrder, $dsMerchantCode, $dsCurrency, $dsResponse,  $dsSecret)){
+        if ($dsSignature != $this->expectedSignature($dsAmount, $dsOrder, $dsMerchantCode, $dsCurrency, $dsResponse,  $dsSecret)) {
             throw new InvalidSignatureException();
         }
 
@@ -203,16 +197,17 @@ class RedsysManager
     /**
      * Returns true if the transaction was successful
      *
-     * @param string $dsResponse Response code
+     * @param  string  $dsResponse Response code
      * @return boolean
      */
-    protected function transactionSuccessful($dsResponse){
+    protected function transactionSuccessful($dsResponse)
+    {
         /**
          * When a transaction is successful, $Ds_Response has a value between 0 and 99
          */
         if (intval($dsResponse)<0 || intval($dsResponse)>99 ) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -220,16 +215,16 @@ class RedsysManager
     /**
      * Returns the expected signature
      *
-     * @param string $amount Amount
-     * @param string $order Order
-     * @param string $merchantCode Merchant Code
-     * @param string $currency Currency
-     * @param string $response Response code
-     * @param string $secret Secret
+     * @param  string    $amount       Amount
+     * @param  string    $order        Order
+     * @param  string    $merchantCode Merchant Code
+     * @param  string    $currency     Currency
+     * @param  string    $response     Response code
+     * @param  string    $secret       Secret
      * @return Signature string String
      */
-    protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret){
-
+    protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret)
+    {
         $signature = $amount . $order . $merchantCode . $currency . $response . $secret;
         // SHA1
         return strtoupper(sha1($signature));
@@ -239,10 +234,11 @@ class RedsysManager
     /**
      * Checks that all the required parameters are received
      *
-     * @param array $parameters Parameters
+     * @param  array                                                              $parameters Parameters
      * @throws \PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
      */
-    protected function checkResultParameters(array $parameters){
+    protected function checkResultParameters(array $parameters)
+    {
         $list = array(
                     'Ds_Date',
                     'Ds_Hour',
@@ -262,8 +258,8 @@ class RedsysManager
                     'Ds_ConsumerLanguage',
                     'Ds_Card_Type'
         );
-        foreach ($list as $item){
-            if(!isset($parameters[$item])){
+        foreach ($list as $item) {
+            if (!isset($parameters[$item])) {
                throw new ParameterNotReceivedException($item);
             }
         }

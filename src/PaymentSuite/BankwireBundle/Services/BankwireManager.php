@@ -31,14 +31,12 @@ class BankwireManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var BankwireTransactionWrapper
      *
      * Bankwire transaction wrapper
      */
     protected $bankwireMethodWrapper;
-
 
     /**
      * @var PaymentBridgeInterface
@@ -47,13 +45,12 @@ class BankwireManager
      */
     protected $paymentBridge;
 
-
     /**
      * Construct method for bankwire manager
      *
-     * @param PaymentEventDispatcher    $paymentEventDispatcher    Event dispatcher
-     * @param BankwireMethodWrapper $bankwireMethodWrapper Bankwire method wrapper
-     * @param PaymentBridgeInterface    $paymentBridge             Payment Bridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
+     * @param BankwireMethodWrapper  $bankwireMethodWrapper  Bankwire method wrapper
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      */
     public function __construct(PaymentEventDispatcher $paymentEventDispatcher, BankwireMethodWrapper $bankwireMethodWrapper, PaymentBridgeInterface $paymentBridge)
     {
@@ -61,7 +58,6 @@ class BankwireManager
         $this->bankwireMethodWrapper = $bankwireMethodWrapper;
         $this->paymentBridge = $paymentBridge;
     }
-
 
     /**
      * Tries to process a payment through Bankwire
@@ -87,7 +83,6 @@ class BankwireManager
             throw new PaymentOrderNotFoundException;
         }
 
-
         /**
          * Order exists right here
          */
@@ -102,7 +97,6 @@ class BankwireManager
 
         return $this;
     }
-
 
     /**
      * Validates payment, given an Id of an existing order

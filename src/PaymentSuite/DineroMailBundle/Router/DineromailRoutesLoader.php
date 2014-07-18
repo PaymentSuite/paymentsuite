@@ -11,7 +11,7 @@
  * Marc Morera 2013
  */
 
-namespace PaymentSuite\DineromailBundle\Router;
+namespace PaymentSuite\DineroMailBundle\Router;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -31,14 +31,12 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     const ROUTE_NAME = 'dineromail_execute';
 
-
     /**
      * @var string
      *
      * Process url. For callbacks
      */
     const ROUTE_PROCESS_NAME = 'dineromail_process';
-
 
     /**
      * @var string
@@ -47,14 +45,12 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     private $controllerRoute;
 
-
     /**
      * @var string
      *
      * Execution controller route name
      */
     private $controllerRouteName;
-
 
     /**
      * @var string
@@ -63,7 +59,6 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     private $controllerProcessRoute;
 
-
     /**
      * @var string
      *
@@ -71,14 +66,12 @@ class DineromailRoutesLoader implements LoaderInterface
      */
     private $controllerProcessRouteName;
 
-
     /**
      * @var boolean
      *
      * Route is loaded
      */
     private $loaded = false;
-
 
     /**
      * Construct method
@@ -95,7 +88,6 @@ class DineromailRoutesLoader implements LoaderInterface
         $this->controllerProcessRoute = $controllerProcessRoute;
         $this->controllerProcessRouteName = $controllerProcessRouteName;
     }
-
 
     /**
      * Loads a resource.
@@ -129,7 +121,6 @@ class DineromailRoutesLoader implements LoaderInterface
         return $routes;
     }
 
-
     /**
      * Returns true if this class supports the given resource.
      *
@@ -143,7 +134,6 @@ class DineromailRoutesLoader implements LoaderInterface
         return 'dineromail' === $type;
     }
 
-
     /**
      * Gets the loader resolver.
      *
@@ -152,7 +142,6 @@ class DineromailRoutesLoader implements LoaderInterface
     public function getResolver()
     {
     }
-
 
     /**
      * Sets the loader resolver.

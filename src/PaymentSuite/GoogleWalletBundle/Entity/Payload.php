@@ -12,7 +12,8 @@
 
 namespace PaymentSuite\GoogleWalletBundle\Entity;
 
-class Payload {
+class Payload
+{
     /**
      * @var string The target audience for JWT.
      */
@@ -47,7 +48,8 @@ class Payload {
      * Set JWT Issued time.
      * @param integer $issuedAt The time when the JWT was issued.
      */
-    public function setIssuedAt($issuedAt){
+    public function setIssuedAt($issuedAt)
+    {
         $this->iat = $issuedAt;
     }
 
@@ -55,31 +57,35 @@ class Payload {
      * Set JWT expiration time.
      * @param integer $expiryTime The time when the purchase will expire.
      */
-    public function setExpiration($expiryTime) {
+    public function setExpiration($expiryTime)
+    {
         $this->exp = $expiryTime;
     }
 
     /**
      * Add requested data into Request array.
-     * @param string $fieldName Requested field name.
+     * @param string $fieldName  Requested field name.
      * @param string $fieldValue Requested field value.
      */
-    public function addProperty($fieldName, $fieldValue) {
+    public function addProperty($fieldName, $fieldValue)
+    {
         $this->request[$fieldName] = $fieldValue;
     }
 
     /**
      * Create payload of the product.
-     * @param string $sellerIdentifier Merchant Id.
-     * @return array $this->payload Payload of the product.
+     * @param  string $sellerIdentifier Merchant Id.
+     * @return array  $this->payload Payload of the product.
      */
-    public function createPayload($sellerIdentifier) {
+    public function createPayload($sellerIdentifier)
+    {
         $this->payload['iss'] = $sellerIdentifier;
         $this->payload['aud'] = self::AUDIENCE;
         $this->payload['typ'] = self::TYPE;
         $this->payload['exp'] = $this->exp;
         $this->payload['iat'] = $this->iat;
         $this->payload['request'] = $this->request;
+
         return $this->payload;
     }
 }

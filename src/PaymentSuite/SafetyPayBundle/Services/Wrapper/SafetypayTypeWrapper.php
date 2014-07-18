@@ -9,10 +9,8 @@
  *
  */
 
-namespace PaymentSuite\SafetypayBundle\Services\Wrapper;
+namespace PaymentSuite\SafetyPayBundle\Services\Wrapper;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
@@ -28,19 +26,17 @@ class SafetypayTypeWrapper
 
     /**
      * @var FormFactory
-     * 
+     *
      * Form factory
      */
     protected $formFactory;
 
-
     /**
      * @var PaymentBridge
-     * 
+     *
      * Payment bridge
      */
     private $paymentBridge;
-
 
     /**
      * @var string
@@ -49,10 +45,9 @@ class SafetypayTypeWrapper
      */
     private $key;
 
-
     /**
      * @var string
-     * 
+     *
      * User id
      */
     private $signature;
@@ -81,8 +76,8 @@ class SafetypayTypeWrapper
     /**
      * Formtype construct method
      *
-     * @param FormFactory            $formFactory Form factory
-     * @param PaymentBridgeInterface $paymentBridge Payment bridge
+     * @param FormFactory            $formFactory      Form factory
+     * @param PaymentBridgeInterface $paymentBridge    Payment bridge
      * @param string                 $key
      * @param string                 $signature
      * @param safetypayManager       $safetyPayManager
@@ -106,14 +101,13 @@ class SafetypayTypeWrapper
         $this->paymentLogger = $paymentLogger;
     }
 
-
     /**
      * Builds form given success and fail urls
      *
-     * @param String $successRoute
-     * @param String $failRoute
-     * @param Integer $safetyPayTransaction
-     * @param SafetypayMethod $paymentMethod
+     * @param  String                                                     $successRoute
+     * @param  String                                                     $failRoute
+     * @param  Integer                                                    $safetyPayTransaction
+     * @param  SafetypayMethod                                            $paymentMethod
      * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      * @return FormBuilder
      */

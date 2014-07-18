@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\PagosonlineGatewayBundle\Services;
+namespace PaymentSuite\PagosOnlineGatewayBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
@@ -17,7 +17,6 @@ class PagosonlineGatewayManager
      */
     protected $paymentEventDispatcher;
 
-
     /**
      * @var PaymentBridgeInterface
      *
@@ -25,19 +24,16 @@ class PagosonlineGatewayManager
      */
     protected $paymentBridge;
 
-
     /**
      * @var PagosonlineConnManager
      */
     protected $pagosonlineComm;
-
 
     /**
      * @var logger
      *
      */
     private $logger;
-
 
     /**
      * @var integer
@@ -48,7 +44,7 @@ class PagosonlineGatewayManager
      * Construct method for pagosonline manager
      *
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge Payment Bridge
+     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param $logger
      * @param $accountId
      * @param PagosonlineCommManager $pagosonlineComm
@@ -90,4 +86,4 @@ class PagosonlineGatewayManager
         }
     }
 
-} 
+}

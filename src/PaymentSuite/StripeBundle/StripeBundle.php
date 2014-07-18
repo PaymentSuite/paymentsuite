@@ -15,7 +15,6 @@ namespace PaymentSuite\StripeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 /**
  * Stripe payment bundle
  */

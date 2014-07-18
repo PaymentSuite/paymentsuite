@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\SafetypayBundle;
+namespace PaymentSuite\SafetyPayBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

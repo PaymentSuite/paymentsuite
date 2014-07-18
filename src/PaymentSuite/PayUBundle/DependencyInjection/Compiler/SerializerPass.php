@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\PayuBundle\DependencyInjection\Compiler;
+namespace PaymentSuite\PayUBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

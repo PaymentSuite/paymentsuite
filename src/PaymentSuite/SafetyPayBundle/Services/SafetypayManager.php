@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\SafetypayBundle\Services;
+namespace PaymentSuite\SafetyPayBundle\Services;
 
 use PaymentSuite\SafetypayBundle\SafetypayBundle;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;

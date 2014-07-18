@@ -8,7 +8,7 @@
  * @package PayuBundle
  */
 
-namespace PaymentSuite\PayuBundle\Model;
+namespace PaymentSuite\PayUBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuResponse;

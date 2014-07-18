@@ -28,7 +28,6 @@ class BankwireMethodWrapper
      */
     private $bankwireMethod;
 
-
     /**
      * Construct method
      */
@@ -36,7 +35,6 @@ class BankwireMethodWrapper
     {
         $this->bankwireMethod = new BankwireMethod;
     }
-
 
     /**
      * Get bankwire method

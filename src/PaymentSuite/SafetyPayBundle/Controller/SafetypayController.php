@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentSuite\SafetypayBundle\Controller;
+namespace PaymentSuite\SafetyPayBundle\Controller;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -68,7 +68,6 @@ class SafetypayController extends controller
 
         $successRoute = $this->generateUrl($redirectSuccessUrl, $redirectSuccessData, true);
 
-
         /**
          * Loading fail route for returning from safetypay
          * Error return, page where you want redirect the shopper after the payment
@@ -97,7 +96,6 @@ class SafetypayController extends controller
                ->createView();
 
         } catch (PaymentException $e) {
-
             return $this->redirect($this->generateUrl('cart_fail', array('order_id' => $this->get('payment.bridge')->getOrderId())));
         }
         $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);

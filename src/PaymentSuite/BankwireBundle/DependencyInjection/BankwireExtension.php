@@ -36,7 +36,6 @@ class BankwireExtension extends Extension
         $container->setParameter('bankwire.success.order.append', $config['payment_success']['order_append']);
         $container->setParameter('bankwire.success.order.field', $config['payment_success']['order_append_field']);
 
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');
