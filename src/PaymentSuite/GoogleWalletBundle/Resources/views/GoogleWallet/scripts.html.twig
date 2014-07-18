@@ -1,0 +1,31 @@
+<script type="text/javascript" src="https://sandbox.google.com/checkout/inapp/lib/buy.js"></script>
+
+<script type="text/javascript">
+
+    var url_callback;
+
+    function payButton(jwt_value, url) {
+        url_callback = url;
+
+        google.payments.inapp.buy({
+            jwt: jwt_value,
+            success: function(result) {
+                console.log('success');
+            },
+            failure: function(result) {
+                callback(result);
+            }
+        });
+        return false;
+    }
+
+    function callback(result){
+        var data = JSON.stringify({ response: result.response });
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url_callback, true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        xhr.send(data);
+    }
+
+</script>

@@ -1,0 +1,22 @@
+services:
+    googlewallet.manager:
+        class: %googlewallet.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            payment.bridge: @payment.bridge
+            googlewallet.merchant.id: %googlewallet.merchant.id%
+            googlewallet.secret.key: %googlewallet.secret.key%
+
+    googlewallet.twig.extension:
+        class: %googlewallet.twig.extension.class%
+        arguments:
+            googlewallet.manager: @googlewallet.manager
+        tags:
+            - { name: twig.extension }
+
+    googlewallet.routes.loader:
+        class: %googlewallet.routes.loader.class%
+        arguments:
+            googlewallet.controller.route.callback: %googlewallet.controller.route.callback%
+        tags:
+            - { name: routing.loader }
