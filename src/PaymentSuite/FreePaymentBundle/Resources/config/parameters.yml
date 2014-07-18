@@ -1,0 +1,5 @@
+parameters:
+
+    freepayment.controller.route.name: "freepayment_execute"
+    freepayment.manager.class: "PaymentSuite\\FreePaymentBundle\\Services\\FreePaymentManager"
+    freepayment.routes.loader.class: "PaymentSuite\\FreePaymentBundle\\Router\\FreePaymentRoutesLoader"
