@@ -1,0 +1,3 @@
+parameters:
+
+    pagosonline_comm.manager.class: "PaymentSuite\\PagosonlineCommBundle\\Services\\PagosonlineCommManager"
