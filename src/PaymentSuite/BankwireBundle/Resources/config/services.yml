@@ -1,0 +1,18 @@
+services:
+
+    bankwire.method.wrapper:
+        class: %bankwire.method.wrapper.class%
+
+    bankwire.manager:
+        class: %bankwire.manager.class%
+        arguments:
+            payment.event.dispatcher: @payment.event.dispatcher
+            bankwire.method.wrapper: @bankwire.method.wrapper
+            payment.bridge: @payment.bridge
+
+    bankwire.routes.loader:
+        class: %bankwire.routes.loader.class%
+        arguments:
+            bankwire.controller.route: %bankwire.controller.route%
+        tags:
+            - { name: routing.loader }

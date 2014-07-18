@@ -1,0 +1,5 @@
+parameters:
+
+    bankwire.method.wrapper.class: "PaymentSuite\\BankwireBundle\\Services\\Wrapper\\BankwireMethodWrapper"
+    bankwire.manager.class: "PaymentSuite\\BankwireBundle\\Services\\BankwireManager"
+    bankwire.routes.loader.class: "PaymentSuite\\BankwireBundle\\Router\\BankwireRoutesLoader"
