@@ -1,0 +1,11 @@
+/* TEAM */
+Creator : Marc Morera
+Contact: yuhu at mmoreram dot com
+Twitter: mmoreram
+Location: Barcelona, Catalunya, Catalunya.
+
+/* THANKS */
+https://paymill.com/
+http://github.com
+http://symfony.com
+Fabien Potencier
