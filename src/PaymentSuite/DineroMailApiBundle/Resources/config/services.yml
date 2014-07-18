@@ -1,0 +1,39 @@
+services:
+
+    dineromailapi.form.type:
+        class: %dineromail_api.form.type.class%
+        arguments:
+            router: @router
+            payment.bridge: @payment.bridge
+            dineromailapi.controller.route.name: %dineromail_api.controller.route.name%
+        tags:
+            - { name: form.type, alias: dineromail_api_view }
+
+    dineromailapi.manager:
+            class: %dineromail_api.manager.class%
+            arguments:
+                payment.event.dispatcher: @payment.event.dispatcher
+                payment.bridge: @payment.bridge
+                dineromail_api.api_user_name: %dineromail_api.api_user_name%
+                dineromail_api.api_password: %dineromail_api.api_password%
+                logger: @logger
+                ns: %dineromail_api.ns%
+                dineromail_api.api_prefix: %dineromail_api.api_prefix%
+                dineromail_api.wsdl: %dineromail_api.wsdl_path%
+                dineromail_api_debug: %dineromail_api_debug%
+
+    dineromailapi.twig.extension:
+        class: %dineromail_api.twig.extension.class%
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+        tags:
+            - { name: twig.extension }
+
+    dineromailapi.routes.loader:
+        class: %dineromail_api.routes.loader.class%
+        arguments:
+          dineromailapi.controller.route.name: %dineromail_api.controller.route.name%
+          dineromailapi.controller.route: %dineromail_api.controller.route%
+        tags:
+            - { name: routing.loader }
