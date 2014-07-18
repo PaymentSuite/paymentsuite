@@ -1,0 +1,41 @@
+{
+    "name": "paymentsuite/redsys-bundle",
+    "type": "symfony-bundle",
+    "description": "Redsys Bundle, part of Payment Suite",
+    "keywords": ["redsys", "sermepa", "payment", "ecommerce"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Morales Valldepérez",
+            "email": "marcmorales83@gmail.com"
+        },
+        {
+            "name": "Gonzalo Vilaseca",
+            "email": "gonzalo.vilaseca@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/event-dispatcher": ">=2.2.3",
+        "symfony/framework-bundle": ">=2.2.3",
+        "symfony/form": ">=2.2.3",
+        "symfony/config": ">=2.2.3",
+        "symfony/http-kernel": ">=2.2.3",
+        "symfony/dependency-injection": ">=2.2.3",
+        "twig/twig": "~1.11",
+        "paymentsuite/payment-core-bundle": "~1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "target-dir": "PaymentSuite/RedsysBundle",
+    "autoload": {
+        "psr-0": { "PaymentSuite\\RedsysBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

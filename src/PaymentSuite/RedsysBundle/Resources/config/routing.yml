@@ -1,0 +1,3 @@
+redsys_routes:
+    resource: .
+    type: redsys

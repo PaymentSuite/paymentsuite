@@ -1,0 +1,8 @@
+parameters:
+    redsys.manager.class: "PaymentSuite\\RedsysBundle\\Services\\RedsysManager"
+    redsys.form.type.wrapper.class: "PaymentSuite\\RedsysBundle\\Services\\Wrapper\\RedsysFormTypeWrapper"
+    redsys.routes.loader.class: "PaymentSuite\\RedsysBundle\\Router\\RedsysRoutesLoader"
+    redsys.controller.execute.route.name: "redsys_execute"
+    redsys.controller.result.route.name: "redsys_result"
+
+    
