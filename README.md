@@ -1,4 +1,4 @@
-Elcodi for Symfony2
+PaymentSuite for Symfony2
 =====
 [![Build Status](https://travis-ci.org/paymentsuite/paymentsuite.svg?branch=master)](https://travis-ci.org/paymentsuite/paymentsuite)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/paymentsuite/paymentsuite/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/paymentsuite/paymentsuite/?branch=master)
@@ -7,7 +7,7 @@ Elcodi for Symfony2
 [![Latest Unstable Version](https://poser.pugx.org/paymentsuite/paymentsuite/v/unstable.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
 [![License](https://poser.pugx.org/paymentsuite/paymentsuite/license.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
 
-Elcodi components for symfony2
+E-commerce payment components for symfony2
 
 Requirements
 ------------
