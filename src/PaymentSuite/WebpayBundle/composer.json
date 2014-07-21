@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/webpay-bundle",
     "type": "symfony-bundle",
-    "description": "Webpay Bundle, part of PaymentSuite Project",
+    "description": "Webpay PaymentSuite Component",
     "keywords": ["webpay", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name": "David Pujadas",
-            "email": "dpujadas@gmail.com"
+            "name": "Marc Morera",
+            "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -22,11 +26,12 @@
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/WebpayBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\WebpayBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\WebpayBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

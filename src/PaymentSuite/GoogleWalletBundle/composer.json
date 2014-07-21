@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/google-wallet-bundle",
     "type": "symfony-bundle",
-    "description": "Google Wallet Bundle, part of Payment Suite for Symfony 2",
+    "description": "Google wallet PaymentSuite Component",
     "keywords": ["google-wallet", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Denys Pasishnyi",
-            "email": "dpcat237@gmail.com"
+            "name": "Marc Morera",
+            "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -22,11 +26,12 @@
         "paymentsuite/payment-core-bundle": ">=1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/GoogleWalletBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\GoogleWalletBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\GoogleWalletBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

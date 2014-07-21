@@ -1,5 +1,4 @@
-composer.lock
-composer.phar
-phpunit.xml
-phpcs.log
 vendor
+composer.phar
+composer.lock
+phpunit.xml

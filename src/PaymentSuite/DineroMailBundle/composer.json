@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/dineromail-bundle",
     "type": "symfony-bundle",
-    "description": "DineroMail Bundle, part of PaymentSuite Project",
+    "description": "Dineromail PaymentSuite Component",
     "keywords": ["dineromail", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
             "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -22,12 +26,12 @@
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "monolog/monolog": "~1.3"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/DineromailBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\DineromailBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\DineroMailBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

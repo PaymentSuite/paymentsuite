@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/paymill-bundle",
     "type": "symfony-bundle",
-    "description": "Paymill Bundle, part of PaymentSuite Project",
+    "description": "Paymill PaymentSuite Component",
     "keywords": ["paymill", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
             "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -23,11 +27,12 @@
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/PaymillBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\PaymillBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\PaymillBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

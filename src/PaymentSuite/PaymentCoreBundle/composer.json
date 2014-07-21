@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/payment-core-bundle",
     "type": "symfony-bundle",
-    "description": "Payment Core Bundle, part and core of PaymentSuite Project",
+    "description": "PaymentCore PaymentSuite Component",
     "keywords": ["payment", "ecommerce", "paymentsuite"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
             "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -19,11 +23,12 @@
         "psr/log": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/PaymentCoreBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\PaymentCoreBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\PaymentCoreBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

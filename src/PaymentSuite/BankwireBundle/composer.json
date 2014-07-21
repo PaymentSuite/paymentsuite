@@ -1,13 +1,17 @@
 {
     "name": "paymentsuite/bankwire-bundle",
     "type": "symfony-bundle",
-    "description": "Bankwire Bundle, part of PaymentSuite Project",
+    "description": "Bankwire PaymentSuite Component",
     "keywords": ["bankwire", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
             "name": "Marc Morera",
             "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -20,11 +24,12 @@
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/BankwireBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\BankwireBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\BankwireBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {

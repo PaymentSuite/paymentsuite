@@ -1,17 +1,17 @@
 {
     "name": "paymentsuite/paypal-express_checkout-bundle",
     "type": "symfony-bundle",
-    "description": "Paypal Express Checkout Bundle, part of PaymentSuite Project",
+    "description": "PaypalExpressCheckout PaymentSuite Component",
     "keywords": ["paypal", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name":"Mickael Andrieu",
-            "email": "mickael.andrieu@sensiolabs.com"
-        },
-        {
             "name": "Marc Morera",
             "email": "yuhu@mmoreram.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {
@@ -27,10 +27,17 @@
         "paymentsuite/payment-core-bundle": ">=1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/PaypalExpressCheckout",
     "autoload": {
-        "psr-0": { "PaymentSuite\\PaypalExpressCheckout": "" }
+        "psr-4": {
+            "PaymentSuite\\PaypalExpressCheckout\\": ""
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }

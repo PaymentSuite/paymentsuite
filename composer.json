@@ -11,7 +11,7 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https://github.com/paymentsuite/paymentsuite/contributors"
+            "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
         }
     ],
     "require": {

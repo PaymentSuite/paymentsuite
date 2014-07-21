@@ -1,7 +1,7 @@
 {
     "name": "paymentsuite/dineromail-api-bundle",
     "type": "symfony-bundle",
-    "description": "DineroMail Api Bundle, part of PaymentSuite Project",
+    "description": "DineromailApi PaymentSuite Component",
     "keywords": ["dineromail-api", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
@@ -22,11 +22,12 @@
         "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": ">=3.7"
     },
-    "target-dir": "PaymentSuite/DineromailApiBundle",
     "autoload": {
-        "psr-0": { "PaymentSuite\\DineromailApiBundle": "" }
+        "psr-4": {
+            "PaymentSuite\\DineroMailApiBundle\\": ""
+        }
     },
     "minimum-stability": "stable",
     "extra": {
