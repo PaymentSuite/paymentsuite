@@ -10,8 +10,8 @@
 
 namespace PaymentSuite\PayUBundle\Factory;
 
-use PaymentSuite\PayuBundle\Model\GetPaymentMethodsRequest;
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuRequest;
+use PaymentSuite\PayuBundle\Model\GetPaymentMethodsRequest;
 use PaymentSuite\PayuBundle\Model\OrderDetailByReferenceCodeRequest;
 use PaymentSuite\PayuBundle\Model\OrderDetailRequest;
 use PaymentSuite\PayuBundle\Model\PingRequest;

@@ -17,8 +17,8 @@ use Symfony\Component\Form\FormFactory;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
-use PaymentSuite\StripeBundle\Router\StripeRoutesLoader;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\StripeBundle\Router\StripeRoutesLoader;
 
 /**
  * Text utilities extension

@@ -13,8 +13,9 @@
 
 namespace PaymentSuite\RedsysBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
+
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
 
 /**

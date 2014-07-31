@@ -15,14 +15,14 @@ namespace PaymentSuite\PaymentCoreBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
 use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderCreatedEvent;
 use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderDoneEvent;
-use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 use PaymentSuite\PaymentCoreBundle\PaymentCoreEvents;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Payment event dispatcher.

@@ -13,14 +13,13 @@
 
 namespace PaymentSuite\GoogleWalletBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\GoogleWalletBundle\Entity\Payload;
+use PaymentSuite\GoogleWalletBundle\GoogleWalletMethod;
+use PaymentSuite\GoogleWalletBundle\Helper\JWTHelper;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-
-use PaymentSuite\GoogleWalletBundle\Entity\Payload;
-use PaymentSuite\GoogleWalletBundle\Helper\JWTHelper;
-use PaymentSuite\GoogleWalletBundle\GoogleWalletMethod;
 
 /**
  * GoogleWallet manager

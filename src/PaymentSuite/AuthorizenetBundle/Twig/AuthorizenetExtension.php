@@ -14,8 +14,8 @@
 namespace PaymentSuite\AuthorizenetBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
-use Twig_Extension,
-    Twig_SimpleFunction;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 use PaymentSuite\AuthorizenetBundle\Router\AuthorizenetRoutesLoader;
 

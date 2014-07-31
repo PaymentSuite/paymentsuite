@@ -13,15 +13,16 @@
 
 namespace PaymentSuite\PaymillBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use PaymentSuite\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\PaymillBundle\PaymillMethod;
 use Paymill\Models\Response\Transaction;
 use Paymill\Services\PaymillException;
+
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymillBundle\PaymillMethod;
+use PaymentSuite\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
 
 /**
  * Paymill manager

@@ -11,12 +11,13 @@
 
 namespace PaymentSuite\SafetyPayBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
-use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
 use Symfony\Component\Form\FormFactory;
+
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
+use PaymentSuite\SafetypayBundle\SafetypayMethod;
+use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
 
 /**
  * SafetypayBundle manager

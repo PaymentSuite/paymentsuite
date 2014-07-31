@@ -13,8 +13,9 @@
 
 namespace PaymentSuite\DineroMailBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
+
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * Dineromail manager

@@ -13,14 +13,13 @@
 
 namespace PaymentSuite\AuthorizenetBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-
-use PaymentSuite\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper;
 use PaymentSuite\AuthorizenetBundle\AuthorizenetMethod;
+use PaymentSuite\AuthorizenetBundle\Services\Wrapper\AuthorizenetTransactionWrapper;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
  * Authorizenet manager

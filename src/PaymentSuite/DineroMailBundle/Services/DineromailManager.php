@@ -2,10 +2,11 @@
 
 namespace PaymentSuite\DineroMailBundle\Services;
 
+use Psr\Log\LoggerInterface;
+
+use PaymentSuite\DineromailBundle\DineromailMethod;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\DineromailBundle\DineromailMethod;
-use Psr\Log\LoggerInterface;
 
 /**
  * Dineromail manager

@@ -11,6 +11,7 @@
 namespace PaymentSuite\PayUBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
+
 use PaymentSuite\PayuBundle\Model\Abstracts\PayuReportResponse;
 
 /**

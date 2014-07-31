@@ -13,8 +13,8 @@
 
 namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaymentCoreBundle\PaymentCoreEvents;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
  * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher class

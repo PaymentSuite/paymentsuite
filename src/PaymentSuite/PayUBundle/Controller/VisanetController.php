@@ -10,13 +10,14 @@
 
 namespace PaymentSuite\PayUBundle\Controller;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PayuBundle\Model\AdditionalValue;
 use PaymentSuite\PayuBundle\Model\AuthorizationAndCaptureTransaction;
 use PaymentSuite\PayuBundle\Model\Order;
@@ -26,7 +27,6 @@ use PaymentSuite\PayuBundle\PayuAdditionalValueTypes;
 use PaymentSuite\PayuBundle\PayuRequestTypes;
 use PaymentSuite\PayuBundle\PayuTransactionTypes;
 use PaymentSuite\PayuBundle\Services\PayuManager;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PayuBundle\VisanetMethod;
 
 /**

@@ -13,8 +13,9 @@
 
 namespace PaymentSuite\PaymillBundle;
 
-use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use Paymill\Models\Response\Transaction;
+
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
  * PaymillMethod class

@@ -13,9 +13,9 @@
 
 namespace PaymentSuite\FreePaymentBundle\Services;
 
+use PaymentSuite\FreePaymentBundle\FreePaymentMethod;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\FreePaymentBundle\FreePaymentMethod;
 
 /**
  * FreePayment manager

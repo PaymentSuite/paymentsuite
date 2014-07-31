@@ -14,8 +14,8 @@
 namespace PaymentSuite\BankwireBundle\Services;
 
 use PaymentSuite\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**

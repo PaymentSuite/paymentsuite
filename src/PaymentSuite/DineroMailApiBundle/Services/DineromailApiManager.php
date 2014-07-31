@@ -2,13 +2,14 @@
 
 namespace PaymentSuite\DineroMailApiBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\DineromailApiBundle\DineromailApiMethod;
 use SoapVar;
+
+use PaymentSuite\DineromailApiBundle\DineromailApiMethod;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
  * DineroMailAPi manager

@@ -4,8 +4,9 @@ namespace PaymentSuite\PagosOnlineBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Routing\Router;
+
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 class PagosonlineType extends AbstractType
 {

@@ -13,9 +13,9 @@
 
 namespace PaymentSuite\GoogleWalletBundle\Twig;
 
+use Twig_Environment;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use Twig_Environment;
 
 use PaymentSuite\GoogleWalletBundle\Router\GoogleWalletRoutesLoader;
 use PaymentSuite\GoogleWalletBundle\Services\GoogleWalletManager;

@@ -10,17 +10,18 @@
 
 namespace PaymentSuite\WebpayBundle\Controller;
 
-use PaymentSuite\WebpayBundle\Model\Normal;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use PaymentSuite\WebpayBundle\WebpayMethod;
 use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
+use PaymentSuite\WebpayBundle\Model\Normal;
+use PaymentSuite\WebpayBundle\WebpayMethod;
 
 /**
  * WebpayController

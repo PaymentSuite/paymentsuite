@@ -13,9 +13,10 @@
 
 namespace PaymentSuite\StripeBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use Stripe;
 use Stripe_Charge;
+
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Stripe transaction wrapper

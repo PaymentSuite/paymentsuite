@@ -3,6 +3,7 @@ namespace PaymentSuite\PagosOnlineCommBundle\Services;
 
 use DOMDocument;
 use SoapClient;
+
 use PaymentSuite\PagosonlineCommBundle\Lib\WSSESoap;
 
 class PagosonlineCommManager extends SoapClient

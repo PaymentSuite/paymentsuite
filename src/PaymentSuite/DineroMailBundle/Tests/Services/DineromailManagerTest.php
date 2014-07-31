@@ -11,7 +11,7 @@
  * Mickaël Andrieu 2014
  */
 
-namespace PaymentSuite\DineromailBundle\Tests\Services;
+namespace PaymentSuite\DineroMailBundle\Tests\Services;
 
 use PaymentSuite\DineromailBundle\DineromailMethod;
 use PaymentSuite\DineroMailBundle\Services\DineromailManager;

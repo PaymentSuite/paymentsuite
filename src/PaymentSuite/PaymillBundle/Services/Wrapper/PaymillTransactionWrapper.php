@@ -13,8 +13,8 @@
 
 namespace PaymentSuite\PaymillBundle\Services\Wrapper;
 
-use Paymill\Request;
 use Paymill\Models\Response\Transaction;
+use Paymill\Request;
 use Paymill\Services\PaymillException;
 
 /**

@@ -11,13 +11,14 @@
 
 namespace PaymentSuite\PagosOnlineGatewayBundle\Controller;
 
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 
 /**
  * PagosonlineGatewayController

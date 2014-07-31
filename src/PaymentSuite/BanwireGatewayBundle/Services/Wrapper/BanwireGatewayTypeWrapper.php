@@ -11,9 +11,10 @@
 
 namespace PaymentSuite\BanwireGatewayBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
+
 use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * BanwireGatewayBundle manager

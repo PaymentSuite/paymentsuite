@@ -2,14 +2,15 @@
 
 namespace PaymentSuite\BanwireGatewayBundle\Controller;
 
-use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use PaymentSuite\BanwireGatewayBundle\BanwireGatewayMethod;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use PaymentSuite\BanwireGatewayBundle\BanwireGatewayMethod;
+use PaymentSuite\BanwireGatewayBundle\Encryptor\RC4;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 
 /**
  * Class BanwireGatewayController

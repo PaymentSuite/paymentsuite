@@ -2,12 +2,13 @@
 
 namespace PaymentSuite\PagosOnlineBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
 use PaymentSuite\PagosonlineBundle\PagosonlineMethod;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * PagosOnlineController

@@ -2,11 +2,11 @@
 
 namespace PaymentSuite\SafetyPayBundle\Services;
 
-use PaymentSuite\SafetypayBundle\SafetypayBundle;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\SafetypayBundle\SafetypayMethod;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
+use PaymentSuite\SafetypayBundle\SafetypayBundle;
+use PaymentSuite\SafetypayBundle\SafetypayMethod;
 
 /**
  * SafetyPay Manager

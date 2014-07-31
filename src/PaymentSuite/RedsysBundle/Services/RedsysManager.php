@@ -13,14 +13,14 @@
 
 namespace PaymentSuite\RedsysBundle\Services;
 
-use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\RedsysBundle\RedsysMethod;
-use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
-use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
+use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
+use PaymentSuite\RedsysBundle\RedsysMethod;
+use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 
 /**
  * Redsys manager

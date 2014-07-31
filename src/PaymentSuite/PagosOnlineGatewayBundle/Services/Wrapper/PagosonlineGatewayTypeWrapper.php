@@ -11,8 +11,9 @@
 
 namespace PaymentSuite\PagosOnlineGatewayBundle\Services\Wrapper;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use Symfony\Component\Form\FormFactory;
+
+use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
  * PagosonlineGatewayBundle manager

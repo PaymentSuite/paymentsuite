@@ -13,11 +13,11 @@
 
 namespace PaymentSuite\RedsysBundle\Router;
 
+use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use RuntimeException;
 
 /**
  * Redsys router

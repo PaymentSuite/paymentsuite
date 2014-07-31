@@ -2,15 +2,15 @@
 
 namespace PaymentSuite\WebpayBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentDuplicatedException;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
 use PaymentSuite\WebpayBundle\Model\Normal;
 use PaymentSuite\WebpayBundle\WebpayMethod;
-use PaymentSuite\WebpayBundle\Exception\WebpayMacCheckException;
 
 /**
  * Webpay manager

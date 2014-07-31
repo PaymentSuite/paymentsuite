@@ -12,8 +12,9 @@
 
 namespace PaymentSuite\RedsysBundle\Tests\Services;
 
-use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 use Symfony\Component\Form\Test\TypeTestCase;
+
+use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 
 /**
  * Class RedsysFormTypeWrapperTest

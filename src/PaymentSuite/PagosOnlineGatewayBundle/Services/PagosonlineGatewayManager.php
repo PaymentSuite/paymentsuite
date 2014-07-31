@@ -2,10 +2,10 @@
 
 namespace PaymentSuite\PagosOnlineGatewayBundle\Services;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PagosonlineCommBundle\Services\PagosonlineCommManager;
 use PaymentSuite\PagosonlineGatewayBundle\PagosonlineGatewayMethod;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 class PagosonlineGatewayManager
 {

@@ -14,9 +14,10 @@
 namespace PaymentSuite\GoogleWalletBundle\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
+
+use PaymentSuite\GoogleWalletBundle\Exception\DomainException;
+use PaymentSuite\GoogleWalletBundle\Exception\UnexpectedValueException;
 use PaymentSuite\GoogleWalletBundle\Helper\JWTHelper as JWT;
-use PaymentSuite\GoogleWalletBundle\Exception\DomainException,
-    PaymentSuite\GoogleWalletBundle\Exception\UnexpectedValueException;
 
 /**
  * Class for time functions
