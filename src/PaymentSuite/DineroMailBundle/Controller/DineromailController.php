@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package DineromailBundle
  *
  * Marc Morera 2013
  */
@@ -28,7 +27,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
  */
 class DineromailController extends Controller
 {
-
     /**
      * Payment execution
      *

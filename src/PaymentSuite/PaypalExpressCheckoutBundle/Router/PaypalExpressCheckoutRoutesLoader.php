@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalExpressCheckout
  *
  * Mickael Andrieu 2013
  */
@@ -23,7 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class PaypalExpressCheckoutRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *

@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package BankwireBundle
  *
  * Marc Morera 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\BankwireBundle\BankwireMethod;
  */
 class BankwireMethodWrapper
 {
-
     /**
      * @var BankwireMethod
      *

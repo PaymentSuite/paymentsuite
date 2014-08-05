@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package DineromailApiBundle
  *
  */
 
@@ -18,7 +17,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class DineromailApiMethod implements PaymentMethodInterface
 {
-
     /**
      * Get DineromailApiMethod method name
      *

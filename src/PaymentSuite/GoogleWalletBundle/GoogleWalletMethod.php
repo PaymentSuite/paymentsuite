@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Denys Pasishnyi <dpcat237@gmail.com>
- * @package GoogleWalletBundle
  *
  * Denys Pasishnyi 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class GoogleWalletMethod implements PaymentMethodInterface
 {
-
     /**
      * Get Google Wallet method name
      *

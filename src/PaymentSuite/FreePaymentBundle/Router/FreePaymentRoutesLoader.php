@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package FreePaymentBundle
  *
  * Marc Morera 2013
  */
@@ -23,7 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class FreePaymentRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *

@@ -9,7 +9,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class PagosonlineMethod implements PaymentMethodInterface
 {
-
     /**
      * Get Pagosonline method name
      *

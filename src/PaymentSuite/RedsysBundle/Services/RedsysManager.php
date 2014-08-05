@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Gonzalo Vilaseca <gonzalo.vilaseca@gmail.com>
- * @package RedsysBundle
  *
  * Gonzalo Vilaseca 2014
  */
@@ -27,7 +26,6 @@ use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
  */
 class RedsysManager
 {
-
     /**
      * @var PaymentEventDispatcher
      *
@@ -62,17 +60,19 @@ class RedsysManager
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param RedsysFormTypeWrapper  $redsysFormTypeWrapper  Redsys form typ wrapper
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
-     * @param $secretKey Secret Key
+     * @param string                 $secretKey              Secret Key
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher,
-                                RedsysFormTypeWrapper $redsysFormTypeWrapper,
-                                PaymentBridgeInterface $paymentBridge,
-                                $secretKey)
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        RedsysFormTypeWrapper $redsysFormTypeWrapper,
+        PaymentBridgeInterface $paymentBridge,
+        $secretKey
+    )
     {
-        $this->paymentEventDispatcher   = $paymentEventDispatcher;
-        $this->redsysFormTypeWrapper    = $redsysFormTypeWrapper;
-        $this->paymentBridge            = $paymentBridge;
-        $this->secretKey                = $secretKey;
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
+        $this->redsysFormTypeWrapper = $redsysFormTypeWrapper;
+        $this->paymentBridge = $paymentBridge;
+        $this->secretKey = $secretKey;
 
     }
 
@@ -91,7 +91,12 @@ class RedsysManager
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $redsysMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $redsysMethod
+            );
 
         /**
          * Order Not found Exception must be thrown just here
@@ -104,9 +109,16 @@ class RedsysManager
         /**
          * Order exists right here
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $redsysMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $redsysMethod
+            );
 
-        $formView = $this->redsysFormTypeWrapper->buildForm();
+        $formView = $this
+            ->redsysFormTypeWrapper
+            ->buildForm();
 
         return $formView;
     }
@@ -114,7 +126,7 @@ class RedsysManager
     /**
      * Processes the POST request sent by Redsys
      *
-     * @param $parameters Array with response parameters
+     * @param array $parameters Array with response parameters
      *
      * @return RedsysManager Self object
      *
@@ -144,7 +156,16 @@ class RedsysManager
         $dsConsumerLanguage     = $parameters['Ds_ConsumerLanguage'];
         $dsCardType             = $parameters['Ds_Card_Type'];
 
-        if ($dsSignature != $this->expectedSignature($dsAmount, $dsOrder, $dsMerchantCode, $dsCurrency, $dsResponse,  $dsSecret)) {
+        if ($dsSignature != $this
+                ->expectedSignature(
+                    $dsAmount,
+                    $dsOrder,
+                    $dsMerchantCode,
+                    $dsCurrency,
+                    $dsResponse,
+                    $dsSecret
+                )
+            ) {
             throw new InvalidSignatureException();
         }
 
@@ -168,18 +189,29 @@ class RedsysManager
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $redsysMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $redsysMethod
+            );
 
         /**
          * when a transaction is successful, $Ds_Response has a value between 0 and 99
          */
         if ($this->transactionSuccessful($dsResponse)) {
+
             /**
              * Payment paid failed
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $redsysMethod);
+            $this
+                ->paymentEventDispatcher
+                ->notifyPaymentOrderFail(
+                    $this->paymentBridge,
+                    $redsysMethod
+                );
 
             throw new PaymentException;
         }
@@ -189,7 +221,12 @@ class RedsysManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $redsysMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $redsysMethod
+            );
 
         return $this;
     }
@@ -197,7 +234,8 @@ class RedsysManager
     /**
      * Returns true if the transaction was successful
      *
-     * @param  string  $dsResponse Response code
+     * @param string $dsResponse Response code
+     *
      * @return boolean
      */
     protected function transactionSuccessful($dsResponse)
@@ -215,48 +253,56 @@ class RedsysManager
     /**
      * Returns the expected signature
      *
-     * @param  string    $amount       Amount
-     * @param  string    $order        Order
-     * @param  string    $merchantCode Merchant Code
-     * @param  string    $currency     Currency
-     * @param  string    $response     Response code
-     * @param  string    $secret       Secret
+     * @param string $amount       Amount
+     * @param string $order        Order
+     * @param string $merchantCode Merchant Code
+     * @param string $currency     Currency
+     * @param string $response     Response code
+     * @param string $secret       Secret
+     *
      * @return Signature string String
      */
-    protected function expectedSignature($amount, $order, $merchantCode, $currency, $response, $secret)
+    protected function expectedSignature(
+        $amount,
+        $order,
+        $merchantCode,
+        $currency,
+        $response,
+        $secret
+        )
     {
         $signature = $amount . $order . $merchantCode . $currency . $response . $secret;
         // SHA1
         return strtoupper(sha1($signature));
-
     }
 
     /**
      * Checks that all the required parameters are received
      *
-     * @param  array                                                              $parameters Parameters
+     * @param array $parameters Parameters
+     *
      * @throws \PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
      */
     protected function checkResultParameters(array $parameters)
     {
         $list = array(
-                    'Ds_Date',
-                    'Ds_Hour',
-                    'Ds_Signature',
-                    'Ds_Amount',
-                    'Ds_Currency',
-                    'Ds_Order',
-                    'Ds_MerchantCode',
-                    'Ds_Terminal',
-                    'Ds_Signature',
-                    'Ds_Response',
-                    'Ds_TransactionType',
-                    'Ds_SecurePayment',
-                    'Ds_MerchantData',
-                    'Ds_Card_Country',
-                    'Ds_AuthorisationCode',
-                    'Ds_ConsumerLanguage',
-                    'Ds_Card_Type'
+            'Ds_Date',
+            'Ds_Hour',
+            'Ds_Signature',
+            'Ds_Amount',
+            'Ds_Currency',
+            'Ds_Order',
+            'Ds_MerchantCode',
+            'Ds_Terminal',
+            'Ds_Signature',
+            'Ds_Response',
+            'Ds_TransactionType',
+            'Ds_SecurePayment',
+            'Ds_MerchantData',
+            'Ds_Card_Country',
+            'Ds_AuthorisationCode',
+            'Ds_ConsumerLanguage',
+            'Ds_Card_Type'
         );
         foreach ($list as $item) {
             if (!isset($parameters[$item])) {

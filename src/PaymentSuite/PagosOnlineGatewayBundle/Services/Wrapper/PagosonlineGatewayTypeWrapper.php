@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package PagosonlineGatewayBundle
  *
  */
 
@@ -20,7 +19,6 @@ use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
  */
 class PagosonlineGatewayTypeWrapper
 {
-
     /**
      * @var FormFactory
      *

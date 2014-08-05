@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickaël Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalExpressCheckoutBundle
  *
  * Mickaël Andrieu 2014
  */
@@ -25,7 +24,6 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
  */
 class PaypalExpressCheckoutExtension extends Twig_Extension
 {
-
     /**
      * @var FormFactory
      *

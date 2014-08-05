@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package DineromailBundle
  *
  * Marc Morera 2013
  */
@@ -23,7 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class DineromailRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *

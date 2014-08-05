@@ -5,7 +5,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalExpressCheckout
  *
  * Marc Morera 2013
  */

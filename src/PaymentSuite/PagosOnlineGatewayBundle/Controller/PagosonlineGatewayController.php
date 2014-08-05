@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package PagosonlineGatewayBundle
  *
  */
 
@@ -26,7 +25,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
  */
 class PagosonlineGatewayController extends Controller
 {
-
     /**
      * Payment execution
      *

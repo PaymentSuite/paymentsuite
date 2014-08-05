@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymentCoreBundle
  *
  * Marc Morera 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent;
  */
 class PaymentOrderLoadEventTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var PaymentOrderLoadEvent
      *

@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Denys Pasishnyi <dpcat237@gmail.com>
- * @package AuthorizenetBundle
  *
  * Denys Pasishnyi 2013
  */
@@ -26,7 +25,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
  */
 class AuthorizenetController extends Controller
 {
-
     /**
      * Payment execution
      *

@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Denys Pasishnyi <dpcat237@gmail.com>
- * @package StripeBundle
  *
  * Denys Pasishnyi 2013
  */
@@ -23,7 +22,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
  */
 class StripeTransactionWrapper
 {
-
     /**
      * @var string
      *

@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author David Pujadas <dpujadas@gmail.com>
- * @package PaymentCoreBundle
  *
  * Marc Morera 2013
  */

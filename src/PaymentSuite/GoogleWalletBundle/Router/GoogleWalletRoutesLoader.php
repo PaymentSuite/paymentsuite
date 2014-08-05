@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Denys Pasishnyi <dpcat237@gmail.com>
- * @package GoogleWalletBundle
  *
  * Denys Pasishnyi 2013
  */
@@ -23,7 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class GoogleWalletRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *

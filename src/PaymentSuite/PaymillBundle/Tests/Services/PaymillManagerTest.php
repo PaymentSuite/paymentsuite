@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymillBundle
  *
  * Marc Morera 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\PaymillBundle\Services\PaymillManager;
  */
 class PaymillManagerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var string
      *

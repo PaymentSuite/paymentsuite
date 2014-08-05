@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Denys Pasishnyi <dpcat237@gmail.com>
- * @package StripeBundle
  *
  * Denys Pasishnyi 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\StripeBundle\Services\StripeManager;
  */
 class StripeManagerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var string
      *

@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymillBundle
  *
  * Marc Morera 2013
  */
@@ -22,7 +21,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class PaymillMethod implements PaymentMethodInterface
 {
-
     /**
      * Get Paymill method name
      *

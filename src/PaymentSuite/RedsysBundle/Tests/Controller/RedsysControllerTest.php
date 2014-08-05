@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Class DefaultControllerTest
- * @package PaymentSuite\RedsysBundle\Tests\Controller
  */
 class RedsysControllerTest extends WebTestCase
 {

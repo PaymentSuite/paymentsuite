@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymentCoreBundle
  *
  * Marc Morera 2013
  */
@@ -29,7 +28,6 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
  */
 class PaymentEventDispatcher
 {
-
     /**
      * @var EventDispatcherInterface
      *

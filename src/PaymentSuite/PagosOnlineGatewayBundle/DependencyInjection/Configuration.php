@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package PagosonlineGatewayBundle
  *
  */
 

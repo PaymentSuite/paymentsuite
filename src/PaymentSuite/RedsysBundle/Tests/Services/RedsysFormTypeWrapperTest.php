@@ -5,7 +5,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Gonzalo Vilaseca <gonzalo.vilaseca@gmail.com>
- * @package RedsysBundle
  *
  * Gonzalo Vilaseca 2014
  */
@@ -18,11 +17,9 @@ use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 
 /**
  * Class RedsysFormTypeWrapperTest
- * @package PaymentSuite\RedsysBundle\Tests\Services
  */
 class RedsysFormTypeWrapperTest extends TypeTestCase
 {
-
     /**
      * @var string
      *

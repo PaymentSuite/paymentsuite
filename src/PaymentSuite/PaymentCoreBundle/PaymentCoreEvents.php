@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- * @package PaymentCoreBundle
  *
  * Marc Morera 2013
  */
@@ -18,7 +17,6 @@ namespace PaymentSuite\PaymentCoreBundle;
  */
 class PaymentCoreEvents
 {
-
     /**
      * This event is thrown when an order must be created.
      *

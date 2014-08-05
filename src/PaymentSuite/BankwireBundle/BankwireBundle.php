@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author David Pujadas <dpujadas@gmail.com>
- * @package BankwireBundle
  *
  * David Pujadas 2013
  */

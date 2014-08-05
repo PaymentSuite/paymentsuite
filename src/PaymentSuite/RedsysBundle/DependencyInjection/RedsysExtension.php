@@ -6,7 +6,6 @@
  *
  * @author Marc Morales Valldepérez <marcmorales83@gmail.com>
  * @author Gonzalo Vilseca <gonzalo.vilaseca@gmail.com>
- * @package RedsysBundle
  *
  */
 namespace PaymentSuite\RedsysBundle\DependencyInjection;
@@ -23,7 +22,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class RedsysExtension extends Extension
 {
-
     /**
      * {@inheritDoc}
      */

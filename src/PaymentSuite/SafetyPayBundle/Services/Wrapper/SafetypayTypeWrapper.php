@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package SafetypayBundle
  *
  */
 
@@ -24,7 +23,6 @@ use PaymentSuite\SafetypayBundle\Services\SafetypayManager;
  */
 class SafetypayTypeWrapper
 {
-
     /**
      * @var FormFactory
      *

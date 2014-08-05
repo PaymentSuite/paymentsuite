@@ -5,7 +5,6 @@
  *
  * This Bundle is part of Symfony2 Payment Suite
  *
- * @package SafetypayBundle
  *
  */
 
@@ -21,7 +20,6 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class SafetypayRoutesLoader implements LoaderInterface
 {
-
     /**
      * @var string
      *

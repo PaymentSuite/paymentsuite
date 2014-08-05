@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickael Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalExpressCheckout
  *
  * Mickael Andrieu 2013
  */
@@ -20,7 +19,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class PaypalExpressCheckoutMethod implements PaymentMethodInterface
 {
-
     /**
      * Get PaypalExpressCheckout method name
      *

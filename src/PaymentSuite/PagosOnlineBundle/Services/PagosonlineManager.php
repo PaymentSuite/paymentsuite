@@ -15,7 +15,6 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
  */
 class PagosonlineManager
 {
-
     /**
      * @var PaymentEventDispatcher
      *

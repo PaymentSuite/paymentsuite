@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Gonzalo Vilaseca <canis.viridi@gmail.com>
- * @package RedsysBundle
  *
  * Gonzalo Vilaseca 2013
  */

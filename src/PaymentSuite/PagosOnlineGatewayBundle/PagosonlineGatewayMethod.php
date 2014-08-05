@@ -16,7 +16,6 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 class PagosonlineGatewayMethod implements PaymentMethodInterface
 {
-
     /**
      * Get pagosOnline method name
      *

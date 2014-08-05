@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickaël Andrieu <mickael.andrieu@sensiolabs.com>
- * @package PaypalExpressCheckoutBundle
  *
  * Mickaël Andrieu 2014
  */
@@ -24,7 +23,6 @@ use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
  */
 class PaypalExpressCheckoutType extends AbstractType
 {
-
     /**
      * @var PaymentBridgeInterface
      *

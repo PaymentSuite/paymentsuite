@@ -6,7 +6,6 @@
  * This Bundle is part of Symfony2 Payment Suite
  *
  * @author Mickaël Andrieu <mickael.andrieu@sensiolabs.com>
- * @package BanwireBundle
  *
  * Mickaël Andrieu 2014
  */

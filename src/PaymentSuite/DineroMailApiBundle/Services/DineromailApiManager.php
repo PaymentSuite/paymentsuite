@@ -16,7 +16,6 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
  */
 class DineromailApiManager
 {
-
     /**
      * @var PaymentEventDispatcher
      *
