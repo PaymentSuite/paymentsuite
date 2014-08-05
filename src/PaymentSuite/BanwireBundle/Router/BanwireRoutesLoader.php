@@ -12,6 +12,7 @@
 
 namespace PaymentSuite\BanwireBundle\Router;
 
+use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -69,12 +70,14 @@ class BanwireRoutesLoader implements LoaderInterface
     {
         if ($this->loaded) {
 
-            throw new \RuntimeException('Do not add this loader twice');
+            throw new RuntimeException('Do not add this loader twice');
         }
 
         $routes = new RouteCollection();
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
             '_controller'   =>  'BanwireBundle:Banwire:execute',
+        ), array(), array(), '', array(), array(
+            'POST'
         )));
 
         $this->loaded = true;

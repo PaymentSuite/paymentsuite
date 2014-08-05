@@ -30,7 +30,7 @@ class BankwireManager
     protected $paymentEventDispatcher;
 
     /**
-     * @var BankwireTransactionWrapper
+     * @var BankwireMethodWrapper
      *
      * Bankwire transaction wrapper
      */
@@ -50,7 +50,11 @@ class BankwireManager
      * @param BankwireMethodWrapper  $bankwireMethodWrapper  Bankwire method wrapper
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, BankwireMethodWrapper $bankwireMethodWrapper, PaymentBridgeInterface $paymentBridge)
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        BankwireMethodWrapper $bankwireMethodWrapper,
+        PaymentBridgeInterface $paymentBridge
+    )
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->bankwireMethodWrapper = $bankwireMethodWrapper;
@@ -66,12 +70,21 @@ class BankwireManager
      */
     public function processPayment()
     {
+        $bankwireMethod = $this
+            ->bankwireMethodWrapper
+            ->getBankwireMethod();
+
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $bankwireMethod
+            );
 
         /**
          * Order Not found Exception must be thrown just here
@@ -84,14 +97,24 @@ class BankwireManager
         /**
          * Order exists right here
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $bankwireMethod
+            );
 
         /**
          * Payment paid done
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->bankwireMethodWrapper->getBankwireMethod());
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $bankwireMethod
+            );
 
         return $this;
     }
@@ -125,7 +148,14 @@ class BankwireManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $this
+                    ->bankwireMethodWrapper
+                    ->getBankwireMethod()
+            );
 
         return $this;
     }

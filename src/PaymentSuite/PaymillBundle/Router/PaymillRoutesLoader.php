@@ -12,6 +12,7 @@
 
 namespace PaymentSuite\PaymillBundle\Router;
 
+use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -75,6 +76,8 @@ class PaymillRoutesLoader implements LoaderInterface
         $routes = new RouteCollection();
         $routes->add($this->controllerRouteName, new Route($this->controllerRoute, array(
             '_controller'   =>  'PaymillBundle:Paymill:execute',
+        ), array(), array(), '', array(), array(
+            'POST'
         )));
 
         $this->loaded = true;

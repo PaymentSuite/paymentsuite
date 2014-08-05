@@ -12,6 +12,7 @@
 
 namespace PaymentSuite\BankwireBundle\Router;
 
+use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -74,6 +75,8 @@ class BankwireRoutesLoader implements LoaderInterface
 
         $routes->add(self::ROUTE_EXECUTE_NAME, new Route($this->controllerExecuteRoute, array(
             '_controller'   =>  'BankwireBundle:Bankwire:execute',
+        ), array(), array(), '', array(), array(
+            'POST'
         )));
 
         $this->loaded = true;

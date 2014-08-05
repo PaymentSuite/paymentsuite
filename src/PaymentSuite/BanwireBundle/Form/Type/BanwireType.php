@@ -20,8 +20,7 @@ use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 class BanwireType extends AbstractType
 {
-
-    /*
+    /**
      * @var PaymentBridgeInterface
      *
      * Cart Wrapper

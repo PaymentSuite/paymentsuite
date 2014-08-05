@@ -12,8 +12,9 @@
 
 namespace PaymentSuite\StripeBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
@@ -30,13 +31,18 @@ class StripeController extends Controller
      * @param Request $request Request element
      *
      * @return RedirectResponse
-     * @throws PaymentException
      *
-     * @Method("POST")
+     * @throws PaymentException
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->create('stripe_view');
+        /**
+         * @var FormInterface $form
+         */
+        $form = $this
+            ->get('form.factory')
+            ->create('stripe_view');
+
         $form->handleRequest($request);
 
         try {

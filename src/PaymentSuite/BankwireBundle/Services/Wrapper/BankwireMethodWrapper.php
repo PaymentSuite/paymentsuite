@@ -43,5 +43,4 @@ class BankwireMethodWrapper
     {
         return $this->bankwireMethod;
     }
-
 }

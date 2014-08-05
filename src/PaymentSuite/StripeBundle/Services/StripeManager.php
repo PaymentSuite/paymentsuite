@@ -60,7 +60,11 @@ class StripeManager
      * @param StripeTransactionWrapper $transactionWrapper     Stripe Transaction wrapper
      * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, StripeTransactionWrapper $transactionWrapper, PaymentBridgeInterface $paymentBridge)
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        StripeTransactionWrapper $transactionWrapper,
+        PaymentBridgeInterface $paymentBridge
+    )
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->transactionWrapper = $transactionWrapper;
@@ -95,7 +99,12 @@ class StripeManager
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * Order Not found Exception must be thrown just here
@@ -107,21 +116,26 @@ class StripeManager
         /**
          * Order exists right here
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * Validate the order in the module
          * params for stripe interaction
          */
         $cardParams = array(
-            'number' => $paymentMethod->getCreditCartNumber(),
+            'number'    => $paymentMethod->getCreditCartNumber(),
             'exp_month' => $paymentMethod->getCreditCartExpirationMonth(),
-            'exp_year' => $paymentMethod->getCreditCartExpirationYear(),
+            'exp_year'  => $paymentMethod->getCreditCartExpirationYear(),
         );
 
         $this->chargeParams = array(
-            'card' => $cardParams,
-            'amount' => intval($cartAmount),
+            'card'     => $cardParams,
+            'amount'   => intval($cartAmount),
             'currency' => strtolower($this->paymentBridge->getCurrency()),
         );
 
@@ -155,7 +169,12 @@ class StripeManager
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * when a transaction is successful, it is marked as 'closed'
@@ -167,7 +186,12 @@ class StripeManager
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
+            $this
+                ->paymentEventDispatcher
+                ->notifyPaymentOrderFail(
+                    $this->paymentBridge,
+                    $paymentMethod
+                );
 
             throw new PaymentException;
         }
@@ -182,7 +206,12 @@ class StripeManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         return $this;
     }

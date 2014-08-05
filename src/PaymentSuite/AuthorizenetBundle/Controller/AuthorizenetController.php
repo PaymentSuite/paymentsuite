@@ -12,9 +12,10 @@
 
 namespace PaymentSuite\AuthorizenetBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use PaymentSuite\AuthorizenetBundle\AuthorizenetMethod;
@@ -31,19 +32,35 @@ class AuthorizenetController extends Controller
      * @param Request $request Request element
      *
      * @return RedirectResponse
-     * @throws PaymentException
      *
-     * @Method("POST")
+     * @throws PaymentException
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->create('authorizenet_view');
+        /**
+         * @var FormInterface $form
+         */
+        $form = $this
+            ->get('form.factory')
+            ->create('paymill_view');
+
         $form->handleRequest($request);
+
         $responseData = $this->processPaymentData($form);
 
-        return $this->redirect($this->generateUrl($responseData['redirectUrl'], $responseData['redirectData']));
+        return $this
+            ->redirect(
+                $this->generateUrl($responseData['redirectUrl'], $responseData['redirectData'])
+            );
     }
 
+    /**
+     * @param Form $form
+     *
+     * @return mixed
+     * @throws \Exception
+     * @throws \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
+     */
     private function processPaymentData(Form $form)
     {
         if ($form->isValid()) {
@@ -60,6 +77,7 @@ class AuthorizenetController extends Controller
                 $redirectAppend = $this->container->getParameter('authorizenet.success.order.append');
                 $redirectAppendField = $this->container->getParameter('authorizenet.success.order.field');
             } catch (PaymentException $e) {
+
                 /**
                  * Must redirect to fail route
                  */

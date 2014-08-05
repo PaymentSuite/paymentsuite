@@ -51,7 +51,7 @@ class AuthorizenetManager
      *
      * Transaction key
      */
-    protected $tranKey;
+    protected $transactionKey;
 
     /**
      * @var AuthorizenetTransactionWrapper
@@ -74,15 +74,18 @@ class AuthorizenetManager
      * @param AuthorizenetTransactionWrapper $transactionWrapper     Authorizenet Transaction wrapper
      * @param PaymentBridgeInterface         $paymentBridge          Payment Bridge
      * @param string                         $loginId                Login ID
-     * @param string                         $tranKey                Transaction key
+     * @param string                         $transactionKey         Transaction key
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, AuthorizenetTransactionWrapper $transactionWrapper, PaymentBridgeInterface $paymentBridge, $loginId, $tranKey)
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        AuthorizenetTransactionWrapper $transactionWrapper,
+        PaymentBridgeInterface $paymentBridge, $loginId, $transactionKey)
     {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->transactionWrapper = $transactionWrapper;
         $this->paymentBridge = $paymentBridge;
         $this->loginId = $loginId;
-        $this->tranKey = $tranKey;
+        $this->transactionKey = $transactionKey;
     }
 
     /**
@@ -124,21 +127,21 @@ class AuthorizenetManager
          */
         $extraData = $this->paymentBridge->getExtraData();
         $postValues = array(
-            "x_login"			=> $this->loginId,
-            "x_tran_key"		=> $this->tranKey,
+            "x_login"          => $this->loginId,
+            "x_tran_key"       => $this->transactionKey,
 
-            "x_version"			=> "3.1",
-            "x_delim_data"		=> "TRUE",
-            "x_delim_char"		=> "|",
-            "x_relay_response"	=> "FALSE",
+            "x_version"        => "3.1",
+            "x_delim_data"     => "TRUE",
+            "x_delim_char"     => "|",
+            "x_relay_response" => "FALSE",
 
-            "x_type"			=> "AUTH_CAPTURE",
-            "x_method"			=> "CC",
-            "x_card_num"		=> $paymentMethod->getCreditCartNumber(),
-            "x_exp_date"		=> $paymentMethod->getCreditCartExpirationMonth().$paymentMethod->getCreditCartExpirationYear(),
+            "x_type"           => "AUTH_CAPTURE",
+            "x_method"         => "CC",
+            "x_card_num"       => $paymentMethod->getCreditCartNumber(),
+            "x_exp_date"       => $paymentMethod->getCreditCartExpirationMonth() . $paymentMethod->getCreditCartExpirationYear(),
 
-            "x_amount"			=> $cartAmount,
-            "x_description"		=> $extraData['order_description'],
+            "x_amount"         => $cartAmount,
+            "x_description"    => $extraData['order_description'],
         );
 
         $this->chargeParams = $this->convertPostValues($postValues);
@@ -148,6 +151,7 @@ class AuthorizenetManager
 
     /**
      * Convert $postValues to the proper format for an http post
+     *
      * @param $postValues
      *
      * @return string
@@ -156,9 +160,9 @@ class AuthorizenetManager
     {
         $postString = "";
         foreach ($postValues as $key => $value) {
-            $postString .= "$key=" . urlencode( $value ) . "&";
+            $postString .= "$key=" . urlencode($value) . "&";
         }
-        $postString = rtrim( $postString, "& " );
+        $postString = rtrim($postString, "& ");
 
         return $postString;
     }
@@ -182,14 +186,21 @@ class AuthorizenetManager
         /**
          * make payment
          */
-        $transaction = $this->transactionWrapper->create($this->chargeParams);
+        $transaction = $this
+            ->transactionWrapper
+            ->create($this->chargeParams);
 
         /**
          * Payment paid done
          *
          * Paid process has ended ( No matters result )
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * when a transaction is successful, it is marked as 'closed'
@@ -201,7 +212,12 @@ class AuthorizenetManager
              *
              * Paid process has ended failed
              */
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
+            $this
+                ->paymentEventDispatcher
+                ->notifyPaymentOrderFail(
+                    $this->paymentBridge,
+                    $paymentMethod
+                );
 
             throw new PaymentException;
         }
@@ -216,7 +232,12 @@ class AuthorizenetManager
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         return $this;
     }

@@ -12,6 +12,7 @@
 
 namespace PaymentSuite\AuthorizenetBundle\Router;
 
+use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -67,12 +68,14 @@ class AuthorizenetRoutesLoader implements LoaderInterface
     {
         if ($this->loaded) {
 
-            throw new \RuntimeException('Do not add this loader twice');
+            throw new RuntimeException('Do not add this loader twice');
         }
 
         $routes = new RouteCollection();
         $routes->add(self::ROUTE_NAME, new Route($this->controllerRoute, array(
             '_controller'   =>  'AuthorizenetBundle:Authorizenet:execute',
+        ), array(), array(), '', array(), array(
+            'POST'
         )));
 
         $this->loaded = true;

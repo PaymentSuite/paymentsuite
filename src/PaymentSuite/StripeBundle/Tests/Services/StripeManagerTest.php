@@ -12,7 +12,11 @@
 
 namespace PaymentSuite\StripeBundle\Tests\Services;
 
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\StripeBundle\Services\StripeManager;
+use PaymentSuite\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
+use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
  * Stripe manager
@@ -62,7 +66,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
     const CART_DESCRIPTION = 'This is my cart description';
 
     /**
-     * @var PaymentManager
+     * @var StripeManager
      *
      * Payment manager object
      */
@@ -87,7 +91,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
      *
      * Payment bridge object
      */
-    private $paymentBridgeInterface;
+    private $paymentBridge;
 
     /**
      * @var StripeMethod class

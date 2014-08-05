@@ -12,9 +12,9 @@
 
 namespace PaymentSuite\BanwireBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use PaymentSuite\BanwireBundle\BanwireMethod;
@@ -26,16 +26,21 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 class BanwireController extends Controller
 {
     /**
+     * Execute action
+     *
      * @param Request $request
      *
      * @return RedirectResponse
-     *
-     *
-     * @Method("POST")
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->create('banwire_view');
+        /**
+         * @var FormInterface $form
+         */
+        $form = $this
+            ->get('form.factory')
+            ->create('paymill_view');
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
