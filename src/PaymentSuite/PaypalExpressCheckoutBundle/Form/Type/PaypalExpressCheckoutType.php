@@ -14,7 +14,7 @@ namespace PaymentSuite\PaypalExpressCheckoutBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
@@ -47,11 +47,11 @@ class PaypalExpressCheckoutType extends AbstractType
     /**
      * Formtype construct method
      *
-     * @param Router                 $router              Router instance
+     * @param RouterInterface        $router              Router instance
      * @param PaymentBridgeInterface $paymentBridge       Payment bridge
      * @param string                 $controllerRouteName Controller route name
      */
-    public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
+    public function __construct(RouterInterface $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
     {
         $this->paymentBridge = $paymentBridge;
         $this->router = $router;
