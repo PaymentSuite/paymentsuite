@@ -6,3 +6,4 @@ parameters:
     paypal_express_checkout.wrapper.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Services\\Wrapper\\PaypalExpressCheckoutTransactionWrapper"
     paypal_express_checkout.manager.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Services\\PaypalExpressCheckoutManager"
     paypal_express_checkout.twig.extension.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Twig\\PaypalExpressCheckoutExtension"
+    paypal_express_checkout.form_type.view.class: "PaymentSuite\\PaypalExpressCheckoutBundle\\Form\\Type\\PaypalExpressCheckoutType"
