@@ -1,6 +1,6 @@
 /* TEAM */            
 Creator : Mickael Andrieu
-Contact: mickael dot andrieu at sensiolabs dot com
+Contact: andrieu dot travail at gmail dot com
 Twitter: mickael_andrieu                   
 Location: Paris, France.
 
