@@ -1,13 +1,14 @@
 <?php
 
 /**
- * PaymillBundle for Symfony2
+ * This file is part of the PaymentSuite package.
  *
- * This Bundle is part of Symfony2 Payment Suite
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
- *
- * Marc Morera 2013
  */
 
 namespace PaymentSuite\PaymillBundle\Controller;
