@@ -30,3 +30,15 @@ services:
             payment.bridge: @payment.bridge
         tags:
             - { name: twig.extension }
+    
+    #
+    # Form Types
+    #
+    paypal_express_checkout.form_type.view:
+        class: %paypal_express_checkout.form_type.view.class%
+        arguments:
+            router: @router
+            payment.bridge: @payment.bridge
+            paypal_express_checkout.controller.route.name: %paypal_express_checkout.controller.route.name%
+        tags:
+            - { name: form.type, alias: paypal_express_checkout_view }
