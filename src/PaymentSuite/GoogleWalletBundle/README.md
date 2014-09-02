@@ -11,7 +11,7 @@ This bundle is part of the [PaymentSuite](http://paymentsuite.org) project.
 
 * [PaymentSuite docs](http://docs.paymentsuite.org)
 * [PaymentSuite contiguration](http://docs.paymentsuite.org/en/latest/configuration.html)
-* [Paymill configuration](http://docs.paymentsuite.org/en/latest/available_platforms.html#googlewalletbundle)
+* [Google Wallet configuration](http://docs.paymentsuite.org/en/latest/available_platforms.html#googlewalletbundle)
 
 Documentation
 -------------
