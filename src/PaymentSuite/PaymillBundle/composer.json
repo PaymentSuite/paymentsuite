@@ -26,9 +26,6 @@
         "paymill/paymill": ">=3.0",
         "paymentsuite/payment-core-bundle": "~1.1"
     },
-    "require-dev": {
-        "phpunit/phpunit": ">=3.7"
-    },
     "autoload": {
         "psr-4": {
             "PaymentSuite\\PaymillBundle\\": ""
