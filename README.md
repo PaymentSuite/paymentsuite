@@ -1,5 +1,7 @@
 PaymentSuite for Symfony2
 =====
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/PaymentSuite/paymentsuite?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Latest Stable Version](https://poser.pugx.org/paymentsuite/paymentsuite/v/stable.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
 [![Latest Unstable Version](https://poser.pugx.org/paymentsuite/paymentsuite/v/unstable.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
 [![License](https://poser.pugx.org/paymentsuite/paymentsuite/license.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
