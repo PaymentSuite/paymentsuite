@@ -37,8 +37,8 @@ redsys:
     #    PaymentCardWrapper->getCardId() value
     payment_fail:
         route: card_view
-        card_append: false
-        card_append_field: card_id
+        order_append: false
+        order_append_field: card_id
 
     # Configuration for Redsys form display route
     #
