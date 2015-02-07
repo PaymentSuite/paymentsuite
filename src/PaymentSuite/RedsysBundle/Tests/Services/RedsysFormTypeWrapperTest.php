@@ -47,7 +47,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
     /**
      * @var string
      */
-    const merchantUrl = 't';
+    const merchantUrl = 'redsys_result';
 
     /**
      * @var string
@@ -159,12 +159,12 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
 
         $formData = array(
             'Ds_Merchant_Amount'             => $amount * 100,
-            'Ds_Merchant_MerchantSignature'  => 'D42DE69C83F647F3E40BD69A9199C5097B7B5353',
+            'Ds_Merchant_MerchantSignature'  => '11473E3E726C16798532E9924444953A5C12DB2C',
             'Ds_Merchant_MerchantCode'       => $this::merchantCode,
             'Ds_Merchant_Currency'           => '978',
             'Ds_Merchant_Terminal'           => $this::terminal,
             'Ds_Merchant_Order'              => '342',
-            'Ds_Merchant_MerchantURL'        => $this::merchantUrl,
+            'Ds_Merchant_MerchantURL'        => '/payment/redsys/result',
             'Ds_Merchant_UrlOK'              => '/payment/redsys/checkout/ok',
             'Ds_Merchant_UrlKO'              => '/payment/redsys/checkout/ko',
             'Ds_Merchant_TransactionType'    => $this::transactionType,
@@ -214,6 +214,12 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             ->method('getReturnUrlKoForOrderId')
             ->will($this->returnValue('/payment/redsys/checkout/ko'));
 
+        $this
+            ->urlFactory
+            ->expects($this->once())
+            ->method('getReturnRedsysUrl')
+            ->will($this->returnValue('/payment/redsys/result'));
+
 
         $formView = $this->redsysFormTypeWrapper->buildForm();
 
@@ -222,7 +228,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
         foreach (array_keys($formData) as $key) {
             $this->assertArrayHasKey($key, $children);
 
-            $message = $formData[$key].'/'.$children[$key]->vars['value'];
+            $message = $formData[$key].':::'.$children[$key]->vars['value'];
             $this->assertEquals($formData[$key], $children[$key]->vars['value'],$message);
         }
     }
