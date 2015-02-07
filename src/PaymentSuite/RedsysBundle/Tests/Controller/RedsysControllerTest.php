@@ -27,7 +27,7 @@ class RedsysControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/');
+        $client->request('GET', '/payment/redsys/execute');
 
         $this->assertTrue($client->getResponse()->isRedirect());
 
