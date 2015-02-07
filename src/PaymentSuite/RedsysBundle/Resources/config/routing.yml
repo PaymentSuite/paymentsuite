@@ -1,3 +1,13 @@
 redsys_routes:
     resource: .
     type: redsys
+    
+card_fail:
+    path: /payment/redsys/checkout/ko
+    defaults:
+        _controller: RedsysBundle:Redsys:ko
+
+card_thanks:
+    path: /payment/redsys/checkout/ok
+    defaults:
+        _controller: RedsysBundle:Redsys:ok

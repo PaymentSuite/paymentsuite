@@ -80,4 +80,36 @@ class RedsysController extends Controller
 
         return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
     }
+
+    /**
+     * Payment success action
+     *
+     * @param Request $request Request element
+     *
+     * @return Response
+     */
+    public function okAction(Request $request)
+    {
+        $orderId = $request->query->get('order_id', false);
+
+        return $this->render('RedsysBundle:Frontend:success.html.twig', array(
+            'orderId' => $orderId,
+        ));
+    }
+
+    /**
+     * Payment fail action
+     *
+     * @param Request $request Request element
+     *
+     * @return Response
+     */
+    public function koAction(Request $request)
+    {
+        $orderId = $request->query->get('order_id', false);
+
+        return $this->render('RedsysBundle:Frontend:fail.html.twig', array(
+            'orderId' => $orderId,
+        ));
+    }
 }
