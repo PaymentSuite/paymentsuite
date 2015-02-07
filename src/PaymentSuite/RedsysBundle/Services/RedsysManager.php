@@ -244,7 +244,7 @@ class RedsysManager
         /**
          * When a transaction is successful, $Ds_Response has a value between 0 and 99
          */
-        if (intval($dsResponse)<0 || intval($dsResponse)>99 ) {
+        if (intval($dsResponse)>=0 && intval($dsResponse)<=99 ) {
             return true;
         } else {
             return false;
