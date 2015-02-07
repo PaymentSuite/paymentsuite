@@ -67,14 +67,6 @@ class RedsysFormTypeWrapper
     private $url;
 
     /**
-     * @var string
-     *
-     * Merchant url
-     */
-    protected $dsMerchantMerchantURL;
-
-
-    /**
      * Formtype construct method
      *
      * @param FormFactory                  $formFactory             Form factory
@@ -83,7 +75,6 @@ class RedsysFormTypeWrapper
      * @param string                       $merchantCode            merchant code
      * @param string                       $secretKey               secret key
      * @param string                       $url                     gateway url
-     * @param string                       $Ds_Merchant_MerchantURL merchant url
      *
      */
     public function __construct(FormFactory $formFactory,
@@ -91,8 +82,7 @@ class RedsysFormTypeWrapper
                                 UrlFactory $urlFactory,
                                 $merchantCode,
                                 $secretKey,
-                                $url,
-                                $Ds_Merchant_MerchantURL)
+                                $url)
     {
         $this->formFactory              = $formFactory;
         $this->paymentBridge            = $paymentBridge;
@@ -100,7 +90,6 @@ class RedsysFormTypeWrapper
         $this->merchantCode             = $merchantCode;
         $this->secretKey                = $secretKey;
         $this->url                      = $url;
-        $this->Ds_Merchant_MerchantURL  = $Ds_Merchant_MerchantURL;
     }
 
     /**
@@ -125,20 +114,12 @@ class RedsysFormTypeWrapper
             $Ds_Merchant_TransactionType = '0';
         }
 
-        $Ds_Merchant_Amount             = (integer) ($this->paymentBridge->getAmount() * 100);
-        $Ds_Merchant_Order              = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
-        $Ds_Merchant_MerchantCode       = $this->merchantCode;
-        $Ds_Merchant_Currency           = $this->currencyTranslation($this->paymentBridge->getCurrency());
-        $Ds_Merchant_MerchantSignature  = $this->shopSignature(
-            $Ds_Merchant_Amount,
-            $Ds_Merchant_Order,
-            $Ds_Merchant_MerchantCode,
-            $Ds_Merchant_Currency,
-            $Ds_Merchant_TransactionType,
-            $this->Ds_Merchant_MerchantURL,
-            $this->secretKey);
-
-        $Ds_Merchant_Terminal = $extraData['terminal'];
+        /*
+         * Creates the return route for Redsys
+         */
+        $Ds_Merchant_MerchantURL = $this
+            ->urlFactory
+            ->getReturnRedsysUrl();
 
         /*
          * Creates the return route, when coming back
@@ -156,10 +137,24 @@ class RedsysFormTypeWrapper
             ->urlFactory
             ->getReturnUrlKoForOrderId($orderId);
 
+        $Ds_Merchant_Amount             = (integer) ($this->paymentBridge->getAmount() * 100);
+        $Ds_Merchant_Order              = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
+        $Ds_Merchant_MerchantCode       = $this->merchantCode;
+        $Ds_Merchant_Currency           = $this->currencyTranslation($this->paymentBridge->getCurrency());
+        $Ds_Merchant_MerchantSignature  = $this->shopSignature(
+            $Ds_Merchant_Amount,
+            $Ds_Merchant_Order,
+            $Ds_Merchant_MerchantCode,
+            $Ds_Merchant_Currency,
+            $Ds_Merchant_TransactionType,
+            $Ds_Merchant_MerchantURL,
+            $this->secretKey);
+
+        $Ds_Merchant_Terminal = $extraData['terminal'];
+
         $formBuilder
             ->setAction($this->url)
             ->setMethod('POST')
-
             ->add('Ds_Merchant_Amount', 'hidden', array(
                 'data' => $Ds_Merchant_Amount,
             ))
@@ -179,7 +174,7 @@ class RedsysFormTypeWrapper
                 'data' => $Ds_Merchant_Order,
             ))
             ->add('Ds_Merchant_MerchantURL', 'hidden', array(
-                'data' => $this->Ds_Merchant_MerchantURL,
+                'data' => $Ds_Merchant_MerchantURL,
             ))
             ->add('Ds_Merchant_UrlOK', 'hidden', array(
                 'data' => $Ds_Merchant_UrlOK,

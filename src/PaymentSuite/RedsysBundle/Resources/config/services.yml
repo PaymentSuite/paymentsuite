@@ -9,7 +9,6 @@ services:
             redsys.merchant.code: %redsys.merchant.code%
             redsys.secret.key: %redsys.secret.key%
             redsys.url: %redsys.url%
-            redsys.merchant.route: %redsys.controller.result.route%
 
     redsys.manager:
         class: %redsys.manager.class%
@@ -35,3 +34,4 @@ services:
             router: @router
             success_route_name: %redsys.success.route.name%
             fail_return_route_name: %redsys.fail.route.name%
+            redsys_result_route_name: %redsys.controller.result.route.name%
