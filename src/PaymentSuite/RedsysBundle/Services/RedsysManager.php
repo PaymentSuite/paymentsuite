@@ -183,7 +183,8 @@ class RedsysManager
             ->setDsConsumerLanguage($dsConsumerLanguage)
             ->setDsDate($dsDate)
             ->setDsHour($dsHour)
-            ->setDsSecurePayment($dsSecurePayment);
+            ->setDsSecurePayment($dsSecurePayment)
+            ->setDsOrder($dsOrder);
 
         /**
          * Payment paid done

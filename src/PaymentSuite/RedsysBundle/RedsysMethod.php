@@ -77,6 +77,13 @@ class RedsysMethod implements PaymentMethodInterface
     private $dsCardType;
 
     /**
+     *  @var string
+     *
+     * Transaction order
+     */
+    private $dsOrder;
+
+    /**
      * Get Redsys method name
      *
      * @return string Payment name
@@ -278,4 +285,27 @@ class RedsysMethod implements PaymentMethodInterface
         return $this->dsSecurePayment;
     }
 
+    /**
+     * Set Order payment
+     *
+     * @param string $dsOrder
+     *
+     * @return RedsysMethod self Object
+     */
+    public function setDsOrder($dsOrder)
+    {
+        $this->dsOrder = $dsOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get Order payment
+     *
+     * @return string
+     */
+    public function getDsOrder()
+    {
+        return $this->dsOrder;
+    }
 }
