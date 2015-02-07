@@ -27,15 +27,14 @@ class RedsysControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/payment/redsys/execute');
+        $crawler = $client->request('GET', '/payment/redsys/execute');
 
-        $this->assertTrue($client->getResponse()->isRedirect());
+        //$this->assertTrue($client->getResponse()->isRedirect());
 
-        $crawler = $client->followRedirect();
+        //$crawler = $client->followRedirect();
 
-        $this->assertTrue($crawler->filter('form')->count() > 0);
+        $this->assertEquals(1, $crawler->filter('form')->count());
 
-        $this->assertTrue($crawler->filter('input[type="hidden"]')->count() > 9);
-
+        $this->assertEquals(9, $crawler->filter('input[type="hidden"]')->count());
     }
 }
