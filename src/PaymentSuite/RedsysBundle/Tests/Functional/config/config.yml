@@ -1,0 +1,29 @@
+imports:
+    - { resource: services.yml }
+
+framework:
+    secret: "redsysbundle3c43c"
+    test: true
+    form: ~
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    validation:      { enable_annotations: false }
+    templating:      { engines: ['twig'] }
+
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+redsys:
+     merchant_code: XXXXXXXXXXXX
+     secret_key: XXXXXXXXXXXX
+     url: 'https://sis-t.redsys.es:25443/sis/realizarPago'
+     payment_success:
+         route: card_thanks
+         order_append: true
+         order_append_field: order_id
+     payment_fail:
+         route: card_fail
+         order_append: false
+         order_append_field: card_id
