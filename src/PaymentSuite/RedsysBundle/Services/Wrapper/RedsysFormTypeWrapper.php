@@ -15,7 +15,7 @@ namespace PaymentSuite\RedsysBundle\Services\Wrapper;
 
 use Symfony\Component\Form\FormFactory;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
 use PaymentSuite\RedsysBundle\Services\UrlFactory;
 
@@ -32,7 +32,7 @@ class RedsysFormTypeWrapper
     protected $formFactory;
 
     /**
-     * @var PaymentBridgeInterface
+     * @var PaymentBridgeRedsysInterface
      *
      * Payment bridge
      */
@@ -77,17 +77,17 @@ class RedsysFormTypeWrapper
     /**
      * Formtype construct method
      *
-     * @param FormFactory            $formFactory             Form factory
-     * @param PaymentBridgeInterface $paymentBridge           Payment bridge
-     * @param UrlFactory             $urlFactory              URL Factory service
-     * @param string                 $merchantCode            merchant code
-     * @param string                 $secretKey               secret key
-     * @param string                 $url                     gateway url
-     * @param string                 $Ds_Merchant_MerchantURL merchant url
+     * @param FormFactory                  $formFactory             Form factory
+     * @param PaymentBridgeRedsysInterface $paymentBridge           Payment bridge
+     * @param UrlFactory                   $urlFactory              URL Factory service
+     * @param string                       $merchantCode            merchant code
+     * @param string                       $secretKey               secret key
+     * @param string                       $url                     gateway url
+     * @param string                       $Ds_Merchant_MerchantURL merchant url
      *
      */
     public function __construct(FormFactory $formFactory,
-                                PaymentBridgeInterface $paymentBridge,
+                                PaymentBridgeRedsysInterface $paymentBridge,
                                 UrlFactory $urlFactory,
                                 $merchantCode,
                                 $secretKey,

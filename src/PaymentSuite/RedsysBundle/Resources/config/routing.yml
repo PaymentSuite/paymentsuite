@@ -1,7 +1,7 @@
 redsys_routes:
     resource: .
     type: redsys
-    
+
 card_fail:
     path: /payment/redsys/checkout/ko
     defaults:
