@@ -155,7 +155,8 @@ class RedsysManager
         $dsCardCountry          = $parameters['Ds_Card_Country'];
         $dsAuthorisationCode    = $parameters['Ds_AuthorisationCode'];
         $dsConsumerLanguage     = $parameters['Ds_ConsumerLanguage'];
-        $dsCardType             = $parameters['Ds_Card_Type'];
+        $dsCardType             = (array_key_exists('Ds_Card_Type', $parameters) ? $parameters['Ds_Card_Type'] : '');
+        $dsMerchantData         = (array_key_exists('Ds_MerchantData', $parameters) ? $parameters['Ds_MerchantData'] : '');
 
         if ($dsSignature != $this
                 ->expectedSignature(
@@ -166,7 +167,7 @@ class RedsysManager
                     $dsResponse,
                     $dsSecret
                 )
-            ) {
+        ) {
             throw new InvalidSignatureException();
         }
 
@@ -271,7 +272,7 @@ class RedsysManager
         $currency,
         $response,
         $secret
-        )
+    )
     {
         $signature = $amount . $order . $merchantCode . $currency . $response . $secret;
         // SHA1
@@ -290,7 +291,6 @@ class RedsysManager
         $list = array(
             'Ds_Date',
             'Ds_Hour',
-            'Ds_Signature',
             'Ds_Amount',
             'Ds_Currency',
             'Ds_Order',
@@ -300,15 +300,13 @@ class RedsysManager
             'Ds_Response',
             'Ds_TransactionType',
             'Ds_SecurePayment',
-            'Ds_MerchantData',
             'Ds_Card_Country',
             'Ds_AuthorisationCode',
             'Ds_ConsumerLanguage',
-            'Ds_Card_Type'
         );
         foreach ($list as $item) {
             if (!isset($parameters[$item])) {
-               throw new ParameterNotReceivedException($item);
+                throw new ParameterNotReceivedException($item);
             }
         }
     }
