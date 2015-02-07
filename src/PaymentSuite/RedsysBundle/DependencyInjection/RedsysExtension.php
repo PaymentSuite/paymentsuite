@@ -40,11 +40,13 @@ class RedsysExtension extends Extension
         $container->setParameter('redsys.controller.execute.route', $config['controller_execute_route']);
         $container->setParameter('redsys.controller.result.route', $config['controller_result_route']);
 
-        $container->setParameter('redsys.success.route', $config['payment_success']['route']);
+        $container->setParameter('redsys.success.route.name', $config['payment_success']['route']);
+        $container->setParameter('redsys.success.route', $config['payment_success']['path']);
         $container->setParameter('redsys.success.order.append', $config['payment_success']['order_append']);
         $container->setParameter('redsys.success.order.field', $config['payment_success']['order_append_field']);
 
-        $container->setParameter('redsys.fail.route', $config['payment_fail']['route']);
+        $container->setParameter('redsys.fail.route.name', $config['payment_fail']['route']);
+        $container->setParameter('redsys.fail.route', $config['payment_fail']['path']);
         $container->setParameter('redsys.fail.order.append', $config['payment_fail']['order_append']);
         $container->setParameter('redsys.fail.order.field', $config['payment_fail']['order_append_field']);
 

@@ -1,18 +1,17 @@
 services:
 
-   redsys.form.type.wrapper:
+    redsys.form.type.wrapper:
         class: %redsys.form.type.wrapper.class%
         arguments:
             form.factory: @form.factory
             payment.bridge: @payment.bridge
+            url.factory: @redsys.url.factory
             redsys.merchant.code: %redsys.merchant.code%
             redsys.secret.key: %redsys.secret.key%
             redsys.url: %redsys.url%
             redsys.merchant.route: %redsys.controller.result.route%
-            redsys.success.route: %redsys.success.route%
-            redsys.fail.route: %redsys.fail.route%
 
-   redsys.manager:
+    redsys.manager:
         class: %redsys.manager.class%
         arguments:
             payment.event.dispatcher: @payment.event.dispatcher
@@ -20,12 +19,19 @@ services:
             payment.bridge: @payment.bridge
             redsys.secret.key: %redsys.secret.key%
 
-   redsys.routes.loader:
-       class: %redsys.routes.loader.class%
-       arguments:
+    redsys.routes.loader:
+        class: %redsys.routes.loader.class%
+        arguments:
             redsys.controller.execute.route.name: %redsys.controller.execute.route.name%
             redsys.controller.execute.route: %redsys.controller.execute.route%
             redsys.controller.result.route.name: %redsys.controller.result.route.name%
             redsys.controller.result.route: %redsys.controller.result.route%
-       tags:
-           - { name: routing.loader }
+        tags:
+            - { name: routing.loader }
+
+    redsys.url.factory:
+        class: %redsys.url_factory.class%
+        arguments:
+            router: @router
+            success_route_name: %redsys.success.route.name%
+            fail_return_route_name: %redsys.fail.route.name%
