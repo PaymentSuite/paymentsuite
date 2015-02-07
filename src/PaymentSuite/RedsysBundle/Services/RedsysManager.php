@@ -167,7 +167,7 @@ class RedsysManager
                     $dsResponse,
                     $dsSecret
                 )
-        ) {
+        	) {
             throw new InvalidSignatureException();
         }
 
