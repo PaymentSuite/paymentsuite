@@ -46,17 +46,37 @@ class PaymillType extends AbstractType
     private $controllerRouteName;
 
     /**
+     * @var string
+     *
+     * Label for the submit button
+     */
+    private $submitLabel;
+
+    /**
+     * @var string
+     *
+     * CSS Class for the submit button
+     */
+    private $submitCssClass;
+
+    /**
      * Formtype construct method
      *
      * @param Router                 $router              Router instance
      * @param PaymentBridgeInterface $paymentBridge       Payment bridge
      * @param string                 $controllerRouteName Controller route name
      */
-    public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
+    public function __construct(Router $router,
+                                PaymentBridgeInterface $paymentBridge,
+                                $controllerRouteName,
+                                $submitLabel,
+                                $submitCssClass)
     {
         $this->paymentBridge = $paymentBridge;
         $this->router = $router;
         $this->controllerRouteName = $controllerRouteName;
+        $this->submitLabel = $submitLabel;
+        $this->submitCssClass = $submitCssClass;
     }
 
     /**
@@ -127,7 +147,10 @@ class PaymillType extends AbstractType
             ->add('api_token', 'hidden', array(
                 'data'  =>  ''
             ))
-            ->add('submit', 'submit');
+            ->add('submit', 'submit', array(
+                'label' => $this->submitLabel,
+                'attr' => array('class' => $this->submitCssClass)
+            ));
     }
 
     /**

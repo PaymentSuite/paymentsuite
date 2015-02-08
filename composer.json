@@ -20,7 +20,10 @@
         "symfony/form": ">=2.2.3",
         "symfony/config": ">=2.2.3",
         "symfony/http-kernel": ">=2.2.3",
-        "symfony/dependency-injection": ">=2.2.3"
+        "symfony/dependency-injection": ">=2.2.3",
+        "psr/log": "~1.0",
+        "paymill/paymill": ">=3.0",
+        "stripe/stripe-php": "v1.10.1"
     },
     "replace": {
         "paymentsuite/authorizenet-bundle": "self.version",

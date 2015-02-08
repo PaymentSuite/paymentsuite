@@ -51,7 +51,6 @@ class PaymillController extends Controller
                 throw new PaymentException;
 
             }
-
             $data = $form->getData();
             $paymentMethod = $this->createPaymillMethod($data);
             $this

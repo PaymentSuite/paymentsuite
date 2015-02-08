@@ -107,7 +107,6 @@ class PaymillManager
 
             throw new PaymentOrderNotFoundException;
         }
-
         /**
          * Order exists right here
          */

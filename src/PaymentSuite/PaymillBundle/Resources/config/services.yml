@@ -6,6 +6,8 @@ services:
             router: @router
             payment.bridge: @payment.bridge
             paymill.controller.route.name: %paymill.controller.route.name%
+            paymill.form.submit.label: %paymill.form.submit.label%
+            paymill.form.submit.css_class: %paymill.form.submit.css.class%
         tags:
             - { name: form.type, alias: paymill_view }
 
