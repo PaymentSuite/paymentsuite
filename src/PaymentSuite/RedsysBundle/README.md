@@ -36,9 +36,9 @@ redsys:
     #    taking card_append_field value as parameter name and
     #    PaymentCardWrapper->getCardId() value
     payment_fail:
-        route: card_view
-        card_append: false
-        card_append_field: card_id
+        route: card_fail
+        order_append: false
+        order_append_field: card_id
 
     # Configuration for Redsys form display route
     #
@@ -80,4 +80,24 @@ be included into routing.yml file
 redsys_payment_routes:
     resource: .
     type: redsys
+```
+
+PaymentBridge
+-----
+
+The PaymentBridge must implement `PaymentBridgeRedsysInterface`, because you need the extra parameter 'dsOrder'.
+To do this you must implement the method `getOrderNumber ()`
+
+```php
+class PaymentBridge implements PaymentBridgeRedsysInterface {
+    /**
+     * Return dsOrder identifier value
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        ...
+    }
+}
 ```

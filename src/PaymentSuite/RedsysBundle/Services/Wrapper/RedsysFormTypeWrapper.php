@@ -15,8 +15,9 @@ namespace PaymentSuite\RedsysBundle\Services\Wrapper;
 
 use Symfony\Component\Form\FormFactory;
 
-use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
+use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
+use PaymentSuite\RedsysBundle\Services\UrlFactory;
 
 /**
  * RedsysMethodWrapper
@@ -31,11 +32,18 @@ class RedsysFormTypeWrapper
     protected $formFactory;
 
     /**
-     * @var PaymentBridge
+     * @var PaymentBridgeRedsysInterface
      *
      * Payment bridge
      */
     private $paymentBridge;
+
+    /**
+     * @var UrlFactory
+     *
+     * URL Factory service
+     */
+    private $urlFactory;
 
     /**
      * @var string
@@ -59,56 +67,29 @@ class RedsysFormTypeWrapper
     private $url;
 
     /**
-    * @var string
-    *
-    * Merchant url
-    */
-    protected $dsMerchantMerchantURL;
-
-    /**
-     * @var string
-     *
-     * Merchant url ok
-     */
-    protected $dsMerchantUrlOK;
-
-    /**
-     * @var string
-     *
-     * Merchant url ko
-     */
-    protected $dsMerchantUrlKO;
-
-    /**
      * Formtype construct method
      *
-     * @param FormFactory            $formFactory             Form factory
-     * @param PaymentBridgeInterface $paymentBridge           Payment bridge
-     * @param string                 $merchantCode            merchant code
-     * @param string                 $secretKey               secret key
-     * @param string                 $url                     gateway url
-     * @param string                 $Ds_Merchant_MerchantURL merchant url
-     * @param string                 $Ds_Merchant_UrlOK       merchant url ok
-     * @param string                 $Ds_Merchant_UrlKO       merchant url ko
+     * @param FormFactory                  $formFactory             Form factory
+     * @param PaymentBridgeRedsysInterface $paymentBridge           Payment bridge
+     * @param UrlFactory                   $urlFactory              URL Factory service
+     * @param string                       $merchantCode            merchant code
+     * @param string                       $secretKey               secret key
+     * @param string                       $url                     gateway url
      *
      */
     public function __construct(FormFactory $formFactory,
-                                PaymentBridgeInterface $paymentBridge,
+                                PaymentBridgeRedsysInterface $paymentBridge,
+                                UrlFactory $urlFactory,
                                 $merchantCode,
                                 $secretKey,
-                                $url,
-                                $Ds_Merchant_MerchantURL,
-                                $Ds_Merchant_UrlOK,
-                                $Ds_Merchant_UrlKO)
+                                $url)
     {
         $this->formFactory              = $formFactory;
         $this->paymentBridge            = $paymentBridge;
+        $this->urlFactory               = $urlFactory;
         $this->merchantCode             = $merchantCode;
         $this->secretKey                = $secretKey;
         $this->url                      = $url;
-        $this->Ds_Merchant_MerchantURL  = $Ds_Merchant_MerchantURL;
-        $this->Ds_Merchant_UrlOK        = $Ds_Merchant_UrlOK;
-        $this->Ds_Merchant_UrlKO        = $Ds_Merchant_UrlKO;
     }
 
     /**
@@ -118,6 +99,9 @@ class RedsysFormTypeWrapper
      */
     public function buildForm()
     {
+        $orderId = $this
+            ->paymentBridge
+            ->getOrderId();
 
         $extraData = $this->paymentBridge->getExtraData();
         $formBuilder = $this
@@ -130,25 +114,47 @@ class RedsysFormTypeWrapper
             $Ds_Merchant_TransactionType = '0';
         }
 
+        /*
+         * Creates the return route for Redsys
+         */
+        $Ds_Merchant_MerchantURL = $this
+            ->urlFactory
+            ->getReturnRedsysUrl();
+
+        /*
+         * Creates the return route, when coming back
+         * from Redsys web checkout and proccess is Ok
+         */
+        $Ds_Merchant_UrlOK = $this
+            ->urlFactory
+            ->getReturnUrlOkForOrderId($orderId);
+
+        /*
+         * Creates the cancel payment route, when coming back
+         * from Redsys web checkout and proccess is error
+         */
+        $Ds_Merchant_UrlKO = $this
+            ->urlFactory
+            ->getReturnUrlKoForOrderId($orderId);
+
         $Ds_Merchant_Amount             = (integer) ($this->paymentBridge->getAmount() * 100);
         $Ds_Merchant_Order              = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
         $Ds_Merchant_MerchantCode       = $this->merchantCode;
         $Ds_Merchant_Currency           = $this->currencyTranslation($this->paymentBridge->getCurrency());
         $Ds_Merchant_MerchantSignature  = $this->shopSignature(
-                                                        $Ds_Merchant_Amount,
-                                                        $Ds_Merchant_Order,
-                                                        $Ds_Merchant_MerchantCode,
-                                                        $Ds_Merchant_Currency,
-                                                        $Ds_Merchant_TransactionType,
-                                                        $this->Ds_Merchant_MerchantURL,
-                                                        $this->secretKey);
+            $Ds_Merchant_Amount,
+            $Ds_Merchant_Order,
+            $Ds_Merchant_MerchantCode,
+            $Ds_Merchant_Currency,
+            $Ds_Merchant_TransactionType,
+            $Ds_Merchant_MerchantURL,
+            $this->secretKey);
 
         $Ds_Merchant_Terminal = $extraData['terminal'];
 
         $formBuilder
             ->setAction($this->url)
             ->setMethod('POST')
-
             ->add('Ds_Merchant_Amount', 'hidden', array(
                 'data' => $Ds_Merchant_Amount,
             ))
@@ -168,13 +174,13 @@ class RedsysFormTypeWrapper
                 'data' => $Ds_Merchant_Order,
             ))
             ->add('Ds_Merchant_MerchantURL', 'hidden', array(
-                'data' => $this->Ds_Merchant_MerchantURL,
+                'data' => $Ds_Merchant_MerchantURL,
             ))
             ->add('Ds_Merchant_UrlOK', 'hidden', array(
-                'data' => $this->Ds_Merchant_UrlOK,
+                'data' => $Ds_Merchant_UrlOK,
             ))
             ->add('Ds_Merchant_UrlKO', 'hidden', array(
-                'data' => $this->Ds_Merchant_UrlKO,
+                'data' => $Ds_Merchant_UrlKO,
             ))
 
         ;
