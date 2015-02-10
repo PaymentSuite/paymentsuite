@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,7 +29,7 @@ class FreePaymentController extends Controller
      */
     public function executeAction()
     {
-        $freePaymentMethod = new FreePaymentMethod;
+        $freePaymentMethod = new FreePaymentMethod();
 
         $this
             ->get('freepayment.manager')

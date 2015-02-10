@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -69,12 +69,12 @@ class RedsysFormTypeWrapper
     /**
      * Formtype construct method
      *
-     * @param FormFactory                  $formFactory             Form factory
-     * @param PaymentBridgeRedsysInterface $paymentBridge           Payment bridge
-     * @param UrlFactory                   $urlFactory              URL Factory service
-     * @param string                       $merchantCode            merchant code
-     * @param string                       $secretKey               secret key
-     * @param string                       $url                     gateway url
+     * @param FormFactory                  $formFactory   Form factory
+     * @param PaymentBridgeRedsysInterface $paymentBridge Payment bridge
+     * @param UrlFactory                   $urlFactory    URL Factory service
+     * @param string                       $merchantCode  merchant code
+     * @param string                       $secretKey     secret key
+     * @param string                       $url           gateway url
      *
      */
     public function __construct(FormFactory $formFactory,
@@ -273,7 +273,7 @@ class RedsysFormTypeWrapper
             case 'TRY':
                 return '949';
             default:
-                throw new CurrencyNotSupportedException;
+                throw new CurrencyNotSupportedException();
         }
     }
 

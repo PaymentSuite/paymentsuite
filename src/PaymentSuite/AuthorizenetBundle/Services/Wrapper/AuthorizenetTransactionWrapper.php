@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -36,7 +36,7 @@ class AuthorizenetTransactionWrapper
      */
     public function __construct($endpointTest, $endpointLive, $testMode)
     {
-        $this->endpoint =($testMode)? $endpointTest : $endpointLive;
+        $this->endpoint =($testMode) ? $endpointTest : $endpointLive;
     }
 
     /**
@@ -55,13 +55,13 @@ class AuthorizenetTransactionWrapper
             curl_setopt($request, CURLOPT_HEADER, 0);
             curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($request, CURLOPT_POSTFIELDS, $params);
-            curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
             $postResponse = curl_exec($request);
             curl_close ($request);
 
             $chargeData = explode('|',$postResponse);
         } catch (\Exception $e) {
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         return $chargeData;

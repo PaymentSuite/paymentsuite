@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -122,7 +122,7 @@ class SafetypayManager
             $stringToConcat .= $aData[rtrim(ltrim($value))];
         }
 
-        return hash('sha256', ($pOtherRequestDateTime? '' : $this->requestDateTime).$stringToConcat.$this->signatureKey);
+        return hash('sha256', ($pOtherRequestDateTime ? '' : $this->requestDateTime).$stringToConcat.$this->signatureKey);
     }
 
     /**
@@ -138,13 +138,10 @@ class SafetypayManager
         $pos            = strpos($time_zone, "-");
 
         if ($pos === false) {   // nothing
-        } else
-            if ($pos != 0)
+        } elseif ($pos != 0)
                 $date_mod = $time_zone;
-            else
-                if (is_string($pos) && !$pos) {   // nothing
-                } else
-                    if ($pos != 0)
+            elseif (is_string($pos) && !$pos) {   // nothing
+                } elseif ($pos != 0)
                         $date_mod = $time_zone;
 
         return $date_mod;
@@ -170,7 +167,7 @@ class SafetypayManager
 
         while ($try_number <= 3) {
 
-            $fp = fsockopen(($url['scheme'] == 'https'? 'ssl://'.$host:$host), ($url['scheme'] == 'https'? 443:80), $errno, $errstr);    // open a socket
+            $fp = fsockopen(($url['scheme'] == 'https' ? 'ssl://'.$host : $host), ($url['scheme'] == 'https' ? 443 : 80), $errno, $errstr);    // open a socket
 
             if ($fp) {
                 fputs($fp, "POST $path HTTP/1.1\r\n");
@@ -214,16 +211,16 @@ class SafetypayManager
                 $search = "/<ClientRedirectURL(?:.*?)>(.*)<\/ClientRedirectURL>/U";
                 preg_match_all($search, $result[1], $match);
 
-                return (($html_link)? '<a href="' . $match[1][0] . '" target="_blank">SafetyPay</a>': $match[1][0]);// return Token URL EXPRESS
+                return (($html_link) ? '<a href="' . $match[1][0] . '" target="_blank">SafetyPay</a>' : $match[1][0]);// return Token URL EXPRESS
             }
         } else
             // Response Format as CSV
         {
             $match = explode(',', $result[1], 4);
             if ($match[0] == '0')
-                return (($html_link)? '<a href="' . $match[2] . '" target="_blank">SafetyPay</a>': $match[2]);// return Token URL EXPRESS
+                return (($html_link) ? '<a href="' . $match[2] . '" target="_blank">SafetyPay</a>' : $match[2]);// return Token URL EXPRESS
             else
-                return '<span style="color:red;">Error: ' . ($match[0] == '1'?'1, Invalid credentials':'2, Merchant has not sent data') .'</span>';	// return error message
+                return '<span style="color:red;">Error: ' . ($match[0] == '1' ? '1, Invalid credentials' : '2, Merchant has not sent data') .'</span>';    // return error message
         }
     }
 

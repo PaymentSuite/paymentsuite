@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -118,7 +118,7 @@ class GoogleWalletManager
         } else {
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         return $this;

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -55,7 +55,8 @@ class FakeOrder
      *
      * @return string
      */
-    public function getDsOrder() {
+    public function getDsOrder()
+    {
         return $this->dsOrder;
     }
 
@@ -64,7 +65,8 @@ class FakeOrder
      *
      * @param string $dsOrder
      */
-    public function setDsOrder($dsOrder) {
+    public function setDsOrder($dsOrder)
+    {
         $this->dsOrder = $dsOrder;
     }
 }

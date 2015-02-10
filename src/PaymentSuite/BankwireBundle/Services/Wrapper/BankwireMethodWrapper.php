@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ class BankwireMethodWrapper
      */
     public function __construct()
     {
-        $this->bankwireMethod = new BankwireMethod;
+        $this->bankwireMethod = new BankwireMethod();
     }
 
     /**

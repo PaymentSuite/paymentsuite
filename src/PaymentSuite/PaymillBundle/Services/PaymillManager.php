@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -90,7 +90,7 @@ class PaymillManager
          */
         if (abs($amount - $paymentBridgeAmount) > 0.00001) {
 
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
 
         /**
@@ -105,7 +105,7 @@ class PaymillManager
          */
         if (!$this->paymentBridge->getOrder()) {
 
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
         /**
          * Order exists right here
@@ -176,7 +176,7 @@ class PaymillManager
             $paymentMethod->setTransaction($transaction);
             $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
 
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         /**

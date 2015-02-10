@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -48,7 +48,7 @@ class PaymillController extends Controller
 
             if (!$form->isValid()) {
 
-                throw new PaymentException;
+                throw new PaymentException();
 
             }
             $data = $form->getData();
@@ -89,7 +89,7 @@ class PaymillController extends Controller
      */
     private function createPaymillMethod(array $data)
     {
-        $paymentMethod = new PaymillMethod;
+        $paymentMethod = new PaymillMethod();
         $paymentMethod
             ->setApiToken($data['api_token'])
             ->setCreditCardNumber($data['credit_card_1'] . $data['credit_card_2'] . $data['credit_card_3'] . $data['credit_card_4'])

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -66,7 +66,7 @@ class AuthorizenetController extends Controller
     {
         if ($form->isValid()) {
             $data = $form->getData();
-            $paymentMethod = new AuthorizenetMethod;
+            $paymentMethod = new AuthorizenetMethod();
             $paymentMethod
                 ->setCreditCartNumber($data['credit_cart'])
                 ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])

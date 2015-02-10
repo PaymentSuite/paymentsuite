@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -48,7 +48,7 @@ class StripeController extends Controller
 
         try {
             if (!$form->isValid()) {
-                throw new PaymentException;
+                throw new PaymentException();
             }
 
             $data = $form->getData();
@@ -87,7 +87,7 @@ class StripeController extends Controller
      */
     private function createStripeMethod(array $data)
     {
-        $paymentMethod = new StripeMethod;
+        $paymentMethod = new StripeMethod();
         $paymentMethod
             ->setApiToken($data['api_token'])
             ->setCreditCartNumber($data['credit_cart'])

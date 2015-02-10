@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -57,7 +57,7 @@ class VisanetController extends Controller
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 
         if (!$paymentBridge->getOrder()) {
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         /** @var $manager PayuManager */

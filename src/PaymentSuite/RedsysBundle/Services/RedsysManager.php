@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -104,7 +104,7 @@ class RedsysManager
          */
         if (!$this->paymentBridge->getOrder()) {
 
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         /**
@@ -167,7 +167,7 @@ class RedsysManager
                     $dsResponse,
                     $dsSecret
                 )
-        	) {
+            ) {
             throw new InvalidSignatureException();
         }
 
@@ -216,7 +216,7 @@ class RedsysManager
                     $redsysMethod
                 );
 
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         /**

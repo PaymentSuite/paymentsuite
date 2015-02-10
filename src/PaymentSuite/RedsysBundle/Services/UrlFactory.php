@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -45,12 +45,11 @@ class UrlFactory
      */
     private $resultRouteName;
 
-
     /**
-     * @param RouterInterface $router                         Router instance
-     * @param string          $successRouteName               Route name for a succesful payment return from Redsys
-     * @param string          $failRouteName                  Route name for a cancelled payment from Redsys
-     * @param string          $resultRouteName                Route name for a result Redsys
+     * @param RouterInterface $router           Router instance
+     * @param string          $successRouteName Route name for a succesful payment return from Redsys
+     * @param string          $failRouteName    Route name for a cancelled payment from Redsys
+     * @param string          $resultRouteName  Route name for a result Redsys
      */
     public function __construct(
         RouterInterface $router,
