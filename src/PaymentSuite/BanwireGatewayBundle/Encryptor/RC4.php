@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -24,9 +24,9 @@ class RC4
      *
      * @var string $semilla
      */
-    private $_semilla = NULL;
+    private $_semilla = null;
 
-    public function __construct($semilla = NULL)
+    public function __construct($semilla = null)
     {
         $this->_semilla = $semilla;
     }
@@ -120,7 +120,7 @@ class RC4
      * @access public
      * @return string
      */
-    public function encrypt($string = NULL, $semilla = NULL)
+    public function encrypt($string = null, $semilla = null)
     {
         $this->_semilla = is_null($semilla) ? $this->_semilla : $semilla;
         if(is_null($this->_semilla) || is_null($string)) return FALSE;
@@ -134,7 +134,7 @@ class RC4
      * @access public
      * @return string
      */
-    public function decrypt($string = NULL, $semilla = NULL)
+    public function decrypt($string = null, $semilla = null)
     {
         $this->_semilla = is_null($semilla) ? $this->_semilla : $semilla;
         if(is_null($this->_semilla) || is_null($string)) return FALSE;

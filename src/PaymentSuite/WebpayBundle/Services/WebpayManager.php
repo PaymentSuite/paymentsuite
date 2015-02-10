@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -108,13 +108,13 @@ class WebpayManager
         // Check TBK_ORDEN_COMPRA
         $this->eventDispatcher->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
         if (!$paymentBridge->getOrder() || $paymentBridge->getOrderId() != $tbkOrdenCompra) {
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         // Check TBK_RESPUESTA
         if ($tbkRespuesta !== '0') {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         // Check MAC
@@ -128,30 +128,30 @@ class WebpayManager
         exec($cmd, $result, $retint);
         if ($retint != 0 || $result[0] != 'CORRECTO') {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-            throw new WebpayMacCheckException;
+            throw new WebpayMacCheckException();
         }
 
         // Check MONTO
         $fileMontoName = $this->kccPath . '/log/datos' . $trans->getIdSesion() . '.log';
         if (!$fileMonto = fopen($fileMontoName, 'r')) {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
         $line = trim(fgets($fileMonto));
         fclose($fileMonto);
         $details = explode(";", $line);
         if (count($details) != 2) {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
         if ($tbkMonto != $details[0] || $tbkOrdenCompra != $details[1]) {
             $this->eventDispatcher->notifyPaymentOrderFail($paymentBridge, $paymentMethod);
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
 
         // Check DUPLICIDAD
         if ($paymentBridge->isOrderPaid()) {
-            throw new PaymentDuplicatedException;
+            throw new PaymentDuplicatedException();
         }
 
         $this->eventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);

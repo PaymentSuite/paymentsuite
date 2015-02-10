@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -134,7 +134,7 @@ class DineromailApiManager
          */
         if (abs($amount - $paymentBridgeAmount) > 0.00001) {
 
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
 
         /**
@@ -149,7 +149,7 @@ class DineromailApiManager
          */
         if (!$this->paymentBridge->getOrder()) {
 
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
@@ -332,7 +332,7 @@ class DineromailApiManager
                 break;
             default:
                 $this->paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $paymentMethod);
-                throw new PaymentException;
+                throw new PaymentException();
         }
 
         return $this;

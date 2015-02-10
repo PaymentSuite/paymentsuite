@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -150,7 +150,7 @@ class SafetypayTypeWrapper
         $urlToken = $this->safetyPayManager->getUrlToken($elements, false);
         //Token no valid
         if (strpos($urlToken, 'Error') > 0) {
-            throw new PaymentException;
+            throw new PaymentException();
         }
             $urlTokenExploded = explode('?', $urlToken);
             $urlTokenHost = $urlTokenExploded[0];

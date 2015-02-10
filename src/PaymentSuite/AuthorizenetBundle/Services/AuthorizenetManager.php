@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -114,7 +114,7 @@ class AuthorizenetManager
          * Order Not found Exception must be thrown just here
          */
         if (!$this->paymentBridge->getOrder()) {
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         /**
@@ -220,7 +220,7 @@ class AuthorizenetManager
                     $paymentMethod
                 );
 
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         $paymentMethod

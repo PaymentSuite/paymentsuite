@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -55,7 +55,7 @@ class StripeTransactionWrapper
             $charge = Stripe_Charge::create($params);
             $chargeData = json_decode($charge, true);
         } catch (\Exception $e) {
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         return $chargeData;

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -49,7 +49,7 @@ class PagosonlineCommManager extends SoapClient
         parent::__construct($this->wsdl);
     }
 
-    public function __doRequest($request, $location, $action, $version, $one_way = Null)
+    public function __doRequest($request, $location, $action, $version, $one_way = null)
     {
         //var_dump($request);
         $doc = new DOMDocument('1.0');
@@ -57,7 +57,7 @@ class PagosonlineCommManager extends SoapClient
 
         $objWSSE = new WSSESoap($doc);
 
-        $objWSSE->addUserToken($this->userId, $this->password, FALSE);
+        $objWSSE->addUserToken($this->userId, $this->password, false);
 
         //var_dump($objWSSE->saveXML());
         return parent::__doRequest($objWSSE->saveXML(), $location, $action, $version);

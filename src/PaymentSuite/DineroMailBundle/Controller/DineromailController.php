@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -40,7 +40,7 @@ class DineromailController extends Controller
      */
     public function executeAction()
     {
-        $paymentMethod = new DineromailMethod;
+        $paymentMethod = new DineromailMethod();
         $paymentBridge = $this->get('payment.bridge');
 
         /**
@@ -53,7 +53,7 @@ class DineromailController extends Controller
          */
         if (!$paymentBridge->getOrder()) {
 
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         $dineromailTransactionId = $paymentBridge->getOrderId() . '#' . date('Ymdhis');

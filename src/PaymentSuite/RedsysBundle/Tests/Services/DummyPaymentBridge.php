@@ -1,22 +1,22 @@
 <?php
 
-/**
- * Copyright (c) 2014 Mashware
+/*
+ * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * Feel free to edit as you please, and have fun.
  *
- * @author Alberto Vioque <mashware@gmail.com>
+ * @author Marc Morera <yuhu@mmoreram.com>
  */
 
 namespace PaymentSuite\RedsysBundle\Tests\Services;
 
 use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 
-class DummyPaymentBridge implements PaymentBridgeRedsysInterface {
-
+class DummyPaymentBridge implements PaymentBridgeRedsysInterface
+{
     /**
      * @var Object
      *
@@ -78,8 +78,8 @@ class DummyPaymentBridge implements PaymentBridgeRedsysInterface {
      *
      * @return Object Order object
      */
-    public function findOrder($orderId) {
-
+    public function findOrder($orderId)
+    {
         return $this->order;
     }
 
@@ -141,4 +141,4 @@ class DummyPaymentBridge implements PaymentBridgeRedsysInterface {
         return mt_rand (0, 99999);
     }
 
-} 
+}

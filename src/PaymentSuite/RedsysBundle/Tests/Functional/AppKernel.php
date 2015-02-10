@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,7 +10,6 @@
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  */
-
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -40,4 +39,3 @@ class AppKernel extends Kernel
         $loader->load(dirname(__FILE__) . '/config/config.yml');
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -185,21 +185,21 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             )));
 
         $postValues = array(
-            "x_login"			=> self::LOGIN_ID,
-            "x_tran_key"		=> self::TRAN_KEY,
+            "x_login"            => self::LOGIN_ID,
+            "x_tran_key"        => self::TRAN_KEY,
 
-            "x_version"			=> "3.1",
-            "x_delim_data"		=> "TRUE",
-            "x_delim_char"		=> "|",
-            "x_relay_response"	=> "FALSE",
+            "x_version"            => "3.1",
+            "x_delim_data"        => "TRUE",
+            "x_delim_char"        => "|",
+            "x_relay_response"    => "FALSE",
 
-            "x_type"			=> "AUTH_CAPTURE",
-            "x_method"			=> "CC",
-            "x_card_num"		=> self::CART_NUMBER,
-            "x_exp_date"		=> self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
+            "x_type"            => "AUTH_CAPTURE",
+            "x_method"            => "CC",
+            "x_card_num"        => self::CART_NUMBER,
+            "x_exp_date"        => self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
 
-            "x_amount"			=> (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
-            "x_description"		=> self::CART_DESCRIPTION,
+            "x_amount"            => (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
+            "x_description"        => self::CART_DESCRIPTION,
         );
 
         $postString = "";
@@ -309,21 +309,21 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             )));
 
         $postValues = array(
-            "x_login"			=> self::LOGIN_ID,
-            "x_tran_key"		=> self::TRAN_KEY,
+            "x_login"            => self::LOGIN_ID,
+            "x_tran_key"        => self::TRAN_KEY,
 
-            "x_version"			=> "3.1",
-            "x_delim_data"		=> "TRUE",
-            "x_delim_char"		=> "|",
-            "x_relay_response"	=> "FALSE",
+            "x_version"            => "3.1",
+            "x_delim_data"        => "TRUE",
+            "x_delim_char"        => "|",
+            "x_relay_response"    => "FALSE",
 
-            "x_type"			=> "AUTH_CAPTURE",
-            "x_method"			=> "CC",
-            "x_card_num"		=> self::CART_NUMBER,
-            "x_exp_date"		=> self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
+            "x_type"            => "AUTH_CAPTURE",
+            "x_method"            => "CC",
+            "x_card_num"        => self::CART_NUMBER,
+            "x_exp_date"        => self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
 
-            "x_amount"			=> (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
-            "x_description"		=> self::CART_DESCRIPTION,
+            "x_amount"            => (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
+            "x_description"        => self::CART_DESCRIPTION,
         );
 
         $postString = "";

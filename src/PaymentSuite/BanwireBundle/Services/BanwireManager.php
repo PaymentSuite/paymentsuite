@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -96,7 +96,7 @@ class BanwireManager
          * If both amounts are different, execute Exception
          */
         if (abs($amount - $paymentBridgeAmount) > 0.00001) {
-            throw new PaymentAmountsNotMatchException;
+            throw new PaymentAmountsNotMatchException();
         }
 
         /**
@@ -115,7 +115,7 @@ class BanwireManager
          * Order Not found Exception must be thrown just here
          */
         if (!$this->paymentBridge->getOrder()) {
-            throw new PaymentOrderNotFoundException;
+            throw new PaymentOrderNotFoundException();
         }
 
         $this
@@ -223,7 +223,7 @@ class BanwireManager
                     $paymentMethod
                 );
 
-            throw new PaymentException;
+            throw new PaymentException();
         }
 
         /**

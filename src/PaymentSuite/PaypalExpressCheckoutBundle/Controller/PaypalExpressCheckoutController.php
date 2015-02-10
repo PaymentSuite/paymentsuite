@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the PaymentSuite package.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -79,7 +79,7 @@ class PaypalExpressCheckoutController extends Controller
      */
     private function createPaypalExpressCheckoutMethod(array $data)
     {
-        $paymentMethod = new PaypalExpressCheckoutMethod;
+        $paymentMethod = new PaypalExpressCheckoutMethod();
         $paymentMethod->setAmount($data['amount'])
             ->setCurrency($data['currency'])
             ->setSomeExtraData($data['paypal_express_params'])
