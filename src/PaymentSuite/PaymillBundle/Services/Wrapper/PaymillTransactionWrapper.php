@@ -13,7 +13,7 @@
 
 namespace PaymentSuite\PaymillBundle\Services\Wrapper;
 
-use Paymill\Models\Response\Transaction;
+use Paymill\Models\Request\Transaction as RequestTransaction;
 use Paymill\Request;
 use Paymill\Services\PaymillException;
 
@@ -45,14 +45,14 @@ class PaymillTransactionWrapper
      * @param string $token       transaction token
      * @param string $description transaction description (optional, default "")
      *
-     * @return Transaction
+     * @return \Paymill\Models\Response\Base
      *
      * @throws PaymillException if transaction creation fails
      */
     public function create($amount, $currency, $token, $description = "")
     {
         $service = new Request($this->apiKey);
-        $transaction = new Transaction();
+        $transaction = new RequestTransaction();
         $transaction
             ->setAmount($amount)
             ->setCurrency($currency)
@@ -60,7 +60,7 @@ class PaymillTransactionWrapper
             ->setDescription($description);
 
         /**
-         * @var Transaction $response
+         * @var \Paymill\Models\Response\Base $response
          */
         $response = $service->create($transaction);
 
