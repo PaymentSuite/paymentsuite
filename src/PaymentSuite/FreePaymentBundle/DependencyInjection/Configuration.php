@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('/payment/freepayment/execute')
                 ->end()
                 ->arrayNode('payment_success')
-                    ->addDefaultsIfNotSet()
+                    ->isRequired()
                     ->children()
                         ->scalarNode('route')
                             ->isRequired()
