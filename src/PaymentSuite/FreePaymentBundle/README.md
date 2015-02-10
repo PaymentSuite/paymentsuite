@@ -23,7 +23,7 @@ Configuration
 Configure the FreePaymentBundle configuration in your `config.yml`
 
 ``` yml
-freepayment:
+free_payment:
 
     # By default, controller route is /payment/freepayment/execute
     controller_route: /my/custom/route
