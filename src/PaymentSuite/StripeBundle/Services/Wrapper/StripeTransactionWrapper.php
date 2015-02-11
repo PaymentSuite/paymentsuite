@@ -16,8 +16,6 @@ namespace PaymentSuite\StripeBundle\Services\Wrapper;
 use Stripe;
 use Stripe_Charge;
 
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-
 /**
  * Stripe transaction wrapper
  */
@@ -55,7 +53,8 @@ class StripeTransactionWrapper
             $charge = Stripe_Charge::create($params);
             $chargeData = json_decode($charge, true);
         } catch (\Exception $e) {
-            throw new PaymentException();
+            // The way to get to 'notifyPaymentOrderFail'
+            return array('paid' => 0);
         }
 
         return $chargeData;
