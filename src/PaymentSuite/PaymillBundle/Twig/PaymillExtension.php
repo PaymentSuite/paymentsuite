@@ -14,6 +14,7 @@
 namespace PaymentSuite\PaymillBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
+use Twig_Environment;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -30,28 +31,42 @@ class PaymillExtension extends Twig_Extension
      *
      * Form factory
      */
-    private $formFactory;
+    protected $formFactory;
 
     /**
      * @var Twig_Environment
      *
      * Twig environment
      */
-    private $environment;
+    protected $environment;
 
     /**
      * @var string
      *
      * Public key
      */
-    private $publicKey;
+    protected $publicKey;
 
     /**
-     * @var PaymentBridgeInterfaces
+     * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
-    private $paymentBridgeInterface;
+    protected $paymentBridgeInterface;
+
+    /**
+     * @var string
+     *
+     * View template name in Bundle notation
+     */
+    protected $viewTemplate;
+
+    /**
+     * @var string
+     *
+     * Scripts template in Bundle notation
+     */
+    protected $scriptsTemplate;
 
     /**
      * Construct method
@@ -59,12 +74,21 @@ class PaymillExtension extends Twig_Extension
      * @param string                 $publicKey              Public key
      * @param FormFactory            $formFactory            Form factory
      * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge
+     * @param string                 $viewTemplate           Twig template name for displaying the form
+     * @param string                 $scriptstemplate        Twig template name for scripts/js
      */
-    public function __construct($publicKey, FormFactory $formFactory, PaymentBridgeInterface $paymentBridgeInterface)
+    public function __construct(
+        $publicKey,
+        FormFactory $formFactory,
+        PaymentBridgeInterface $paymentBridgeInterface,
+        $viewTemplate,
+        $scriptsTemplate)
     {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
+        $this->viewTemplate = $viewTemplate;
+        $this->scriptsTemplate = $scriptsTemplate;
     }
 
     /**
@@ -97,13 +121,13 @@ class PaymillExtension extends Twig_Extension
     /**
      * Render paymill form view
      *
-     * @return string view html
+     * @return void
      */
-    public function renderPaymentView()
+    public function renderPaymentView($viewTemplate = null)
     {
         $formType = $this->formFactory->create('paymill_view');
 
-        return $this->environment->display('PaymillBundle:Paymill:view.html.twig', array(
+        $this->environment->display($viewTemplate ?: $this->viewTemplate, array(
             'paymill_form'          =>  $formType->createView(),
         ));
     }
@@ -111,11 +135,11 @@ class PaymillExtension extends Twig_Extension
     /**
      * Render paymill scripts view
      *
-     * @return string js code needed by Paymill behaviour
+     * @return void
      */
     public function renderPaymentScripts()
     {
-        return $this->environment->display('PaymillBundle:Paymill:scripts.html.twig', array(
+        $this->environment->display($this->scriptsTemplate, array(
             'public_key'    =>  $this->publicKey,
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
