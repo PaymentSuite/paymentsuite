@@ -37,6 +37,9 @@ class PaymillExtension extends Extension
         $container->setParameter('paymill.public.key', $config['public_key']);
         $container->setParameter('paymill.controller.route', $config['controller_route']);
 
+        $container->setParameter('paymill.templates.view_template', $config['templates']['view_template']);
+        $container->setParameter('paymill.templates.scripts_template', $config['templates']['scripts_template']);
+
         $container->setParameter('paymill.form.submit.label', $config['form']['submit_label']);
         $container->setParameter('paymill.form.submit.css.class', $config['form']['submit_css_class']);
 

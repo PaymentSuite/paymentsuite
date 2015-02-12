@@ -29,6 +29,8 @@ services:
             paymill.public.key: %paymill.public.key%
             form.factory: @form.factory
             payment.bridge: @payment.bridge
+            view_template: %paymill.templates.view_template%
+            scripts_template: %paymill.templates.scripts_template%
         tags:
             - { name: twig.extension }
 
