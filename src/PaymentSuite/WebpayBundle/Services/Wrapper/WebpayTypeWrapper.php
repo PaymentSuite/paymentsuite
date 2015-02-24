@@ -75,7 +75,7 @@ class WebpayTypeWrapper
             ->setAction($this->cgiUri . '/tbk_bp_pago.cgi')
             ->setMethod('POST')
             ->add('TBK_TIPO_TRANSACCION', 'hidden', array('data' => 'TR_NORMAL'))
-            ->add('TBK_MONTO', 'hidden', array('data' => floor($this->paymentBridge->getAmount() * 100)))
+            ->add('TBK_MONTO', 'hidden', array('data' => $this->paymentBridge->getAmount()))
             ->add('TBK_ORDEN_COMPRA', 'hidden', array('data' => $this->paymentBridge->getOrderId()))
             ->add('TBK_ID_SESION', 'hidden', array('data' => $sessionId))
             ->add('TBK_URL_EXITO', 'hidden', array('data' => $okRoute))

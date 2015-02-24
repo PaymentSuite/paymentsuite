@@ -138,7 +138,7 @@ class DineromailApiType extends AbstractType
              * Some hidden fields
              */
             ->add('amount', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getAmount() * 100
+                'data'  =>  $this->paymentBridge->getAmount()
             ))
             ->add('submit', 'submit');
     }

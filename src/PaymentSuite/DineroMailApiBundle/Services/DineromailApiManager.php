@@ -128,7 +128,7 @@ class DineromailApiManager
     public function processPayment(DineromailApiMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
+        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount();
         /**
          * If both amounts are different, execute Exception
          */

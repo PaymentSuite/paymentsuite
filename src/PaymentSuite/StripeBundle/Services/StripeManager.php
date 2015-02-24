@@ -86,7 +86,7 @@ class StripeManager
     private function prepareData(StripeMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $cartAmount = (float) $this->paymentBridge->getAmount();
+        $cartAmount = intval($this->paymentBridge->getAmount());
 
         /**
          * If both amounts are different, execute Exception
@@ -136,7 +136,7 @@ class StripeManager
 
         $this->chargeParams = array(
             'card'     => $cardParams,
-            'amount'   => intval($cartAmount),
+            'amount'   => $cartAmount,
             'currency' => strtolower($this->paymentBridge->getCurrency()),
         );
 

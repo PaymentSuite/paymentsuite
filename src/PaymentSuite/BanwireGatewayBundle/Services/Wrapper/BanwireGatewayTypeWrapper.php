@@ -118,7 +118,8 @@ class BanwireGatewayTypeWrapper
                 'data'  =>  $this->user,
             ))
             ->add('gran_total', 'hidden', array(
-                'data'  =>   $this->paymentBridge->getAmount(),//number_format($this->paymentBridge->getAmount(), 2) * 100
+                'data'  =>   $this->paymentBridge->getAmount(),
+                //number_format($this->paymentBridge->getAmount(), 2)
             ))
             ->add('referencia_ext', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getOrderDescription()

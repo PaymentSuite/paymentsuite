@@ -137,7 +137,7 @@ class RedsysFormTypeWrapper
             ->urlFactory
             ->getReturnUrlKoForOrderId($orderId);
 
-        $Ds_Merchant_Amount             = (integer) ($this->paymentBridge->getAmount() * 100);
+        $Ds_Merchant_Amount             = $this->paymentBridge->getAmount();
         $Ds_Merchant_Order              = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
         $Ds_Merchant_MerchantCode       = $this->merchantCode;
         $Ds_Merchant_Currency           = $this->currencyTranslation($this->paymentBridge->getCurrency());

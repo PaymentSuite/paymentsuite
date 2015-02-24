@@ -123,7 +123,7 @@ class SafetypayTypeWrapper
             'Apikey'                => $this->key,
             'RequestDateTime'       => $this->safetyPayManager->getRequestDateTime(),
             'CurrencyCode'          => $this->paymentBridge->getCurrency(),
-            'Amount'                => number_format($this->paymentBridge->getAmount(), 2, '.', ''),
+            'Amount'                => number_format($this->paymentBridge->getAmount() / 100, 2, '.', ''),
             'MerchantReferenceNo'   => $safetyPayTransaction,
             'Language'              => 'ES',
             'TrackingCode'          => '',

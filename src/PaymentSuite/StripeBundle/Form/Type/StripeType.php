@@ -63,7 +63,7 @@ class StripeType extends AbstractType
             ))
             ->add('credit_cart_expiration_year', 'choice', array(
                 'required' => true,
-                'choices' => array_combine(range(2013, 2025), range(2013, 2025)),
+                'choices' => array_combine(range(date('Y'), 2025), range(date('Y'), 2025)),
             ))
             ->add('amount', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getAmount()
