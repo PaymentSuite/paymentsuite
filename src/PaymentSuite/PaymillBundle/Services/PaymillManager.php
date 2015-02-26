@@ -83,7 +83,7 @@ class PaymillManager
     public function processPayment(PaymillMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
+        $paymentBridgeAmount = intval($this->paymentBridge->getAmount());
 
         /**
          * If both amounts are different, execute Exception
@@ -118,7 +118,7 @@ class PaymillManager
          */
         $extraData = $this->paymentBridge->getExtraData();
         $params = array(
-            'amount'      => intval($paymentBridgeAmount),
+            'amount'      => $paymentBridgeAmount,
             'currency'    => $this->paymentBridge->getCurrency(),
             'token'       => $paymentMethod->getApiToken(),
             'description' => $extraData['order_description'],

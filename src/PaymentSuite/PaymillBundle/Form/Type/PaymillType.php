@@ -127,7 +127,7 @@ class PaymillType extends AbstractType
             ))
             ->add('credit_card_expiration_year', 'choice', array(
                 'required' => true,
-                'choices' => array_combine(range(2013, 2025), range(2013, 2025)),
+                'choices' => array_combine(range(date('Y'), 2025), range(date('Y'), 2025)),
             ))
 
             /**
@@ -142,7 +142,7 @@ class PaymillType extends AbstractType
              * Some hidden fields
              */
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
+                'data'  =>  $this->paymentBridge->getAmount()
             ))
             ->add('api_token', 'hidden', array(
                 'data'  =>  ''

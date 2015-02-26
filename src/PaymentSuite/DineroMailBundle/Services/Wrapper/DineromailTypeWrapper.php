@@ -161,7 +161,7 @@ class DineromailTypeWrapper
              * Payment bridge data
              */
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
+                'data'  =>  number_format($this->paymentBridge->getAmount(), 2)
             ))
             ->add('transaction_id', 'hidden', array(
                 'data'  =>  $dineromailTransactionId

@@ -91,7 +91,7 @@ class BanwireManager
         /**
          * first check that amounts are the same
          */
-        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount() * 100;
+        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount();
         /**
          * If both amounts are different, execute Exception
          */
@@ -133,7 +133,7 @@ class BanwireManager
             'user'            => $this->user,
             'reference'       => $this->paymentBridge->getOrderId() . '#' . date('Ymdhis'),
             'currency'        => $this->paymentBridge->getCurrency(),
-            'ammount'         => number_format($this->paymentBridge->getAmount(), 2) * 100,
+            'ammount'         => number_format($this->paymentBridge->getAmount(), 2),
             'concept'         => $this->paymentBridge->getOrderDescription(),
             'card_num'        => $paymentMethod->getCardNum(),
             'card_name'       => $paymentMethod->getCardName(),

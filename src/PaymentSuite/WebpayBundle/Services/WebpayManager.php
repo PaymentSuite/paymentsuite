@@ -69,7 +69,7 @@ class WebpayManager
     public function processPayment()
     {
         $orderId = $this->paymentBridge->getOrderId();
-        $amount = floor($this->paymentBridge->getAmount() * 100);
+        $amount = $this->paymentBridge->getAmount();
         $sessionId = $orderId . date('Ymdhis');
 
         // Generate session log file for KCC

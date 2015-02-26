@@ -25,17 +25,20 @@ interface PaymentBridgeInterface
      */
 
     /**
-     * Set order to PaymentBridge
+     * Sets order to PaymentBridge
      *
-     * Given an order ( this object is not hinted, so every project must have its own order )
-     * we store it locally.
+     * Sets a generic Order object in the PaymentBridge.
+     * This is necessary so that the bridge has a reference to
+     * the order object once it gets loaded.
+     * The order object doesn't need to implement any interface,
+     * since it is platform-specific
      *
      * @param Object $order Order element
      */
     public function setOrder($order);
 
     /**
-     * Get order
+     * Gets order
      *
      * Return object stored as order
      *
@@ -44,7 +47,7 @@ interface PaymentBridgeInterface
     public function getOrder();
 
     /**
-     * Get order given an identifier and stores locally
+     * Gets order given an identifier and stores it ocally
      *
      * @param integer $orderId Order identifier, usually defined as primary key or unique key
      *
@@ -53,14 +56,14 @@ interface PaymentBridgeInterface
     public function findOrder($orderId);
 
     /**
-     * Return order identifier value
+     * Returns order identifier value
      *
      * @return integer
      */
     public function getOrderId();
 
     /**
-     * Return if order has already been paid
+     * Returns if order has already been paid
      *
      * @return boolean
      */
@@ -71,15 +74,22 @@ interface PaymentBridgeInterface
      */
 
     /**
-     * Get payment amount
-     * Amount charged in cents
+     * Gets payment amount in CENTS
      *
-     * @return float
+     * Payment amoounts always must be returned in CENTS
+     * Example:
+     *   USD: 10.55 -> becomes "1055"
+     *
+     * This means that if your platform uses floats/decimals to
+     * specify amounts, you will have to convert them to
+     * integer before returning them here
+     *
+     * @return integer
      */
     public function getAmount();
 
     /**
-     * Get payment currency
+     * Gets payment currency in ISO 4217 3-character format
      *
      * @return string
      */

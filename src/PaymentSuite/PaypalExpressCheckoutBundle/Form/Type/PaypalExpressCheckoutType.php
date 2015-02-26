@@ -75,7 +75,7 @@ class PaypalExpressCheckoutType extends AbstractType
              * Some hidden fields
              */
             ->add('amount', 'hidden', array(
-                'data'  =>  number_format($this->paymentBridge->getAmount(), 2) * 100
+                'data'  =>  $this->paymentBridge->getAmount()
             ))
             ->add('currency', 'hidden', array(
                 'data'  =>  $this->paymentBridge->getCurrency()
