@@ -62,7 +62,7 @@ abstract class AbstractPaymentEvent extends Event
     /**
      * Get Payment Method
      *
-     * @return PaymentMethod Payment method
+     * @return PaymentMethodInterface Payment method
      */
     public function getPaymentMethod()
     {
