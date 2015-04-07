@@ -7,57 +7,95 @@
     /**
      * Validation for paymill payment
      */
-    $("#paymill_form").submit(function(){
 
-        $("#paymill_view_submit").attr("disabled", "disabled");
+    var oPaymill = {
+        oForm : document.getElementById('paymill_form'),
+        oErrorContainer : document.getElementById('paymill_payment_error'),
+        oSubmit : document.getElementById('paymill_view_submit'),
+        nCardNumbers1 : 0000,
+        nCardNumbers2 : 0000,
+        nCardNumbers3 : 0000,
+        nCardNumbers4 : 0000,
+        nCardNumbers : 0000,
+        sCardHolder : '',
+        sExpiryMonth : '',
+        sExpiryYear : '',
+        nCvv : 000,
+        bOkNumber : false,
+        bOkExpiry : false,
+        bOkCvv : false
+    };
 
-        //join all cc numbers in one
-        var cc = $('#paymill_view_credit_card_1').val() + $('#paymill_view_credit_card_2').val() + $('#paymill_view_credit_card_3').val() + $('#paymill_view_credit_card_4').val();
-        var cardholder = $('#paymill_view_credit_card_owner').val();
-        var expiry_month = $('#paymill_view_credit_card_expiration_month').val();
-        var expiry_year = $('#paymill_view_credit_card_expiration_year').val();
-        var cvv = $('#paymill_view_credit_card_security').val();
 
-        var $paymill_payment_error = $('#paymill_payment_error');
-        $paymill_payment_error.html('');
+    oPaymill.oForm.setAttribute('onsubmit','return submitPaymill()');
 
-        var okCardNumber = paymill.validateCardNumber(cc);
-        if (!okCardNumber) {
 
-            $paymill_payment_error.append('<li>Card number invalid</li>');
+    function submitPaymill() {
+
+        oPaymill.oSubmit.disabled = true;
+
+        oPaymill.nCardNumbers1 = document.getElementById('paymill_view_credit_card_1').value;
+        oPaymill.nCardNumbers2 = document.getElementById('paymill_view_credit_card_2').value;
+        oPaymill.nCardNumbers3 = document.getElementById('paymill_view_credit_card_3').value;
+        oPaymill.nCardNumbers4 = document.getElementById('paymill_view_credit_card_4').value;
+        oPaymill.nCardNumbers = oPaymill.nCardNumbers1 + oPaymill.nCardNumbers2 + oPaymill.nCardNumbers3 + oPaymill.nCardNumbers4
+        oPaymill.sCardHolder = document.getElementById('paymill_view_credit_card_owner').value;
+        oPaymill.sExpiryMonth = document.getElementById('paymill_view_credit_card_expiration_month').value;
+        oPaymill.sExpiryYear = document.getElementById('paymill_view_credit_card_expiration_year').value;
+        oPaymill.nCvv = document.getElementById('paymill_view_credit_card_security').value;
+
+        oPaymill.oErrorContainer.innerHTML = '';
+        oPaymill.oErrorContainer.style.display = 'none';
+
+        oPaymill.bOkNumber = paymill.validateCardNumber(oPaymill.nCardNumbers);
+        oPaymill.bOkExpiry = paymill.validateExpiry(oPaymill.sExpiryMonth, oPaymill.sExpiryYear);
+        oPaymill.bOkCvv = paymill.validateCvc(oPaymill.nCvv);
+
+
+
+        if (oPaymill.bOkNumber != true) {
+            var oLiNumber = document.createElement('li');
+            oLiNumber.innerHTML = 'Card number invalid';
+            oPaymill.oErrorContainer.appendChild(oLiNumber);
         }
 
-        var okExpiy = paymill.validateExpiry(expiry_month, expiry_year);
-        if (!okExpiy) {
-
-            $paymill_payment_error.append('<li>Card expiry invalid</li>');
+        if (oPaymill.bOkExpiry != true) {
+            var oLiExpiry = document.createElement('li');
+            oLiExpiry.innerHTML = 'Card expiry invalid';
+            oPaymill.oErrorContainer.appendChild(oLiExpiry);
         }
 
-        var okCvc = paymill.validateCvc(cvv);
-        if (!okCvc) {
-
-            $paymill_payment_error.append('<li>Card CVC invalid</li>');
+        if (oPaymill.bOkCvv != true) {
+            var oLiCVC = document.createElement('li');
+            oLiCVC.innerHTML = 'Card CVC invalid';
+            oPaymill.oErrorContainer.appendChild(oLiCVC);
         }
 
-        if (okCardNumber && okExpiy && okCvc) {
+        if (oPaymill.bOkNumber && oPaymill.bOkExpiry && oPaymill.bOkCvv) {
 
             paymill.createToken({
-                number: cc,
-                exp_month: expiry_month,
-                exp_year: expiry_year,
-                cvc: cvv,
-                amount_int: $('#paymill_view_amount').val(),
+                number: oPaymill.nCardNumbers,
+                exp_month: oPaymill.sExpiryMonth,
+                exp_year: oPaymill.sExpiryYear,
+                cvc: oPaymill.nCvv,
+                amount_int: document.getElementById('paymill_view_amount').value,
                 currency: "{{ currency }}",
-                cardholder: cardholder
+                cardholder: oPaymill.sCardHolder
             },  paymillResponseHandler);
         } else {
 
-            $("#paymill_view_submit").removeAttr("disabled");
+            oPaymill.oSubmit.disabled = false;
+
+        }
+
+        if (oPaymill.bOkNumber != true || oPaymill.bOkExpiry != true || oPaymill.bOkCvv != true){
+            oPaymill.oErrorContainer.style.display = 'block';
         }
 
         return false;
-    });
 
+
+    }
 
     /**
      * Handler for paymill response
@@ -66,26 +104,29 @@
 
         if (error) {
 
-            $('#paymill_payment_error').html(error.apierror);
-            $("#paymill_view_submit").removeAttr("disabled");
+            oPaymill.oErrorContainer.innerHTML = error.apierror;
+            oPaymill.oSubmit.disabled = 'false';
+
 
         } else {
 
             /**
              * Removing Credit Cart data before sending it to back
              */
-            $('#paymill_view_credit_card_1').val('0000');
-            $('#paymill_view_credit_card_2').val('0000');
-            $('#paymill_view_credit_card_3').val('0000');
-            $('#paymill_view_credit_card_4').val('0000');
-            $('#paymill_view_credit_card_owner').val('000');
-            $('#paymill_view_credit_card_expiration_month').val('1');
-            $('#paymill_view_credit_card_expiration_year').val('2013');
-            $('#paymill_view_credit_card_security').val('000');
 
-            $('#paymill-payment-error').hide();
-            $('#paymill_view_api_token').val(result.token);
-            $("#paymill_form").get(0).submit();
+            document.getElementById('paymill_view_credit_card_1').value = '0000';
+            document.getElementById('paymill_view_credit_card_2').value = '0000';
+            document.getElementById('paymill_view_credit_card_3').value = '0000';
+            document.getElementById('paymill_view_credit_card_4').value = '0000';
+            document.getElementById('paymill_view_credit_card_owner').value = '000';
+            document.getElementById('paymill_view_credit_card_expiration_month').value = '1';
+            document.getElementById('paymill_view_credit_card_expiration_year').value = '2013';
+            document.getElementById('paymill_view_credit_card_security').value = '000';
+
+            document.getElementById('paymill_view_api_token').value = result.token;
+
+            oPaymill.oErrorContainer.style.display = 'none';
+            oPaymill.oForm.submit();
         }
     }
 
