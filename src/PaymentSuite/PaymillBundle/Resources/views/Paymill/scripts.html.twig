@@ -32,7 +32,7 @@
 
     function submitPaymill() {
 
-        oPaymill.oSubmit.disabled = true;
+        oPaymil.oSubmit.setAttribute('disabled','disabled');
 
         oPaymill.nCardNumbers1 = document.getElementById('paymill_view_credit_card_1').value;
         oPaymill.nCardNumbers2 = document.getElementById('paymill_view_credit_card_2').value;
@@ -53,21 +53,21 @@
 
 
 
-        if (oPaymill.bOkNumber != true) {
+        if (oPaymill.bOkNumber !== true) {
             var oLiNumber = document.createElement('li');
-            oLiNumber.innerHTML = 'Card number invalid';
+            oLiNumber.innerText = 'Card number invalid';
             oPaymill.oErrorContainer.appendChild(oLiNumber);
         }
 
-        if (oPaymill.bOkExpiry != true) {
+        if (oPaymill.bOkExpiry !== true) {
             var oLiExpiry = document.createElement('li');
-            oLiExpiry.innerHTML = 'Card expiry invalid';
+            oLiExpiry.innerText = 'Card expiry invalid';
             oPaymill.oErrorContainer.appendChild(oLiExpiry);
         }
 
-        if (oPaymill.bOkCvv != true) {
+        if (oPaymill.bOkCvv !== true) {
             var oLiCVC = document.createElement('li');
-            oLiCVC.innerHTML = 'Card CVC invalid';
+            oLiCVC.innerText = 'Card CVC invalid';
             oPaymill.oErrorContainer.appendChild(oLiCVC);
         }
 
@@ -84,11 +84,11 @@
             },  paymillResponseHandler);
         } else {
 
-            oPaymill.oSubmit.disabled = false;
+            oPaymil.oSubmit.removeAttribute('disabled');
 
         }
 
-        if (oPaymill.bOkNumber != true || oPaymill.bOkExpiry != true || oPaymill.bOkCvv != true){
+        if (oPaymill.bOkNumber !== true || oPaymill.bOkExpiry !== true || oPaymill.bOkCvv !== true){
             oPaymill.oErrorContainer.style.display = 'block';
         }
 
@@ -105,7 +105,7 @@
         if (error) {
 
             oPaymill.oErrorContainer.innerHTML = error.apierror;
-            oPaymill.oSubmit.disabled = 'false';
+            oPaymil.oSubmit.removeAttribute('disabled');
 
 
         } else {
