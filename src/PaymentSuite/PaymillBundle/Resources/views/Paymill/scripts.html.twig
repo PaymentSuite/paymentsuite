@@ -32,7 +32,7 @@
 
     function submitPaymill() {
 
-        oPaymil.oSubmit.setAttribute('disabled','disabled');
+        oPaymill.oSubmit.setAttribute('disabled','disabled');
 
         oPaymill.nCardNumbers1 = document.getElementById('paymill_view_credit_card_1').value;
         oPaymill.nCardNumbers2 = document.getElementById('paymill_view_credit_card_2').value;
@@ -44,35 +44,32 @@
         oPaymill.sExpiryYear = document.getElementById('paymill_view_credit_card_expiration_year').value;
         oPaymill.nCvv = document.getElementById('paymill_view_credit_card_security').value;
 
-        oPaymill.oErrorContainer.innerHTML = '';
+        oPaymill.oErrorContainer.textContent = '';
         oPaymill.oErrorContainer.style.display = 'none';
 
         oPaymill.bOkNumber = paymill.validateCardNumber(oPaymill.nCardNumbers);
         oPaymill.bOkExpiry = paymill.validateExpiry(oPaymill.sExpiryMonth, oPaymill.sExpiryYear);
         oPaymill.bOkCvv = paymill.validateCvc(oPaymill.nCvv);
 
-
-
         if (oPaymill.bOkNumber !== true) {
             var oLiNumber = document.createElement('li');
-            oLiNumber.innerText = 'Card number invalid';
+            oLiNumber.textContent = 'Card number invalid';
             oPaymill.oErrorContainer.appendChild(oLiNumber);
         }
 
         if (oPaymill.bOkExpiry !== true) {
             var oLiExpiry = document.createElement('li');
-            oLiExpiry.innerText = 'Card expiry invalid';
+            oLiExpiry.textContent = 'Card expiry invalid';
             oPaymill.oErrorContainer.appendChild(oLiExpiry);
         }
 
         if (oPaymill.bOkCvv !== true) {
             var oLiCVC = document.createElement('li');
-            oLiCVC.innerText = 'Card CVC invalid';
+            oLiCVC.textContent = 'Card CVC invalid';
             oPaymill.oErrorContainer.appendChild(oLiCVC);
         }
 
         if (oPaymill.bOkNumber && oPaymill.bOkExpiry && oPaymill.bOkCvv) {
-
             paymill.createToken({
                 number: oPaymill.nCardNumbers,
                 exp_month: oPaymill.sExpiryMonth,
@@ -84,7 +81,7 @@
             },  paymillResponseHandler);
         } else {
 
-            oPaymil.oSubmit.removeAttribute('disabled');
+            oPaymill.oSubmit.removeAttribute('disabled');
 
         }
 
@@ -105,8 +102,8 @@
         if (error) {
 
             oPaymill.oErrorContainer.innerHTML = error.apierror;
-            oPaymil.oSubmit.removeAttribute('disabled');
-
+            oPaymill.oErrorContainer.style.display = 'block';
+            oPaymill.oSubmit.removeAttribute('disabled');
 
         } else {
 
