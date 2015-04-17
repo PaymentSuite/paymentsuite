@@ -54,6 +54,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('form')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('submit_label')
                             ->defaultValue('submit')
