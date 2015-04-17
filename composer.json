@@ -23,7 +23,7 @@
         "symfony/dependency-injection": ">=2.2.3",
         "psr/log": "~1.0",
         "paymill/paymill": ">=3.0",
-        "stripe/stripe-php": "v1.10.1"
+        "stripe/stripe-php": "2.*"
     },
     "replace": {
         "paymentsuite/authorizenet-bundle": "self.version",
