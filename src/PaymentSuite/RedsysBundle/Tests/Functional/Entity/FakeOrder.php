@@ -11,7 +11,7 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace PaymentSuite\RedsysBundle\Tests\Entity;
+namespace PaymentSuite\RedsysBundle\Tests\Functional\Entity;
 
 /**
  * Class FakeOrder

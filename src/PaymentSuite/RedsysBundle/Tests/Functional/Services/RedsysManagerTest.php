@@ -11,8 +11,11 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace PaymentSuite\RedsysBundle\Tests\Services;
+namespace PaymentSuite\RedsysBundle\Tests\Functional\Services;
 
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\RedsysBundle\RedsysMethod;
 use PaymentSuite\RedsysBundle\Services\RedsysManager;
 
 /**
@@ -21,7 +24,7 @@ use PaymentSuite\RedsysBundle\Services\RedsysManager;
 class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PaymentBridge
+     * @var PaymentBridgeInterface
      *
      * Payment bridge object
      */
@@ -82,7 +85,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
+     * @expectedException \PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException
      */
     public function testParameterNotReceivedException()
     {
@@ -95,7 +98,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PaymentSuite\RedsysBundle\Exception\InvalidSignatureException
+     * @expectedException \PaymentSuite\RedsysBundle\Exception\InvalidSignatureException
      */
     public function testInvalidSignatureException()
     {
@@ -124,7 +127,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
     public function testPaymentError()
     {

@@ -13,7 +13,12 @@
 
 namespace PaymentSuite\PaymillBundle\Tests\Services;
 
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymillBundle\PaymillMethod;
 use PaymentSuite\PaymillBundle\Services\PaymillManager;
+use PaymentSuite\PaymillBundle\Services\Wrapper\PaymillTransactionWrapper;
+use Paymill\Models\Response\Transaction;
 
 /**
  * Paymill manager
@@ -39,7 +44,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
      *
      * Card amount
      */
-    const ORDER_AMOUNT = 10;
+    const ORDER_AMOUNT = 1000;
 
     /**
      * @var string
@@ -49,7 +54,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     const ORDER_DESCRIPTION = 'This is my card description';
 
     /**
-     * @var PaymentManager
+     * @var PaymillManager
      *
      * Payment manager object
      */
@@ -70,7 +75,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
     private $paymillTransactionWrapper;
 
     /**
-     * @var CardWrapper
+     * @var PaymentBridgeInterface
      *
      * Card Wrapper object
      */
@@ -167,11 +172,11 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT);
     }
 
     /**
-     * Testing payment error
+     * Testing payment Error
      *
      * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
@@ -233,7 +238,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create')
             ->with(
-                $this->equalTo(self::ORDER_AMOUNT * 100),
+                $this->equalTo(self::ORDER_AMOUNT),
                 $this->equalTo(self::CURRENCY),
                 $this->equalTo(self::API_TOKEN),
                 $this->equalTo(self::ORDER_DESCRIPTION)
@@ -269,12 +274,11 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT);
     }
 
     /**
-     * Testing payment error
-     *
+     * Testing payment Success
      */
     public function testPaymentSuccess()
     {
@@ -339,7 +343,7 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create')
             ->with(
-                $this->equalTo(self::ORDER_AMOUNT * 100),
+                $this->equalTo(self::ORDER_AMOUNT),
                 $this->equalTo(self::CURRENCY),
                 $this->equalTo(self::API_TOKEN),
                 $this->equalTo(self::ORDER_DESCRIPTION)
@@ -375,6 +379,6 @@ class PaymillManagerTest extends \PHPUnit_Framework_TestCase
             ->method('notifyPaymentOrderSuccess')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->paymillMethod));
 
-        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT * 100);
+        $this->paymillManager->processPayment($this->paymillMethod, self::ORDER_AMOUNT);
     }
 }

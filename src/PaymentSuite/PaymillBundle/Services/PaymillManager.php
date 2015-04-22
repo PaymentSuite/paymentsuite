@@ -72,7 +72,7 @@ class PaymillManager
      * Tries to process a payment through Paymill
      *
      * @param PaymillMethod $paymentMethod Payment method
-     * @param float         $amount        Amount
+     * @param integer       $amount        Amount
      *
      * @return PaymillManager Self object
      *
@@ -88,9 +88,14 @@ class PaymillManager
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($amount - $paymentBridgeAmount) > 0.00001) {
+        if ($amount != $paymentBridgeAmount) {
 
-            throw new PaymentAmountsNotMatchException();
+            throw new PaymentAmountsNotMatchException(sprintf(
+                    'Amounts differ. Requested: [%s] but in PaymentBridge: [%s].',
+                    $amount,
+                    $paymentBridgeAmount
+                )
+            );
         }
 
         /**

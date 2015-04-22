@@ -51,9 +51,6 @@ class StripeController extends Controller
                 throw new PaymentException();
             }
 
-            /*
-             * The Token is already inside $data
-             */
             $data = $form->getData();
             $paymentMethod = $this->createStripeMethod($data);
             $this
@@ -63,7 +60,6 @@ class StripeController extends Controller
             $redirectUrl = $this->container->getParameter('stripe.success.route');
             $redirectAppend = $this->container->getParameter('stripe.success.order.append');
             $redirectAppendField = $this->container->getParameter('stripe.success.order.field');
-
         } catch (PaymentException $e) {
             /**
              * Must redirect to fail route
