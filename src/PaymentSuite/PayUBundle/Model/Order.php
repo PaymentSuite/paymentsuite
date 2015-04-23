@@ -122,9 +122,9 @@ class Order
      */
     public function setAdditionalValues(AdditionalValue $additionalValue, $type)
     {
-        $value = [
+        $value = array(
             $type => $additionalValue
-        ];
+        );
         $this->additionalValues = $value;
 
         return $this;

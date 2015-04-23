@@ -18,7 +18,7 @@ use PaymentSuite\BanwireBundle\Services\BanwireManager;
 class BanwireManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var BankwireManager paymentManager
+     * @var BanwireManager paymentManager
      *
      *  The manager to be unit tested
      */
@@ -30,16 +30,16 @@ class BanwireManagerTest extends \PHPUnit_Framework_TestCase
     private $paymentEventDispatcher;
 
     /**
-     * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentException
      */
     public function testProcessPaymentOk()
     {
-        $amount = 100;
+        $amount = 1000;
 
         $this->paymentBridge
             ->expects($this->exactly(2))
             ->method('getAmount')
-            ->will($this->returnValue(1))
+            ->will($this->returnValue(1000))
         ;
 
         $this->paymentBridge
@@ -72,16 +72,16 @@ class BanwireManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentAmountsNotMatchException
      */
     public function testProcessPaymentAmountsNotMatch()
     {
-        $amount = 100;
+        $amount = 1000;
 
         $this->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue($amount/($amount -1)))
+            ->will($this->returnValue($amount + 10))
         ;
 
         $this->paymentEventDispatcher
@@ -93,16 +93,16 @@ class BanwireManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException
+     * @expectedException \PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException
      */
     public function testProcessPaymentOrderNotFound()
     {
-        $amount = 100;
+        $amount = 1000;
 
         $this->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(1))
+            ->will($this->returnValue(1000))
         ;
 
         $this->paymentEventDispatcher

@@ -202,7 +202,7 @@ class RedsysManager
         /**
          * when a transaction is successful, $Ds_Response has a value between 0 and 99
          */
-        if ($this->transactionSuccessful($dsResponse)) {
+        if (!$this->transactionSuccessful($dsResponse)) {
 
             /**
              * Payment paid failed

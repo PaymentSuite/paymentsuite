@@ -26,6 +26,9 @@
         "stripe/stripe-php": "v1.10.1",
         "paymentsuite/payment-core-bundle": "~1.1"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.0"
+    },
     "autoload": {
         "psr-4": {
             "PaymentSuite\\StripeBundle\\": ""

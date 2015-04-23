@@ -16,14 +16,27 @@
     ],
     "require": {
         "php": ">=5.3.3",
+        "symfony/finder": ">=2.2.3",
         "symfony/framework-bundle": ">=2.2.3",
         "symfony/form": ">=2.2.3",
         "symfony/config": ">=2.2.3",
         "symfony/http-kernel": ">=2.2.3",
         "symfony/dependency-injection": ">=2.2.3",
+        "sensio/framework-extra-bundle": "~3.0",
         "psr/log": "~1.0",
         "paymill/paymill": ">=3.0",
-        "stripe/stripe-php": "v1.10.1"
+        "stripe/stripe-php": "1.10.1.*",
+        "monolog/monolog": "~1.13"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*",
+        "symfony/twig-bundle": ">=2.2.3",
+        "symfony/monolog-bundle": ">=2.2.3",
+        "symfony/browser-kit": ">=2.2.3",
+        "symfony/css-selector": ">=2.2.3",
+        "symfony/twig-bundle": ">=2.2.3",
+        "elcodi/core-bundle": "0.5.*",
+        "elcodi/test-common-bundle": "0.5.*"
     },
     "replace": {
         "paymentsuite/authorizenet-bundle": "self.version",

@@ -11,7 +11,7 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace PaymentSuite\RedsysBundle\Tests\Services;
+namespace PaymentSuite\RedsysBundle\Tests\Functional\Services;
 
 use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 

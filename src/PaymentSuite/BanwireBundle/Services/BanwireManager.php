@@ -91,12 +91,18 @@ class BanwireManager
         /**
          * first check that amounts are the same
          */
-        $paymentBridgeAmount = (float) $this->paymentBridge->getAmount();
+        $paymentBridgeAmount = intval($this->paymentBridge->getAmount());
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($amount - $paymentBridgeAmount) > 0.00001) {
-            throw new PaymentAmountsNotMatchException();
+        if ($amount != $paymentBridgeAmount) {
+
+            throw new PaymentAmountsNotMatchException(sprintf(
+                    'Amounts differ. Requested: [%s] but in PaymentBridge: [%s].',
+                    $amount,
+                    $paymentBridgeAmount
+                )
+            );
         }
 
         /**
@@ -133,7 +139,7 @@ class BanwireManager
             'user'            => $this->user,
             'reference'       => $this->paymentBridge->getOrderId() . '#' . date('Ymdhis'),
             'currency'        => $this->paymentBridge->getCurrency(),
-            'ammount'         => number_format($this->paymentBridge->getAmount(), 2),
+            'ammount'         => number_format($this->paymentBridge->getAmount() / 100, 2),
             'concept'         => $this->paymentBridge->getOrderDescription(),
             'card_num'        => $paymentMethod->getCardNum(),
             'card_name'       => $paymentMethod->getCardName(),

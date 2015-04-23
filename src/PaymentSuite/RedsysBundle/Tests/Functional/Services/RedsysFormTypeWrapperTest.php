@@ -11,8 +11,12 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace PaymentSuite\RedsysBundle\Tests\Services;
+namespace PaymentSuite\RedsysBundle\Tests\Functional\Services;
 
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\RedsysBundle\RedsysMethod;
+use PaymentSuite\RedsysBundle\Services\UrlFactory;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
@@ -80,7 +84,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
     const name = 'name';
 
     /**
-     * @var PaymentBridge
+     * @var PaymentBridgeInterface
      *
      * Payment bridge object
      */
@@ -155,11 +159,11 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
      */
     public function testFormCreation()
     {
-        $amount = 10;
+        $amount = 100;
 
         $formData = array(
-            'Ds_Merchant_Amount'             => $amount * 100,
-            'Ds_Merchant_MerchantSignature'  => '11473E3E726C16798532E9924444953A5C12DB2C',
+            'Ds_Merchant_Amount'             => $amount,
+            'Ds_Merchant_MerchantSignature'  => 'CB43B12351A9826D9640CC285CBDFD8CA6A5994C',
             'Ds_Merchant_MerchantCode'       => $this::merchantCode,
             'Ds_Merchant_Currency'           => '978',
             'Ds_Merchant_Terminal'           => $this::terminal,
