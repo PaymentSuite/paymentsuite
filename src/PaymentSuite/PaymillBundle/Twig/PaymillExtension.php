@@ -75,15 +75,15 @@ class PaymillExtension extends Twig_Extension
      * @param FormFactory            $formFactory            Form factory
      * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge
      * @param string                 $viewTemplate           Twig template name for displaying the form
-     * @param string                 $scriptstemplate        Twig template name for scripts/js
+     * @param string                 $scriptsTemplate        Twig template name for scripts/js
      */
     public function __construct(
         $publicKey,
         FormFactory $formFactory,
         PaymentBridgeInterface $paymentBridgeInterface,
         $viewTemplate,
-        $scriptsTemplate)
-    {
+        $scriptsTemplate
+    ) {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
@@ -120,6 +120,8 @@ class PaymillExtension extends Twig_Extension
 
     /**
      * Render paymill form view
+     *
+     * @param string $viewTemplate An optional template to render.
      *
      * @return void
      */
