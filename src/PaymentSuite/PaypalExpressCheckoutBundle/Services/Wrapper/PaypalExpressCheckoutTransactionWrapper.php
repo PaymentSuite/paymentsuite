@@ -65,7 +65,7 @@ class PaypalExpressCheckoutTransactionWrapper
         } else {
             if ($responseArray['ACK'] == 'Success') {
                 curl_close($curl);
-                $this->reponse = $responseArray;
+                $this->response = $responseArray;
             } else {
                 $this->errors = $responseArray;
                 curl_close($curl);
