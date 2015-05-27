@@ -209,6 +209,12 @@ class RedsysFormTypeWrapper
             ));
         }
 
+		if (array_key_exists('merchant_data', $extraData)) {
+			$formBuilder->add('Ds_Merchant_MerchantData', 'hidden', array(
+					'data' => $extraData['merchant_data'],
+				));
+		}
+
         return $formBuilder->getForm()->createView();
     }
 
