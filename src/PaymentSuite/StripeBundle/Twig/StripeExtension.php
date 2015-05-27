@@ -34,7 +34,7 @@ class StripeExtension extends Twig_Extension
     protected $formFactory;
 
     /**
-     * @var Twig_Environment
+     * @var \Twig_Environment
      *
      * Twig environment
      */
@@ -55,23 +55,46 @@ class StripeExtension extends Twig_Extension
     private $paymentBridgeInterface;
 
     /**
+     * @var string
+     *
+     * View template name in Bundle notation
+     */
+    protected $viewTemplate;
+
+    /**
+     * @var string
+     *
+     * Scripts template in Bundle notation
+     */
+    protected $scriptsTemplate;
+
+    /**
      * Construct method
      *
      * @param string                 $publicKey              Public key
      * @param FormFactory            $formFactory            Form factory
      * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge Interface
+     * @param string                 $viewTemplate           Twig template name for displaying the form
+     * @param string                 $scriptsTemplate        Twig template name for scripts/js
      */
-    public function __construct($publicKey, FormFactory $formFactory, PaymentBridgeInterface $paymentBridgeInterface)
-    {
+    public function __construct(
+        $publicKey,
+        FormFactory $formFactory,
+        PaymentBridgeInterface $paymentBridgeInterface,
+        $viewTemplate,
+        $scriptsTemplate
+    ) {
         $this->publicKey = $publicKey;
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
+        $this->viewTemplate = $viewTemplate;
+        $this->scriptsTemplate = $scriptsTemplate;
     }
 
     /**
      * Init runtime
      *
-     * @param Twig_Environment $environment Twig environment
+     * @param \Twig_Environment $environment Twig environment
      *
      * @return StripeExtension self object
      */
@@ -98,13 +121,15 @@ class StripeExtension extends Twig_Extension
     /**
      * Render stripe form view
      *
+     * @param string $viewTemplate An optional template to render.
+     *
      * @return string view html
      */
-    public function renderPaymentView()
+    public function renderPaymentView($viewTemplate = null)
     {
         $formType = $this->formFactory->create('stripe_view');
 
-        return $this->environment->display('StripeBundle:Stripe:view.html.twig', array(
+        return $this->environment->display($viewTemplate ?: $this->viewTemplate, array(
             'stripe_form'  =>  $formType->createView(),
             'stripe_execute_route' =>  StripeRoutesLoader::ROUTE_NAME,
         ));
@@ -117,7 +142,7 @@ class StripeExtension extends Twig_Extension
      */
     public function renderPaymentScripts()
     {
-        return $this->environment->display('StripeBundle:Stripe:scripts.html.twig', array(
+        return $this->environment->display($this->scriptsTemplate, array(
             'public_key'    =>  $this->publicKey,
             'currency'      =>  $this->paymentBridgeInterface->getCurrency(),
         ));
