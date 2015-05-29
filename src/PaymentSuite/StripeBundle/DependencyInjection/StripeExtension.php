@@ -37,6 +37,9 @@ class StripeExtension extends Extension
         $container->setParameter('stripe.public.key', $config['public_key']);
         $container->setParameter('stripe.controller.route', $config['controller_route']);
 
+        $container->setParameter('stripe.templates.view_template', $config['templates']['view_template']);
+        $container->setParameter('stripe.templates.scripts_template', $config['templates']['scripts_template']);
+
         $container->setParameter('stripe.success.route', $config['payment_success']['route']);
         $container->setParameter('stripe.success.order.append', $config['payment_success']['order_append']);
         $container->setParameter('stripe.success.order.field', $config['payment_success']['order_append_field']);
