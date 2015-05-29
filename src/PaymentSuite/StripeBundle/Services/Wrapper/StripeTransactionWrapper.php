@@ -44,7 +44,6 @@ class StripeTransactionWrapper
      * @param array $params Set of params
      *
      * @return array            Result of transaction
-     * @throws PaymentException
      */
     public function create(array $params)
     {
