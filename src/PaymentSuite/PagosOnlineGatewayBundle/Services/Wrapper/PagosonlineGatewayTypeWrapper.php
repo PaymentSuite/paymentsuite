@@ -134,7 +134,7 @@ class PagosonlineGatewayTypeWrapper
                 'data'  =>  'pagosonlinegateway',
             ))
             ->add('extra2', 'hidden', array(
-                'data'  => $this->paymentBridge->getOrder()->getCart()->getId(),
+                'data'  => $this->paymentBridge->getOrder()->getCard()->getId(),
             ))
             ->add('descripcion', 'hidden', array(
                 'data'  =>  'description',

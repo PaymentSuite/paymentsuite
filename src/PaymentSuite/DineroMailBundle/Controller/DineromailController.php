@@ -44,7 +44,7 @@ class DineromailController extends Controller
         $paymentBridge = $this->get('payment.bridge');
 
         /**
-         * New order from cart must be created right here
+         * New order from card must be created right here
          */
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 

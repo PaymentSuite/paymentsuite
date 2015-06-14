@@ -86,17 +86,17 @@ class StripeManager
     private function prepareData(StripeMethod $paymentMethod, $amount)
     {
         /// first check that amounts are the same
-        $cartAmount = intval($this->paymentBridge->getAmount());
+        $cardAmount = intval($this->paymentBridge->getAmount());
 
         /**
          * If both amounts are different, execute Exception
          */
-        if (abs($amount - $cartAmount) > 0.00001) {
+        if (abs($amount - $cardAmount) > 0.00001) {
             throw new PaymentAmountsNotMatchException();
         }
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a card, and placed in PaymentBridge
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -129,14 +129,14 @@ class StripeManager
          * params for stripe interaction
          */
         $cardParams = array(
-            'number'    => $paymentMethod->getCreditCartNumber(),
-            'exp_month' => $paymentMethod->getCreditCartExpirationMonth(),
-            'exp_year'  => $paymentMethod->getCreditCartExpirationYear(),
+            'number'    => $paymentMethod->getCreditCardNumber(),
+            'exp_month' => $paymentMethod->getCreditCardExpirationMonth(),
+            'exp_year'  => $paymentMethod->getCreditCardExpirationYear(),
         );
 
         $this->chargeParams = array(
             'card'     => $cardParams,
-            'amount'   => $cartAmount,
+            'amount'   => $cardAmount,
             'currency' => strtolower($this->paymentBridge->getCurrency()),
         );
 

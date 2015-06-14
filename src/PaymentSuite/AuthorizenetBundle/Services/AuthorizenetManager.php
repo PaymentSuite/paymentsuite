@@ -101,10 +101,10 @@ class AuthorizenetManager
      */
     private function prepareData(AuthorizenetMethod $paymentMethod)
     {
-        $cartAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
+        $cardAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a card, and placed in PaymentBridge
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -138,10 +138,10 @@ class AuthorizenetManager
 
             "x_type"           => "AUTH_CAPTURE",
             "x_method"         => "CC",
-            "x_card_num"       => $paymentMethod->getCreditCartNumber(),
-            "x_exp_date"       => $paymentMethod->getCreditCartExpirationMonth() . $paymentMethod->getCreditCartExpirationYear(),
+            "x_card_num"       => $paymentMethod->getCreditCardNumber(),
+            "x_exp_date"       => $paymentMethod->getCreditCardExpirationMonth() . $paymentMethod->getCreditCardExpirationYear(),
 
-            "x_amount"         => $cartAmount,
+            "x_amount"         => $cardAmount,
             "x_description"    => $extraData['order_description'],
         );
 

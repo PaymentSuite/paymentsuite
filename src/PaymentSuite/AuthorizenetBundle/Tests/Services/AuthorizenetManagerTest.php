@@ -23,49 +23,49 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var integer
      *
-     * Cart amount
+     * Card amount
      */
-    const CART_AMOUNT = 1234;
+    const CARD_AMOUNT = 1234;
 
     /**
      * @var integer
      *
-     * Cart number
+     * Card number
      */
-    const CART_NUMBER = 4007000000027;
+    const CARD_NUMBER = 4007000000027;
 
     /**
      * @var integer
      *
-     * Cart expire month
+     * Card expire month
      */
-    const CART_EXPIRE_MONTH = 11;
+    const CARD_EXPIRE_MONTH = 11;
 
     /**
      * @var integer
      *
-     * Cart expire year
+     * Card expire year
      */
-    const CART_EXPIRE_YEAR = 17;
+    const CARD_EXPIRE_YEAR = 17;
 
     /**
      * @var string
      *
-     * Cart description
+     * Card description
      */
-    const CART_DESCRIPTION = 'This is my cart description';
+    const CARD_DESCRIPTION = 'This is my card description';
 
     /**
      * @var string
      *
-     * Cart description
+     * Card description
      */
     const LOGIN_ID = 'login_id';
 
     /**
      * @var string
      *
-     * Cart description
+     * Card description
      */
     const TRAN_KEY = 'tran_key';
 
@@ -135,20 +135,20 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartNumber')
-            ->will($this->returnValue(self::CART_NUMBER));
+            ->method('getCreditCardNumber')
+            ->will($this->returnValue(self::CARD_NUMBER));
 
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationMonth')
-            ->will($this->returnValue(self::CART_EXPIRE_MONTH));
+            ->method('getCreditCardExpirationMonth')
+            ->will($this->returnValue(self::CARD_EXPIRE_MONTH));
 
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationYear')
-            ->will($this->returnValue(self::CART_EXPIRE_YEAR));
+            ->method('getCreditCardExpirationYear')
+            ->will($this->returnValue(self::CARD_EXPIRE_YEAR));
 
         $this
             ->paymentBridge
@@ -174,14 +174,14 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::CARD_AMOUNT));
 
         $this
             ->paymentBridge
             ->expects($this->once())
             ->method('getExtraData')
             ->will($this->returnValue(array(
-                'order_description' =>  self::CART_DESCRIPTION
+                'order_description' =>  self::CARD_DESCRIPTION
             )));
 
         $postValues = array(
@@ -195,11 +195,11 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
             "x_type"            => "AUTH_CAPTURE",
             "x_method"            => "CC",
-            "x_card_num"        => self::CART_NUMBER,
-            "x_exp_date"        => self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
+            "x_card_num"        => self::CARD_NUMBER,
+            "x_exp_date"        => self::CARD_EXPIRE_MONTH.self::CARD_EXPIRE_YEAR,
 
-            "x_amount"            => (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
-            "x_description"        => self::CART_DESCRIPTION,
+            "x_amount"            => (float) number_format((self::CARD_AMOUNT / 100), 2, '.', ''),
+            "x_description"        => self::CARD_DESCRIPTION,
         );
 
         $postString = "";
@@ -247,7 +247,7 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->authorizenetManager->processPayment($this->authorizenetMethod, self::CART_AMOUNT);
+        $this->authorizenetManager->processPayment($this->authorizenetMethod, self::CARD_AMOUNT);
     }
 
     /**
@@ -259,20 +259,20 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartNumber')
-            ->will($this->returnValue(self::CART_NUMBER));
+            ->method('getCreditCardNumber')
+            ->will($this->returnValue(self::CARD_NUMBER));
 
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationMonth')
-            ->will($this->returnValue(self::CART_EXPIRE_MONTH));
+            ->method('getCreditCardExpirationMonth')
+            ->will($this->returnValue(self::CARD_EXPIRE_MONTH));
 
         $this
             ->authorizenetMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationYear')
-            ->will($this->returnValue(self::CART_EXPIRE_YEAR));
+            ->method('getCreditCardExpirationYear')
+            ->will($this->returnValue(self::CARD_EXPIRE_YEAR));
 
         $this
             ->paymentBridge
@@ -298,14 +298,14 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::CARD_AMOUNT));
 
         $this
             ->paymentBridge
             ->expects($this->once())
             ->method('getExtraData')
             ->will($this->returnValue(array(
-                'order_description' =>  self::CART_DESCRIPTION
+                'order_description' =>  self::CARD_DESCRIPTION
             )));
 
         $postValues = array(
@@ -319,11 +319,11 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
 
             "x_type"            => "AUTH_CAPTURE",
             "x_method"            => "CC",
-            "x_card_num"        => self::CART_NUMBER,
-            "x_exp_date"        => self::CART_EXPIRE_MONTH.self::CART_EXPIRE_YEAR,
+            "x_card_num"        => self::CARD_NUMBER,
+            "x_exp_date"        => self::CARD_EXPIRE_MONTH.self::CARD_EXPIRE_YEAR,
 
-            "x_amount"            => (float) number_format((self::CART_AMOUNT / 100), 2, '.', ''),
-            "x_description"        => self::CART_DESCRIPTION,
+            "x_amount"            => (float) number_format((self::CARD_AMOUNT / 100), 2, '.', ''),
+            "x_description"        => self::CARD_DESCRIPTION,
         );
 
         $postString = "";
@@ -371,6 +371,6 @@ class AuthorizenetManagerTest extends \PHPUnit_Framework_TestCase
             ->method('notifyPaymentOrderSuccess')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->authorizenetMethod));
 
-        $this->authorizenetManager->processPayment($this->authorizenetMethod, self::CART_AMOUNT);
+        $this->authorizenetManager->processPayment($this->authorizenetMethod, self::CARD_AMOUNT);
     }
 }

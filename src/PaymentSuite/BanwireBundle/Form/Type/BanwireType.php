@@ -24,7 +24,7 @@ class BanwireType extends AbstractType
     /**
      * @var PaymentBridgeInterface
      *
-     * Cart Wrapper
+     * Card Wrapper
      */
     private $paymentBridge;
 

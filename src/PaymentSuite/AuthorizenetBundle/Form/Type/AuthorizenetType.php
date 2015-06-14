@@ -49,15 +49,15 @@ class AuthorizenetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('credit_cart', 'text', array(
+            ->add('credit_card', 'text', array(
                 'required' => true,
                 'max_length' => 20,
             ))
-            ->add('credit_cart_expiration_month', 'choice', array(
+            ->add('credit_card_expiration_month', 'choice', array(
                 'required' => true,
                 'choices' => array_combine(range(1, 12), range(1, 12)),
             ))
-            ->add('credit_cart_expiration_year', 'choice', array(
+            ->add('credit_card_expiration_year', 'choice', array(
                 'required' => true,
                 'choices' => array_combine(range(13, 25), range(13, 25)),
             ));

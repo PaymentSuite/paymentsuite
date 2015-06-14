@@ -28,11 +28,11 @@ class PaymentOrderSuccessEventTest extends \PHPUnit_Framework_TestCase
     private $event;
 
     /**
-     * @var CartWrapper
+     * @var CardWrapper
      *
-     * Cart wrapper
+     * Card wrapper
      */
-    private $cartWrapper;
+    private $cardWrapper;
 
     /**
      * @var PaymentBridge

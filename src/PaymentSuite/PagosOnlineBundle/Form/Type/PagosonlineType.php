@@ -25,7 +25,7 @@ class PagosonlineType extends AbstractType
     /*
      * @var PaymentBridgeInterface
      *
-     * Cart Wrapper
+     * Card Wrapper
      */
     private $paymentBridge;
 

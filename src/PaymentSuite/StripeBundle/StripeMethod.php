@@ -40,37 +40,37 @@ class StripeMethod implements PaymentMethodInterface
     /**
      * @var string
      *
-     * Credit Cart number
+     * Credit Card number
      */
-    private $creditCartNumber;
+    private $creditCardNumber;
 
     /**
      * @var string
      *
-     * Credit cart owner
+     * Credit card owner
      */
-    private $creditCartOwner;
+    private $creditCardOwner;
 
     /**
      * @var integer
      *
-     * Credit cart expiration year
+     * Credit card expiration year
      */
-    private $creditCartExpirationYear;
+    private $creditCardExpirationYear;
 
     /**
      * @var integer
      *
-     * Credit cart expiration month value
+     * Credit card expiration month value
      */
-    private $creditCartExpirationMonth;
+    private $creditCardExpirationMonth;
 
     /**
      * @var string
      *
-     * Credit cart security value
+     * Credit card security value
      */
-    private $creditCartSecurity;
+    private $creditCardSecurity;
 
     /**
      * @var integer
@@ -94,123 +94,123 @@ class StripeMethod implements PaymentMethodInterface
     private $transactionStatus;
 
     /**
-     * set Credit cart number
+     * set Credit card number
      *
-     * @param string $creditCartNumber Credit cart number
+     * @param string $creditCardNumber Credit card number
      *
      * @return StripeMethod self Object
      */
-    public function setCreditCartNumber($creditCartNumber)
+    public function setCreditCardNumber($creditCardNumber)
     {
-        $this->creditCartNumber = $creditCartNumber;
+        $this->creditCardNumber = $creditCardNumber;
 
         return $this;
     }
 
     /**
-     * Get Credit cart number
+     * Get Credit card number
      *
-     * @return string Credit cart number
+     * @return string Credit card number
      */
-    public function getCreditCartNumber()
+    public function getCreditCardNumber()
     {
-        return $this->creditCartNumber;
+        return $this->creditCardNumber;
     }
 
     /**
-     * set Credit cart owner
+     * set Credit card owner
      *
-     * @param string $creditCartOwner Credit cart owner
+     * @param string $creditCardOwner Credit card owner
      *
      * @return StripeMethod self Object
      */
-    public function setCreditCartOwner($creditCartOwner)
+    public function setCreditCardOwner($creditCardOwner)
     {
-        $this->creditCartOwner = $creditCartOwner;
+        $this->creditCardOwner = $creditCardOwner;
 
         return $this;
     }
 
     /**
-     * Get Credit cart owner
+     * Get Credit card owner
      *
-     * @return string Credit cart owner
+     * @return string Credit card owner
      */
-    public function getCreditCartOwner()
+    public function getCreditCardOwner()
     {
-        return $this->creditCartOwner;
+        return $this->creditCardOwner;
     }
 
     /**
-     * set Credit cart expiration year
+     * set Credit card expiration year
      *
-     * @param integer $creditCartExpirationYear Credit cart expiration year
+     * @param integer $creditCardExpirationYear Credit card expiration year
      *
      * @return StripeMethod self Object
      */
-    public function setCreditCartExpirationYear($creditCartExpirationYear)
+    public function setCreditCardExpirationYear($creditCardExpirationYear)
     {
-        $this->creditCartExpirationYear = $creditCartExpirationYear;
+        $this->creditCardExpirationYear = $creditCardExpirationYear;
 
         return $this;
     }
 
     /**
-     * Get Credit cart expiration year
+     * Get Credit card expiration year
      *
-     * @return integer Credit cart expiration year
+     * @return integer Credit card expiration year
      */
-    public function getCreditCartExpirationYear()
+    public function getCreditCardExpirationYear()
     {
-        return $this->creditCartExpirationYear;
+        return $this->creditCardExpirationYear;
     }
 
     /**
-     * set Credit cart expiration month
+     * set Credit card expiration month
      *
-     * @param integer $creditCartExpirationMonth Credit cart expiration month
+     * @param integer $creditCardExpirationMonth Credit card expiration month
      *
      * @return StripeMethod self Object
      */
-    public function setCreditCartExpirationMonth($creditCartExpirationMonth)
+    public function setCreditCardExpirationMonth($creditCardExpirationMonth)
     {
-        $this->creditCartExpirationMonth = $creditCartExpirationMonth;
+        $this->creditCardExpirationMonth = $creditCardExpirationMonth;
 
         return $this;
     }
 
     /**
-     * Get Credit cart expiration month
+     * Get Credit card expiration month
      *
-     * @return integer Credit cart expiration month
+     * @return integer Credit card expiration month
      */
-    public function getCreditCartExpirationMonth()
+    public function getCreditCardExpirationMonth()
     {
-        return $this->creditCartExpirationMonth;
+        return $this->creditCardExpirationMonth;
     }
 
     /**
-     * set Credit cart security
+     * set Credit card security
      *
-     * @param string $creditCartSecurity Credit cart security
+     * @param string $creditCardSecurity Credit card security
      *
      * @return StripeMethod self Object
      */
-    public function setCreditCartSecurity($creditCartSecurity)
+    public function setCreditCardSecurity($creditCardSecurity)
     {
-        $this->creditCartSecurity = $creditCartSecurity;
+        $this->creditCardSecurity = $creditCardSecurity;
 
         return $this;
     }
 
     /**
-     * Get Credit cart security
+     * Get Credit card security
      *
-     * @return float Credit cart security
+     * @return float Credit card security
      */
-    public function getCreditCartSecurity()
+    public function getCreditCardSecurity()
     {
-        return $this->creditCartSecurity;
+        return $this->creditCardSecurity;
     }
 
     /**

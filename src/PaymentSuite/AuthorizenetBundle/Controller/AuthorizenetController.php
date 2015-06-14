@@ -68,9 +68,9 @@ class AuthorizenetController extends Controller
             $data = $form->getData();
             $paymentMethod = new AuthorizenetMethod();
             $paymentMethod
-                ->setCreditCartNumber($data['credit_cart'])
-                ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
-                ->setCreditCartExpirationYear($data['credit_cart_expiration_year']);
+                ->setCreditCardNumber($data['credit_card'])
+                ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
+                ->setCreditCardExpirationYear($data['credit_card_expiration_year']);
             try {
                 $this->get('authorizenet.manager')->processPayment($paymentMethod);
 

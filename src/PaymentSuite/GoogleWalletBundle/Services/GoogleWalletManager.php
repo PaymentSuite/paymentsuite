@@ -74,14 +74,14 @@ class GoogleWalletManager
     public function generateToken()
     {
         $extraData = $this->paymentBridge->getExtraData();
-        $cartAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
+        $cardAmount = (float) number_format(($this->paymentBridge->getAmount() / 100), 2, '.', '');
 
         $payload = new Payload();
         $payload->setIssuedAt(time());
         $payload->setExpiration(time()+3600);
         $payload->addProperty("name", $extraData['order_name']);
         $payload->addProperty("description", $extraData['order_description']);
-        $payload->addProperty("price", $cartAmount);
+        $payload->addProperty("price", $cardAmount);
         $payload->addProperty("currencyCode", $this->paymentBridge->getCurrency());
 
         $token = $payload->CreatePayload($this->merchantId);

@@ -10,17 +10,17 @@
     <div class="form-row">
         <label>
             <span>Card number</span>
-            {{ form_widget(authorizenet_form.credit_cart, {'attr': {'data-authorizenet': 'number'}}) }}
+            {{ form_widget(authorizenet_form.credit_card, {'attr': {'data-authorizenet': 'number'}}) }}
         </label>
     </div>
 
     <div class="form-row">
         <label>
             <span>Expiration (MM/YY)</span>
-            {{ form_widget(authorizenet_form.credit_cart_expiration_month, {'attr': {'data-authorizenet': 'exp-month'}}) }}
+            {{ form_widget(authorizenet_form.credit_card_expiration_month, {'attr': {'data-authorizenet': 'exp-month'}}) }}
         </label>
         <span> / </span>
-        {{ form_widget(authorizenet_form.credit_cart_expiration_year, {'attr': {'data-authorizenet': 'exp-year'}}) }}
+        {{ form_widget(authorizenet_form.credit_card_expiration_year, {'attr': {'data-authorizenet': 'exp-year'}}) }}
     </div>
 
     <button type="submit" id="payment-submit">Submit Payment</button>

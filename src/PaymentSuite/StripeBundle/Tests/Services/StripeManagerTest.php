@@ -34,37 +34,37 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var integer
      *
-     * Cart amount
+     * Card amount
      */
-    const CART_AMOUNT = 50000;
+    const CARD_AMOUNT = 50000;
 
     /**
      * @var integer
      *
-     * Cart number
+     * Card number
      */
-    const CART_NUMBER = 4242424242424242;
+    const CARD_NUMBER = 4242424242424242;
 
     /**
      * @var integer
      *
-     * Cart expire month
+     * Card expire month
      */
-    const CART_EXPIRE_MONTH = 12;
+    const CARD_EXPIRE_MONTH = 12;
 
     /**
      * @var integer
      *
-     * Cart expire year
+     * Card expire year
      */
-    const CART_EXPIRE_YEAR = 2017;
+    const CARD_EXPIRE_YEAR = 2017;
 
     /**
      * @var string
      *
-     * Cart description
+     * Card description
      */
-    const CART_DESCRIPTION = 'This is my cart description';
+    const CARD_DESCRIPTION = 'This is my card description';
 
     /**
      * @var StripeManager
@@ -172,7 +172,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->stripeManager->processPayment($this->stripeMethod, self::CART_AMOUNT);
+        $this->stripeManager->processPayment($this->stripeMethod, self::CARD_AMOUNT);
     }
 
     /**
@@ -212,17 +212,17 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::CARD_AMOUNT));
 
-        $cart = array(
+        $card = array(
             'number' => '',
             'exp_month' => '',
             'exp_year' => '',
         );
 
         $chargeParams = array(
-            'card' => $cart,
-            'amount' => self::CART_AMOUNT,
+            'card' => $card,
+            'amount' => self::CARD_AMOUNT,
             'currency' => strtolower(self::CURRENCY),
         );
 
@@ -265,7 +265,7 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('notifyPaymentOrderSuccess');
 
-        $this->stripeManager->processPayment($this->stripeMethod, self::CART_AMOUNT);
+        $this->stripeManager->processPayment($this->stripeMethod, self::CARD_AMOUNT);
     }
 
     /**
@@ -277,20 +277,20 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->stripeMethod
             ->expects($this->once())
-            ->method('getCreditCartNumber')
-            ->will($this->returnValue(self::CART_NUMBER));
+            ->method('getCreditCardNumber')
+            ->will($this->returnValue(self::CARD_NUMBER));
 
         $this
             ->stripeMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationMonth')
-            ->will($this->returnValue(self::CART_EXPIRE_MONTH));
+            ->method('getCreditCardExpirationMonth')
+            ->will($this->returnValue(self::CARD_EXPIRE_MONTH));
 
         $this
             ->stripeMethod
             ->expects($this->once())
-            ->method('getCreditCartExpirationYear')
-            ->will($this->returnValue(self::CART_EXPIRE_YEAR));
+            ->method('getCreditCardExpirationYear')
+            ->will($this->returnValue(self::CARD_EXPIRE_YEAR));
 
         $this
             ->paymentBridge
@@ -322,17 +322,17 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->paymentBridge
             ->expects($this->once())
             ->method('getAmount')
-            ->will($this->returnValue(self::CART_AMOUNT));
+            ->will($this->returnValue(self::CARD_AMOUNT));
 
-        $cart = array(
-            'number' => self::CART_NUMBER,
-            'exp_month' => self::CART_EXPIRE_MONTH,
-            'exp_year' => self::CART_EXPIRE_YEAR,
+        $card = array(
+            'number' => self::CARD_NUMBER,
+            'exp_month' => self::CARD_EXPIRE_MONTH,
+            'exp_year' => self::CARD_EXPIRE_YEAR,
         );
 
         $chargeParams = array(
-            'card' => $cart,
-            'amount' => self::CART_AMOUNT,
+            'card' => $card,
+            'amount' => self::CARD_AMOUNT,
             'currency' => strtolower(self::CURRENCY),
         );
 
@@ -375,6 +375,6 @@ class StripeManagerTest extends \PHPUnit_Framework_TestCase
             ->method('notifyPaymentOrderSuccess')
             ->with($this->equalTo($this->paymentBridge), $this->equalTo($this->stripeMethod));
 
-        $this->stripeManager->processPayment($this->stripeMethod, self::CART_AMOUNT);
+        $this->stripeManager->processPayment($this->stripeMethod, self::CARD_AMOUNT);
     }
 }
