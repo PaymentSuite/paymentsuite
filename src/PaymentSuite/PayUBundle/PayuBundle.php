@@ -16,7 +16,7 @@ namespace PaymentSuite\PayUBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use PaymentSuite\PayuBundle\DependencyInjection\Compiler\SerializerPass;
+use PaymentSuite\PayUBundle\DependencyInjection\Compiler\SerializerPass;
 
 /**
  * Payu payment bundle
