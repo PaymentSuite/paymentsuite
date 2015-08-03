@@ -46,7 +46,7 @@ class SafetypayController extends controller
         $paymentBridge = $this->get('payment.bridge');
 
         /**
-         * New order from cart must be created right here
+         * New order from card must be created right here
          */
         $this->get('payment.event.dispatcher')->notifyPaymentOrderLoad($paymentBridge, $paymentMethod);
 
@@ -108,7 +108,7 @@ class SafetypayController extends controller
                ->createView();
 
         } catch (PaymentException $e) {
-            return $this->redirect($this->generateUrl('cart_fail', array('order_id' => $this->get('payment.bridge')->getOrderId())));
+            return $this->redirect($this->generateUrl('card_fail', array('order_id' => $this->get('payment.bridge')->getOrderId())));
         }
         $this->get('payment.event.dispatcher')->notifyPaymentOrderDone($paymentBridge, $paymentMethod);
 

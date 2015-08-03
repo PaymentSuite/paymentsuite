@@ -90,10 +90,10 @@ class StripeController extends Controller
         $paymentMethod = new StripeMethod();
         $paymentMethod
             ->setApiToken($data['api_token'])
-            ->setCreditCartNumber($data['credit_cart'])
-            ->setCreditCartExpirationMonth($data['credit_cart_expiration_month'])
-            ->setCreditCartExpirationYear($data['credit_cart_expiration_year'])
-            ->setCreditCartSecurity($data['credit_cart_security']);
+            ->setCreditCardNumber($data['credit_card'])
+            ->setCreditCardExpirationMonth($data['credit_card_expiration_month'])
+            ->setCreditCardExpirationYear($data['credit_card_expiration_year'])
+            ->setCreditCardSecurity($data['credit_card_security']);
 
         return $paymentMethod;
     }

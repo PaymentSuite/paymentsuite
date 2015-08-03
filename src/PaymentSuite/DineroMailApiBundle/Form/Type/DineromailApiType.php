@@ -25,7 +25,7 @@ class DineromailApiType extends AbstractType
     /*
      * @var PaymentBridgeInterface
      *
-     * Cart Wrapper
+     * Card Wrapper
      */
     private $paymentBridge;
 
