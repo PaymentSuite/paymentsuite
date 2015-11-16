@@ -13,7 +13,11 @@
 
 namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 use PaymentSuite\PaymentCoreBundle\PaymentCoreEvents;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
@@ -22,9 +26,9 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PaymentBridge
+     * @var PaymentBridgeInterface
      *
-     * Order Wrapper
+     * Payment bridge
      */
     private $paymentBridge;
 
@@ -36,7 +40,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     private $paymentMethod;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      *
      * Event dispatcher
      */
@@ -47,12 +51,8 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
         $this->eventDispatcher = $this
-            ->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
-            ->setMethods(array(
-                'dispatch'
-            ))
+            ->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -68,10 +68,16 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_LOAD), $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent'));
+            ->with(
+                $this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_LOAD),
+                $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderLoadEvent')
+            );
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
-        $paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $this->paymentMethod);
+        $paymentEventDispatcher->notifyPaymentOrderLoad(
+            $this->paymentBridge,
+            $this->paymentMethod
+        );
     }
 
     /**
@@ -82,10 +88,16 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_CREATED), $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderCreatedEvent'));
+            ->with($this->equalTo(
+                PaymentCoreEvents::PAYMENT_ORDER_CREATED),
+                $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderCreatedEvent')
+            );
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
-        $paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $this->paymentMethod);
+        $paymentEventDispatcher->notifyPaymentOrderCreated(
+            $this->paymentBridge,
+            $this->paymentMethod
+        );
     }
 
     /**
@@ -96,10 +108,16 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_DONE), $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderDoneEvent'));
+            ->with(
+                $this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_DONE),
+                $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderDoneEvent')
+            );
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
-        $paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $this->paymentMethod);
+        $paymentEventDispatcher->notifyPaymentOrderDone(
+            $this->paymentBridge,
+            $this->paymentMethod
+        );
     }
 
     /**
@@ -110,10 +128,16 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_SUCCESS), $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent'));
+            ->with(
+                $this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_SUCCESS),
+                $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent')
+            );
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
-        $paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $this->paymentMethod);
+        $paymentEventDispatcher->notifyPaymentOrderSuccess(
+            $this->paymentBridge,
+            $this->paymentMethod
+        );
     }
 
     /**
@@ -124,9 +148,15 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_FAIL), $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent'));
+            ->with(
+                $this->equalTo(PaymentCoreEvents::PAYMENT_ORDER_FAIL),
+                $this->isInstanceOf('PaymentSuite\PaymentCoreBundle\Event\PaymentOrderFailEvent')
+            );
 
         $paymentEventDispatcher = new PaymentEventDispatcher($this->eventDispatcher);
-        $paymentEventDispatcher->notifyPaymentOrderFail($this->paymentBridge, $this->paymentMethod);
+        $paymentEventDispatcher->notifyPaymentOrderFail(
+            $this->paymentBridge,
+            $this->paymentMethod
+        );
     }
 }

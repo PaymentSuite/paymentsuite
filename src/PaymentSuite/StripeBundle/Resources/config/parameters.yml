@@ -1,7 +1,0 @@
-parameters:
-    stripe.api.endpoint: "https://api.stripe.com/"
-    stripe.form.type.class: "PaymentSuite\\StripeBundle\\Form\\Type\\StripeType"
-    stripe.transaction.wrapper.class: "PaymentSuite\\StripeBundle\\Services\\Wrapper\\StripeTransactionWrapper"
-    stripe.manager.class: "PaymentSuite\\StripeBundle\\Services\\StripeManager"
-    stripe.twig.extension.class: "PaymentSuite\\StripeBundle\\Twig\\StripeExtension"
-    stripe.routes.loader.class: "PaymentSuite\\StripeBundle\\Router\\StripeRoutesLoader"

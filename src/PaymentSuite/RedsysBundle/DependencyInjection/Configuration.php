@@ -14,14 +14,15 @@
 namespace PaymentSuite\RedsysBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractPaymentSuiteConfiguration
 {
     /**
      * {@inheritDoc}
@@ -44,48 +45,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('url')
                     ->defaultValue('https://sis.redsys.es/sis/realizarPago')
                 ->end()
-                ->arrayNode('payment_success')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('path')
-                            ->defaultValue('/payment/redsys/checkout/ok')
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('payment_fail')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('path')
-                            ->defaultValue('/payment/redsys/checkout/ko')
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('card_id')
-                        ->end()
-                    ->end()
-                ->end()
-                ->scalarNode('controller_execute_route')
-                    ->defaultValue('/payment/redsys/execute')
-                ->end()
-                ->scalarNode('controller_result_route')
-                    ->defaultValue('/payment/redsys/result')
-                ->end()
-            ->end()
-        ;
+                ->append($this->addRouteConfiguration('payment_success'))
+                ->append($this->addRouteConfiguration('payment_failure'))
+            ->end();
 
         return $treeBuilder;
     }

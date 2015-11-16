@@ -13,19 +13,90 @@
 
 namespace PaymentSuite\PaypalExpressCheckoutBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\PaypalExpressCheckout\PaypalExpressCheckoutMethod;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\PaypalExpressCheckoutBundle\Services\PaypalExpressCheckoutManager;
+use PaymentSuite\PaypalExpressCheckoutBundle\Services\PaypalExpressCheckoutMethodFactory;
 
 /**
  * PaypalExpressCheckoutController
  */
 class PaypalExpressCheckoutController extends Controller
 {
+    /**
+     * @var PaypalExpressCheckoutManager
+     *
+     * Payment manager
+     */
+    private $paypalExpressCheckoutManager;
+
+    /**
+     * @var PaymentBridgeInterface
+     *
+     * Payment bridge
+     */
+    private $paymentBridge;
+
+    /**
+     * @var CompleteRedirectionRoute
+     *
+     * Redirection routes
+     */
+    private $redirectionRoutes;
+
+    /**
+     * @var UrlGeneratorInterface
+     *
+     * Url generator
+     */
+    private $urlGenerator;
+
+    /**
+     * @var FormFactory
+     *
+     * Form factory
+     */
+    private $formFactory;
+
+    /**
+     * @var PaypalExpressCheckoutMethodFactory
+     *
+     * Method factory
+     */
+    private $paypalExpressCheckoutMethodFactory;
+
+    /**
+     * Construct
+     *
+     * @param PaypalExpressCheckoutManager       $paypalExpressCheckoutManager       Payment manager
+     * @param PaymentBridgeInterface             $paymentBridge                      Payment bridge
+     * @param CompleteRedirectionRoute           $redirectionRoutes                  Redirection routes
+     * @param UrlGeneratorInterface              $urlGenerator                       Url generator
+     * @param FormFactory                        $formFactory                        Form factory
+     * @param PaypalExpressCheckoutMethodFactory $paypalExpressCheckoutMethodFactory Method factory
+     */
+    public function __construct(
+        PaypalExpressCheckoutManager $paypalExpressCheckoutManager,
+        PaymentBridgeInterface $paymentBridge,
+        CompleteRedirectionRoute $redirectionRoutes,
+        UrlGeneratorInterface $urlGenerator,
+        FormFactory $formFactory,
+        PaypalExpressCheckoutMethodFactory $paypalExpressCheckoutMethodFactory
+    ) {
+        $this->paypalExpressCheckoutManager = $paypalExpressCheckoutManager;
+        $this->paymentBridge = $paymentBridge;
+        $this->redirectionRoutes = $redirectionRoutes;
+        $this->urlGenerator = $urlGenerator;
+        $this->formFactory = $formFactory;
+        $this->paypalExpressCheckoutMethodFactory = $paypalExpressCheckoutMethodFactory;
+    }
+
     /**
      * Payment execution
      *
@@ -37,54 +108,47 @@ class PaypalExpressCheckoutController extends Controller
      */
     public function executeAction(Request $request)
     {
-        $form = $this->get('form.factory')->create('paypal_express_checkout_view');
+        $form = $this
+            ->formFactory
+            ->create('paypal_express_checkout_view');
         $form->handleRequest($request);
+
+        $redirectRoute = $this
+            ->redirectionRoutes
+            ->getSuccessRedirectRoute();
 
         try {
             $data = $form->getData();
-            $paymentMethod = $this->createPaypalExpressCheckoutMethod($data);
+
+            $paymentMethod = $this
+                ->paypalExpressCheckoutMethodFactory
+                ->create(
+                    $data['amount'],
+                    $data['currency'],
+                    $data['paypal_express_params']
+                );
             $this
                 ->get('paypal_express_checkout.manager')
                 ->preparePayment($paymentMethod);
-
-            $redirectUrl = $this->container->getParameter('paypal_express_checkout.success.route');
-            $redirectAppend = $this->container->getParameter('paypal_express_checkout.success.order.append');
-            $redirectAppendField = $this->container->getParameter('paypal_express_checkout.success.order.field');
-
         } catch (PaymentException $e) {
 
             /**
              * Must redirect to fail route
              */
-            $redirectUrl = $this->container->getParameter('paypal_express_checkout.fail.route');
-            $redirectAppend = $this->container->getParameter('paypal_express_checkout.fail.order.append');
-            $redirectAppendField = $this->container->getParameter('paypal_express_checkout.fail.order.field');
+            $redirectRoute = $this
+                ->redirectionRoutes
+                ->getFailureRedirectRoute();
         }
 
-        $redirectData   = $redirectAppend
-                        ? array(
-                            $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
-                        )
-                        : array();
+        $redirectUrl = $this
+            ->urlGenerator
+            ->generate(
+                $redirectRoute->getRoute(),
+                $redirectRoute->getRouteAttributes(
+                    $this->paymentBridge->getOrderId()
+                )
+            );
 
-        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
-    }
-
-    /**
-     * Given some data, creates a PaymillMethod object
-     *
-     * @param array $data Data
-     *
-     * @return PaymillMethod PaymillMethod instance
-     */
-    private function createPaypalExpressCheckoutMethod(array $data)
-    {
-        $paymentMethod = new PaypalExpressCheckoutMethod();
-        $paymentMethod->setAmount($data['amount'])
-            ->setCurrency($data['currency'])
-            ->setSomeExtraData($data['paypal_express_params'])
-        ;
-
-        return $paymentMethod;
+        return new RedirectResponse($redirectUrl);
     }
 }

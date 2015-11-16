@@ -1,3 +1,21 @@
-redsys_routes:
-    resource: .
-    type: redsys
+paymentsuite_redsys_execute:
+    path: /payment/redsys/execute
+    defaults:
+        _controller: paymentsuite.redsys.payment_controller:executeAction
+    methods: ["GET"]
+
+paymentsuite_redsys_result:
+    path: /payment/redsys/result
+    defaults:
+        _controller: paymentsuite.redsys.result_controller:resultAction
+    methods: ["POST"]
+
+paymentsuite_redsys_success:
+    path: /payment/redsys/success
+    defaults:
+        _controller: paymentsuite.redsys.response_controller:successAction
+
+paymentsuite_redsys_failure:
+    path: /payment/redsys/failure
+    defaults:
+        _controller: paymentsuite.redsys.response_controller:failureAction

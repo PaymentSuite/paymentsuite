@@ -13,12 +13,23 @@
 
 namespace PaymentSuite\FreePaymentBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\FreePaymentBundle\DependencyInjection\FreePaymentExtension;
 
 /**
  * Free payment bundle
  */
 class FreePaymentBundle extends Bundle
 {
-
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new FreePaymentExtension();
+    }
 }

@@ -1,13 +1,25 @@
-Payment Suite Project
-=====================
+PaymentCore Bundle
+==================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef/mini.png)](https://insight.sensiolabs.com/projects/feb497c4-5387-495a-a597-8584de653eef)
-[![Build Status](https://travis-ci.org/PaymentSuite/PaymentCoreBundle.png?branch=master)](https://travis-ci.org/PaymentSuite/PaymentCoreBundle)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/PaymentCoreBundle/badges/quality-score.png?s=a08e1ecc7e7904effdc3682a790ead2fbc39b029)](https://scrutinizer-ci.com/g/PaymentSuite/PaymentCoreBundle/)
-[![Latest Stable Version](https://poser.pugx.org/paymentsuite/payment-core-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/payment-core-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/payment-core-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/payment-core-bundle)
-[![Dependency Status](https://www.versioneye.com/user/projects/52d968bcec13750ec70002fc/badge.png)](https://www.versioneye.com/user/projects/52d968bcec13750ec70002fc)
-[![Total Downloads](https://poser.pugx.org/paymentsuite/payment-core-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/payment-core-bundle)
+This package is part of
+[Paymentsuite](http://github.com/paymentsuite/paymentsuite) project, a suite of 
+e-commerce Payment Bundles built on top of Symfony and under
+[MIT](http://opensource.org/licenses/MIT) license.
 
-Docs are hosted at readthedocs.org: [Payment Suite docs](http://docs.paymentsuite.org)
+> Warning. This package is Read-Only. This means that we'll not attend any Pull 
+> Request received here. Please, use the main paymentsuite/paymentsuite package
+> for Issues, Questions and Pull Requests.
 
+### Tags
+
+* Use last unstable version ( alias of `dev-master` ) to stay always in last 
+commit
+* Use last stable version tag to stay in a stable release.
+
+### Support
+
+* You can ask your questions to the community in 
+[Gitter](http://gitter.im/paymentsuite/paymentsuite) and we'll try to help you 
+as much as possible
+* Look for some help on [Stackoverflow](http://stackoverflow.com)
+* As a last resort, look at [google](http://google.com)!

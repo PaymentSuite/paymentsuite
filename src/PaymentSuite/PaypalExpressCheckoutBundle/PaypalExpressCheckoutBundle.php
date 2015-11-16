@@ -13,12 +13,23 @@
 
 namespace PaymentSuite\PaypalExpressCheckoutBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\PaypalExpressCheckoutBundle\DependencyInjection\PaypalExpressCheckoutExtension;
 
 /**
  * Paypal payment bundle
  */
 class PaypalExpressCheckoutBundle extends Bundle
 {
-
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new PaypalExpressCheckoutExtension();
+    }
 }

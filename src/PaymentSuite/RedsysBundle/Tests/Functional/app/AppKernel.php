@@ -10,6 +10,7 @@
  *
  * @author Marc Morera <yuhu@mmoreram.com>
  */
+
 namespace PaymentSuite\RedsysBundle\Tests\Functional\app;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -26,13 +27,13 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
             new \PaymentSuite\PaymentCoreBundle\PaymentCoreBundle(),
             new \PaymentSuite\RedsysBundle\RedsysBundle(),
-        );
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

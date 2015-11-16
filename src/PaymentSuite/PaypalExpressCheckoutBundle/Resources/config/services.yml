@@ -1,32 +1,19 @@
 services:
-    paypal_express_checkout.routes.loader:
-        class: %paypal_express_checkout.routes.loader.class%
-        arguments:
-            paypal_express_checkout.controller.route.name: %paypal_express_checkout.controller.route.name%
-            paypal_express_checkout.controller.route: %paypal_express_checkout.controller.route%
-        tags:
-            - { name: routing.loader }
 
-    paypal_express_checkout.wrapper:
-        class: %paypal_express_checkout.wrapper.class%
+    #
+    # Services
+    #
+    paymentsuite.paypal_express_checkout.manager:
+        class: PaymentSuite\PaypalExpressCheckoutBundle\Services\PaypalExpressCheckoutManager
         arguments:
-            name: %paypal_express_checkout.username%
-            password: %paypal_express_checkout.password%
-            signature: %paypal_express_checkout.signature%
-            endpoint: %paypal_express_checkout.api_endpoint%
-            debug: %paypal_express_checkout.debug%
+            - @paymentsuite.event_dispatcher
+            - @paymentsuite.bridge
+            - @paymentsuite.paypal_express_checkout.requester
 
-    paypal_express_checkout.manager:
-        class: %paypal_express_checkout.manager.class%
+    paymentsuite.paypal_express_checkout.twig_extension:
+        class: PaymentSuite\PaypalExpressCheckoutBundle\Twig\PaypalExpressCheckoutExtension
         arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            payment.transaction.wrapper: @paypal_express_checkout.wrapper
-            payment.bridge: @payment.bridge
-
-    paypal_express_checkout.twig.extension:
-        class: %paypal_express_checkout.twig.extension.class%
-        arguments:
-            form.factory: @form.factory
-            payment.bridge: @payment.bridge
+            - @form.factory
+            - @paymentsuite.bridge
         tags:
             - { name: twig.extension }

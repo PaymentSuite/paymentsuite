@@ -16,14 +16,15 @@ namespace PaymentSuite\PaymentCoreBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
  * This is the class that loads and manages your bundle configuration
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PaymentCoreExtension extends Extension
+class PaymentCoreExtension extends AbstractPaymentSuiteExtension
 {
     /**
      * {@inheritDoc}
@@ -33,11 +34,15 @@ class PaymentCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('payment.logger.active', $config['logger']['active']);
-        $container->setParameter('payment.logger.level', $config['logger']['level']);
+        $this->addParameters(
+            $container,
+            '',
+            [
+                'logger' => $config['logger'],
+            ]
+        );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('parameters.yml');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }
 }

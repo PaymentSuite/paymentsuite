@@ -33,16 +33,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('logger')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('active')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('level')
-                            ->defaultValue('info')
-                        ->end()
-                    ->end()
+                ->booleanNode('logger')
+                    ->defaultTrue()
                 ->end()
             ->end();
 

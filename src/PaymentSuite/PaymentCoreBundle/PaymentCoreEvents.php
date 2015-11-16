@@ -16,7 +16,7 @@ namespace PaymentSuite\PaymentCoreBundle;
 /**
  * This class define all events thrown by all payment method
  */
-class PaymentCoreEvents
+final class PaymentCoreEvents
 {
     /**
      * This event is thrown when an order must be created.

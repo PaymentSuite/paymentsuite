@@ -1,37 +1,33 @@
 services:
-    stripe.form.type:
-        class: %stripe.form.type.class%
+    paymentsuite.stripe.form_type:
+        class: PaymentSuite\StripeBundle\Form\Type\StripeType
         arguments:
-            payment.bridge: @payment.bridge
+            - @paymentsuite.bridge
         tags:
             - { name: form.type, alias: stripe_view }
 
-    stripe.transaction.wrapper:
-        class: %stripe.transaction.wrapper.class%
+    paymentsuite.stripe.transaction_factory:
+        class: PaymentSuite\StripeBundle\Services\StripeTransactionFactory
         arguments:
-            stripe.private.key: %stripe.private.key%
+            - %paymentsuite.stripe.private_key%
 
-    stripe.manager:
-        class: %stripe.manager.class%
+    paymentsuite.stripe.manager:
+        class: PaymentSuite\StripeBundle\Services\StripeManager
         arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            stripe.transaction.wrapper: @stripe.transaction.wrapper
-            payment.bridge: @payment.bridge
+            - @paymentsuite.stripe.transaction_factory
+            - @paymentsuite.bridge
+            - @paymentsuite.event_dispatcher
 
-    stripe.twig.extension:
-        class: %stripe.twig.extension.class%
+    paymentsuite.stripe.method_factory:
+        class: PaymentSuite\StripeBundle\Services\StripeMethodFactory
+
+    paymentsuite.stripe.twig_extension:
+        class: PaymentSuite\StripeBundle\Twig\StripeExtension
         arguments:
-            stripe.public.key: %stripe.public.key%
-            form.factory: @form.factory
-            payment.bridge: @payment.bridge
-            view_template: %stripe.templates.view_template%
-            scripts_template: %stripe.templates.scripts_template%
+            - @paymentsuite.bridge
+            - @form.factory
+            - %paymentsuite.stripe.public_key%
+            - %paymentsuite.stripe.view_template%
+            - %paymentsuite.stripe.scripts_template%
         tags:
             - { name: twig.extension }
-
-    stripe.routes.loader:
-        class: %stripe.routes.loader.class%
-        arguments:
-            stripe.controller.route: %stripe.controller.route%
-        tags:
-            - { name: routing.loader }

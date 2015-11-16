@@ -18,5 +18,4 @@ namespace PaymentSuite\PaymentCoreBundle\Exception;
  */
 class PaymentDuplicatedException extends PaymentException
 {
-
 }

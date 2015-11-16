@@ -13,8 +13,6 @@
 
 namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 
-use Psr\Log\LoggerInterface;
-
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 
 /**
@@ -23,62 +21,30 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 class PaymentLoggerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PaymentLogger
-     *
-     * Payment logger
-     */
-    protected $paymentLogger;
-
-    /**
-     * @var LoggerInterface
-     *
-     * logger
-     */
-    protected $logger;
-
-    /**
-     * @var bool
-     *
-     * active
-     */
-    protected $active;
-
-    /**
-     * @var string
-     *
-     * level
-     */
-    protected $level;
-
-    /**
-     * Set up
-     */
-    protected function setUp()
-    {
-        $this->logger = $this
-            ->getMockBuilder('Psr\Log\LoggerInterface')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $this->active = true;
-        $this->level = 'info';
-
-        $this->paymentLogger = new PaymentLogger($this->logger, $this->active, $this->level);
-    }
-
-    /**
      * Tests log()
      */
     public function testLog()
     {
-        $this->logger
+        $logger = $this
+            ->getMockBuilder('Psr\Log\LoggerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $logger
             ->expects($this->once())
             ->method('log')
-            ->will($this->returnValue(null))
-        ;
+            ->with(
+                $this->equalTo('error'),
+                $this->equalTo('[bundle] - message'),
+                $this->equalTo([])
+            );
 
-        $this->paymentLogger->log('Test payment logger');
+        $paymentLogger = new PaymentLogger($logger, true);
+        $paymentLogger->log(
+            'error',
+            'message',
+            'bundle'
+        );
     }
 
     /**
@@ -86,13 +52,20 @@ class PaymentLoggerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDoNotLog()
     {
-        $this->logger
-            ->expects($this->never())
-            ->method('log')
-            ->will($this->returnValue(null))
-        ;
+        $logger = $this
+            ->getMockBuilder('Psr\Log\LoggerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->paymentLogger->setActive(false);
-        $this->paymentLogger->log('This should not be logged');
+        $logger
+            ->expects($this->never())
+            ->method('log');
+
+        $paymentLogger = new PaymentLogger($logger, false);
+        $paymentLogger->log(
+            'error',
+            'message',
+            'bundle'
+        );
     }
 }

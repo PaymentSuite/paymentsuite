@@ -18,7 +18,6 @@ use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 /**
  * Event for payment failed
  */
-class PaymentOrderFailEvent extends AbstractPaymentEvent
+final class PaymentOrderFailEvent extends AbstractPaymentEvent
 {
-
 }

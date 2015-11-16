@@ -39,24 +39,17 @@ class PaypalExpressCheckoutType extends AbstractType
     private $router;
 
     /**
-     * @var string
-     *
-     * Execution route name
-     */
-    private $controllerRouteName;
-
-    /**
      * Formtype construct method
      *
-     * @param Router                 $router              Router instance
-     * @param PaymentBridgeInterface $paymentBridge       Payment bridge
-     * @param string                 $controllerRouteName Controller route name
+     * @param Router                 $router        Router instance
+     * @param PaymentBridgeInterface $paymentBridge Payment bridge
      */
-    public function __construct(Router $router, PaymentBridgeInterface $paymentBridge, $controllerRouteName)
-    {
+    public function __construct(
+        Router $router,
+        PaymentBridgeInterface $paymentBridge
+    ) {
         $this->paymentBridge = $paymentBridge;
         $this->router = $router;
-        $this->controllerRouteName = $controllerRouteName;
     }
 
     /**
@@ -68,21 +61,28 @@ class PaypalExpressCheckoutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction($this->router->generate($this->controllerRouteName, array(), true))
+            ->setAction($this
+                ->router
+                ->generate(
+                    'paymentsuite_paypalexpresscheckout_execute',
+                    [],
+                    true
+                )
+            )
             ->setMethod('POST')
 
             /**
              * Some hidden fields
              */
-            ->add('amount', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getAmount()
-            ))
-            ->add('currency', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getCurrency()
-            ))
-            ->add('paypal_express_params', 'hidden', array(
-                'data'  => $options['paypal_express_params']
-            ))
+            ->add('amount', 'hidden', [
+                'data'  =>  $this->paymentBridge->getAmount(),
+            ])
+            ->add('currency', 'hidden', [
+                'data'  =>  $this->paymentBridge->getCurrency(),
+            ])
+            ->add('paypal_express_params', 'hidden', [
+                'data'  => $options['paypal_express_params'],
+            ])
             ->add('submit', 'submit');
     }
 

@@ -18,7 +18,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 /**
  * StripeMethod class
  */
-class StripeMethod implements PaymentMethodInterface
+final class StripeMethod implements PaymentMethodInterface
 {
     /**
      * Get Stripe method name
@@ -40,37 +40,37 @@ class StripeMethod implements PaymentMethodInterface
     /**
      * @var string
      *
-     * Credit Cart number
+     * Credit Card number
      */
-    private $creditCartNumber;
+    private $creditCardNumber;
 
     /**
      * @var string
      *
-     * Credit cart owner
+     * Credit card owner
      */
-    private $creditCartOwner;
+    private $creditCardOwner;
 
     /**
      * @var integer
      *
-     * Credit cart expiration year
+     * Credit card expiration year
      */
-    private $creditCartExpirationYear;
+    private $creditCardExpirationYear;
 
     /**
      * @var integer
      *
-     * Credit cart expiration month value
+     * Credit card expiration month value
      */
-    private $creditCartExpirationMonth;
+    private $creditCardExpirationMonth;
 
     /**
      * @var string
      *
-     * Credit cart security value
+     * Credit card security value
      */
-    private $creditCartSecurity;
+    private $creditCardSecurity;
 
     /**
      * @var integer
@@ -94,143 +94,35 @@ class StripeMethod implements PaymentMethodInterface
     private $transactionStatus;
 
     /**
-     * set Credit cart number
+     * Construct method
      *
-     * @param string $creditCartNumber Credit cart number
-     *
-     * @return StripeMethod self Object
+     * @param string $apiToken                  Api token
+     * @param string $creditCardNumber          Credit card number
+     * @param string $creditCardOwner           Credit card owner
+     * @param string $creditCardExpirationYear  Credit card expiration year
+     * @param string $creditCardExpirationMonth Credit card expiration month
+     * @param string $creditCardSecurity        Credit card security
      */
-    public function setCreditCartNumber($creditCartNumber)
-    {
-        $this->creditCartNumber = $creditCartNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get Credit cart number
-     *
-     * @return string Credit cart number
-     */
-    public function getCreditCartNumber()
-    {
-        return $this->creditCartNumber;
-    }
-
-    /**
-     * set Credit cart owner
-     *
-     * @param string $creditCartOwner Credit cart owner
-     *
-     * @return StripeMethod self Object
-     */
-    public function setCreditCartOwner($creditCartOwner)
-    {
-        $this->creditCartOwner = $creditCartOwner;
-
-        return $this;
-    }
-
-    /**
-     * Get Credit cart owner
-     *
-     * @return string Credit cart owner
-     */
-    public function getCreditCartOwner()
-    {
-        return $this->creditCartOwner;
-    }
-
-    /**
-     * set Credit cart expiration year
-     *
-     * @param integer $creditCartExpirationYear Credit cart expiration year
-     *
-     * @return StripeMethod self Object
-     */
-    public function setCreditCartExpirationYear($creditCartExpirationYear)
-    {
-        $this->creditCartExpirationYear = $creditCartExpirationYear;
-
-        return $this;
-    }
-
-    /**
-     * Get Credit cart expiration year
-     *
-     * @return integer Credit cart expiration year
-     */
-    public function getCreditCartExpirationYear()
-    {
-        return $this->creditCartExpirationYear;
-    }
-
-    /**
-     * set Credit cart expiration month
-     *
-     * @param integer $creditCartExpirationMonth Credit cart expiration month
-     *
-     * @return StripeMethod self Object
-     */
-    public function setCreditCartExpirationMonth($creditCartExpirationMonth)
-    {
-        $this->creditCartExpirationMonth = $creditCartExpirationMonth;
-
-        return $this;
-    }
-
-    /**
-     * Get Credit cart expiration month
-     *
-     * @return integer Credit cart expiration month
-     */
-    public function getCreditCartExpirationMonth()
-    {
-        return $this->creditCartExpirationMonth;
-    }
-
-    /**
-     * set Credit cart security
-     *
-     * @param string $creditCartSecurity Credit cart security
-     *
-     * @return StripeMethod self Object
-     */
-    public function setCreditCartSecurity($creditCartSecurity)
-    {
-        $this->creditCartSecurity = $creditCartSecurity;
-
-        return $this;
-    }
-
-    /**
-     * Get Credit cart security
-     *
-     * @return float Credit cart security
-     */
-    public function getCreditCartSecurity()
-    {
-        return $this->creditCartSecurity;
-    }
-
-    /**
-     * set Api token
-     *
-     * @param string $apiToken Api token
-     *
-     * @return StripeMethod self Object
-     */
-    public function setApiToken($apiToken)
-    {
+    public function __construct(
+        $apiToken,
+        $creditCardNumber,
+        $creditCardOwner,
+        $creditCardExpirationYear,
+        $creditCardExpirationMonth,
+        $creditCardSecurity
+    ) {
         $this->apiToken = $apiToken;
-
-        return $this;
+        $this->creditCardNumber = $creditCardNumber;
+        $this->creditCardOwner = $creditCardOwner;
+        $this->creditCardExpirationYear = $creditCardExpirationYear;
+        $this->creditCardExpirationMonth = $creditCardExpirationMonth;
+        $this->creditCardSecurity = $creditCardSecurity;
     }
 
     /**
-     * Get Api token
+     * Get ApiToken
      *
-     * @return string Api token
+     * @return string ApiToken
      */
     public function getApiToken()
     {
@@ -238,11 +130,71 @@ class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * set Transaction id
+     * Get CreditCardNumber
      *
-     * @param integer $transactionId Transaction id
+     * @return string CreditCardNumber
+     */
+    public function getCreditCardNumber()
+    {
+        return $this->creditCardNumber;
+    }
+
+    /**
+     * Get CreditCardOwner
      *
-     * @return StripeMethod self Object
+     * @return string CreditCardOwner
+     */
+    public function getCreditCardOwner()
+    {
+        return $this->creditCardOwner;
+    }
+
+    /**
+     * Get CreditCardExpirationYear
+     *
+     * @return int CreditCardExpirationYear
+     */
+    public function getCreditCardExpirationYear()
+    {
+        return $this->creditCardExpirationYear;
+    }
+
+    /**
+     * Get CreditCardExpirationMonth
+     *
+     * @return int CreditCardExpirationMonth
+     */
+    public function getCreditCardExpirationMonth()
+    {
+        return $this->creditCardExpirationMonth;
+    }
+
+    /**
+     * Get CreditCardSecurity
+     *
+     * @return string CreditCardSecurity
+     */
+    public function getCreditCardSecurity()
+    {
+        return $this->creditCardSecurity;
+    }
+
+    /**
+     * Get TransactionId
+     *
+     * @return int TransactionId
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId;
+    }
+
+    /**
+     * Sets TransactionId
+     *
+     * @param int $transactionId TransactionId
+     *
+     * @return $this Self object
      */
     public function setTransactionId($transactionId)
     {
@@ -252,21 +204,21 @@ class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Transaction id
+     * Get TransactionResponse
      *
-     * @return integer Transaction id
+     * @return array TransactionResponse
      */
-    public function getTransactionId()
+    public function getTransactionResponse()
     {
-        return $this->transactionId;
+        return $this->transactionResponse;
     }
 
     /**
-     * set Transaction response
+     * Sets TransactionResponse
      *
-     * @param string $transactionResponse Transaction response
+     * @param array $transactionResponse TransactionResponse
      *
-     * @return StripeMethod self Object
+     * @return $this Self object
      */
     public function setTransactionResponse($transactionResponse)
     {
@@ -276,21 +228,21 @@ class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Transaction response
+     * Get TransactionStatus
      *
-     * @return string Transaction response
+     * @return string TransactionStatus
      */
-    public function getTransactionResponse()
+    public function getTransactionStatus()
     {
-        return $this->transactionResponse;
+        return $this->transactionStatus;
     }
 
     /**
-     * set Transaction status
+     * Sets TransactionStatus
      *
-     * @param string $transactionStatus Transaction status
+     * @param string $transactionStatus TransactionStatus
      *
-     * @return StripeMethod self Object
+     * @return $this Self object
      */
     public function setTransactionStatus($transactionStatus)
     {
@@ -298,15 +250,4 @@ class StripeMethod implements PaymentMethodInterface
 
         return $this;
     }
-
-    /**
-     * Get Transaction status
-     *
-     * @return string Transaction status
-     */
-    public function getTransactionStatus()
-    {
-        return $this->transactionStatus;
-    }
-
 }

@@ -1,0 +1,24 @@
+services:
+
+    #
+    # Controllers
+    #
+    paymentsuite.redsys.payment_controller:
+        class: PaymentSuite\RedsysBundle\Controller\PaymentController
+        arguments:
+            - @paymentsuite.redsys.manager
+            - @templating
+
+    paymentsuite.redsys.response_controller:
+        class: PaymentSuite\RedsysBundle\Controller\ResponseController
+        arguments:
+            - @paymentsuite.redsys.routes
+            - @router
+
+    paymentsuite.redsys.result_controller:
+        class: PaymentSuite\RedsysBundle\Controller\ResultController
+        arguments:
+            - @paymentsuite.redsys.manager
+            - @paymentsuite.redsys.routes
+            - @paymentsuite.bridge
+            - @router

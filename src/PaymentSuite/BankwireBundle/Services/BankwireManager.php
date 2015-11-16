@@ -13,7 +13,6 @@
 
 namespace PaymentSuite\BankwireBundle\Services;
 
-use PaymentSuite\BankwireBundle\Services\Wrapper\BankwireMethodWrapper;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
@@ -24,42 +23,41 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 class BankwireManager
 {
     /**
-     * @var PaymentEventDispatcher
+     * @var BankwireMethodFactory
      *
-     * Payment event dispatcher
+     * Bankwire method factory
      */
-    protected $paymentEventDispatcher;
-
-    /**
-     * @var BankwireMethodWrapper
-     *
-     * Bankwire transaction wrapper
-     */
-    protected $bankwireMethodWrapper;
+    private $methodFactory;
 
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
-    protected $paymentBridge;
+    private $paymentBridge;
+
+    /**
+     * @var PaymentEventDispatcher
+     *
+     * Payment event dispatcher
+     */
+    private $paymentEventDispatcher;
 
     /**
      * Construct method for bankwire manager
      *
-     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param BankwireMethodWrapper  $bankwireMethodWrapper  Bankwire method wrapper
+     * @param BankwireMethodFactory  $methodFactory          Bankwire method factory
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      */
     public function __construct(
-        PaymentEventDispatcher $paymentEventDispatcher,
-        BankwireMethodWrapper $bankwireMethodWrapper,
-        PaymentBridgeInterface $paymentBridge
-    )
-    {
-        $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->bankwireMethodWrapper = $bankwireMethodWrapper;
+        BankwireMethodFactory $methodFactory,
+        PaymentBridgeInterface $paymentBridge,
+        PaymentEventDispatcher $paymentEventDispatcher
+    ) {
+        $this->methodFactory = $methodFactory;
         $this->paymentBridge = $paymentBridge;
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
     }
 
     /**
@@ -72,8 +70,8 @@ class BankwireManager
     public function processPayment()
     {
         $bankwireMethod = $this
-            ->bankwireMethodWrapper
-            ->getBankwireMethod();
+            ->methodFactory
+            ->create();
 
         /**
          * At this point, order must be created given a cart, and placed in PaymentBridge
@@ -91,7 +89,6 @@ class BankwireManager
          * Order Not found Exception must be thrown just here
          */
         if (!$this->paymentBridge->getOrder()) {
-
             throw new PaymentOrderNotFoundException();
         }
 
@@ -134,13 +131,14 @@ class BankwireManager
         /**
          * Loads order to validate
          */
-        $this->paymentBridge->findOrder($orderId);
+        $this
+            ->paymentBridge
+            ->findOrder($orderId);
 
         /**
          * Order Not found Exception must be thrown just here
          */
         if (!$this->paymentBridge->getOrder()) {
-
             throw new PaymentOrderNotFoundException();
         }
 
@@ -154,8 +152,50 @@ class BankwireManager
             ->notifyPaymentOrderSuccess(
                 $this->paymentBridge,
                 $this
-                    ->bankwireMethodWrapper
-                    ->getBankwireMethod()
+                    ->methodFactory
+                    ->create()
+            );
+
+        return $this;
+    }
+
+    /**
+     * Decline payment, given an Id of an existing order
+     *
+     * @param integer $orderId Id from order to decline
+     *
+     * @return BankwireManager self Object
+     *
+     * @throws PaymentOrderNotFoundException
+     */
+    public function declinePayment($orderId)
+    {
+        /**
+         * Loads order to validate
+         */
+        $this
+            ->paymentBridge
+            ->findOrder($orderId);
+
+        /**
+         * Order Not found Exception must be thrown just here
+         */
+        if (!$this->paymentBridge->getOrder()) {
+            throw new PaymentOrderNotFoundException();
+        }
+
+        /**
+         * Payment failed
+         *
+         * Paid process has ended with failure
+         */
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderFail(
+                $this->paymentBridge,
+                $this
+                    ->methodFactory
+                    ->create()
             );
 
         return $this;

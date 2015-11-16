@@ -13,11 +13,23 @@
 
 namespace PaymentSuite\RedsysBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\RedsysBundle\DependencyInjection\RedsysExtension;
 
 /**
  * Redsys payment bundle
  */
 class RedsysBundle extends Bundle
 {
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new RedsysExtension();
+    }
 }

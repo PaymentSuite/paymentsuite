@@ -18,13 +18,8 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 /**
  * BankwireMethod class
  */
-class BankwireMethod implements PaymentMethodInterface
+final class BankwireMethod implements PaymentMethodInterface
 {
-    /**
-     * Method name
-     */
-    const METHOD_NAME = 'Bankwire';
-
     /**
      * Get Bankwire method name
      *
@@ -32,6 +27,6 @@ class BankwireMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return self::METHOD_NAME;
+        return 'Bankwire';
     }
 }

@@ -56,7 +56,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
         $this->paymentBridge = $this
             ->getMockBuilder('PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')
             ->disableOriginalConstructor()
@@ -89,12 +88,11 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testParameterNotReceivedException()
     {
-        $parameters = array(
+        $parameters = [
             'Ds_Signature'       => 'X',
-        );
+        ];
 
         $result = $this->redsysManager->processResult($parameters);
-
     }
 
     /**
@@ -102,7 +100,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidSignatureException()
     {
-        $parameters = array(
+        $parameters = [
             'Ds_Date'       => 'X',
             'Ds_Hour'       => 'X',
             'Ds_Terminal'       => '1',
@@ -120,10 +118,9 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_ConsumerLanguage' => 'y',
             'Ds_Card_Type'  => 'y',
 
-        );
+        ];
 
         $this->redsysManager->processResult($parameters);
-
     }
 
     /**
@@ -147,7 +144,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
         $dsSecurePayment = '1';
 
-        $parameters = array(
+        $parameters = [
             'Ds_Date'       => $dsDate,
             'Ds_Hour'       => $dsHour,
             'Ds_Terminal'       => '1',
@@ -165,7 +162,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_ConsumerLanguage' => $dsConsumerLanguage,
             'Ds_Card_Type'  => $dsCardType,
 
-        );
+        ];
 
         $this
             ->paymentEventDispatcher
@@ -236,7 +233,6 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($this->paymentBridge));
 
         $this->redsysManager->processResult($parameters);
-
     }
 
     public function testPaymentSuccess()
@@ -257,7 +253,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
 
         $dsSecurePayment = '1';
 
-        $parameters = array(
+        $parameters = [
             'Ds_Date'       => $dsDate,
             'Ds_Hour'       => $dsHour,
             'Ds_Terminal'       => '1',
@@ -275,7 +271,7 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             'Ds_ConsumerLanguage' => $dsConsumerLanguage,
             'Ds_Card_Type'  => $dsCardType,
 
-        );
+        ];
 
         $this
             ->paymentEventDispatcher
@@ -352,6 +348,5 @@ class RedsysManagerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($this->paymentBridge));
 
         $this->redsysManager->processResult($parameters);
-
     }
 }

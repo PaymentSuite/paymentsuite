@@ -14,6 +14,7 @@
 namespace PaymentSuite\PaypalExpressCheckoutBundle\Twig;
 
 use Symfony\Component\Form\FormFactory;
+use Twig_Environment;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -33,14 +34,7 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
     private $formFactory;
 
     /**
-     * @var Twig_Environment
-     *
-     * Twig environment
-     */
-    private $environment;
-
-    /**
-     * @var PaymentBridgeInterfaces
+     * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
@@ -52,24 +46,12 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
      * @param FormFactory            $formFactory            Form factory
      * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge
      */
-    public function __construct(FormFactory $formFactory, PaymentBridgeInterface $paymentBridgeInterface)
-    {
+    public function __construct(
+        FormFactory $formFactory,
+        PaymentBridgeInterface $paymentBridgeInterface
+    ) {
         $this->formFactory = $formFactory;
         $this->paymentBridgeInterface = $paymentBridgeInterface;
-    }
-
-    /**
-     * Init runtime
-     *
-     * @param Twig_Environment $environment Twig environment
-     *
-     * @return PaypalExpressCheckoutExtension self object
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
-
-        return $this;
     }
 
     /**
@@ -79,23 +61,20 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new Twig_SimpleFunction('paypal_express_checkout_render', array($this, 'renderPaymentView')),
-        );
-    }
+        return [
+            new Twig_SimpleFunction('paypal_express_checkout_render', function (Twig_Environment $environment) {
 
-    /**
-     * Render paypal express checkout form view
-     *
-     * @return string view html
-     */
-    public function renderPaymentView()
-    {
-        $formType = $this->formFactory->create('paypal_express_checkout_view');
+                $formType = $this
+                    ->formFactory
+                    ->create('paypal_express_checkout_view');
 
-        return $this->environment->display('PaypalExpressCheckoutBundle:PaypalExpressCheckout:view.html.twig', array(
-            'paypal_express_checkout_form'          =>  $formType->createView(),
-        ));
+                $environment->display('PaypalExpressCheckoutBundle:PaypalExpressCheckout:view.html.twig', [
+                        'paypal_express_checkout_form' => $formType->createView(),
+                    ]);
+            }, [
+                'needs_environment' => true,
+            ]),
+        ];
     }
 
     /**
@@ -105,6 +84,6 @@ class PaypalExpressCheckoutExtension extends Twig_Extension
      */
     public function getName()
     {
-        return 'payment_paypal_express_checkout_extension';
+        return 'paymentsuite_payment_paypal_express_checkout';
     }
 }

@@ -1,15 +1,14 @@
 services:
 
-    payment.event.dispatcher:
-        class: %payment.event.dispatcher.class%
+    paymentsuite.event_dispatcher:
+        class: PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher
         arguments:
-            event.dispatcher: @event_dispatcher
+            - @event_dispatcher
 
-    payment.logger:
-        class: %payment.logger.class%
+    paymentsuite.logger:
+        class: PaymentSuite\PaymentCoreBundle\Services\PaymentLogger
         arguments:
-            logger: @logger
-            active: %payment.logger.active%
-            level: %payment.logger.level%
+            - @logger
+            - %paymentsuite.logger%
         tags:
             - { name: monolog.logger, channel: 'paymentsuite' }

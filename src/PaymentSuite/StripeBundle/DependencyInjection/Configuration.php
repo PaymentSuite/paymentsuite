@@ -14,14 +14,15 @@
 namespace PaymentSuite\StripeBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractPaymentSuiteConfiguration
 {
     /**
      * {@inheritDoc}
@@ -40,50 +41,22 @@ class Configuration implements ConfigurationInterface
                 ->isRequired()
                 ->cannotBeEmpty()
             ->end()
+            ->scalarNode('api_endpoint')
+                ->defaultValue('https://api.stripe.com/')
+            ->end()
             ->arrayNode('templates')
                 ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('view_template')
-                    ->defaultValue('StripeBundle:Stripe:view.html.twig')
-                ->end()
+                ->children()
+                    ->scalarNode('view_template')
+                        ->defaultValue('StripeBundle:Stripe:view.html.twig')
+                    ->end()
                     ->scalarNode('scripts_template')
                         ->defaultValue('StripeBundle:Stripe:scripts.html.twig')
                     ->end()
                 ->end()
             ->end()
-            ->scalarNode('controller_route')
-                ->defaultValue('/payment/stripe/execute')
-            ->end()
-            ->arrayNode('payment_success')
-                ->isRequired()
-                ->children()
-                    ->scalarNode('route')
-                        ->isRequired()
-                        ->cannotBeEmpty()
-                    ->end()
-                    ->booleanNode('order_append')
-                        ->defaultTrue()
-                    ->end()
-                    ->scalarNode('order_append_field')
-                        ->defaultValue('order_id')
-                    ->end()
-                ->end()
-            ->end()
-            ->arrayNode('payment_fail')
-                ->isRequired()
-                ->children()
-                    ->scalarNode('route')
-                        ->isRequired()
-                        ->cannotBeEmpty()
-                    ->end()
-                    ->booleanNode('order_append')
-                        ->defaultTrue()
-                    ->end()
-                    ->scalarNode('order_append_field')
-                        ->defaultValue('order_id')
-                    ->end()
-                ->end()
-            ->end()
+            ->append($this->addRouteConfiguration('payment_success'))
+            ->append($this->addRouteConfiguration('payment_failure'))
         ->end();
 
         return $treeBuilder;
