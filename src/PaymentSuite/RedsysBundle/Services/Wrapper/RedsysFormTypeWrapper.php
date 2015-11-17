@@ -13,6 +13,7 @@
 
 namespace PaymentSuite\RedsysBundle\Services\Wrapper;
 
+use PaymentSuite\RedsysBundle\Services\RedsysSignature;
 use Symfony\Component\Form\FormFactory;
 
 use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
@@ -67,19 +68,28 @@ class RedsysFormTypeWrapper
     private $url;
 
     /**
+     * @var RedsysSignature
+     *
+     * Generate hash sha-256
+     */
+    protected $redsysSignature;
+
+    /**
      * Formtype construct method
      *
-     * @param FormFactory                  $formFactory   Form factory
-     * @param PaymentBridgeRedsysInterface $paymentBridge Payment bridge
-     * @param UrlFactory                   $urlFactory    URL Factory service
-     * @param string                       $merchantCode  merchant code
-     * @param string                       $secretKey     secret key
-     * @param string                       $url           gateway url
+     * @param FormFactory                  $formFactory     Form factory
+     * @param PaymentBridgeRedsysInterface $paymentBridge   Payment bridge
+     * @param UrlFactory                   $urlFactory      URL Factory service
+     * @param RedsysSignature              $redsysSignature Redsys Signature
+     * @param string                       $merchantCode    merchant code
+     * @param string                       $secretKey       secret key
+     * @param string                       $url             gateway url
      *
      */
     public function __construct(FormFactory $formFactory,
                                 PaymentBridgeRedsysInterface $paymentBridge,
                                 UrlFactory $urlFactory,
+                                RedsysSignature $redsysSignature,
                                 $merchantCode,
                                 $secretKey,
                                 $url)
@@ -90,6 +100,7 @@ class RedsysFormTypeWrapper
         $this->merchantCode             = $merchantCode;
         $this->secretKey                = $secretKey;
         $this->url                      = $url;
+        $this->redsysSignature          = $redsysSignature;
     }
 
     /**
@@ -119,7 +130,7 @@ class RedsysFormTypeWrapper
          */
         $Ds_Merchant_MerchantURL = $this
             ->urlFactory
-            ->getReturnRedsysUrl();
+            ->getReturnRedsysUrl($orderId);
 
         /*
          * Creates the return route, when coming back
@@ -141,101 +152,63 @@ class RedsysFormTypeWrapper
         $Ds_Merchant_Order              = $this->formatOrderNumber($this->paymentBridge->getOrderNumber());
         $Ds_Merchant_MerchantCode       = $this->merchantCode;
         $Ds_Merchant_Currency           = $this->currencyTranslation($this->paymentBridge->getCurrency());
-        $Ds_Merchant_MerchantSignature  = $this->shopSignature(
-            $Ds_Merchant_Amount,
-            $Ds_Merchant_Order,
-            $Ds_Merchant_MerchantCode,
-            $Ds_Merchant_Currency,
-            $Ds_Merchant_TransactionType,
-            $Ds_Merchant_MerchantURL,
-            $this->secretKey);
 
         $Ds_Merchant_Terminal = $extraData['terminal'];
+
+        $merchantParameters = [];
+
+        $merchantParameters['DS_MERCHANT_AMOUNT'] = $Ds_Merchant_Amount;
+        $merchantParameters['DS_MERCHANT_MERCHANTCODE'] = $Ds_Merchant_MerchantCode;
+        $merchantParameters['DS_MERCHANT_CURRENCY'] = $Ds_Merchant_Currency;
+        $merchantParameters['DS_MERCHANT_TERMINAL'] = $Ds_Merchant_Terminal;
+        $merchantParameters['DS_MERCHANT_ORDER'] = $Ds_Merchant_Order;
+        $merchantParameters['DS_MERCHANT_MERCHANTURL'] = $Ds_Merchant_MerchantURL;
+        $merchantParameters['DS_MERCHANT_URLOK'] = $Ds_Merchant_UrlOK;
+        $merchantParameters['DS_MERCHANT_URLKO'] = $Ds_Merchant_UrlKO;
+
+        $merchantParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $Ds_Merchant_TransactionType;
+
+        if (array_key_exists('product_description', $extraData)) {
+            $merchantParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = $extraData['product_description'];
+        }
+
+        if (array_key_exists('merchant_titular', $extraData)) {
+            $merchantParameters['DS_MERCHANT_TITULAR'] = $extraData['merchant_titular'];
+        }
+
+        if (array_key_exists('merchant_name', $extraData)) {
+            $merchantParameters['DS_MERCHANT_MERCHANTNAME'] = $extraData['merchant_name'];
+        }
+
+        if (array_key_exists('merchant_data', $extraData)) {
+            $merchantParameters['DS_MERCHANT_MERCHANTDATA'] = $extraData['merchant_data'];
+        }
+
+        $merchantParameters = base64_encode(json_encode($merchantParameters));
+
+        $Ds_Merchant_MerchantSignature  = $this
+            ->redsysSignature
+            ->sign(
+                $Ds_Merchant_Order,
+                $this->secretKey,
+                $merchantParameters
+            );
 
         $formBuilder
             ->setAction($this->url)
             ->setMethod('POST')
-            ->add('Ds_Merchant_Amount', 'hidden', array(
-                'data' => $Ds_Merchant_Amount,
+            ->add('DS_MERCHANTPARAMETERS', 'hidden', array(
+                'data' => $merchantParameters,
             ))
-            ->add('Ds_Merchant_MerchantSignature', 'hidden', array(
+            ->add('DS_SIGNATUREVERSION', 'hidden', array(
+                'data' => $this->redsysSignature->getSignatureVersion(),
+            ))
+            ->add('DS_SIGNATURE', 'hidden', array(
                 'data' => $Ds_Merchant_MerchantSignature,
             ))
-            ->add('Ds_Merchant_MerchantCode', 'hidden', array(
-                'data' => $this->merchantCode,
-            ))
-            ->add('Ds_Merchant_Currency', 'hidden', array(
-                'data' => $Ds_Merchant_Currency,
-            ))
-            ->add('Ds_Merchant_Terminal', 'hidden', array(
-                'data' =>$Ds_Merchant_Terminal,
-            ))
-            ->add('Ds_Merchant_Order', 'hidden', array(
-                'data' => $Ds_Merchant_Order,
-            ))
-            ->add('Ds_Merchant_MerchantURL', 'hidden', array(
-                'data' => $Ds_Merchant_MerchantURL,
-            ))
-            ->add('Ds_Merchant_UrlOK', 'hidden', array(
-                'data' => $Ds_Merchant_UrlOK,
-            ))
-            ->add('Ds_Merchant_UrlKO', 'hidden', array(
-                'data' => $Ds_Merchant_UrlKO,
-            ))
-
         ;
 
-        /* Optional form fields */
-        if (array_key_exists('transaction_type', $extraData)) {
-            $formBuilder->add('Ds_Merchant_TransactionType', 'hidden', array(
-                'data' => $Ds_Merchant_TransactionType,
-            ));
-        }
-        if (array_key_exists('product_description', $extraData)) {
-            $formBuilder->add('Ds_Merchant_ProductDescription', 'hidden', array(
-                'data' => $extraData['product_description'],
-            ));
-        }
-
-        if (array_key_exists('merchant_titular', $extraData)) {
-            $formBuilder->add('Ds_Merchant_Titular', 'hidden', array(
-                'data' => $extraData['merchant_titular'],
-            ));
-        }
-
-        if (array_key_exists('merchant_name', $extraData)) {
-            $formBuilder->add('Ds_Merchant_MerchantName', 'hidden', array(
-                'data' => $extraData['merchant_name'],
-            ));
-        }
-
-		if (array_key_exists('merchant_data', $extraData)) {
-			$formBuilder->add('Ds_Merchant_MerchantData', 'hidden', array(
-					'data' => $extraData['merchant_data'],
-				));
-		}
-
         return $formBuilder->getForm()->createView();
-    }
-
-    /**
-     * Creates signature to be sent to Redsys
-     *
-     * @param  string $amount          Amount
-     * @param  string $order           Order number
-     * @param  string $merchantCode    Merchant code
-     * @param  string $currency        Currency
-     * @param  string $transactionType Transaction type
-     * @param  string $merchantURL     Merchant url
-     * @param  string $secret          Secret key
-     * @return string Signature
-     */
-    protected function shopSignature($amount, $order, $merchantCode, $currency, $transactionType, $merchantURL, $secret)
-    {
-        $signature = $amount . $order . $merchantCode . $currency . $transactionType . $merchantURL . $secret;
-        // SHA1
-        return strtoupper(sha1($signature));
-
     }
 
     /**

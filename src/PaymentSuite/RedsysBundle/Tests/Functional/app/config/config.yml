@@ -27,3 +27,8 @@ redsys:
          route: card_fail
          order_append: false
          order_append_field: card_id
+
+     controller_result_route:
+          route: card_success
+          order_append: true
+          order_append_field: order_id

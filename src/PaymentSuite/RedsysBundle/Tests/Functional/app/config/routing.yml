@@ -11,3 +11,8 @@ card_thanks:
     path: /payment/redsys/checkout/ok
     defaults:
         _controller: RedsysBundle:Redsys:ok
+
+card_success:
+    path: /payment/redsys/result
+    defaults:
+        _controller: RedsysBundle:Redsys:result
