@@ -13,12 +13,23 @@
 
 namespace PaymentSuite\BankwireBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\BankwireBundle\DependencyInjection\BankwireExtension;
 
 /**
  * Bankwire payment bundle
  */
 class BankwireBundle extends Bundle
 {
-
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new BankwireExtension();
+    }
 }

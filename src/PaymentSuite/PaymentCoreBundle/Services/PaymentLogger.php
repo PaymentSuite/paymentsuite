@@ -25,132 +25,57 @@ class PaymentLogger
      *
      * Logger
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var bool
      *
      * active
      */
-    protected $active;
-
-    /**
-     * @var string
-     *
-     * level
-     */
-    protected $level;
-
-    /**
-     * @var string
-     *
-     * paymentBundle
-     */
-    protected $paymentBundle;
+    private $active;
 
     /**
      * Construct method
      *
      * @param LoggerInterface $logger Logger
      * @param bool            $active Do log or not
-     * @param string          $level  Log level
      */
-    public function __construct(LoggerInterface $logger, $active, $level)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        $active
+    ) {
         $this->logger = $logger;
         $this->active = $active;
-        $this->level = $level;
     }
 
     /**
      * Log payment message, prepending payment bundle name if set
      *
-     * @param string $message Message to log
-     * @param array  $context Context
+     * @param string $level         Level
+     * @param string $message       Message to log
+     * @param string $paymentMethod Payment method
+     * @param array  $context       Context
      *
      * @return PaymentLogger Self object
      */
-    public function log($message, array $context = array())
-    {
-        if ($this->active) {
-            if ($this->paymentBundle) {
-                $message = '[' . $this->paymentBundle . '] ' . $message;
-            }
-            $this->logger->log($this->level, $message, $context);
+    public function log(
+        $level,
+        $message,
+        $paymentMethod,
+        array $context = []
+    ) {
+        if (!$this->active) {
+            return $this;
         }
 
-        return $this;
-    }
-
-    /**
-     * Sets PaymentBundle
-     *
-     * @param string $paymentBundle PaymentBundle
-     *
-     * @return PaymentLogger Self object
-     */
-    public function setPaymentBundle($paymentBundle)
-    {
-        $this->paymentBundle = $paymentBundle;
+        $this
+            ->logger
+            ->log(
+                $level,
+                "[$paymentMethod] - $message",
+                $context
+            );
 
         return $this;
-    }
-
-    /**
-     * Get PaymentBundle
-     *
-     * @return string PaymentBundle
-     */
-    public function getPaymentBundle()
-    {
-        return $this->paymentBundle;
-    }
-
-    /**
-     * Sets Level
-     *
-     * @param string $level Level
-     *
-     * @return PaymentLogger Self object
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
-    /**
-     * Get Level
-     *
-     * @return string Level
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * Sets Active
-     *
-     * @param boolean $active Active
-     *
-     * @return PaymentLogger Self object
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get Active
-     *
-     * @return boolean Active
-     */
-    public function getActive()
-    {
-        return $this->active;
     }
 }

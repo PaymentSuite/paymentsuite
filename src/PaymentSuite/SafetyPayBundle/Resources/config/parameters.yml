@@ -1,8 +1,0 @@
-parameters:
-
-    safetypay.controller.route.name: "safetypay_execute"
-    safetypay.controller.route.confirm.name: "safetypay_confirm"
-    safetypay.routes.loader.class: "PaymentSuite\\SafetypayBundle\\Router\\SafetypayRoutesLoader"
-    safetypay.manager.class: "PaymentSuite\\SafetypayBundle\\Services\\SafetypayManager"
-    safetypay.form.type.wrapper.class: "PaymentSuite\\SafetypayBundle\\Services\\Wrapper\\SafetypayTypeWrapper"
-    safetypay.response.format: XML

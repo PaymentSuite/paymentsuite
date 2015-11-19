@@ -1,9 +1,0 @@
-inherit: true
-
-filter:
-    excluded_paths: [Tests/*]
-
-tools:
-    php_cpd: true
-    php_pdepend:
-        excluded_dirs: [Tests]

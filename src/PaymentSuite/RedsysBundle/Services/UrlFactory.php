@@ -13,68 +13,58 @@
 
 namespace PaymentSuite\RedsysBundle\Services;
 
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * Class UrlFactory
+ */
 class UrlFactory
 {
     /**
-     * @var RouterInterface
+     * @var UrlGeneratorInterface
      *
-     * Router instance
+     * Url generator
      */
-    private $router;
+    private $urlGenerator;
 
     /**
-     * @var string
+     * Construct
      *
-     * Route success
+     * @param UrlGeneratorInterface $urlGenerator Url generator
      */
-    private $successRouteName;
-
-    /**
-     * @var string
-     *
-     * Route fail
-     */
-    private $failRouteName;
-
-    /**
-     * @var string
-     *
-     * Route result
-     */
-    private $resultRouteName;
-
-    /**
-     * @param RouterInterface $router           Router instance
-     * @param string          $successRouteName Route name for a succesful payment return from Redsys
-     * @param string          $failRouteName    Route name for a cancelled payment from Redsys
-     * @param string          $resultRouteName  Route name for a result Redsys
-     */
-    public function __construct(
-        RouterInterface $router,
-        $successRouteName,
-        $failRouteName,
-        $resultRouteName)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
-
-        $this->router           = $router;
-        $this->successRouteName = $successRouteName;
-        $this->failRouteName    = $failRouteName;
-        $this->resultRouteName  = $resultRouteName;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
-     * Get the route succesful payment return from Redsys
+     * Get the route result Redsys
+     *
+     * @return string Result url
+     */
+    public function getReturnRedsysUrl()
+    {
+        return $this
+            ->urlGenerator
+            ->generate(
+                'paymentsuite_redsys_result',
+                [],
+                true
+            );
+    }
+
+    /**
+     * Get the route succesfull payment return from Redsys
      *
      * @param $orderId
-     * @return string
+     *
+     * @return string Success utl
      */
     public function getReturnUrlOkForOrderId($orderId)
     {
-        return $this->router->generate(
-            $this->successRouteName,
-            array('id' => $orderId),
+        return $this->urlGenerator->generate(
+            'paymentsuite_redsys_success',
+            ['id' => $orderId],
             true
         );
     }
@@ -83,27 +73,17 @@ class UrlFactory
      * Get the route cancelled payment from Redsys
      *
      * @param $orderId
-     * @return string
+     *
+     * @return string Ko url
      */
     public function getReturnUrlKoForOrderId($orderId)
     {
-        return $this->router->generate(
-            $this->failRouteName,
-            array('id' => $orderId),
-            true
-        );
-    }
-
-    /**
-     * Get the route result Redsys
-     *
-     * @return string
-     */
-    public function getReturnRedsysUrl()
-    {
-        return $this->router->generate(
-            $this->resultRouteName,
-            array(),
-            true);
+        return $this
+            ->urlGenerator
+            ->generate(
+                'paymentsuite_redsys_failure',
+                ['id' => $orderId],
+                true
+            );
     }
 }

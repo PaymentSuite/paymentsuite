@@ -18,7 +18,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 /**
  * PaypalExpressCheckoutMethod class
  */
-class PaypalExpressCheckoutMethod implements PaymentMethodInterface
+final class PaypalExpressCheckoutMethod implements PaymentMethodInterface
 {
     /**
      * Get PaypalExpressCheckout method name
@@ -45,11 +45,28 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     private $orderNumber;
 
     /**
-     * @var SomeExtraData
+     * @var array
      *
      * Some extra data given by payment response
      */
     private $someExtraData;
+
+    /**
+     * Construct
+     *
+     * @param float  $amount        Amount
+     * @param string $orderNumber   Order Number
+     * @param array  $someExtraData Some extra data
+     */
+    private function __construct(
+        $amount,
+        $orderNumber,
+        array $someExtraData
+    ) {
+        $this->amount = $amount;
+        $this->orderNumber = $orderNumber;
+        $this->someExtraData = $someExtraData;
+    }
 
     /**
      * @return float
@@ -57,18 +74,6 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     public function getAmount()
     {
         return $this->amount;
-    }
-
-    /**
-     * @param float $amount
-     *
-     * @return PaypalExpressCheckoutMethod self Object
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-
-        return $this;
     }
 
     /**
@@ -80,38 +85,12 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * @param string $orderNumber
-     *
-     * @return PaypalExpressCheckoutMethod self Object
-     */
-    public function setOrderNumber($orderNumber)
-    {
-        $this->orderNumber = $orderNumber;
-
-        return $this;
-    }
-
-    /**
-     * Set some extra data
-     *
-     * @param string $someExtraData Some extra data
-     *
-     * @return PaypalExpressCheckoutMethod self Object
-     */
-    public function setSomeExtraData($someExtraData)
-    {
-        $this->someExtraData = $someExtraData;
-
-        return $this;
-    }
-
-    /**
      * Get some extra data
      *
      * @return array Some extra data
      */
     public function getSomeExtraData()
     {
-        return $someExtraData;
+        return $this->someExtraData;
     }
 }

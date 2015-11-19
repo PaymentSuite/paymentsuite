@@ -1,58 +1,25 @@
-Free Payment - Payment Suite
-=====
+FreePayment Bundle
+==================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9/mini.png)](https://insight.sensiolabs.com/projects/f7e00e6f-1e43-46f8-9161-64c000a421d9)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/PaymentSuite/FreePaymentBundle/badges/quality-score.png?s=962c277666ad58ac942c8180fc72ffee76b45d6c)](https://scrutinizer-ci.com/g/PaymentSuite/FreePaymentBundle/)
-[![Latest Stable Version](https://poser.pugx.org/paymentsuite/free-payment-bundle/v/stable.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/free-payment-bundle/v/unstable.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
-[![Total Downloads](https://poser.pugx.org/paymentsuite/free-payment-bundle/downloads.png)](https://packagist.org/packages/paymentsuite/free-payment-bundle)
+This package is part of
+[Paymentsuite](http://github.com/paymentsuite/paymentsuite) project, a suite of 
+e-commerce Payment Bundles built on top of Symfony and under
+[MIT](http://opensource.org/licenses/MIT) license.
 
-Table of contents
------
+> Warning. This package is Read-Only. This means that we'll not attend any Pull 
+> Request received here. Please, use the main paymentsuite/paymentsuite package
+> for Issues, Questions and Pull Requests.
 
-1. [Install Payment Environment](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Configure-Payment-Environment)
-1. [Creating PlatformBundle](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Crating-payment-Platforms)
-1. [Contribute](https://github.com/PaymentSuite/PaymentCoreBundle/wiki/Contribute)
-1. [Configuration](#configuration)
-1. [Router](#router)
+### Tags
 
+* Use last unstable version ( alias of `dev-master` ) to stay always in last 
+commit
+* Use last stable version tag to stay in a stable release.
 
-Configuration
------
+### Support
 
-Configure the FreePaymentBundle configuration in your `config.yml`
-
-``` yml
-free_payment:
-
-    # By default, controller route is /payment/freepayment/execute
-    controller_route: /my/custom/route
-
-    # Configuration for payment success redirection
-    #
-    # Route defines which route will redirect if payment successes
-    # If order_append is true, Bundle will append card identifier into route
-    #    taking order_append_field value as parameter name and
-    #    PaymentOrderWrapper->getOrderId() value
-    payment_success:
-        route: card_thanks
-        order_append: true
-        order_append_field: order_id
-```
-
-Router
------
-
-FreePaymentBundle allows developer to specify the route of controller where freepayment payment is processed.
-By default, this value is `/payment/freepayment/execute` but this value can be changed in configuration file.
-Anyway, the bundle routes must be parsed by the framework, so these lines must be included into routing.yml file
-
-``` yml
-freepayment_payment_routes:
-    resource: .
-    type: freepayment
-```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/PaymentSuite/freepaymentbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+* You can ask your questions to the community in 
+[Gitter](http://gitter.im/paymentsuite/paymentsuite) and we'll try to help you 
+as much as possible
+* Look for some help on [Stackoverflow](http://stackoverflow.com)
+* As a last resort, look at [google](http://google.com)!

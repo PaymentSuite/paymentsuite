@@ -16,14 +16,15 @@ namespace PaymentSuite\StripeBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
  * This is the class that loads and manages your bundle configuration
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class StripeExtension extends Extension
+class StripeExtension extends AbstractPaymentSuiteExtension
 {
     /**
      * {@inheritDoc}
@@ -33,23 +34,29 @@ class StripeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('stripe.private.key', $config['private_key']);
-        $container->setParameter('stripe.public.key', $config['public_key']);
-        $container->setParameter('stripe.controller.route', $config['controller_route']);
+        $this->addParameters(
+            $container,
+            'stripe',
+            [
+                'private_key'      => $config['private_key'],
+                'public_key'       => $config['public_key'],
+                'api_endpoint'     => $config['api_endpoint'],
+                'view_template'    => $config['templates']['view_template'],
+                'scripts_template' => $config['templates']['scripts_template'],
+            ]
+        );
 
-        $container->setParameter('stripe.templates.view_template', $config['templates']['view_template']);
-        $container->setParameter('stripe.templates.scripts_template', $config['templates']['scripts_template']);
+        $this->registerRedirectRoutesDefinition(
+            $container,
+            'stripe',
+            [
+                'success' => $config['payment_success'],
+                'failure' => $config['payment_failure'],
+            ]
+        );
 
-        $container->setParameter('stripe.success.route', $config['payment_success']['route']);
-        $container->setParameter('stripe.success.order.append', $config['payment_success']['order_append']);
-        $container->setParameter('stripe.success.order.field', $config['payment_success']['order_append_field']);
-
-        $container->setParameter('stripe.fail.route', $config['payment_fail']['route']);
-        $container->setParameter('stripe.fail.order.append', $config['payment_fail']['order_append']);
-        $container->setParameter('stripe.fail.order.field', $config['payment_fail']['order_append_field']);
-
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('parameters.yml');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('controllers.yml');
         $loader->load('services.yml');
     }
 }

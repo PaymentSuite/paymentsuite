@@ -20,5 +20,4 @@ use Exception;
  */
 class PaymentException extends Exception
 {
-
 }

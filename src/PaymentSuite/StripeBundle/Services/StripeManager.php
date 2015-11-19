@@ -18,7 +18,6 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\StripeBundle\Services\Wrapper\StripeTransactionWrapper;
 use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
@@ -27,120 +26,41 @@ use PaymentSuite\StripeBundle\StripeMethod;
 class StripeManager
 {
     /**
-     * @var array
+     * @var StripeTransactionFactory
      *
-     * Necessary params to request the payment
+     * Transaction factory
      */
-    protected $chargeParams;
-
-    /**
-     * @var PaymentEventDispatcher
-     *
-     * Payment event dispatcher
-     */
-    protected $paymentEventDispatcher;
-
-    /**
-     * @var StripeTransactionWrapper
-     *
-     * Transaction wrapper
-     */
-    protected $transactionWrapper;
+    private $transactionFactory;
 
     /**
      * @var PaymentBridgeInterface
      *
      * Payment Bridge
      */
-    protected $paymentBridge;
+    private $paymentBridge;
+
+    /**
+     * @var PaymentEventDispatcher
+     *
+     * Payment event dispatcher
+     */
+    private $paymentEventDispatcher;
 
     /**
      * Construct method for stripe manager
      *
-     * @param PaymentEventDispatcher   $paymentEventDispatcher Event dispatcher
-     * @param StripeTransactionWrapper $transactionWrapper     Stripe Transaction wrapper
+     * @param StripeTransactionFactory $transactionFactory     Stripe Transaction factory
      * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
+     * @param PaymentEventDispatcher   $paymentEventDispatcher Event dispatcher
      */
     public function __construct(
-        PaymentEventDispatcher $paymentEventDispatcher,
-        StripeTransactionWrapper $transactionWrapper,
-        PaymentBridgeInterface $paymentBridge
-    )
-    {
-        $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->transactionWrapper = $transactionWrapper;
+        StripeTransactionFactory $transactionFactory,
+        PaymentBridgeInterface $paymentBridge,
+        PaymentEventDispatcher $paymentEventDispatcher
+    ) {
+        $this->transactionFactory = $transactionFactory;
         $this->paymentBridge = $paymentBridge;
-    }
-
-    /**
-     * Check and set param for payment
-     *
-     * @param StripeMethod $paymentMethod Payment method
-     * @param float        $amount        Amount
-     *
-     * @return StripeManager self Object
-     *
-     * @throws PaymentAmountsNotMatchException
-     * @throws PaymentOrderNotFoundException
-     */
-    private function prepareData(StripeMethod $paymentMethod, $amount)
-    {
-        /// first check that amounts are the same
-        $cartAmount = intval($this->paymentBridge->getAmount());
-
-        /**
-         * If both amounts are different, execute Exception
-         */
-        if (abs($amount - $cartAmount) > 0.00001) {
-            throw new PaymentAmountsNotMatchException();
-        }
-
-        /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
-         *
-         * So, $this->paymentBridge->getOrder() must return an object
-         */
-        $this
-            ->paymentEventDispatcher
-            ->notifyPaymentOrderLoad(
-                $this->paymentBridge,
-                $paymentMethod
-            );
-
-        /**
-         * Order Not found Exception must be thrown just here
-         */
-        if (!$this->paymentBridge->getOrder()) {
-            throw new PaymentOrderNotFoundException();
-        }
-
-        /**
-         * Order exists right here
-         */
-        $this
-            ->paymentEventDispatcher
-            ->notifyPaymentOrderCreated(
-                $this->paymentBridge,
-                $paymentMethod
-            );
-
-        /**
-         * Validate the order in the module
-         * params for stripe interaction
-         */
-        $cardParams = array(
-            'number'    => $paymentMethod->getCreditCartNumber(),
-            'exp_month' => $paymentMethod->getCreditCartExpirationMonth(),
-            'exp_year'  => $paymentMethod->getCreditCartExpirationYear(),
-        );
-
-        $this->chargeParams = array(
-            'card'     => $cardParams,
-            'amount'   => $cartAmount,
-            'currency' => strtolower($this->paymentBridge->getCurrency()),
-        );
-
-        return $this;
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
     }
 
     /**
@@ -159,11 +79,17 @@ class StripeManager
         /**
          * check and set payment data
          */
-        $this->prepareData($paymentMethod, $amount);
+        $chargeParams = $this->prepareData(
+            $paymentMethod,
+            $amount
+        );
+
         /**
          * make payment
          */
-        $transaction = $this->transactionWrapper->create($this->chargeParams);
+        $transaction = $this
+            ->transactionFactory
+            ->create($chargeParams);
 
         /**
          * Payment paid done
@@ -215,5 +141,74 @@ class StripeManager
             );
 
         return $this;
+    }
+
+    /**
+     * Check and set param for payment
+     *
+     * @param StripeMethod $paymentMethod Payment method
+     * @param float        $amount        Amount
+     *
+     * @return array Charge params
+     *
+     * @throws PaymentAmountsNotMatchException
+     * @throws PaymentOrderNotFoundException
+     */
+    private function prepareData(StripeMethod $paymentMethod, $amount)
+    {
+        /// first check that amounts are the same
+        $cartAmount = intval($this->paymentBridge->getAmount());
+
+        /**
+         * If both amounts are different, execute Exception
+         */
+        if (abs($amount - $cartAmount) > 0.00001) {
+            throw new PaymentAmountsNotMatchException();
+        }
+
+        /**
+         * At this point, order must be created given a cart, and placed in PaymentBridge
+         *
+         * So, $this->paymentBridge->getOrder() must return an object
+         */
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $paymentMethod
+            );
+
+        /**
+         * Order Not found Exception must be thrown just here
+         */
+        if (!$this->paymentBridge->getOrder()) {
+            throw new PaymentOrderNotFoundException();
+        }
+
+        /**
+         * Order exists right here
+         */
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $paymentMethod
+            );
+
+        /**
+         * Validate the order in the module
+         * params for stripe interaction
+         */
+        $cardParams = [
+            'number'    => $paymentMethod->getCreditCardNumber(),
+            'exp_month' => $paymentMethod->getCreditCardExpirationMonth(),
+            'exp_year'  => $paymentMethod->getCreditCardExpirationYear(),
+        ];
+
+        return [
+            'card'     => $cardParams,
+            'amount'   => $cartAmount,
+            'currency' => strtolower($this->paymentBridge->getCurrency()),
+        ];
     }
 }

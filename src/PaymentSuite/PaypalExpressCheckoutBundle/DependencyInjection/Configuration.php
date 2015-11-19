@@ -14,12 +14,13 @@
 namespace PaymentSuite\PaypalExpressCheckoutBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractPaymentSuiteConfiguration
 {
     /**
      * {@inheritDoc}
@@ -46,38 +47,11 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('debug')
                     ->defaultTrue()
                 ->end()
-                ->scalarNode('controller_route')
-                    ->defaultValue('/payment/paypal_checkout/execute')
+                ->booleanNode('api_endpoint')
+                    ->defaultValue('https://api-3t.sandbox.paypal.com/nvp')
                 ->end()
-
-                ->arrayNode('payment_success')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('payment_fail')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('card_id')
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($this->addRouteConfiguration('payment_success'))
+                ->append($this->addRouteConfiguration('payment_failure'))
             ->end();
 
         return $treeBuilder;

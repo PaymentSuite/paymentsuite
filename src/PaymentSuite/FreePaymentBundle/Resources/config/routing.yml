@@ -1,0 +1,4 @@
+paymentsuite_freepayment_execute:
+    path: /payment/freepayment/execute
+    defaults:
+        _controller: paymentsuite.freepayment.payment_controller:executeAction

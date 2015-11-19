@@ -14,12 +14,13 @@
 namespace PaymentSuite\BankwireBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractPaymentSuiteConfiguration
 {
     /**
      * {@inheritDoc}
@@ -31,23 +32,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('controller_route')
-                    ->defaultValue('/payment/bankwire/execute')
-                ->end()
-                ->arrayNode('payment_success')
-                    ->children()
-                        ->scalarNode('route')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->booleanNode('order_append')
-                            ->defaultTrue()
-                        ->end()
-                        ->scalarNode('order_append_field')
-                            ->defaultValue('order_id')
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($this->addRouteConfiguration('payment_success'))
             ->end();
 
         return $treeBuilder;

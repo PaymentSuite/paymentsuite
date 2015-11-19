@@ -49,28 +49,28 @@ class StripeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('credit_cart', 'text', array(
+            ->add('credit_card', 'text', [
                 'required' => true,
                 'max_length' => 20,
-            ))
-            ->add('credit_cart_security', 'text', array(
+            ])
+            ->add('credit_card_security', 'text', [
                 'required' => true,
                 'max_length' => 4,
-            ))
-            ->add('credit_cart_expiration_month', 'choice', array(
+            ])
+            ->add('credit_card_expiration_month', 'choice', [
                 'required' => true,
                 'choices' => array_combine(range(1, 12), range(1, 12)),
-            ))
-            ->add('credit_cart_expiration_year', 'choice', array(
+            ])
+            ->add('credit_card_expiration_year', 'choice', [
                 'required' => true,
                 'choices' => array_combine(range(date('Y'), 2025), range(date('Y'), 2025)),
-            ))
-            ->add('amount', 'hidden', array(
-                'data'  =>  $this->paymentBridge->getAmount()
-            ))
-            ->add('api_token', 'hidden', array(
-                'data'  =>  ''
-            ));
+            ])
+            ->add('amount', 'hidden', [
+                'data'  =>  $this->paymentBridge->getAmount(),
+            ])
+            ->add('api_token', 'hidden', [
+                'data'  =>  '',
+            ]);
     }
 
     /**

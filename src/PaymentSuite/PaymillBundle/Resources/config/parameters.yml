@@ -1,8 +1,0 @@
-parameters:
-
-    paymill.controller.route.name: "paymill_execute"
-    paymill.form.type.class: "PaymentSuite\\PaymillBundle\\Form\\Type\\PaymillType"
-    paymill.transaction.wrapper.class: "PaymentSuite\\PaymillBundle\\Services\\Wrapper\\PaymillTransactionWrapper"
-    paymill.manager.class: "PaymentSuite\\PaymillBundle\\Services\\PaymillManager"
-    paymill.twig.extension.class: "PaymentSuite\\PaymillBundle\\Twig\\PaymillExtension"
-    paymill.routes.loader.class: "PaymentSuite\\PaymillBundle\\Router\\PaymillRoutesLoader"

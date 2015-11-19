@@ -15,7 +15,9 @@ namespace PaymentSuite\PaypalExpressCheckoutBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\PaymentCoreBundle\ValueObject\PaypalExpressCheckoutResponse;
 use PaymentSuite\PaypalExpressCheckoutBundle\PaypalExpressCheckoutMethod;
+use PaymentSuite\PaypalExpressCheckoutBundle\Services\Wrapper\PaypalExpressCheckoutRequester;
 
 /**
  * Paypal Express Checkout manager
@@ -27,86 +29,120 @@ class PaypalExpressCheckoutManager
      *
      * Payment event dispatcher
      */
-    protected $paymentEventDispatcher;
+    private $paymentEventDispatcher;
 
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
-    protected $paymentBridge;
+    private $paymentBridge;
 
     /**
-     * @var PaypalExpressCheckoutTransactionWrapper $paypalWrapper
+     * @var PaypalExpressCheckoutRequester
      *
-     * Paypal Express Checkout wrapper
+     * Paypal Express Checkout requester
      */
-    protected $paypalWrapper;
-
-    /**
-     * @var Array config
-     *
-     * Paypal Express Checkout configuration
-     */
-    protected $config;
+    private $paypalExpressCheckoutRequester;
 
     /**
      * Construct method for paypal manager
      *
-     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
-     * @param PaypalExpressCheckoutTransactionWrapper Paypal Wrapper
+     * @param PaymentEventDispatcher         $paymentEventDispatcher         Event dispatcher
+     * @param PaymentBridgeInterface         $paymentBridge                  Payment Bridge
+     * @param PaypalExpressCheckoutRequester $paypalExpressCheckoutRequester Paypal Express Checkout requester
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge, PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
-    {
+    public function __construct(
+        PaymentEventDispatcher $paymentEventDispatcher,
+        PaymentBridgeInterface $paymentBridge,
+        PaypalExpressCheckoutRequester $paypalExpressCheckoutRequester
+    ) {
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->paymentBridge = $paymentBridge;
-        $this->paypalWrapper = $paypalWrapper;
+        $this->paypalExpressCheckoutRequester = $paypalExpressCheckoutRequester;
     }
 
     /**
      * See also PaypalExpressCheckout Api Integration : https://devtools-paypal.com/guide/expresscheckout/php?success=true&token=EC-39A62694YH391933H&PayerID=22GDTKRPSZFWS
      * Initiate the payment : SetExpressCheckout
      *
+     * @param PaypalExpressCheckoutMethod $paypalMethod Paypal method
+     *
+     * @return string response token
      */
     public function preparePayment(PaypalExpressCheckoutMethod $paypalMethod)
     {
-        $orderParameters = $paymentMethod->getSomeExtraData();
-        $this->paypalWrapper->request('SetExpressCheckout', $orderParameters);
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paypalMethod);
+        $response = $this
+            ->paypalExpressCheckoutRequester
+            ->request(
+                'SetExpressCheckout',
+                $paypalMethod->getSomeExtraData()
+            );
 
-        return $this->paypalWrapper->getToken();
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $paypalMethod
+            );
+
+        return $response->getToken();
     }
 
     /**
      * Executes the payment : DoExpressCheckoutPayment
      *
+     * @param PaypalExpressCheckoutMethod $paypalMethod Paypal method
+     *
+     * @return string Payment status
      */
-    public function processPayment(PaypalExpressCheckoutMethod $paymentMethod)
+    public function processPayment(PaypalExpressCheckoutMethod $paypalMethod)
     {
-        $orderParameters = $paymentMethod->getSomeExtraData();
-        $this->paypalWrapper->request('DoExpressCheckoutPayment',$orderParameters);
+        $response = $this
+            ->paypalExpressCheckoutRequester
+            ->request(
+                'DoExpressCheckoutPayment',
+                $paypalMethod->getSomeExtraData()
+            );
 
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $paypalMethod
+            );
 
-        if ($this->getPaymentStatus($this->paypalWrapper) == 'PaymentActionCompleted') {
-            $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paypalMethod);
+        $paymentStatus = $this->getPaymentStatus($response);
+        if ('PaymentActionCompleted' == $paymentStatus) {
+            $this->paymentEventDispatcher->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $paypalMethod
+            );
         } else {
-            $this->paymentEventDispatcher->notifyPaymentOrderFail($paymentBridge, $paypalMethod);
+            $this->paymentEventDispatcher->notifyPaymentOrderFail(
+                $this->paymentBridge,
+                $paypalMethod
+            );
         }
 
-        return $this->getPaymentStatus();
+        return $paymentStatus;
     }
 
     /**
      * Get the payment status : GetExpressCheckoutDetails
      *
+     * @param PaypalExpressCheckoutResponse $response Response
+     *
+     * @return string Checkout status
      */
-    public function getPaymentStatus(PaypalExpressCheckoutTransactionWrapper $paypalWrapper)
+    public function getPaymentStatus(PaypalExpressCheckoutResponse $response)
     {
-        $paypalWrapper->request('GetExpressCheckoutDetails', $paypalWrapper->getToken());
-        $response = $paypalWrapper->getResponse();
-
-        return $response['CHECKOUTSTATUS'];
+        $this
+            ->paypalExpressCheckoutRequester
+            ->request(
+                'GetExpressCheckoutDetails',
+                $response->getToken()
+            )
+            ->getCheckoutStatus();
     }
 }

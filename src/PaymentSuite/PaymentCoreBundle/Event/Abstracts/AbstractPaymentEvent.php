@@ -43,8 +43,10 @@ abstract class AbstractPaymentEvent extends Event
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method
      */
-    public function __construct(PaymentBridgeInterface $paymentBridge, PaymentMethodInterface $paymentMethod)
-    {
+    public function __construct(
+        PaymentBridgeInterface $paymentBridge,
+        PaymentMethodInterface $paymentMethod
+    ) {
         $this->paymentBridge = $paymentBridge;
         $this->paymentMethod = $paymentMethod;
     }

@@ -1,0 +1,4 @@
+paymentsuite_bankwire_execute:
+    path: /payment/bankwire/execute
+    defaults:
+        _controller: paymentsuite.bankwire.payment_controller:executeAction

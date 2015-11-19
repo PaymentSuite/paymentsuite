@@ -13,11 +13,23 @@
 
 namespace PaymentSuite\PaymentCoreBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\PaymentCoreBundle\DependencyInjection\PaymentCoreExtension;
 
 /**
  * Core Payment Bundle
  */
 class PaymentCoreBundle extends Bundle
 {
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new PaymentCoreExtension();
+    }
 }

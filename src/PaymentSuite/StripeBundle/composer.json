@@ -4,6 +4,12 @@
     "description": "Stripe PaymentSuite Component",
     "keywords": ["stripe", "payment", "ecommerce"],
     "license": "MIT",
+    "support": {
+        "email": "yuhu@mmoreram.com",
+        "forum": "https://gitter.im/paymentsuite/paymentsuite",
+        "source": "https://github.com/paymentsuite/paymentsuite",
+        "issues": "https://github.com/paymentsuite/paymentsuite/issues"
+    },
     "authors": [
         {
             "name": "Marc Morera",
@@ -15,29 +21,31 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "symfony/event-dispatcher": ">=2.2.3",
-        "symfony/framework-bundle": ">=2.2.3",
-        "symfony/form": ">=2.2.3",
-        "symfony/config": ">=2.2.3",
-        "symfony/http-kernel": ">=2.2.3",
-        "symfony/dependency-injection": ">=2.2.3",
-        "twig/twig": "~1.11",
-        "stripe/stripe-php": "v1.10.1",
-        "paymentsuite/payment-core-bundle": "~1.1"
+        "php": "^5.4|^7.0",
+        "symfony/event-dispatcher": "^2.7|^3.0",
+        "symfony/framework-bundle": "^2.7|^3.0",
+        "symfony/form": "^2.7|^3.0",
+        "symfony/config": "^2.7|^3.0",
+        "symfony/http-kernel": "^2.7|^3.0",
+        "symfony/dependency-injection": "^2.7|^3.0",
+
+        "twig/twig": "^1.23.1",
+        "stripe/stripe-php": "3.4.0",
+        "paymentsuite/payment-core-bundle": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.6.0"
+        "elcodi/test-common-bundle": "^1.0",
+        "elcodi/fixtures-booster-bundle": "^1.0",
+        "phpunit/phpunit": "4.5.0"
     },
     "autoload": {
         "psr-4": {
             "PaymentSuite\\StripeBundle\\": ""
         }
     },
-    "minimum-stability": "stable",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

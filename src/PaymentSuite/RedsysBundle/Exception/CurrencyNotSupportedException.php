@@ -16,9 +16,8 @@ namespace PaymentSuite\RedsysBundle\Exception;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
-* CurrencyNotSupportedException
-*/
+ * CurrencyNotSupportedException
+ */
 class CurrencyNotSupportedException extends PaymentException
 {
-
 }

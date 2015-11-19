@@ -1,0 +1,14 @@
+services:
+
+    #
+    # Controllers
+    #
+    paymentsuite.stripe.payment_controller:
+        class: PaymentSuite\StripeBundle\Controller\PaymentController
+        arguments:
+            - @paymentsuite.stripe.manager
+            - @paymentsuite.stripe.method_factory
+            - @paymentsuite.stripe.routes
+            - @paymentsuite.bridge
+            - @router
+            - @form.factory

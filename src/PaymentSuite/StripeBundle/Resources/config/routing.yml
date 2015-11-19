@@ -1,0 +1,4 @@
+paymentsuite_stripe_execute:
+    path: /payment/stripe/execute
+    defaults:
+        _controller: paymentsuite.stripe.payment_controller:executeAction

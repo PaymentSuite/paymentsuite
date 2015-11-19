@@ -47,9 +47,10 @@ interface PaymentBridgeInterface
     public function getOrder();
 
     /**
-     * Gets order given an identifier and stores it ocally
+     * Gets order given an identifier and stores it locally
      *
-     * @param integer $orderId Order identifier, usually defined as primary key or unique key
+     * @param integer $orderId Order identifier, usually defined as primary key
+     *                         or unique key
      *
      * @return Object Order object
      */

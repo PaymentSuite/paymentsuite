@@ -13,12 +13,12 @@
 
 namespace PaymentSuite\RedsysBundle\Tests\Functional\Services;
 
+use Symfony\Component\Form\Test\TypeTestCase;
+
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\RedsysBundle\RedsysMethod;
 use PaymentSuite\RedsysBundle\Services\UrlFactory;
-use Symfony\Component\Form\Test\TypeTestCase;
-
 use PaymentSuite\RedsysBundle\Services\Wrapper\RedsysFormTypeWrapper;
 
 /**
@@ -161,7 +161,7 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
     {
         $amount = 100;
 
-        $formData = array(
+        $formData = [
             'Ds_Merchant_Amount'             => $amount,
             'Ds_Merchant_MerchantSignature'  => 'CB43B12351A9826D9640CC285CBDFD8CA6A5994C',
             'Ds_Merchant_MerchantCode'       => $this::merchantCode,
@@ -174,19 +174,19 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
             'Ds_Merchant_TransactionType'    => $this::transactionType,
             'Ds_Merchant_ProductDescription' => $this::prodDesc,
             'Ds_Merchant_Titular'            => $this::titular,
-            'Ds_Merchant_MerchantName'       => $this::name
-        );
+            'Ds_Merchant_MerchantName'       => $this::name,
+        ];
 
         $this
             ->paymentBridge
             ->expects($this->once())
             ->method('getExtraData')
-            ->will($this->returnValue(array('terminal'  => $this::terminal,
+            ->will($this->returnValue(['terminal'  => $this::terminal,
                                             'transaction_type'                      => $this::transactionType,
                                             'product_description'                   => $this::prodDesc,
                                             'merchant_titular'                      => $this::titular,
-                                            'merchant_name'                         => $this::name
-            )));
+                                            'merchant_name'                         => $this::name,
+            ]));
 
         $this
             ->paymentBridge
@@ -231,8 +231,8 @@ class RedsysFormTypeWrapperTest extends TypeTestCase
         foreach (array_keys($formData) as $key) {
             $this->assertArrayHasKey($key, $children);
 
-            $message = $formData[$key].':::'.$children[$key]->vars['value'];
-            $this->assertEquals($formData[$key], $children[$key]->vars['value'],$message);
+            $message = $formData[$key] . ':::' . $children[$key]->vars['value'];
+            $this->assertEquals($formData[$key], $children[$key]->vars['value'], $message);
         }
     }
 }

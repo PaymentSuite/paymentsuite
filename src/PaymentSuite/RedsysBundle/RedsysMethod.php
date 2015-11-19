@@ -18,7 +18,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 /**
  * RedsysMethod class
  */
-class RedsysMethod implements PaymentMethodInterface
+final class RedsysMethod implements PaymentMethodInterface
 {
     /**
      * @var string
@@ -115,7 +115,6 @@ class RedsysMethod implements PaymentMethodInterface
     public function getDsResponse()
     {
         return $this->dsResponse;
-
     }
     /**
      * set Authorisation code

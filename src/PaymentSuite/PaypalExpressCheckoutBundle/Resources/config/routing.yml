@@ -1,0 +1,4 @@
+paymentsuite_paypalexpresscheckout_execute:
+    path: /payment/paypalexpresscheckout/execute
+    defaults:
+        _controller: paymentsuite.paypalexpresscheckout.controller:execute

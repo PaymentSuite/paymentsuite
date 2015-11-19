@@ -128,7 +128,7 @@ class DummyPaymentBridge implements PaymentBridgeRedsysInterface
      */
     public function getExtraData()
     {
-        return array('terminal' => '001');
+        return ['terminal' => '001'];
     }
 
     /**
@@ -138,7 +138,6 @@ class DummyPaymentBridge implements PaymentBridgeRedsysInterface
      */
     public function getOrderNumber()
     {
-        return mt_rand (0, 99999);
+        return mt_rand(0, 99999);
     }
-
 }

@@ -1,18 +1,14 @@
 services:
 
-    bankwire.method.wrapper:
-        class: %bankwire.method.wrapper.class%
+    #
+    # Services
+    #
+    paymentsuite.bankwire.method_factory:
+        class: PaymentSuite\BankwireBundle\Services\BankwireMethodFactory
 
-    bankwire.manager:
-        class: %bankwire.manager.class%
+    paymentsuite.bankwire.manager:
+        class: PaymentSuite\BankwireBundle\Services\BankwireManager
         arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            bankwire.method.wrapper: @bankwire.method.wrapper
-            payment.bridge: @payment.bridge
-
-    bankwire.routes.loader:
-        class: %bankwire.routes.loader.class%
-        arguments:
-            bankwire.controller.route: %bankwire.controller.route%
-        tags:
-            - { name: routing.loader }
+            - @paymentsuite.bankwire.method_factory
+            - @paymentsuite.bridge
+            - @paymentsuite.event_dispatcher

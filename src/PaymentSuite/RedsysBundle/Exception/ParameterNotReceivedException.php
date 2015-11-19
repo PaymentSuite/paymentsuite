@@ -20,5 +20,4 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
  */
 class ParameterNotReceivedException extends PaymentException
 {
-
 }

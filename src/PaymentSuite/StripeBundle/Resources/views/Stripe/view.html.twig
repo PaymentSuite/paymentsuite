@@ -10,24 +10,24 @@
         <div class="form-row">
             <label>
                 <span>Card number</span>
-                {{ form_widget(stripe_form.credit_cart, {'attr': {'data-stripe': 'number'}}) }}
+                {{ form_widget(stripe_form.credit_card, {'attr': {'data-stripe': 'number'}}) }}
             </label>
         </div>
 
         <div class="form-row">
             <label>
                 <span>CVC</span>
-                {{ form_widget(stripe_form.credit_cart_security, {'attr': {'data-stripe': 'cvc'}}) }}
+                {{ form_widget(stripe_form.credit_card_security, {'attr': {'data-stripe': 'cvc'}}) }}
             </label>
         </div>
 
         <div class="form-row">
             <label>
                 <span>Expiration (MM/YYYY)</span>
-                {{ form_widget(stripe_form.credit_cart_expiration_month, {'attr': {'data-stripe': 'exp-month'}}) }}
+                {{ form_widget(stripe_form.credit_card_expiration_month, {'attr': {'data-stripe': 'exp-month'}}) }}
             </label>
             <span> / </span>
-            {{ form_widget(stripe_form.credit_cart_expiration_year, {'attr': {'data-stripe': 'exp-year'}}) }}
+            {{ form_widget(stripe_form.credit_card_expiration_year, {'attr': {'data-stripe': 'exp-year'}}) }}
         </div>
 
         <button type="submit" id="payment-submit">Submit Payment</button>

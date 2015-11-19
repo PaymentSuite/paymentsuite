@@ -1,37 +1,31 @@
 services:
 
-    redsys.form.type.wrapper:
-        class: %redsys.form.type.wrapper.class%
+    #
+    # Services
+    #
+    paymentsuite.redsys.manager:
+        class: PaymentSuite\RedsysBundle\Services\RedsysManager
         arguments:
-            form.factory: @form.factory
-            payment.bridge: @payment.bridge
-            url.factory: @redsys.url.factory
-            redsys.merchant.code: %redsys.merchant.code%
-            redsys.secret.key: %redsys.secret.key%
-            redsys.url: %redsys.url%
+            - @paymentsuite.redsys.form_type_builder
+            - @paymentsuite.redsys.method_factory
+            - @paymentsuite.bridge
+            - @paymentsuite.event_dispatcher
+            - %paymentsuite.redsys.secret_key%
 
-    redsys.manager:
-        class: %redsys.manager.class%
+    paymentsuite.redsys.form_type_builder:
+        class: PaymentSuite\RedsysBundle\Services\RedsysFormTypeBuilder
         arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            redsys.form.type.wrapper: @redsys.form.type.wrapper
-            payment.bridge: @payment.bridge
-            redsys.secret.key: %redsys.secret.key%
+            - @paymentsuite.redsys.url_factory
+            - @paymentsuite.bridge
+            - @form.factory
+            - %paymentsuite.redsys.merchant_code%
+            - %paymentsuite.redsys.secret_key%
+            - %paymentsuite.redsys.url%
 
-    redsys.routes.loader:
-        class: %redsys.routes.loader.class%
+    paymentsuite.redsys.url_factory:
+        class: PaymentSuite\RedsysBundle\Services\UrlFactory
         arguments:
-            redsys.controller.execute.route.name: %redsys.controller.execute.route.name%
-            redsys.controller.execute.route: %redsys.controller.execute.route%
-            redsys.controller.result.route.name: %redsys.controller.result.route.name%
-            redsys.controller.result.route: %redsys.controller.result.route%
-        tags:
-            - { name: routing.loader }
+            - @router
 
-    redsys.url.factory:
-        class: %redsys.url_factory.class%
-        arguments:
-            router: @router
-            success_route_name: %redsys.success.route.name%
-            fail_return_route_name: %redsys.fail.route.name%
-            redsys_result_route_name: %redsys.controller.result.route.name%
+    paymentsuite.redsys.method_factory:
+        class: Paymentsuite\RedsysBundle\Services\RedsysMethodFactory

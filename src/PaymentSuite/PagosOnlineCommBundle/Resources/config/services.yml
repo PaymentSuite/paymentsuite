@@ -1,8 +1,0 @@
-services:
-
-    pagosonline_comm.manager:
-            class: %pagosonline_comm.manager.class%
-            arguments:
-                pagosonline_comm.user_id: %pagosonline_comm.user_id%
-                pagosonline_comm.password: %pagosonline_comm.password%
-                pagosonline_comm.wsdl_url: %pagosonline_comm.wsdl_url%

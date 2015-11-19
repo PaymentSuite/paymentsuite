@@ -18,7 +18,6 @@ use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 /**
  * Event for payment success
  */
-class PaymentOrderSuccessEvent extends AbstractPaymentEvent
+final class PaymentOrderSuccessEvent extends AbstractPaymentEvent
 {
-
 }

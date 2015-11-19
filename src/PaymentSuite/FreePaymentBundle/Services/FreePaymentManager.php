@@ -13,7 +13,6 @@
 
 namespace PaymentSuite\FreePaymentBundle\Services;
 
-use PaymentSuite\FreePaymentBundle\FreePaymentMethod;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
@@ -23,66 +22,100 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 class FreePaymentManager
 {
     /**
-     * @var PaymentEventDispatcher
+     * @var FreePaymentMethodFactory
      *
-     * Payment event dispatcher
+     * PaymentMethodInterface factory
      */
-    protected $paymentEventDispatcher;
+    private $methodFactory;
 
     /**
      * @var PaymentBridgeInterface
      *
      * Payment bridge interface
      */
-    protected $paymentBridge;
+    private $paymentBridge;
 
     /**
-     * Construct method for freepayment manager
+     * @var PaymentEventDispatcher
      *
-     * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
-     * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
+     * Payment event dispatcher
      */
-    public function __construct(PaymentEventDispatcher $paymentEventDispatcher, PaymentBridgeInterface $paymentBridge)
-    {
-        $this->paymentEventDispatcher = $paymentEventDispatcher;
+    private $paymentEventDispatcher;
+
+    /**
+     * Construct method for free payment manager
+     *
+     * @param FreePaymentMethodFactory $methodFactory          PaymentMethodInterface factory
+     * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
+     * @param PaymentEventDispatcher   $paymentEventDispatcher Event dispatcher
+     */
+    public function __construct(
+        FreePaymentMethodFactory $methodFactory,
+        PaymentBridgeInterface $paymentBridge,
+        PaymentEventDispatcher $paymentEventDispatcher
+    ) {
+        $this->methodFactory = $methodFactory;
         $this->paymentBridge = $paymentBridge;
+        $this->paymentEventDispatcher = $paymentEventDispatcher;
     }
 
     /**
-     * Tries to process a payment through Paymill
-     *
-     * @param FreePaymentMethod $paymentMethod Payment method
+     * Tries to process a free payment
      *
      * @return FreePaymentManager Self object
      */
-    public function processPayment(FreePaymentMethod $paymentMethod)
+    public function processPayment()
     {
+        $paymentMethod = $this
+            ->methodFactory
+            ->create();
 
         /**
-         * At this point, order must be created given a card, and placed in PaymentBridge
+         * At this point, order must be created given a card, and placed in
+         * PaymentBridge
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderLoad($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * Order exists right here
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderCreated($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderCreated(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * Payment paid done
          *
-         * Paid process has ended ( No matters result )
+         * Paid process has ended (No matters result)
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderDone($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderDone(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         /**
          * Payment paid successfully
          *
          * Paid process has ended successfully
          */
-        $this->paymentEventDispatcher->notifyPaymentOrderSuccess($this->paymentBridge, $paymentMethod);
+        $this
+            ->paymentEventDispatcher
+            ->notifyPaymentOrderSuccess(
+                $this->paymentBridge,
+                $paymentMethod
+            );
 
         return $this;
     }

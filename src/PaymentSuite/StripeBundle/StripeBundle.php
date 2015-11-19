@@ -13,12 +13,23 @@
 
 namespace PaymentSuite\StripeBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use PaymentSuite\StripeBundle\DependencyInjection\StripeExtension;
 
 /**
  * Stripe payment bundle
  */
 class StripeBundle extends Bundle
 {
-
+    /**
+     * Returns the bundle's container extension.
+     *
+     * @return ExtensionInterface The container extension
+     */
+    public function getContainerExtension()
+    {
+        return new StripeExtension();
+    }
 }

@@ -1,15 +1,14 @@
 services:
 
-    freepayment.manager:
-        class: %freepayment.manager.class%
-        arguments:
-            payment.event.dispatcher: @payment.event.dispatcher
-            payment.bridge: @payment.bridge
+    #
+    # Services
+    #
+    paymentsuite.freepayment.method_factory:
+        class: PaymentSuite\FreePaymentBundle\Services\FreePaymentMethodFactory
 
-    freepayment.routes.loader:
-        class: %freepayment.routes.loader.class%
+    paymentsuite.freepayment.manager:
+        class: PaymentSuite\FreePaymentBundle\Services\FreePaymentManager
         arguments:
-            freepayment.controller.route.name: %freepayment.controller.route.name%
-            freepayment.controller.route: %freepayment.controller.route%
-        tags:
-            - { name: routing.loader }
+            - @paymentsuite.freepayment.method_factory
+            - @paymentsuite.bridge
+            - @paymentsuite.event_dispatcher
