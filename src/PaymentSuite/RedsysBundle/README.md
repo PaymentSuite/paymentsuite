@@ -1,9 +1,8 @@
-Redsys Bundle
-=============
+# Paymentsuite - Redsys
 
 This package is part of
-[Paymentsuite](http://github.com/paymentsuite/paymentsuite) project, a suite of 
-e-commerce Payment Bundles built on top of Symfony and under
+[Paymentsuite](http://github.com/paymentsuite/paymentsuite) project, a 
+suite of payment Bundles built on top of Symfony and under
 [MIT](http://opensource.org/licenses/MIT) license.
 
 > Warning. This package is Read-Only. This means that we'll not attend any Pull 
@@ -18,8 +17,9 @@ commit
 
 ### Support
 
+* Check our [Documentation](http://github.com/paymentsuite/paymentsuite)
 * You can ask your questions to the community in 
-[Gitter](http://gitter.im/paymentsuite/paymentsuite) and we'll try to help you 
+[Gitter](http://gitter.im/paymentsuite/paymentsuite) and we'll try to help you
 as much as possible
 * Look for some help on [Stackoverflow](http://stackoverflow.com)
 * As a last resort, look at [google](http://google.com)!
