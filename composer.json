@@ -47,8 +47,6 @@
         "paymentsuite/bankwire-bundle": "self.version",
         "paymentsuite/free-payment-bundle": "self.version",
         "paymentsuite/payment-core-bundle": "self.version",
-        "paymentsuite/paypal-web-checkout-bundle": "self.version",
-        "paymentsuite/paypal-express-checkout-bundle": "self.version",
         "paymentsuite/redsys-bundle": "self.version",
         "paymentsuite/stripe-bundle": "self.version"
     },
