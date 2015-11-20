@@ -23,7 +23,7 @@ services:
             - %paymentsuite.redsys.url%
 
     paymentsuite.redsys.url_factory:
-        class: PaymentSuite\RedsysBundle\Services\UrlFactory
+        class: PaymentSuite\RedsysBundle\Services\RedsysUrlFactory
         arguments:
             - @router
 

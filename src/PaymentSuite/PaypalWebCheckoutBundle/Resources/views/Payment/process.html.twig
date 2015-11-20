@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paypal Web checkout Redirect Form</title>
+</head>
+<body>
+    {{ form_start(form, {'attr': {'id': 'paypal_checkout_form'}}) }}
+        <input type="hidden" name="cmd" value="_cart">
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="lc" value="{{ app.request.locale }}">
+        {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+    <script language="JavaScript" type="text/javascript">
+
+        var form = document.forms[0];
+        form.submit();
+
+    </script>
+</body>
+</html>

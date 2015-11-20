@@ -1,0 +1,41 @@
+imports:
+    - { resource: services.yml }
+
+framework:
+    secret: "paypalwebcheckouts3cr3t"
+    test: true
+    form: ~
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    validation:      { enable_annotations: false }
+    templating:      { engines: ['twig'] }
+
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+paypal_web_checkout:
+    business: XXXXXXXXXX
+    debug: true
+
+    controller_route: /payment/paypal_web_checkout/execute
+
+    payment_success:
+        route: payment_success
+        order_append: true
+        order_append_field: order_id
+
+    payment_cancel:
+        route: payment_cancel
+        order_append: false
+        order_append_field: order_id
+
+    payment_fail:
+        route: payment_failed
+        order_append: false
+        order_append_field: order_id
+
+    payment_process:
+        route: payment_process
+        path: /payment/paypal_web_checkout/process

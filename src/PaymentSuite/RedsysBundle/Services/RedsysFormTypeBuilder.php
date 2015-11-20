@@ -25,7 +25,7 @@ use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 class RedsysFormTypeBuilder
 {
     /**
-     * @var UrlFactory
+     * @var RedsysUrlFactory
      *
      * URL Factory service
      */
@@ -69,7 +69,7 @@ class RedsysFormTypeBuilder
     /**
      * construct
      *
-     * @param UrlFactory                   $urlFactory    URL Factory service
+     * @param RedsysUrlFactory             $urlFactory    URL Factory service
      * @param PaymentBridgeRedsysInterface $paymentBridge Payment bridge
      * @param FormFactory                  $formFactory   Form factory
      * @param string                       $merchantCode  merchant code
@@ -79,7 +79,7 @@ class RedsysFormTypeBuilder
      */
     public function __construct(
         PaymentBridgeRedsysInterface $paymentBridge,
-        UrlFactory $urlFactory,
+        RedsysUrlFactory $urlFactory,
         FormFactory $formFactory,
         $merchantCode,
         $secretKey,

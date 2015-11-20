@@ -1,8 +1,8 @@
 {
-    "name": "paymentsuite/free-payment-bundle",
+    "name": "paymentsuite/paypal-web-checkout-bundle",
     "type": "symfony-bundle",
-    "description": "Free Payment PaymentSuite Component",
-    "keywords": ["paymentsuite", "free", "payment", "ecommerce"],
+    "description": "Paypal Web Checkout PaymentSuite Component",
+    "keywords": ["redsys", "sermepa", "payment", "ecommerce"],
     "license": "MIT",
     "support": {
         "email": "yuhu@mmoreram.com",
@@ -27,9 +27,11 @@
         "symfony/form": "^2.7|^3.0",
         "symfony/config": "^2.7|^3.0",
         "symfony/http-kernel": "^2.7|^3.0",
+        "symfony/http-foundation": "^2.7|^3.0",
         "symfony/dependency-injection": "^2.7|^3.0",
+        "twig/twig": "^1.23.1",
 
-        "paymentsuite/payment-core-bundle": "^2.0"
+        "paymentsuite/payment-core-bundle": "~1.1"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^1.0",
@@ -38,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PaymentSuite\\FreePaymentBundle\\": ""
+            "PaymentSuite\\PaypalWebCheckoutBundle\\": ""
         }
     },
     "extra": {
