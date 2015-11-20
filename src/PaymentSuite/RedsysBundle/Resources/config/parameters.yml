@@ -5,3 +5,4 @@ parameters:
     redsys.controller.execute.route.name: "redsys_execute"
     redsys.controller.result.route.name: "redsys_result"
     redsys.url_factory.class: "PaymentSuite\\RedsysBundle\\Services\\UrlFactory"
+    redsys.signature.class: "PaymentSuite\\RedsysBundle\\Services\\RedsysSignature"

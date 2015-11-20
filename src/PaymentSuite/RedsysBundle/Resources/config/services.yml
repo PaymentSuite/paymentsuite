@@ -6,6 +6,7 @@ services:
             form.factory: @form.factory
             payment.bridge: @payment.bridge
             url.factory: @redsys.url.factory
+            redsys.signature: @redsys.signature
             redsys.merchant.code: %redsys.merchant.code%
             redsys.secret.key: %redsys.secret.key%
             redsys.url: %redsys.url%
@@ -16,6 +17,7 @@ services:
             payment.event.dispatcher: @payment.event.dispatcher
             redsys.form.type.wrapper: @redsys.form.type.wrapper
             payment.bridge: @payment.bridge
+            redsys.signature: @redsys.signature
             redsys.secret.key: %redsys.secret.key%
 
     redsys.routes.loader:
@@ -35,3 +37,6 @@ services:
             success_route_name: %redsys.success.route.name%
             fail_return_route_name: %redsys.fail.route.name%
             redsys_result_route_name: %redsys.controller.result.route.name%
+
+    redsys.signature:
+        class: %redsys.signature.class%

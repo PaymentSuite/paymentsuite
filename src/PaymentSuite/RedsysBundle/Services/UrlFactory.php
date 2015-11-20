@@ -99,11 +99,11 @@ class UrlFactory
      *
      * @return string
      */
-    public function getReturnRedsysUrl()
+    public function getReturnRedsysUrl($orderId)
     {
         return $this->router->generate(
             $this->resultRouteName,
-            array(),
+            array('id' => $orderId),
             true);
     }
 }
