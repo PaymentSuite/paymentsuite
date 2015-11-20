@@ -1,0 +1,9 @@
+paymentsuite_paypal_web_checkout_execute:
+    path: /payment/paypal-web-checkout/execute
+    defaults:
+        _controller: paymentsuite.paypal_web_checkout.payment_controller:executeAction
+
+paymentsuite_paypal_web_checkout_process:
+    path: /payment/paypal-web-checkout/process
+    defaults:
+        _controller: paymentsuite.paypal_web_checkout.process_controller:processAction

@@ -16,9 +16,9 @@ namespace PaymentSuite\RedsysBundle\Services;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Class UrlFactory
+ * Class RedsysUrlFactory
  */
-class UrlFactory
+class RedsysUrlFactory
 {
     /**
      * @var UrlGeneratorInterface

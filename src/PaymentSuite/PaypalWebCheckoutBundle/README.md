@@ -1,11 +1,13 @@
-# Paymentsuite
+# Paymentsuite - Paypal Web Checkout
 
-[![Latest Stable Version](https://poser.pugx.org/paymentsuite/paymentsuite/v/stable.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
-[![Latest Unstable Version](https://poser.pugx.org/paymentsuite/paymentsuite/v/unstable.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
-[![License](https://poser.pugx.org/paymentsuite/paymentsuite/license.png)](https://packagist.org/packages/paymentsuite/paymentsuite)
-
-Paymentsuite is a suite of payment Bundles built on top of Symfony and under
+This package is part of
+[Paymentsuite](http://github.com/paymentsuite/paymentsuite) project, a 
+suite of payment Bundles built on top of Symfony and under
 [MIT](http://opensource.org/licenses/MIT) license.
+
+> Warning. This package is Read-Only. This means that we'll not attend any Pull 
+> Request received here. Please, use the main paymentsuite/paymentsuite package
+> for Issues, Questions and Pull Requests.
 
 ### Tags
 

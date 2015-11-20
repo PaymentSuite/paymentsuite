@@ -67,10 +67,12 @@ class PaymentController extends Controller
             ->redsysManager
             ->processPayment();
 
-        return $this
-            ->templatingEngine
-            ->render('PaypalWebCheckoutBundle:Paypal:process.html.twig', [
-                'paypal_form' => $formView,
-            ]);
+        return new Response(
+            $this
+                ->templatingEngine
+                ->render('PaypalWebCheckoutBundle:Paypal:process.html.twig', [
+                    'paypal_form' => $formView,
+                ])
+        );
     }
 }
