@@ -1,8 +1,0 @@
-services:
-    fake_order:
-        class: PaymentSuite\RedsysBundle\Tests\Functional\Entity\FakeOrder
-
-    payment.bridge:
-        class: PaymentSuite\RedsysBundle\Tests\Functional\Services\DummyPaymentBridge
-        calls:
-            - [setOrder, ["@fake_order"]]
