@@ -13,79 +13,35 @@
 
 namespace PaymentSuite\StripeBundle\Twig;
 
-use Symfony\Component\Form\FormFactory;
-use Twig_Environment;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PaymentSuite\StripeBundle\Services\StripeTemplateRender;
 
 /**
- * Text utilities extension
- *
+ * Text utilities extension.
  */
 class StripeExtension extends Twig_Extension
 {
     /**
-     * @var PaymentBridgeInterface
+     * @var StripeTemplateRender
      *
-     * Currency wrapper
+     * Stripe template render
      */
-    private $paymentBridgeInterface;
+    private $stripeTemplateRender;
 
     /**
-     * @var FormFactory
+     * Construct method.
      *
-     * Form factory
+     * @param StripeTemplateRender $stripeTemplateRender Stripe template render
      */
-    private $formFactory;
-
-    /**
-     * @var string
-     *
-     * Public key
-     */
-    private $publicKey;
-
-    /**
-     * @var string
-     *
-     * View template name in Bundle notation
-     */
-    private $viewTemplate;
-
-    /**
-     * @var string
-     *
-     * Scripts template in Bundle notation
-     */
-    private $scriptsTemplate;
-
-    /**
-     * Construct method
-     *
-     * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge Interface
-     * @param FormFactory            $formFactory            Form factory
-     * @param string                 $publicKey              Public key
-     * @param string                 $viewTemplate           Twig template name for displaying the form
-     * @param string                 $scriptsTemplate        Twig template name for scripts/js
-     */
-    public function __construct(
-        PaymentBridgeInterface $paymentBridgeInterface,
-        FormFactory $formFactory,
-        $publicKey,
-        $viewTemplate,
-        $scriptsTemplate
-    ) {
-        $this->paymentBridgeInterface = $paymentBridgeInterface;
-        $this->formFactory = $formFactory;
-        $this->publicKey = $publicKey;
-        $this->viewTemplate = $viewTemplate;
-        $this->scriptsTemplate = $scriptsTemplate;
+    public function __construct(StripeTemplateRender $stripeTemplateRender)
+    {
+        $this->stripeTemplateRender = $stripeTemplateRender;
     }
 
     /**
-     * Return all filters
+     * Return all filters.
      *
      * @return array Filters created
      */
@@ -94,27 +50,19 @@ class StripeExtension extends Twig_Extension
         $options = ['needs_environment' => true];
 
         return [
-            new Twig_SimpleFunction('stripe_render', function (Twig_Environment $environment, $viewTemplate = null) {
-
-                $formType = $this->formFactory->create('stripe_view');
-
-                $environment->display($viewTemplate ?: $this->viewTemplate, [
-                    'stripe_form'          => $formType->createView(),
-                    'stripe_execute_route' => 'paymentsuite_stripe_execute',
-                ]);
-            }, $options),
-            new Twig_SimpleFunction('stripe_scripts', function (Twig_Environment $environment) {
-
-                $environment->display($this->scriptsTemplate, [
-                    'public_key' => $this->publicKey,
-                    'currency'   => $this->paymentBridgeInterface->getCurrency(),
-                ]);
-            }, $options),
+            new Twig_SimpleFunction('stripe_render', [
+                $this->stripeTemplateRender,
+                'renderStripeForm',
+            ], $options),
+            new Twig_SimpleFunction('stripe_scripts', [
+                $this->stripeTemplateRender,
+                'renderStripeScripts',
+            ], $options),
         ];
     }
 
     /**
-     * return extension name
+     * return extension name.
      *
      * @return string extension name
      */

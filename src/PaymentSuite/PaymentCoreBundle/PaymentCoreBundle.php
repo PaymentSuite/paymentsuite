@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\PaymentCoreExtension;
 
 /**
- * Core Payment Bundle
+ * Core Payment Bundle.
  */
 class PaymentCoreBundle extends Bundle
 {

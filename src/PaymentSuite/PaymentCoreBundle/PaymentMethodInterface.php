@@ -14,12 +14,12 @@
 namespace PaymentSuite\PaymentCoreBundle;
 
 /**
- * Interface for all type of payments
+ * Interface for all type of payments.
  */
 interface PaymentMethodInterface
 {
     /**
-     * Return type of payment name
+     * Return type of payment name.
      *
      * @return string
      */

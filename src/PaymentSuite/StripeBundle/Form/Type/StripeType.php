@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 
 /**
- * Type for a shop edit profile form
+ * Type for a shop edit profile form.
  */
 class StripeType extends AbstractType
 {
@@ -31,7 +31,7 @@ class StripeType extends AbstractType
     private $paymentBridge;
 
     /**
-     * Form type construct method
+     * Form type construct method.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment bridge
      */
@@ -41,7 +41,7 @@ class StripeType extends AbstractType
     }
 
     /**
-     * Build form function
+     * Build form function.
      *
      * @param FormBuilderInterface $builder the formBuilder
      * @param array                $options the options for this form
@@ -66,15 +66,15 @@ class StripeType extends AbstractType
                 'choices' => array_combine(range(date('Y'), 2025), range(date('Y'), 2025)),
             ])
             ->add('amount', 'hidden', [
-                'data'  =>  $this->paymentBridge->getAmount(),
+                'data' => $this->paymentBridge->getAmount(),
             ])
             ->add('api_token', 'hidden', [
-                'data'  =>  '',
+                'data' => '',
             ]);
     }
 
     /**
-     * Return unique name for this form
+     * Return unique name for this form.
      *
      * @return string
      */

@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use PaymentSuite\BankwireBundle\DependencyInjection\BankwireExtension;
 
 /**
- * Bankwire payment bundle
+ * Bankwire payment bundle.
  */
 class BankwireBundle extends Bundle implements DependentBundleInterface
 {

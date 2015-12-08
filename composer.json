@@ -40,9 +40,9 @@
         "elcodi/test-common-bundle": "^1.0",
         "elcodi/fixtures-booster-bundle": "^1.0",
 
-        "mmoreram/php-formatter": "1.0.4",
-        "fabpot/php-cs-fixer": "1.4.2",
-        "phpunit/phpunit": "4.5.0"
+        "mmoreram/php-formatter": "1.1.0",
+        "fabpot/php-cs-fixer": "1.11",
+        "phpunit/phpunit": "4.8.19"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",
@@ -64,10 +64,10 @@
     },
     "scripts": {
         "check-style": [
-            "php-cs-fixer fix --config-file=.php_cs",
-            "php-formatter f:h:f src",
-            "php-formatter f:u:s src"
+            "vendor/bin/php-cs-fixer fix --config-file=.php_cs",
+            "vendor/bin/php-formatter f:h:f src",
+            "vendor/bin/php-formatter f:u:s src"
         ],
-        "test": "phpunit"
+        "test": "vendor/bin/phpunit"
     }
 }

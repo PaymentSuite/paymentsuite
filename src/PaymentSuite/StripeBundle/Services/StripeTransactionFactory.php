@@ -18,7 +18,7 @@ use Stripe\Charge;
 use Stripe\Stripe;
 
 /**
- * class StripeTransactionFactory
+ * class StripeTransactionFactory.
  */
 class StripeTransactionFactory
 {
@@ -30,7 +30,7 @@ class StripeTransactionFactory
     private $privateKey;
 
     /**
-     * Construct method for stripe transaction wrapper
+     * Construct method for stripe transaction wrapper.
      *
      * @param string $privateKey Private key
      */
@@ -40,7 +40,7 @@ class StripeTransactionFactory
     }
 
     /**
-     * Create new Transaction with a set of params
+     * Create new Transaction with a set of params.
      *
      * @param array $params Set of params
      *

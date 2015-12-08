@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use PaymentSuite\StripeBundle\DependencyInjection\StripeExtension;
 
 /**
- * Stripe payment bundle
+ * Stripe payment bundle.
  */
 class StripeBundle extends Bundle implements DependentBundleInterface
 {

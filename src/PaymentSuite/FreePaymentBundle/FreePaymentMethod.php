@@ -16,12 +16,12 @@ namespace PaymentSuite\FreePaymentBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * FreePaymentMethod class
+ * FreePaymentMethod class.
  */
 final class FreePaymentMethod implements PaymentMethodInterface
 {
     /**
-     * Get Free payment method name
+     * Get Free payment method name.
      *
      * @return string Payment name
      */

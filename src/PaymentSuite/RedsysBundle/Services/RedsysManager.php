@@ -22,7 +22,7 @@ use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
 use PaymentSuite\RedsysBundle\RedsysMethod;
 
 /**
- * Redsys manager
+ * Redsys manager.
  */
 class RedsysManager
 {
@@ -62,7 +62,7 @@ class RedsysManager
     private $secretKey;
 
     /**
-     * Construct method for redsys manager
+     * Construct method for redsys manager.
      *
      * @param RedsysFormTypeBuilder  $redsysFormTypeBuilder  Form Type Builder
      * @param RedsysMethodFactory    $redsysMethodFactory    RedsysMethod factory
@@ -85,7 +85,7 @@ class RedsysManager
     }
 
     /**
-     * Creates form view for Redsys payment
+     * Creates form view for Redsys payment.
      *
      * @return \Symfony\Component\Form\FormView
      *
@@ -98,7 +98,7 @@ class RedsysManager
             ->create();
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a cart, and placed in PaymentBridge.
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -110,14 +110,14 @@ class RedsysManager
             );
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * Order exists right here
+         * Order exists right here.
          */
         $this
             ->paymentEventDispatcher
@@ -132,7 +132,7 @@ class RedsysManager
     }
 
     /**
-     * Processes the POST request sent by Redsys
+     * Processes the POST request sent by Redsys.
      *
      * @param array $parameters Array with response parameters
      *
@@ -179,7 +179,7 @@ class RedsysManager
         }
 
         /**
-         * Adding transaction information to PaymentMethod
+         * Adding transaction information to PaymentMethod.
          *
          * This information is only available in PaymentOrderSuccess event
          */
@@ -195,7 +195,7 @@ class RedsysManager
             ->setDsOrder($dsOrder);
 
         /**
-         * Payment paid done
+         * Payment paid done.
          *
          * Paid process has ended ( No matters result )
          */
@@ -208,12 +208,12 @@ class RedsysManager
 
         /**
          * when a transaction is successful, $Ds_Response has a
-         * value between 0 and 99
+         * value between 0 and 99.
          */
         if (!$this->transactionSuccessful($dsResponse)) {
 
             /**
-             * Payment paid failed
+             * Payment paid failed.
              *
              * Paid process has ended failed
              */
@@ -228,7 +228,7 @@ class RedsysManager
         }
 
         /**
-         * Payment paid successfully
+         * Payment paid successfully.
          *
          * Paid process has ended successfully
          */
@@ -243,24 +243,24 @@ class RedsysManager
     }
 
     /**
-     * Returns true if the transaction was successful
+     * Returns true if the transaction was successful.
      *
      * @param string $dsResponse Response code
      *
-     * @return boolean
+     * @return bool
      */
     private function transactionSuccessful($dsResponse)
     {
         /**
          * When a transaction is successful, $Ds_Response has a value
-         * between 0 and 99
+         * between 0 and 99.
          */
 
-        return (intval($dsResponse) >= 0 && intval($dsResponse) <= 99);
+        return intval($dsResponse) >= 0 && intval($dsResponse) <= 99;
     }
 
     /**
-     * Returns the expected signature
+     * Returns the expected signature.
      *
      * @param string $amount       Amount
      * @param string $order        Order
@@ -290,7 +290,7 @@ class RedsysManager
     }
 
     /**
-     * Checks that all the required parameters are received
+     * Checks that all the required parameters are received.
      *
      * @param array $parameters Parameters
      *

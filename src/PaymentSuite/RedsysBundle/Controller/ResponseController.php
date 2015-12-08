@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection;
 
 /**
- * Class ResponseController
+ * Class ResponseController.
  */
 class ResponseController
 {
@@ -40,7 +40,7 @@ class ResponseController
     private $urlGenerator;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param RedirectionRouteCollection $redirectionRoutes Redirection routes
      * @param UrlGeneratorInterface      $urlGenerator      Url generator
@@ -54,7 +54,7 @@ class ResponseController
     }
 
     /**
-     * Payment success action
+     * Payment success action.
      *
      * @param Request $request Request element
      *
@@ -83,7 +83,7 @@ class ResponseController
     }
 
     /**
-     * Payment fail action
+     * Payment fail action.
      *
      * @param Request $request Request element
      *

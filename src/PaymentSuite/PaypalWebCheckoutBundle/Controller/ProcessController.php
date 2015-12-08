@@ -22,7 +22,7 @@ use PaymentSuite\PaypalWebCheckoutBundle\Exception\ParameterNotReceivedException
 use PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutManager;
 
 /**
- * Class ProcessController
+ * Class ProcessController.
  */
 class ProcessController
 {
@@ -41,7 +41,7 @@ class ProcessController
     private $paymentLogger;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param PaypalWebCheckoutManager $paypalWebCheckoutManager PaypalWebCheckout manager
      * @param PaymentLogger            $paymentLogger            Payment logger
@@ -55,7 +55,7 @@ class ProcessController
     }
 
     /**
-     * Process Paypal IPN notification
+     * Process Paypal IPN notification.
      *
      * This controller handles the IPN notification.
      * The notification is sent using POST method. However,

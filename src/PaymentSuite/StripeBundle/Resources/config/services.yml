@@ -21,13 +21,11 @@ services:
     paymentsuite.stripe.method_factory:
         class: PaymentSuite\StripeBundle\Services\StripeMethodFactory
 
-    paymentsuite.stripe.twig_extension:
-        class: PaymentSuite\StripeBundle\Twig\StripeExtension
+    paymentsuite.stripe.template_render:
+        class: PaymentSuite\StripeBundle\Services\StripeTemplateRender
         arguments:
-            - @paymentsuite.bridge
-            - @form.factory
+            - "@paymentsuite.bridge"
+            - "@form.factory"
             - %paymentsuite.stripe.public_key%
             - %paymentsuite.stripe.view_template%
             - %paymentsuite.stripe.scripts_template%
-        tags:
-            - { name: twig.extension }

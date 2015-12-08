@@ -16,7 +16,7 @@ namespace PaymentSuite\RedsysBundle\Services;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Class RedsysUrlFactory
+ * Class RedsysUrlFactory.
  */
 class RedsysUrlFactory
 {
@@ -28,7 +28,7 @@ class RedsysUrlFactory
     private $urlGenerator;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param UrlGeneratorInterface $urlGenerator Url generator
      */
@@ -38,7 +38,7 @@ class RedsysUrlFactory
     }
 
     /**
-     * Get the route result Redsys
+     * Get the route result Redsys.
      *
      * @return string Result url
      */
@@ -54,7 +54,7 @@ class RedsysUrlFactory
     }
 
     /**
-     * Get the route succesfull payment return from Redsys
+     * Get the route succesfull payment return from Redsys.
      *
      * @param $orderId
      *
@@ -70,7 +70,7 @@ class RedsysUrlFactory
     }
 
     /**
-     * Get the route cancelled payment from Redsys
+     * Get the route cancelled payment from Redsys.
      *
      * @param $orderId
      *

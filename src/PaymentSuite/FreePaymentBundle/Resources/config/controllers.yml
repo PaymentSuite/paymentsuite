@@ -6,7 +6,7 @@ services:
     paymentsuite.freepayment.payment_controller:
         class: PaymentSuite\FreePaymentBundle\Controller\PaymentController
         arguments:
-            - @paymentsuite.freepayment.manager
-            - @paymentsuite.freepayment.route_success
-            - @paymentsuite.bridge
-            - @router
+            - "@paymentsuite.freepayment.manager"
+            - "@paymentsuite.freepayment.route_success"
+            - "@paymentsuite.bridge"
+            - "@router"

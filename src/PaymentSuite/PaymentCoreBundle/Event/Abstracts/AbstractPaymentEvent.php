@@ -19,7 +19,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
- * Abstract payment event
+ * Abstract payment event.
  */
 abstract class AbstractPaymentEvent extends Event
 {
@@ -38,7 +38,7 @@ abstract class AbstractPaymentEvent extends Event
     private $paymentMethod;
 
     /**
-     * Construct method
+     * Construct method.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method
@@ -52,7 +52,7 @@ abstract class AbstractPaymentEvent extends Event
     }
 
     /**
-     * Get Order Wrapper
+     * Get Order Wrapper.
      *
      * @return PaymentBridgeInterface Payment Bridge
      */
@@ -62,7 +62,7 @@ abstract class AbstractPaymentEvent extends Event
     }
 
     /**
-     * Get Payment Method
+     * Get Payment Method.
      *
      * @return PaymentMethodInterface Payment method
      */

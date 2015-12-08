@@ -16,7 +16,7 @@ namespace PaymentSuite\PaymentCoreBundle\Services;
 use Psr\Log\LoggerInterface;
 
 /**
- * Payment logger
+ * Payment logger.
  */
 class PaymentLogger
 {
@@ -35,7 +35,7 @@ class PaymentLogger
     private $active;
 
     /**
-     * Construct method
+     * Construct method.
      *
      * @param LoggerInterface $logger Logger
      * @param bool            $active Do log or not
@@ -49,7 +49,7 @@ class PaymentLogger
     }
 
     /**
-     * Log payment message, prepending payment bundle name if set
+     * Log payment message, prepending payment bundle name if set.
      *
      * @param string $level         Level
      * @param string $message       Message to log

@@ -17,12 +17,12 @@ use PaymentSuite\PaypalWebCheckoutBundle\PaypalWebCheckoutEmptyMethod;
 use PaymentSuite\PaypalWebCheckoutBundle\PaypalWebCheckoutMethod;
 
 /**
- * Class PaypalWebCheckoutMethodFactory
+ * Class PaypalWebCheckoutMethodFactory.
  */
 class PaypalWebCheckoutMethodFactory
 {
     /**
-     * Create a new empty PaypalWebCheckoutEmptyMethod instance
+     * Create a new empty PaypalWebCheckoutEmptyMethod instance.
      *
      * @return PaypalWebCheckoutEmptyMethod
      */
@@ -33,7 +33,7 @@ class PaypalWebCheckoutMethodFactory
 
     /**
      * Initialize Paypal Method using an array which represents
-     * the parameters coming from the IPN message as shown in
+     * the parameters coming from the IPN message as shown in.
      *
      * https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNandPDTVariables/#id091EAB0105Z
      *

@@ -14,18 +14,18 @@
 namespace PaymentSuite\PaymentCoreBundle\Services\Interfaces;
 
 /**
- * Interface for PaymentBridge
+ * Interface for PaymentBridge.
  */
 interface PaymentBridgeInterface
 {
     /**
-     * Order zone
+     * Order zone.
      *
      * Brings all needed order information
      */
 
     /**
-     * Sets order to PaymentBridge
+     * Sets order to PaymentBridge.
      *
      * Sets a generic Order object in the PaymentBridge.
      * This is necessary so that the bridge has a reference to
@@ -33,49 +33,49 @@ interface PaymentBridgeInterface
      * The order object doesn't need to implement any interface,
      * since it is platform-specific
      *
-     * @param Object $order Order element
+     * @param object $order Order element
      */
     public function setOrder($order);
 
     /**
-     * Gets order
+     * Gets order.
      *
      * Return object stored as order
      *
-     * @return Object Order object
+     * @return object Order object
      */
     public function getOrder();
 
     /**
-     * Gets order given an identifier and stores it locally
+     * Gets order given an identifier and stores it locally.
      *
-     * @param integer $orderId Order identifier, usually defined as primary key
-     *                         or unique key
+     * @param int $orderId Order identifier, usually defined as primary key
+     *                     or unique key
      *
-     * @return Object Order object
+     * @return object Order object
      */
     public function findOrder($orderId);
 
     /**
-     * Returns order identifier value
+     * Returns order identifier value.
      *
-     * @return integer
+     * @return int
      */
     public function getOrderId();
 
     /**
-     * Returns if order has already been paid
+     * Returns if order has already been paid.
      *
-     * @return boolean
+     * @return bool
      */
     public function isOrderPaid();
 
     /**
-     * Common methods
+     * Common methods.
      */
 
     /**
-     * Gets payment amount in CENTS
+     * Gets payment amount in CENTS.
      *
      * Payment amoounts always must be returned in CENTS
      * Example:
@@ -85,19 +85,19 @@ interface PaymentBridgeInterface
      * specify amounts, you will have to convert them to
      * integer before returning them here
      *
-     * @return integer
+     * @return int
      */
     public function getAmount();
 
     /**
-     * Gets payment currency in ISO 4217 3-character format
+     * Gets payment currency in ISO 4217 3-character format.
      *
      * @return string
      */
     public function getCurrency();
 
     /**
-     * Get extra data
+     * Get extra data.
      *
      * Each payment platform should define what extra data is needed to be implemented
      *

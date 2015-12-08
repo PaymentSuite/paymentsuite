@@ -21,7 +21,7 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
- * Stripe manager
+ * Stripe manager.
  */
 class StripeManager
 {
@@ -47,7 +47,7 @@ class StripeManager
     private $paymentEventDispatcher;
 
     /**
-     * Construct method for stripe manager
+     * Construct method for stripe manager.
      *
      * @param StripeTransactionFactory $transactionFactory     Stripe Transaction factory
      * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
@@ -64,7 +64,7 @@ class StripeManager
     }
 
     /**
-     * Tries to process a payment through Stripe
+     * Tries to process a payment through Stripe.
      *
      * @param StripeMethod $paymentMethod Payment method
      * @param float        $amount        Amount
@@ -77,7 +77,7 @@ class StripeManager
     public function processPayment(StripeMethod $paymentMethod, $amount)
     {
         /**
-         * check and set payment data
+         * check and set payment data.
          */
         $chargeParams = $this->prepareData(
             $paymentMethod,
@@ -85,14 +85,14 @@ class StripeManager
         );
 
         /**
-         * make payment
+         * make payment.
          */
         $transaction = $this
             ->transactionFactory
             ->create($chargeParams);
 
         /**
-         * Payment paid done
+         * Payment paid done.
          *
          * Paid process has ended ( No matters result )
          */
@@ -104,12 +104,12 @@ class StripeManager
             );
 
         /**
-         * when a transaction is successful, it is marked as 'closed'
+         * when a transaction is successful, it is marked as 'closed'.
          */
         if ($transaction['paid'] != 1) {
 
             /**
-             * Payment paid failed
+             * Payment paid failed.
              *
              * Paid process has ended failed
              */
@@ -129,7 +129,7 @@ class StripeManager
             ->setTransactionResponse($transaction);
 
         /**
-         * Payment paid successfully
+         * Payment paid successfully.
          *
          * Paid process has ended successfully
          */
@@ -144,7 +144,7 @@ class StripeManager
     }
 
     /**
-     * Check and set param for payment
+     * Check and set param for payment.
      *
      * @param StripeMethod $paymentMethod Payment method
      * @param float        $amount        Amount
@@ -160,14 +160,14 @@ class StripeManager
         $cartAmount = intval($this->paymentBridge->getAmount());
 
         /**
-         * If both amounts are different, execute Exception
+         * If both amounts are different, execute Exception.
          */
         if (abs($amount - $cartAmount) > 0.00001) {
             throw new PaymentAmountsNotMatchException();
         }
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a cart, and placed in PaymentBridge.
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -179,14 +179,14 @@ class StripeManager
             );
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * Order exists right here
+         * Order exists right here.
          */
         $this
             ->paymentEventDispatcher
@@ -197,17 +197,17 @@ class StripeManager
 
         /**
          * Validate the order in the module
-         * params for stripe interaction
+         * params for stripe interaction.
          */
         $cardParams = [
-            'number'    => $paymentMethod->getCreditCardNumber(),
+            'number' => $paymentMethod->getCreditCardNumber(),
             'exp_month' => $paymentMethod->getCreditCardExpirationMonth(),
-            'exp_year'  => $paymentMethod->getCreditCardExpirationYear(),
+            'exp_year' => $paymentMethod->getCreditCardExpirationYear(),
         ];
 
         return [
-            'card'     => $cardParams,
-            'amount'   => $cartAmount,
+            'card' => $cardParams,
+            'amount' => $cartAmount,
             'currency' => strtolower($this->paymentBridge->getCurrency()),
         ];
     }

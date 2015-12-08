@@ -20,7 +20,7 @@ use Symfony\Component\Templating\EngineInterface;
 use PaymentSuite\RedsysBundle\Services\RedsysManager;
 
 /**
- * PaymentController
+ * PaymentController.
  */
 class PaymentController extends Controller
 {
@@ -39,7 +39,7 @@ class PaymentController extends Controller
     private $templatingEngine;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param RedsysManager   $redsysManager    Payment manager
      * @param EngineInterface $templatingEngine Payment bridge
@@ -53,7 +53,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Payment execution
+     * Payment execution.
      *
      * @return Response
      */
@@ -61,7 +61,7 @@ class PaymentController extends Controller
     {
         /**
          * The execute action will generate the Paypal web
-         * checkout form before redirecting
+         * checkout form before redirecting.
          */
         $formView = $this
             ->redsysManager

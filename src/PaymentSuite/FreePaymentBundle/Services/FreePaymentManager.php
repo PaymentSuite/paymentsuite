@@ -17,7 +17,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
- * FreePayment manager
+ * FreePayment manager.
  */
 class FreePaymentManager
 {
@@ -43,7 +43,7 @@ class FreePaymentManager
     private $paymentEventDispatcher;
 
     /**
-     * Construct method for free payment manager
+     * Construct method for free payment manager.
      *
      * @param FreePaymentMethodFactory $methodFactory          PaymentMethodInterface factory
      * @param PaymentBridgeInterface   $paymentBridge          Payment Bridge
@@ -60,7 +60,7 @@ class FreePaymentManager
     }
 
     /**
-     * Tries to process a free payment
+     * Tries to process a free payment.
      *
      * @return FreePaymentManager Self object
      */
@@ -72,7 +72,7 @@ class FreePaymentManager
 
         /**
          * At this point, order must be created given a card, and placed in
-         * PaymentBridge
+         * PaymentBridge.
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -84,7 +84,7 @@ class FreePaymentManager
             );
 
         /**
-         * Order exists right here
+         * Order exists right here.
          */
         $this
             ->paymentEventDispatcher
@@ -94,7 +94,7 @@ class FreePaymentManager
             );
 
         /**
-         * Payment paid done
+         * Payment paid done.
          *
          * Paid process has ended (No matters result)
          */
@@ -106,7 +106,7 @@ class FreePaymentManager
             );
 
         /**
-         * Payment paid successfully
+         * Payment paid successfully.
          *
          * Paid process has ended successfully
          */

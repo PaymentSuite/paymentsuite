@@ -37,7 +37,7 @@ class PaymentEventDispatcher
     private $eventDispatcher;
 
     /**
-     * Construct method
+     * Construct method.
      *
      * @param EventDispatcherInterface $eventDispatcher Event dispatcher
      */
@@ -47,7 +47,7 @@ class PaymentEventDispatcher
     }
 
     /**
-     * Notifies when order must be created
+     * Notifies when order must be created.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method
@@ -74,7 +74,7 @@ class PaymentEventDispatcher
     }
 
     /**
-     * Notifies when order must be created
+     * Notifies when order must be created.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method
@@ -101,7 +101,7 @@ class PaymentEventDispatcher
     }
 
     /**
-     * Notifies when order payment process is done
+     * Notifies when order payment process is done.
      *
      * It doesn't matters if process its been success or failed
      *
@@ -157,7 +157,7 @@ class PaymentEventDispatcher
     }
 
     /**
-     * Notifies when payment is done and failed
+     * Notifies when payment is done and failed.
      *
      * @param PaymentBridgeInterface $paymentBridge Payment Bridge
      * @param PaymentMethodInterface $paymentMethod Payment method

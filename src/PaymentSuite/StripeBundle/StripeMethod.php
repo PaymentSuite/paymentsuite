@@ -16,12 +16,12 @@ namespace PaymentSuite\StripeBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * StripeMethod class
+ * StripeMethod class.
  */
 final class StripeMethod implements PaymentMethodInterface
 {
     /**
-     * Get Stripe method name
+     * Get Stripe method name.
      *
      * @return string Payment name
      */
@@ -52,14 +52,14 @@ final class StripeMethod implements PaymentMethodInterface
     private $creditCardOwner;
 
     /**
-     * @var integer
+     * @var int
      *
      * Credit card expiration year
      */
     private $creditCardExpirationYear;
 
     /**
-     * @var integer
+     * @var int
      *
      * Credit card expiration month value
      */
@@ -73,7 +73,7 @@ final class StripeMethod implements PaymentMethodInterface
     private $creditCardSecurity;
 
     /**
-     * @var integer
+     * @var int
      *
      * Stripe transaction id
      */
@@ -94,7 +94,7 @@ final class StripeMethod implements PaymentMethodInterface
     private $transactionStatus;
 
     /**
-     * Construct method
+     * Construct method.
      *
      * @param string $apiToken                  Api token
      * @param string $creditCardNumber          Credit card number
@@ -120,7 +120,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get ApiToken
+     * Get ApiToken.
      *
      * @return string ApiToken
      */
@@ -130,7 +130,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get CreditCardNumber
+     * Get CreditCardNumber.
      *
      * @return string CreditCardNumber
      */
@@ -140,7 +140,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get CreditCardOwner
+     * Get CreditCardOwner.
      *
      * @return string CreditCardOwner
      */
@@ -150,7 +150,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get CreditCardExpirationYear
+     * Get CreditCardExpirationYear.
      *
      * @return int CreditCardExpirationYear
      */
@@ -160,7 +160,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get CreditCardExpirationMonth
+     * Get CreditCardExpirationMonth.
      *
      * @return int CreditCardExpirationMonth
      */
@@ -170,7 +170,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get CreditCardSecurity
+     * Get CreditCardSecurity.
      *
      * @return string CreditCardSecurity
      */
@@ -180,7 +180,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TransactionId
+     * Get TransactionId.
      *
      * @return int TransactionId
      */
@@ -190,7 +190,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Sets TransactionId
+     * Sets TransactionId.
      *
      * @param int $transactionId TransactionId
      *
@@ -204,7 +204,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TransactionResponse
+     * Get TransactionResponse.
      *
      * @return array TransactionResponse
      */
@@ -214,7 +214,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Sets TransactionResponse
+     * Sets TransactionResponse.
      *
      * @param array $transactionResponse TransactionResponse
      *
@@ -228,7 +228,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TransactionStatus
+     * Get TransactionStatus.
      *
      * @return string TransactionStatus
      */
@@ -238,7 +238,7 @@ final class StripeMethod implements PaymentMethodInterface
     }
 
     /**
-     * Sets TransactionStatus
+     * Sets TransactionStatus.
      *
      * @param string $transactionStatus TransactionStatus
      *

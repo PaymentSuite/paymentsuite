@@ -16,7 +16,7 @@ namespace PaymentSuite\RedsysBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * RedsysMethod class
+ * RedsysMethod class.
  */
 final class RedsysMethod implements PaymentMethodInterface
 {
@@ -84,7 +84,7 @@ final class RedsysMethod implements PaymentMethodInterface
     private $dsOrder;
 
     /**
-     * Get Redsys method name
+     * Get Redsys method name.
      *
      * @return string Payment name
      */
@@ -94,7 +94,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * set Response code
+     * set Response code.
      *
      * @param string $dsResponse Response code
      *
@@ -108,7 +108,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Response code
+     * Get Response code.
      *
      * @return string Response code
      */
@@ -117,7 +117,7 @@ final class RedsysMethod implements PaymentMethodInterface
         return $this->dsResponse;
     }
     /**
-     * set Authorisation code
+     * set Authorisation code.
      *
      * @param string $dsAuthorisationCode
      *
@@ -131,7 +131,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Authorisation code
+     * Get Authorisation code.
      *
      * @return string
      */
@@ -141,7 +141,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     *  Set Card country
+     *  Set Card country.
      *
      * @param string $dsCardCountry
      *
@@ -155,7 +155,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Card country
+     * Get Card country.
      *
      * @return string
      */
@@ -165,7 +165,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set Card type
+     * Set Card type.
      *
      * @param string $dsCardType
      *
@@ -179,7 +179,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Card type
+     * Get Card type.
      *
      * @return string
      */
@@ -189,7 +189,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set consumer language
+     * Set consumer language.
      *
      * @param string $dsConsumerLanguage
      *
@@ -203,7 +203,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Consumer language
+     * Get Consumer language.
      *
      * @return string
      */
@@ -213,7 +213,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param string $dsDate
      *
@@ -227,7 +227,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return string
      */
@@ -237,7 +237,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set hour
+     * Set hour.
      *
      * @param string $dsHour
      *
@@ -251,7 +251,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Hour
+     * Get Hour.
      *
      * @return string
      */
@@ -261,7 +261,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set Secure payment
+     * Set Secure payment.
      *
      * @param string $dsSecurePayment
      *
@@ -275,7 +275,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Secure payment
+     * Get Secure payment.
      *
      * @return string
      */
@@ -285,7 +285,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Set Order payment
+     * Set Order payment.
      *
      * @param string $dsOrder
      *
@@ -299,7 +299,7 @@ final class RedsysMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Order payment
+     * Get Order payment.
      *
      * @return string
      */

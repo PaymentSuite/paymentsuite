@@ -17,12 +17,12 @@ use PaymentSuite\BankwireBundle\BankwireMethod;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * Class BankwireMethodFactory
+ * Class BankwireMethodFactory.
  */
 class BankwireMethodFactory
 {
     /**
-     * Create new PaymentMethodInterface instance
+     * Create new PaymentMethodInterface instance.
      *
      * @return PaymentMethodInterface New instance
      */

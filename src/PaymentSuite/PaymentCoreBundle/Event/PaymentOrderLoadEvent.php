@@ -16,7 +16,7 @@ namespace PaymentSuite\PaymentCoreBundle\Event;
 use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 /**
- * Event for order created
+ * Event for order created.
  */
 final class PaymentOrderLoadEvent extends AbstractPaymentEvent
 {

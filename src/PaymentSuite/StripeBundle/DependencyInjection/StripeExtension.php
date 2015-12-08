@@ -20,14 +20,14 @@ use Symfony\Component\DependencyInjection\Loader;
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
 class StripeExtension extends AbstractPaymentSuiteExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -38,10 +38,10 @@ class StripeExtension extends AbstractPaymentSuiteExtension
             $container,
             'stripe',
             [
-                'private_key'      => $config['private_key'],
-                'public_key'       => $config['public_key'],
-                'api_endpoint'     => $config['api_endpoint'],
-                'view_template'    => $config['templates']['view_template'],
+                'private_key' => $config['private_key'],
+                'public_key' => $config['public_key'],
+                'api_endpoint' => $config['api_endpoint'],
+                'view_template' => $config['templates']['view_template'],
                 'scripts_template' => $config['templates']['scripts_template'],
             ]
         );
@@ -58,5 +58,6 @@ class StripeExtension extends AbstractPaymentSuiteExtension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('controllers.yml');
         $loader->load('services.yml');
+        $loader->load('twig.yml');
     }
 }

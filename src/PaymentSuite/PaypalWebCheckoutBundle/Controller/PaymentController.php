@@ -19,7 +19,7 @@ use Symfony\Component\Templating\EngineInterface;
 use PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutManager;
 
 /**
- * Class PaymentController
+ * Class PaymentController.
  */
 class PaymentController
 {
@@ -38,7 +38,7 @@ class PaymentController
     private $engine;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param PaypalWebCheckoutManager $paypalWebCheckoutManager PaypalWebCheckout manager
      * @param EngineInterface          $engine                   Engine
@@ -52,7 +52,7 @@ class PaymentController
     }
 
     /**
-     * Payment execution
+     * Payment execution.
      *
      * @return Response
      */
@@ -60,7 +60,7 @@ class PaymentController
     {
         /**
          * The execute action will generate the Paypal web
-         * checkout form before redirecting
+         * checkout form before redirecting.
          */
         $formView = $this
             ->paypalWebCheckoutManager

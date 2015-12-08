@@ -16,7 +16,7 @@ namespace PaymentSuite\PaypalWebCheckoutBundle\Exception;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
- * Class ParameterNotReceivedException
+ * Class ParameterNotReceivedException.
  *
  * @author Arkaitz Garro <hola@arkaitzgarro.com>
  */

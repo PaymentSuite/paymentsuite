@@ -16,7 +16,7 @@ namespace PaymentSuite\PaypalWebCheckoutBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * Class PaypalWebCheckoutMethod
+ * Class PaypalWebCheckoutMethod.
  *
  * Mirrors Paypal IPN message issued when confirming a payment.
  * This class is used to wrap the message in a class
@@ -101,7 +101,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     private $business;
 
     /**
-     * @var integer
+     * @var int
      *
      * Quantity as entered by your customer or as passed by you, the merchant.
      * If this is a shopping cart transaction, PayPal appends the number of the item (e.g. quantity1, quantity2).
@@ -320,7 +320,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     private $mcCurrency;
 
     /**
-     * @var integer
+     * @var int
      *
      * Whether the message is a test message. It is one of the following values:
      *
@@ -383,9 +383,10 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
 
     /**
      * Initialize Paypal Method using an array which represents
-     * the parameters coming from the IPN message as shown in
+     * the parameters coming from the IPN message as shown in.
      *
      * https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNandPDTVariables/#id091EAB0105Z
+     *
      * @param float  $mcGross       Mc gross
      * @param string $paymentStatus Payment status
      * @param string $notifyVersion Notify version
@@ -446,7 +447,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Return type of payment name
+     * Return type of payment name.
      *
      * @return string
      */
@@ -456,7 +457,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get PaymentStatus
+     * Get PaymentStatus.
      *
      * @return string PaymentStatus
      */
@@ -466,7 +467,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get NotifyVersion
+     * Get NotifyVersion.
      *
      * @return string NotifyVersion
      */
@@ -476,7 +477,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get PayerStatus
+     * Get PayerStatus.
      *
      * @return string PayerStatus
      */
@@ -486,7 +487,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Business
+     * Get Business.
      *
      * @return string Business
      */
@@ -496,7 +497,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get Quantity
+     * Get Quantity.
      *
      * @return int Quantity
      */
@@ -506,7 +507,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get PaymentType
+     * Get PaymentType.
      *
      * @return string PaymentType
      */
@@ -516,7 +517,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get ReceiverEmail
+     * Get ReceiverEmail.
      *
      * @return string ReceiverEmail
      */
@@ -526,7 +527,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get PendingReason
+     * Get PendingReason.
      *
      * @return string PendingReason
      */
@@ -536,7 +537,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TxnType
+     * Get TxnType.
      *
      * @return string TxnType
      */
@@ -546,7 +547,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get ItemName
+     * Get ItemName.
      *
      * @return string ItemName
      */
@@ -556,7 +557,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get McCurrency
+     * Get McCurrency.
      *
      * @return string McCurrency
      */
@@ -566,7 +567,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TestIpn
+     * Get TestIpn.
      *
      * @return int TestIpn
      */
@@ -576,7 +577,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get McGross
+     * Get McGross.
      *
      * @return float McGross
      */
@@ -586,7 +587,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get ItemNumber
+     * Get ItemNumber.
      *
      * @return string ItemNumber
      */
@@ -596,7 +597,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get VerifySign
+     * Get VerifySign.
      *
      * @return string VerifySign
      */
@@ -606,7 +607,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get PayerEmail
+     * Get PayerEmail.
      *
      * @return string PayerEmail
      */
@@ -616,7 +617,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get TxnId
+     * Get TxnId.
      *
      * @return string TxnId
      */
@@ -626,7 +627,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     }
 
     /**
-     * Get IpnTrackId
+     * Get IpnTrackId.
      *
      * @return string IpnTrackId
      */
