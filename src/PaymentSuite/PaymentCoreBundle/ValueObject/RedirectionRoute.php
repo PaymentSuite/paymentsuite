@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymentCoreBundle\ValueObject;
 
 /**
- * Class RedirectionRoute
+ * Class RedirectionRoute.
  */
 final class RedirectionRoute
 {
@@ -26,7 +26,7 @@ final class RedirectionRoute
     private $route;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * Append
      */
@@ -40,11 +40,11 @@ final class RedirectionRoute
     private $appendField;
 
     /**
-     * Construct
+     * Construct.
      *
-     * @param string  $route       Route
-     * @param boolean $append      Append
-     * @param string  $appendField Append field
+     * @param string $route       Route
+     * @param bool   $append      Append
+     * @param string $appendField Append field
      */
     public function __construct(
         $route,
@@ -57,7 +57,7 @@ final class RedirectionRoute
     }
 
     /**
-     * Get route
+     * Get route.
      *
      * @return string Route
      */
@@ -67,7 +67,7 @@ final class RedirectionRoute
     }
 
     /**
-     * Get route attributes
+     * Get route attributes.
      *
      * @param mixed $appendValue Value for appending
      *

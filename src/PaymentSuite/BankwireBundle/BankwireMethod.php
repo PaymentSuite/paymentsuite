@@ -16,12 +16,12 @@ namespace PaymentSuite\BankwireBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * BankwireMethod class
+ * BankwireMethod class.
  */
 final class BankwireMethod implements PaymentMethodInterface
 {
     /**
-     * Get Bankwire method name
+     * Get Bankwire method name.
      *
      * @return string Payment name
      */

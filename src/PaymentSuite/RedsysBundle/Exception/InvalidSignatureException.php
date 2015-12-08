@@ -16,7 +16,7 @@ namespace PaymentSuite\RedsysBundle\Exception;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
- * InvalidSignatureException
+ * InvalidSignatureException.
  */
 class InvalidSignatureException extends PaymentException
 {

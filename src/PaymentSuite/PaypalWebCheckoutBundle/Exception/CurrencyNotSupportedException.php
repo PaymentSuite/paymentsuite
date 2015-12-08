@@ -16,7 +16,7 @@ namespace PaymentSuite\PaypalWebCheckoutBundle\Exception;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
- * Class CurrencyNotSupportedException
+ * Class CurrencyNotSupportedException.
  *
  * @author Arkaitz Garro <hola@arkaitzgarro.com>
  */

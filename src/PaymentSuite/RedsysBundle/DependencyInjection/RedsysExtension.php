@@ -20,14 +20,14 @@ use Symfony\Component\DependencyInjection\Loader;
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
 class RedsysExtension extends AbstractPaymentSuiteExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -39,8 +39,8 @@ class RedsysExtension extends AbstractPaymentSuiteExtension
             'redsys',
             [
                 'merchant_code' => $config['merchant_code'],
-                'secret_key'    => $config['secret_key'],
-                'url'           => $config['url'],
+                'secret_key' => $config['secret_key'],
+                'url' => $config['url'],
             ]
         );
 

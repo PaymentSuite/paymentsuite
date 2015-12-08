@@ -1,0 +1,8 @@
+services:
+
+    paymentsuite.stripe.twig_extension:
+        class: PaymentSuite\StripeBundle\Twig\StripeExtension
+        arguments:
+            - "@paymentsuite.stripe.template_render"
+        tags:
+            - { name: twig.extension }

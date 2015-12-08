@@ -23,7 +23,7 @@ use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection;
 use PaymentSuite\RedsysBundle\Services\RedsysManager;
 
 /**
- * Class ResultController
+ * Class ResultController.
  */
 class ResultController
 {
@@ -56,7 +56,7 @@ class ResultController
     private $urlGenerator;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param RedsysManager              $redsysManager     Payment manager
      * @param RedirectionRouteCollection $redirectionRoutes Redirection routes
@@ -76,7 +76,7 @@ class ResultController
     }
 
     /**
-     * Payment execution
+     * Payment execution.
      *
      * @param Request $request Request element
      *
@@ -98,7 +98,7 @@ class ResultController
         } catch (PaymentException $e) {
 
             /**
-             * Must redirect to fail route
+             * Must redirect to fail route.
              */
             $redirectRoute = $this
                 ->redirectionRoutes

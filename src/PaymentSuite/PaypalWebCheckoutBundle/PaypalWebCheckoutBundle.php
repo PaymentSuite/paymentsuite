@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection\PaypalWebCheckoutExtension;
 
 /**
- * Class PaypalWebCheckoutBundle
+ * Class PaypalWebCheckoutBundle.
  */
 class PaypalWebCheckoutBundle extends Bundle implements DependentBundleInterface
 {

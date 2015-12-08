@@ -16,14 +16,14 @@ namespace PaymentSuite\RedsysBundle\Services\Interfaces;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
- * Interface for PaymentBridge
+ * Interface for PaymentBridge.
  */
 interface PaymentBridgeRedsysInterface extends PaymentBridgeInterface
 {
     /**
-     * Return dsOrder identifier value
+     * Return dsOrder identifier value.
      *
-     * @return integer
+     * @return int
      */
     public function getOrderNumber();
 }

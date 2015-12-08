@@ -18,13 +18,13 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Class AbstractPaymentSuiteExtension
+ * Class AbstractPaymentSuiteExtension.
  */
 abstract class AbstractPaymentSuiteExtension extends Extension
 {
     /**
      * Create a new service for the RedirectRoutes collection given a
-     * configuration array
+     * configuration array.
      *
      * This method will register each redirection route in a separated service
      * and will create a new service for the collection
@@ -85,7 +85,7 @@ abstract class AbstractPaymentSuiteExtension extends Extension
     }
 
     /**
-     * Add parameters and values in a bulk way
+     * Add parameters and values in a bulk way.
      *
      * @param ContainerBuilder $containerBuilder Container builder
      * @param string           $paymentName      Payment name

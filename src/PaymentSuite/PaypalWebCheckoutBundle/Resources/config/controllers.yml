@@ -6,11 +6,11 @@ services:
     paymentsuite.paypal_web_checkout.payment_controller:
         class: PaymentSuite\PaypalWebCheckoutBundle\Controller\PaymentController
         arguments:
-            - @paymentsuite.paypal_web_checkout.manager
-            - @templating
+            - "@paymentsuite.paypal_web_checkout.manager"
+            - "@templating"
 
     paymentsuite.paypal_web_checkout.process_controller:
         class: PaymentSuite\PaypalWebCheckoutBundle\Controller\ProcessController
         arguments:
-            - @paymentsuite.paypal_web_checkout.manager
-            - @paymentsuite.logger
+            - "@paymentsuite.paypal_web_checkout.manager"
+            - "@paymentsuite.logger"

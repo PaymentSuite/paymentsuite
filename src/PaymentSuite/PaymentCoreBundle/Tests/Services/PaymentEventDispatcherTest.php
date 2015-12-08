@@ -21,7 +21,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
- * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher class
+ * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher class.
  */
 class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +47,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     private $eventDispatcher;
 
     /**
-     * Setup
+     * Setup.
      */
     public function setUp()
     {
@@ -61,7 +61,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing notifyPaymentOrderLoad
+     * Testing notifyPaymentOrderLoad.
      */
     public function testNotifyPaymentOrderLoad()
     {
@@ -81,7 +81,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing notifyPaymentOrderCreated
+     * Testing notifyPaymentOrderCreated.
      */
     public function testNotifyPaymentOrderCreated()
     {
@@ -101,7 +101,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing notifyPaymentDone
+     * Testing notifyPaymentDone.
      */
     public function testNotifyPaymentOrderDone()
     {
@@ -121,7 +121,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing notifyPaymentSuccess
+     * Testing notifyPaymentSuccess.
      */
     public function testNotifyPaymentOrderSuccess()
     {
@@ -141,7 +141,7 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing notifyPaymentFail
+     * Testing notifyPaymentFail.
      */
     public function testNotifyPaymentOrderFail()
     {

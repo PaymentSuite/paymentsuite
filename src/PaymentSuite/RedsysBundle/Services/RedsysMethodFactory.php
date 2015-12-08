@@ -16,12 +16,12 @@ namespace PaymentSuite\RedsysBundle\Services;
 use PaymentSuite\RedsysBundle\RedsysMethod;
 
 /**
- * Class RedsysMethodFactory
+ * Class RedsysMethodFactory.
  */
 class RedsysMethodFactory
 {
     /**
-     * Create new redsys method
+     * Create new redsys method.
      *
      * @return RedsysMethod new instance
      */

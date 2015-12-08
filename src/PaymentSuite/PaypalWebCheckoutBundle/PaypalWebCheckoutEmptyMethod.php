@@ -16,12 +16,12 @@ namespace PaymentSuite\PaypalWebCheckoutBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * Class PaypalWebCheckoutEmptyMethod
+ * Class PaypalWebCheckoutEmptyMethod.
  */
 class PaypalWebCheckoutEmptyMethod implements PaymentMethodInterface
 {
     /**
-     * Return type of payment name
+     * Return type of payment name.
      *
      * @return string
      */

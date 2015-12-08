@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection;
 
 /**
- * Class PaypalWebCheckoutUrlFactory
+ * Class PaypalWebCheckoutUrlFactory.
  */
 class PaypalWebCheckoutUrlFactory
 {
@@ -44,7 +44,7 @@ class PaypalWebCheckoutUrlFactory
     private $apiEndpoint;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param RedirectionRouteCollection $redirectRoutes Redirection Route collection
      * @param UrlGeneratorInterface      $urlGenerator   Url generator
@@ -63,7 +63,7 @@ class PaypalWebCheckoutUrlFactory
     /**
      * Creates the IPN payment notification route,
      * which is triggered after PayPal processes the
-     * payment and returns the validity of the transaction
+     * payment and returns the validity of the transaction.
      *
      * For further information
      *
@@ -82,7 +82,7 @@ class PaypalWebCheckoutUrlFactory
     }
 
     /**
-     * Generate success return url
+     * Generate success return url.
      *
      * @param string $orderId Order id
      *
@@ -105,7 +105,7 @@ class PaypalWebCheckoutUrlFactory
     }
 
     /**
-     * Generate cancel return url
+     * Generate cancel return url.
      *
      * @param string $orderId Order id
      *
@@ -141,7 +141,7 @@ class PaypalWebCheckoutUrlFactory
     }
 
     /**
-     * Get ApiEndpoint
+     * Get ApiEndpoint.
      *
      * @return string ApiEndpoint
      */

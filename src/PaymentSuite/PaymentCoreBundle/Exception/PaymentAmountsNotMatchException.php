@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymentCoreBundle\Exception;
 
 /**
- * PaymentAmountsNotMatchException
+ * PaymentAmountsNotMatchException.
  */
 class PaymentAmountsNotMatchException extends PaymentException
 {

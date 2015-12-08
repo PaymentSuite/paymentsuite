@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymentCoreBundle\ValueObject;
 
 /**
- * Class RedirectionRouteCollection
+ * Class RedirectionRouteCollection.
  */
 final class RedirectionRouteCollection
 {
@@ -26,7 +26,7 @@ final class RedirectionRouteCollection
     private $redirectionRoutes = [];
 
     /**
-     * Add redirection route
+     * Add redirection route.
      *
      * @param RedirectionRoute $redirectionRoute     Redirection Route
      * @param string           $redirectionRouteName Redirection Route name
@@ -43,7 +43,7 @@ final class RedirectionRouteCollection
     }
 
     /**
-     * Get specific redirection route
+     * Get specific redirection route.
      *
      * @param string $redirectionRouteName Redirection Route name
      *

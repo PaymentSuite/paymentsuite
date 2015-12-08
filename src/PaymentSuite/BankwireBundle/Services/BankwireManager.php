@@ -18,7 +18,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 
 /**
- * Bankwire manager
+ * Bankwire manager.
  */
 class BankwireManager
 {
@@ -44,7 +44,7 @@ class BankwireManager
     private $paymentEventDispatcher;
 
     /**
-     * Construct method for bankwire manager
+     * Construct method for bankwire manager.
      *
      * @param BankwireMethodFactory  $methodFactory          Bankwire method factory
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
@@ -61,7 +61,7 @@ class BankwireManager
     }
 
     /**
-     * Tries to process a payment through Bankwire
+     * Tries to process a payment through Bankwire.
      *
      * @return BankwireManager Self object
      *
@@ -74,7 +74,7 @@ class BankwireManager
             ->create();
 
         /**
-         * At this point, order must be created given a cart, and placed in PaymentBridge
+         * At this point, order must be created given a cart, and placed in PaymentBridge.
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -86,14 +86,14 @@ class BankwireManager
             );
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * Order exists right here
+         * Order exists right here.
          */
         $this
             ->paymentEventDispatcher
@@ -103,7 +103,7 @@ class BankwireManager
             );
 
         /**
-         * Payment paid done
+         * Payment paid done.
          *
          * Paid process has ended ( No matters result )
          */
@@ -118,9 +118,9 @@ class BankwireManager
     }
 
     /**
-     * Validates payment, given an Id of an existing order
+     * Validates payment, given an Id of an existing order.
      *
-     * @param integer $orderId Id from order to validate
+     * @param int $orderId Id from order to validate
      *
      * @return BankwireManager self Object
      *
@@ -129,21 +129,21 @@ class BankwireManager
     public function validatePayment($orderId)
     {
         /**
-         * Loads order to validate
+         * Loads order to validate.
          */
         $this
             ->paymentBridge
             ->findOrder($orderId);
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * Payment paid successfully
+         * Payment paid successfully.
          *
          * Paid process has ended successfully
          */
@@ -160,9 +160,9 @@ class BankwireManager
     }
 
     /**
-     * Decline payment, given an Id of an existing order
+     * Decline payment, given an Id of an existing order.
      *
-     * @param integer $orderId Id from order to decline
+     * @param int $orderId Id from order to decline
      *
      * @return BankwireManager self Object
      *
@@ -171,21 +171,21 @@ class BankwireManager
     public function declinePayment($orderId)
     {
         /**
-         * Loads order to validate
+         * Loads order to validate.
          */
         $this
             ->paymentBridge
             ->findOrder($orderId);
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * Payment failed
+         * Payment failed.
          *
          * Paid process has ended with failure
          */

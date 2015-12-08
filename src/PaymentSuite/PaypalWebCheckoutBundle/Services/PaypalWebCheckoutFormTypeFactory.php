@@ -20,7 +20,7 @@ use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaypalWebCheckoutBundle\Exception\CurrencyNotSupportedException;
 
 /**
- * Class PaypalFormTypeWrapper
+ * Class PaypalFormTypeWrapper.
  */
 class PaypalWebCheckoutFormTypeFactory
 {
@@ -53,7 +53,7 @@ class PaypalWebCheckoutFormTypeFactory
     private $business;
 
     /**
-     * Formtype construct method
+     * Formtype construct method.
      *
      * @param PaypalWebCheckoutUrlFactory $urlFactory    URL Factory service
      * @param PaymentBridgeInterface      $paymentBridge Payment bridge
@@ -73,7 +73,7 @@ class PaypalWebCheckoutFormTypeFactory
     }
 
     /**
-     * Builds form given return, success and fail urls
+     * Builds form given return, success and fail urls.
      *
      * @return FormView
      */
@@ -95,7 +95,7 @@ class PaypalWebCheckoutFormTypeFactory
 
         /**
          * Creates the success return route, when coming back
-         * from PayPal web checkout
+         * from PayPal web checkout.
          */
         $successReturnUrl = $this
             ->urlFactory
@@ -103,7 +103,7 @@ class PaypalWebCheckoutFormTypeFactory
 
         /**
          * Creates the cancel payment route, when cancelling
-         * the payment process from PayPal web checkout
+         * the payment process from PayPal web checkout.
          */
         $cancelReturnUrl = $this
             ->urlFactory
@@ -112,7 +112,7 @@ class PaypalWebCheckoutFormTypeFactory
         /**
          * Creates the IPN payment notification route,
          * which is triggered after PayPal processes the
-         * payment and returns the validity of the transaction
+         * payment and returns the validity of the transaction.
          *
          * For forther information
          *
@@ -159,7 +159,6 @@ class PaypalWebCheckoutFormTypeFactory
          * The 'items' key consists of an array with the basic information
          * of each line of the order. Amount is the price of the product,
          * not the total of the order line
-         *
          */
         $cartData = $this->paymentBridge->getExtraData();
         $itemsData = $cartData['items'];
@@ -176,7 +175,7 @@ class PaypalWebCheckoutFormTypeFactory
                 ->add('quantity_' . $iteration, 'hidden', [
                     'data' => $orderLine['quantity'],
                 ]);
-            $iteration++;
+            ++$iteration;
         }
 
         if (isset($cartData['discount_amount_cart'])) {
@@ -191,7 +190,7 @@ class PaypalWebCheckoutFormTypeFactory
     }
 
     /**
-     * Check currency
+     * Check currency.
      *
      * @param string $currency Currency
      *

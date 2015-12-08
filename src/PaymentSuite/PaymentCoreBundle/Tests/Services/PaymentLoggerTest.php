@@ -16,12 +16,12 @@ namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
 
 /**
- * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentLogger class
+ * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentLogger class.
  */
 class PaymentLoggerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests log()
+     * Tests log().
      */
     public function testLog()
     {
@@ -48,7 +48,7 @@ class PaymentLoggerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests log with false usage
+     * Tests log with false usage.
      */
     public function testDoNotLog()
     {

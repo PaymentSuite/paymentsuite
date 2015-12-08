@@ -18,12 +18,12 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * Class AbstractPaymentSuiteConfiguration
+ * Class AbstractPaymentSuiteConfiguration.
  */
 abstract class AbstractPaymentSuiteConfiguration implements ConfigurationInterface
 {
     /**
-     * Add a new success route in configuration
+     * Add a new success route in configuration.
      *
      * @param string $routeName Route name
      *

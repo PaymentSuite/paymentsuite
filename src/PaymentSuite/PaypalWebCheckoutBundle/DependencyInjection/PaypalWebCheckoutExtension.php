@@ -20,14 +20,14 @@ use Symfony\Component\DependencyInjection\Loader;
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
 class PaypalWebCheckoutExtension extends AbstractPaymentSuiteExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -38,8 +38,8 @@ class PaypalWebCheckoutExtension extends AbstractPaymentSuiteExtension
             $container,
             'paypal_web_checkout',
             [
-                'business'     => $config['business'],
-                'debug'        => $config['debug'],
+                'business' => $config['business'],
+                'debug' => $config['debug'],
                 'api_endpoint' => $config['debug']
                     ? $config['sandbox_api_endpoint']
                     : $config['api_endpoint'],
@@ -51,7 +51,7 @@ class PaypalWebCheckoutExtension extends AbstractPaymentSuiteExtension
             'paypal_web_checkout',
             [
                 'success' => $config['payment_success'],
-                'cancel'  => $config['payment_cancel'],
+                'cancel' => $config['payment_cancel'],
             ]
         );
 

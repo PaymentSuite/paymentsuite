@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymentCoreBundle\Exception;
 
 /**
- * PaymentOrderNotFoundException
+ * PaymentOrderNotFoundException.
  */
 class PaymentOrderNotFoundException extends PaymentException
 {

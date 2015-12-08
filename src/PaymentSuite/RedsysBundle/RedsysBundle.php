@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use PaymentSuite\RedsysBundle\DependencyInjection\RedsysExtension;
 
 /**
- * Redsys payment bundle
+ * Redsys payment bundle.
  */
 class RedsysBundle extends Bundle implements DependentBundleInterface
 {

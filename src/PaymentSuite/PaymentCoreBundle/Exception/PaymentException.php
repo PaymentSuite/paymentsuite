@@ -16,7 +16,7 @@ namespace PaymentSuite\PaymentCoreBundle\Exception;
 use Exception;
 
 /**
- * PaymentException
+ * PaymentException.
  */
 class PaymentException extends Exception
 {

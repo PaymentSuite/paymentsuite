@@ -14,7 +14,7 @@
 namespace PaymentSuite\PaymentCoreBundle;
 
 /**
- * This class define all events thrown by all payment method
+ * This class define all events thrown by all payment method.
  */
 final class PaymentCoreEvents
 {
@@ -35,7 +35,7 @@ final class PaymentCoreEvents
     const PAYMENT_ORDER_CREATED = 'payment.order.created';
 
     /**
-     * This event is thrown when an order is paid, no matter the result
+     * This event is thrown when an order is paid, no matter the result.
      *
      * event.name : payment.order.done
      * event.class : PaymentDoneEvent
@@ -43,7 +43,7 @@ final class PaymentCoreEvents
     const PAYMENT_ORDER_DONE = 'payment.order.done';
 
     /**
-     * This event is thrown when an order is paid succesfuly
+     * This event is thrown when an order is paid succesfuly.
      *
      * event.name : payment.order.success
      * event.class : PaymentOrderSuccessEvent
@@ -51,7 +51,7 @@ final class PaymentCoreEvents
     const PAYMENT_ORDER_SUCCESS = 'payment.order.success';
 
     /**
-     * This event is thrown when an order can't be paid for any reason
+     * This event is thrown when an order can't be paid for any reason.
      *
      * event.name : payment.order.fail
      * event.class : PaymentOrderFailEvent

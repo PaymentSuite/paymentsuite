@@ -17,12 +17,12 @@ use PaymentSuite\FreePaymentBundle\FreePaymentMethod;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * Class FreePaymentMethodFactory
+ * Class FreePaymentMethodFactory.
  */
 class FreePaymentMethodFactory
 {
     /**
-     * Create new PaymentMethodInterface instance
+     * Create new PaymentMethodInterface instance.
      *
      * @return PaymentMethodInterface New instance
      */

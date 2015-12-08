@@ -29,7 +29,7 @@ use PaymentSuite\StripeBundle\Services\StripeMethodFactory;
 use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
- * PaymentController
+ * PaymentController.
  */
 class PaymentController extends Controller
 {
@@ -76,7 +76,7 @@ class PaymentController extends Controller
     private $formFactory;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param StripeManager              $stripeManager     Payment manager
      * @param StripeMethodFactory        $methodFactory     Method factory
@@ -102,7 +102,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Payment execution
+     * Payment execution.
      *
      * @param Request $request Request element
      *
@@ -137,7 +137,7 @@ class PaymentController extends Controller
         } catch (Exception $e) {
 
             /**
-             * Must redirect to fail route
+             * Must redirect to fail route.
              */
             $redirect = $this
                 ->redirectionRoutes
@@ -157,7 +157,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Given some data, creates a StripeMethod object
+     * Given some data, creates a StripeMethod object.
      *
      * @param array $data Data
      *

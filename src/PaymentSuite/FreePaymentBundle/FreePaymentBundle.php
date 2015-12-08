@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use PaymentSuite\FreePaymentBundle\DependencyInjection\FreePaymentExtension;
 
 /**
- * Free payment bundle
+ * Free payment bundle.
  */
 class FreePaymentBundle extends Bundle implements DependentBundleInterface
 {

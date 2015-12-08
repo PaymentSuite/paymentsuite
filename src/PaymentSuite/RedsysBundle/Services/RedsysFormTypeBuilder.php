@@ -20,7 +20,7 @@ use PaymentSuite\RedsysBundle\Exception\CurrencyNotSupportedException;
 use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 
 /**
- * RedsysFormTypeBuilder
+ * RedsysFormTypeBuilder.
  */
 class RedsysFormTypeBuilder
 {
@@ -67,7 +67,7 @@ class RedsysFormTypeBuilder
     private $url;
 
     /**
-     * construct
+     * construct.
      *
      * @param RedsysUrlFactory             $urlFactory    URL Factory service
      * @param PaymentBridgeRedsysInterface $paymentBridge Payment bridge
@@ -75,7 +75,6 @@ class RedsysFormTypeBuilder
      * @param string                       $merchantCode  merchant code
      * @param string                       $secretKey     secret key
      * @param string                       $url           gateway url
-     *
      */
     public function __construct(
         PaymentBridgeRedsysInterface $paymentBridge,
@@ -94,7 +93,7 @@ class RedsysFormTypeBuilder
     }
 
     /**
-     * Builds form given return, success and fail urls
+     * Builds form given return, success and fail urls.
      *
      * @return FormView
      */
@@ -116,7 +115,7 @@ class RedsysFormTypeBuilder
         }
 
         /**
-         * Creates the return route for Redsys
+         * Creates the return route for Redsys.
          */
         $Ds_Merchant_MerchantURL = $this
             ->urlFactory
@@ -124,7 +123,7 @@ class RedsysFormTypeBuilder
 
         /**
          * Creates the return route, when coming back
-         * from Redsys web checkout and proccess is Ok
+         * from Redsys web checkout and proccess is Ok.
          */
         $Ds_Merchant_UrlOK = $this
             ->urlFactory
@@ -132,14 +131,14 @@ class RedsysFormTypeBuilder
 
         /**
          * Creates the cancel payment route, when coming back
-         * from Redsys web checkout and proccess is error
+         * from Redsys web checkout and proccess is error.
          */
         $Ds_Merchant_UrlKO = $this
             ->urlFactory
             ->getReturnUrlKoForOrderId($orderId);
 
         /**
-         * Creates the merchant signature
+         * Creates the merchant signature.
          */
         $Ds_Merchant_Amount = $this->paymentBridge->getAmount();
         $Ds_Merchant_Order = $this->formatOrderNumber(
@@ -193,7 +192,7 @@ class RedsysFormTypeBuilder
             ]);
 
         /**
-         * Optional form fields
+         * Optional form fields.
          */
         if (array_key_exists('transaction_type', $extraData)) {
             $formBuilder->add('Ds_Merchant_TransactionType', 'hidden', [
@@ -231,7 +230,7 @@ class RedsysFormTypeBuilder
     }
 
     /**
-     * Creates signature to be sent to Redsys
+     * Creates signature to be sent to Redsys.
      *
      * @param string $amount          Amount
      * @param string $order           Order number
@@ -264,7 +263,7 @@ class RedsysFormTypeBuilder
     }
 
     /**
-     * Translates standard currency to Redsys currency code
+     * Translates standard currency to Redsys currency code.
      *
      * @param string $currency Currency
      *
@@ -311,7 +310,7 @@ class RedsysFormTypeBuilder
     }
 
     /**
-     * Formats order number to be Redsys compliant
+     * Formats order number to be Redsys compliant.
      *
      * @param string $orderNumber Order number
      *

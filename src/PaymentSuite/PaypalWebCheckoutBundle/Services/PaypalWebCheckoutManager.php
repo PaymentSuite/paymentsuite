@@ -20,7 +20,7 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaypalWebCheckoutBundle\Exception\ParameterNotReceivedException;
 
 /**
- * Class PaypalWebCheckoutManager
+ * Class PaypalWebCheckoutManager.
  */
 class PaypalWebCheckoutManager
 {
@@ -60,7 +60,7 @@ class PaypalWebCheckoutManager
     private $paymentEventDispatcher;
 
     /**
-     * Construct method for paypal manager
+     * Construct method for paypal manager.
      *
      * @param PaypalWebCheckoutUrlFactory      $urlFactory             Url factory
      * @param PaypalWebCheckoutFormTypeFactory $formTypeFactory        FormType factory
@@ -83,7 +83,7 @@ class PaypalWebCheckoutManager
     }
 
     /**
-     * Dispatches order load event and prepares paypal form for submission
+     * Dispatches order load event and prepares paypal form for submission.
      *
      * This is a synchronous action that takes place on the implementor
      * side, i.e. right after click the "pay with checkout" button it the
@@ -105,7 +105,7 @@ class PaypalWebCheckoutManager
 
         /**
          * We expect listeners for the payment.order.load event
-         * to store the Order into the bridge
+         * to store the Order into the bridge.
          *
          * So, $this->paymentBridge->getOrder() must return an object
          */
@@ -117,14 +117,14 @@ class PaypalWebCheckoutManager
             );
 
         /**
-         * Order Not found Exception must be thrown just here
+         * Order Not found Exception must be thrown just here.
          */
         if (!$this->paymentBridge->getOrder()) {
             throw new PaymentOrderNotFoundException();
         }
 
         /**
-         * We expect the Order to be created and physically flushed
+         * We expect the Order to be created and physically flushed.
          */
         $this
             ->paymentEventDispatcher
@@ -139,13 +139,13 @@ class PaypalWebCheckoutManager
     }
 
     /**
-     * Process Paypal IPN response to payment
+     * Process Paypal IPN response to payment.
      *
      * When the IPN mesage is validated, a payment success event
      * should be dispatched.
      *
-     * @param integer $orderId    Order Id
-     * @param array   $parameters parameter array coming from Paypal IPN notification
+     * @param int   $orderId    Order Id
+     * @param array $parameters parameter array coming from Paypal IPN notification
      *
      * @throws ParameterNotReceivedException
      * @throws PaymentException
@@ -170,14 +170,14 @@ class PaypalWebCheckoutManager
             ->setOrder($order);
 
         /**
-         * Check that we receive the mandatory parameters
+         * Check that we receive the mandatory parameters.
          */
         $this->checkResultParameters($parameters);
 
         /**
          * Initializing PaypalWebCheckoutMethod, which is
          * an object representation of the payment information
-         * coming from the payment processor
+         * coming from the payment processor.
          */
         $paypalMethod = $this
             ->paymentMethodFactory
@@ -207,7 +207,7 @@ class PaypalWebCheckoutManager
          * payment has been received, although we still
          * do not know if it is succesful or not.
          * Listening fot this event is useful when one
-         * wants to record transaction informations
+         * wants to record transaction informations.
          */
         $this
             ->paymentEventDispatcher
@@ -217,7 +217,7 @@ class PaypalWebCheckoutManager
             );
 
         /**
-         * Check if the transaction is successful
+         * Check if the transaction is successful.
          */
         if (!$this->transactionSuccessful($parameters)) {
             $this
@@ -231,7 +231,7 @@ class PaypalWebCheckoutManager
         }
 
         /**
-         * Payment paid successfully
+         * Payment paid successfully.
          *
          * Paid process has ended successfully
          */
@@ -244,7 +244,7 @@ class PaypalWebCheckoutManager
     }
 
     /**
-     * Checks that all the required parameters are received
+     * Checks that all the required parameters are received.
      *
      * @param array $parameters Parameters
      *
@@ -264,7 +264,7 @@ class PaypalWebCheckoutManager
     }
 
     /**
-     * Check if transaction is complete
+     * Check if transaction is complete.
      *
      * When we receive an IPN response, we should
      * check that the price paid corresponds to the
@@ -276,7 +276,7 @@ class PaypalWebCheckoutManager
      *
      * @param array $ipnParameters Paypal IPN parameters
      *
-     * @return boolean
+     * @return bool
      */
     private function transactionSuccessful($ipnParameters)
     {
@@ -297,15 +297,15 @@ class PaypalWebCheckoutManager
         /**
          * Matching paid amount with the originating order amount,
          * this is a security check to prevent frauds by manually
-         * changing the papal form
+         * changing the papal form.
          */
         $amountMatches = $this->paymentBridge->getAmount() / 100 == $ipnParameters['mc_gross'];
         $amountMatches = $amountMatches && $this->paymentBridge->getCurrency() == ($ipnParameters['mc_currency']);
 
         /**
-         * When a transaction is successful, payment_status has a 'Completed' value
+         * When a transaction is successful, payment_status has a 'Completed' value.
          */
 
-        return ($amountMatches && $ipnValidated && (strcmp($ipnParameters['payment_status'], 'Completed') === 0));
+        return $amountMatches && $ipnValidated && (strcmp($ipnParameters['payment_status'], 'Completed') === 0);
     }
 }

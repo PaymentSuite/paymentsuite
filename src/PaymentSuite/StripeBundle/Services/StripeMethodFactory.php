@@ -16,12 +16,12 @@ namespace PaymentSuite\StripeBundle\Services;
 use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
- * Class StripeMethodFactory
+ * Class StripeMethodFactory.
  */
 class StripeMethodFactory
 {
     /**
-     * Given some data, creates a StripeMethod object
+     * Given some data, creates a StripeMethod object.
      *
      * @param string $apiToken                  Api token
      * @param string $creditCardNumber          Credit card number

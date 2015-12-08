@@ -21,7 +21,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRoute;
 
 /**
- * PaymentController
+ * PaymentController.
  */
 class PaymentController
 {
@@ -54,7 +54,7 @@ class PaymentController
     private $urlGenerator;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param FreePaymentManager     $freePaymentManager      Payment manager
      * @param RedirectionRoute       $successRedirectionRoute Success redirection route
@@ -74,7 +74,7 @@ class PaymentController
     }
 
     /**
-     * Free Payment execution
+     * Free Payment execution.
      *
      * @return RedirectResponse
      */
