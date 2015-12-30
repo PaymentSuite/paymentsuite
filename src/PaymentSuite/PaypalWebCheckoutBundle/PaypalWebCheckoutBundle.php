@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection\PaypalWebCheckoutExtension;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class PaypalWebCheckoutBundle.

@@ -78,7 +78,7 @@ class RedsysManager
         $secretKey
     ) {
         $this->redsysFormTypeBuilder = $redsysFormTypeBuilder;
-        $this->$redsysMethodFactory = $redsysMethodFactory;
+        $this->redsysMethodFactory = $redsysMethodFactory;
         $this->paymentBridge = $paymentBridge;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->secretKey = $secretKey;
