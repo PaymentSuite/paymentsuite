@@ -100,7 +100,8 @@ class PaypalWebCheckoutUrlFactory
                 $redirectRoute->getRoute(),
                 $redirectRoute->getRouteAttributes(
                     $orderId
-                )
+                ),
+                true
             );
     }
 
@@ -123,7 +124,8 @@ class PaypalWebCheckoutUrlFactory
                 $redirectRoute->getRoute(),
                 $redirectRoute->getRouteAttributes(
                     $orderId
-                )
+                ),
+                true
             );
     }
 
