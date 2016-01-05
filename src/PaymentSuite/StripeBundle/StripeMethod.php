@@ -14,6 +14,7 @@
 namespace PaymentSuite\StripeBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use ArrayAccess;
 
 /**
  * StripeMethod class.
@@ -80,7 +81,7 @@ final class StripeMethod implements PaymentMethodInterface
     private $transactionId;
 
     /**
-     * @var array
+     * @var ArrayAccess
      *
      * Transaction response data
      */
@@ -206,7 +207,7 @@ final class StripeMethod implements PaymentMethodInterface
     /**
      * Get TransactionResponse.
      *
-     * @return array TransactionResponse
+     * @return ArrayAccess TransactionResponse
      */
     public function getTransactionResponse()
     {
@@ -216,7 +217,7 @@ final class StripeMethod implements PaymentMethodInterface
     /**
      * Sets TransactionResponse.
      *
-     * @param array $transactionResponse TransactionResponse
+     * @param ArrayAccess $transactionResponse TransactionResponse
      *
      * @return $this Self object
      */
