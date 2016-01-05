@@ -170,7 +170,7 @@ class PaypalWebCheckoutFormTypeFactory
                     'data' => $orderLine['item_name'],
                 ])
                 ->add('amount_' . $iteration, 'hidden', [
-                    'data' => $orderLine['amount'] / 100,
+                    'data' => $orderLine['amount'],
                 ])
                 ->add('quantity_' . $iteration, 'hidden', [
                     'data' => $orderLine['quantity'],
@@ -180,7 +180,7 @@ class PaypalWebCheckoutFormTypeFactory
 
         if (isset($cartData['discount_amount_cart'])) {
             $formBuilder->add('discount_amount_cart', 'hidden', [
-                'data' => $cartData['discount_amount_cart'] / 100,
+                'data' => $cartData['discount_amount_cart'],
             ]);
         }
 
