@@ -66,7 +66,7 @@ class ResponseController
     {
         $orderId = $request
             ->query
-            ->get('order_id', false);
+            ->get('id', false);
 
         $successRoute = $this
             ->redirectionRoutes
@@ -95,7 +95,7 @@ class ResponseController
     {
         $orderId = $request
             ->query
-            ->get('order_id', false);
+            ->get('id', false);
 
         $failureRoute = $this
             ->redirectionRoutes

@@ -15,8 +15,8 @@ services:
     paymentsuite.redsys.form_type_builder:
         class: PaymentSuite\RedsysBundle\Services\RedsysFormTypeBuilder
         arguments:
-            - @paymentsuite.redsys.url_factory
             - @paymentsuite.bridge
+            - @paymentsuite.redsys.url_factory
             - @form.factory
             - %paymentsuite.redsys.merchant_code%
             - %paymentsuite.redsys.secret_key%
@@ -28,4 +28,4 @@ services:
             - @router
 
     paymentsuite.redsys.method_factory:
-        class: Paymentsuite\RedsysBundle\Services\RedsysMethodFactory
+        class: PaymentSuite\RedsysBundle\Services\RedsysMethodFactory

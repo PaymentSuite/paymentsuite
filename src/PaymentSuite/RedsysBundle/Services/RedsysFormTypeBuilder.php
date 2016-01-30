@@ -71,8 +71,8 @@ class RedsysFormTypeBuilder
     /**
      * construct.
      *
-     * @param RedsysUrlFactory             $urlFactory    URL Factory service
      * @param PaymentBridgeRedsysInterface $paymentBridge Payment bridge
+     * @param RedsysUrlFactory             $urlFactory    URL Factory service
      * @param FormFactory                  $formFactory   Form factory
      * @param string                       $merchantCode  merchant code
      * @param string                       $secretKey     secret key

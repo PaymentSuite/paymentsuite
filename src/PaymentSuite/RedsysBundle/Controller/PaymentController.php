@@ -62,8 +62,8 @@ class PaymentController extends Controller
     public function executeAction()
     {
         /**
-         * The execute action will generate the Paypal web
-         * checkout form before redirecting.
+         * The execute action will generate the Redsys
+         * checkout form before redirecting
          */
         $formView = $this
             ->redsysManager
@@ -72,8 +72,8 @@ class PaymentController extends Controller
         return new Response(
             $this
                 ->templatingEngine
-                ->render('PaypalWebCheckoutBundle:Paypal:process.html.twig', [
-                    'paypal_form' => $formView,
+                ->render('RedsysBundle:Redsys:process.html.twig', [
+                    'redsys_form' => $formView,
                 ])
         );
     }
