@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\StripeBundle;
 
+use Mmoreram\SymfonyBundleDependencies\DependentBundleInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -24,7 +25,7 @@ use PaymentSuite\StripeBundle\DependencyInjection\StripeExtension;
 /**
  * Stripe payment bundle.
  */
-class StripeBundle extends Bundle
+class StripeBundle extends Bundle implements DependentBundleInterface
 {
     /**
      * Returns the bundle's container extension.
