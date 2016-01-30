@@ -37,8 +37,8 @@
         "monolog/monolog": "^1.17"
     },
     "require-dev": {
-        "elcodi/test-common-bundle": "^1.0",
-        "elcodi/fixtures-booster-bundle": "^1.0",
+        "elcodi/test-common-bundle": "^2.0",
+        "elcodi/fixtures-booster-bundle": "^2.0",
 
         "mmoreram/php-formatter": "1.1.0",
         "fabpot/php-cs-fixer": "1.11",
