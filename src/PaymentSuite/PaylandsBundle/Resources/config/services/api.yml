@@ -1,0 +1,29 @@
+services:
+
+    paymentsuite.paylands.api.discovery_proxy:
+        class: WAM\Paylands\DiscoveryProxy
+
+    paymentsuite.paylands.api.request_factory:
+        class: WAM\Paylands\RequestFactory
+        public: false
+        arguments:
+            - '@paymentsuite.paylands.api.discovery_proxy'
+            - '%paymentsuite.paylands.signature%'
+
+    paymentsuite.paylands.api.client_factory:
+        class: WAM\Paylands\ClientFactory
+        public: false
+        arguments:
+            - '@paymentsuite.paylands.api.request_factory'
+            - '@paymentsuite.paylands.api.discovery_proxy'
+            - '%paymentsuite.paylands.api_key%'
+            - '%paymentsuite.paylands.api_url%'
+            - '%paymentsuite.paylands.sandbox%'
+
+    paymentsuite.paylands.api.client_default:
+        class: WAM\Paylands\Client
+        factory: ['@paymentsuite.paylands.api.client_factory', 'create']
+        public: false
+        calls:
+            - [setOperative, ['%paymentsuite.paylands.operative%']]
+            - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', '%paymentsuite.paylands.i18n_template_uuids%']]

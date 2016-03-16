@@ -21,25 +21,24 @@
         }
     ],
     "require": {
-        "php": "^5.4|^7.0",
-        "symfony/finder": "^2.7|^3.0",
-        "symfony/config": "^2.7|^3.0",
-        "symfony/framework-bundle": "^2.7|^3.0",
-        "symfony/form": "^2.7|^3.0",
-        "symfony/config": "^2.7|^3.0",
-        "symfony/http-kernel": "^2.7|^3.0",
-        "symfony/dependency-injection": "^2.7|^3.0",
+        "php": "^5.5|^7.0",
+        "symfony/finder": "^2.8|^3.0",
+        "symfony/config": "^2.8|^3.0",
+        "symfony/framework-bundle": "^2.8|^3.0",
+        "symfony/form": "^2.8|^3.0",
+        "symfony/http-kernel": "^2.8|^3.0",
+        "symfony/dependency-injection": "^2.8|^3.0",
+        "symfony/options-resolver": "^2.8|^3.0",
         "mmoreram/symfony-bundle-dependencies": "^1.0",
-
         "psr/log": "^1.0",
         "twig/twig": "^1.23.1",
         "stripe/stripe-php": "3.4.0",
-        "monolog/monolog": "^1.17"
+        "monolog/monolog": "^1.17",
+        "wearemarketing/paylands-php": "dev-master"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
         "elcodi/fixtures-booster-bundle": "^2.0",
-
         "mmoreram/php-formatter": "1.1.0",
         "fabpot/php-cs-fixer": "1.11",
         "phpunit/phpunit": "^4.8.19"
@@ -50,7 +49,8 @@
         "paymentsuite/payment-core-bundle": "self.version",
         "paymentsuite/paypal-web-checkout-bundle": "self.version",
         "paymentsuite/redsys-bundle": "self.version",
-        "paymentsuite/stripe-bundle": "self.version"
+        "paymentsuite/stripe-bundle": "self.version",
+        "paymentsuite/paylands-bundle": "self.version"
     },
     "autoload": {
         "psr-4": {
@@ -59,7 +59,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "2.1-dev"
         }
     },
     "scripts": {

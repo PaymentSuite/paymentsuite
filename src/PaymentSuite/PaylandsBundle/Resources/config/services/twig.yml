@@ -1,0 +1,8 @@
+services:
+
+    paymentsuite.paylands.twig_extension:
+        class: PaymentSuite\PaylandsBundle\Twig\PaylandsExtension
+        arguments:
+            - '@paymentsuite.paylands.view_renderer'
+        tags:
+            - { name: twig.extension }
