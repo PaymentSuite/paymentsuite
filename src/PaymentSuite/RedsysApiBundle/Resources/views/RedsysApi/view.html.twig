@@ -1,0 +1,38 @@
+{% block payment_form %}
+
+    <ul id="redsys_api_payment_error">
+
+    </ul>
+
+    {{ form_start(redsys_api_form, {action: url(redsys_api_execute_route), attr: {"id" : "payment-form", "method": "GET"}}) }}
+        <span class="payment-errors"></span>
+
+        <div class="form-row">
+            <label>
+                <span>{{ form_label(redsys_api_form.credit_card) }}</span>
+                {{ form_errors(redsys_api_form.credit_card) }}
+                {{ form_widget(redsys_api_form.credit_card) }}
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span>{{ form_label(redsys_api_form.credit_cart_security) }}</span>
+                {{ form_widget(redsys_api_form.credit_cart_security) }}
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span>Expiration (MM/YYYY)</span>
+                {{ form_widget(redsys_api_form.credit_cart_expiration_month) }}
+            </label>
+            <span> / </span>
+            {{ form_widget(redsys_api_form.credit_cart_expiration_year) }}
+        </div>
+
+        <button type="submit" id="payment-submit">Submit Payment</button>
+
+    {{ form_end(redsys_api_form) }}
+
+{% endblock payment_form %}

@@ -1,0 +1,11 @@
+services:
+    #
+    # Repositories
+    #
+
+    #
+    # Repository for entity transaction
+    #
+    paymentsuite.repository.redsys_api_transaction:
+        parent: elcodi.abstract_repository
+        arguments: [ PaymentSuite\RedsysApiBundle\Entity\Transaction ]

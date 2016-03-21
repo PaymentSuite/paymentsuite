@@ -1,0 +1,38 @@
+services:
+    redsys_api.form.type:
+        class: PaymentSuite\RedsysApiBundle\Form\Type\RedsysApiType
+        arguments:
+            - @payment.bridge
+        tags:
+            - { name: form.type, alias: redsys_api_type }
+
+    redsys_api.manager:
+        class: PaymentSuite\RedsysApiBundle\Services\RedsysApiManager
+        arguments:
+            - @payment.event.dispatcher
+            - @payment.bridge
+            - @paymentsuite.object_manager.redsys_api_transaction
+            - @paymentsuite.repository.redsys_api_transaction
+            - %redsys_api.service_endpoint%
+            - %redsys_api.operation_mode%
+            - %redsys_api.merchant_code%
+            - %redsys_api.merchant_secret_key%
+            - %redsys_api.merchant_terminal%
+            - %redsys_api.currency%
+
+    stripe.twig.extension:
+        class: PaymentSuite\RedsysApiBundle\Twig\RedsysApiExtension
+        arguments:
+            form.factory: @form.factory
+            payment.bridge: @payment.bridge
+            view_template: %redsys_api.templates.view_template%
+            scripts_template: %redsys_api.templates.scripts_template%
+        tags:
+            - { name: twig.extension }
+
+    redsys_api.routes.loader:
+        class: PaymentSuite\RedsysApiBundle\Router\RedsysApiRoutesLoader
+        arguments:
+            stripe.controller.route: %redsys_api.controller.route%
+        tags:
+            - { name: routing.loader }

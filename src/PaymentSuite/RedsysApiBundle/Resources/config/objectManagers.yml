@@ -1,0 +1,8 @@
+services:
+
+    #
+    # Object Managers
+    #
+    paymentsuite.object_manager.redsys_api_transaction:
+        parent: elcodi.abstract_manager
+        arguments: [ PaymentSuite\RedsysApiBundle\Entity\Transaction ]
