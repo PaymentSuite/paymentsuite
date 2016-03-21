@@ -13,6 +13,7 @@
 
 namespace PaymentSuite\RedsysBundle\Controller;
 
+use Atresmediahf\MarketplaceBundle\Entity\OrderExt;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,37 +49,14 @@ class RedsysController extends Controller
      * @param Request $request Request element
      *
      * @return RedirectResponse
-     *
-     * @Method("POST")
      */
     public function resultAction(Request $request)
     {
+        $orderId = $request->query->get('id', false);
+        $order = $this->get('payment.bridge')->findOrder($orderId);
 
-        try {
-            $this->get('redsys.manager')
-                ->processResult($request->request->all());
-
-            $redirectUrl = $this->container->getParameter('redsys.success.route');
-            $redirectAppend = $this->container->getParameter('redsys.success.order.append');
-            $redirectAppendField = $this->container->getParameter('redsys.success.order.field');
-
-        } catch (PaymentException $e) {
-
-            /**
-             * Must redirect to fail route
-             */
-            $redirectUrl = $this->container->getParameter('redsys.fail.route');
-            $redirectAppend = $this->container->getParameter('redsys.fail.order.append');
-            $redirectAppendField = $this->container->getParameter('redsys.fail.order.field');
-        }
-
-        $redirectData   = $redirectAppend
-            ? array(
-                $redirectAppendField => $this->get('payment.bridge')->getOrderId(),
-            )
-            : array();
-
-        return $this->redirect($this->generateUrl($redirectUrl, $redirectData));
+        $this->get('payment.bridge')->setOrder($order);
+        $this->get('redsys.manager')->processResult($request->request->all());
     }
 
     /**
