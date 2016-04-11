@@ -59,7 +59,7 @@ class RedsysController extends Controller
         $this->get('payment.bridge')->setOrder($order);
         $this->get('redsys.manager')->processResult($request->request->all());
 
-        $response = new Response('OK'.$name, Response::HTTP_OK);
+        $response = new Response('OK', Response::HTTP_OK);
     }
 
     /**
