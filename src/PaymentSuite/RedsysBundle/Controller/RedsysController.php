@@ -60,6 +60,8 @@ class RedsysController extends Controller
         $this->get('redsys.manager')->processResult($request->request->all());
 
         $response = new Response('OK', Response::HTTP_OK);
+
+        return $response;
     }
 
     /**
