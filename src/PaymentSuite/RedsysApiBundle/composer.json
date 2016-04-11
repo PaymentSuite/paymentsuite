@@ -1,5 +1,5 @@
 {
-    "name": "paymentsuite/redsys-api--bundle",
+    "name": "paymentsuite/redsys-api-bundle",
     "type": "symfony-bundle",
     "description": "Stripe PaymentSuite Component",
     "keywords": ["redsys", "payment", "ecommerce"],
