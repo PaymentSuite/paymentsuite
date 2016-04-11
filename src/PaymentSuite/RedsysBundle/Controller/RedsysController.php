@@ -17,6 +17,7 @@ use Atresmediahf\MarketplaceBundle\Entity\OrderExt;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
@@ -57,6 +58,8 @@ class RedsysController extends Controller
 
         $this->get('payment.bridge')->setOrder($order);
         $this->get('redsys.manager')->processResult($request->request->all());
+
+        $response = new Response('OK'.$name, Response::HTTP_OK);
     }
 
     /**
