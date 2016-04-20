@@ -15,10 +15,12 @@
 
 namespace PaymentSuite\PaymentCoreBundle\ValueObject;
 
+use PaymentSuite\PaymentCoreBundle\ValueObject\Interfaces\RedirectionRouteCollectionInterface;
+
 /**
  * Class RedirectionRouteCollection.
  */
-final class RedirectionRouteCollection
+final class RedirectionRouteCollection implements RedirectionRouteCollectionInterface
 {
     /**
      * @var array
