@@ -11,12 +11,12 @@
  *
  * @author Manu Garcia <manugarciaes@gmail.com>
  */
-namespace PaymentSuite\AdyenBundle\Service;
+namespace PaymentSuite\AdyenBundle\Services;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Elcodi\Component\Core\Services\ObjectDirector;
-use PaymentSuite\AdyenBundle\Services\Interfaces\PaymentBridgeAdyenInterface;
+use PaymentSuite\AdyenBundle\Interfaces\PaymentBridgeAdyenInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -98,6 +98,7 @@ class AdyenManagerService
             $r = $this->callApi($paymentData);
 
         } catch (\Exception $e) {
+
             /*
              * The Soap call failed
              */

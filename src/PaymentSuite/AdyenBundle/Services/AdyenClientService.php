@@ -11,7 +11,7 @@
  *
  * @author Manu Garcia <manugarciaes@gmail.com>
  */
-namespace PaymentSuite\AdyenBundle\Service;
+namespace PaymentSuite\AdyenBundle\Services;
 
 
 use Adyen\Service\Payment;
@@ -31,14 +31,14 @@ class AdyenClientService
         $applicationName,
         $username,
         $password,
-        $environment = 'TEST'
+        $environment = 'test'
     )
     {
         $client = new \Adyen\Client();
         $client->setApplicationName($applicationName);
         $client->setUsername($username);
         $client->setPassword($password);
-        $client->setEnvironment(\Adyen\Environment::$environment);
+        $client->setEnvironment($environment);
 
         $this->client = $client;
     }

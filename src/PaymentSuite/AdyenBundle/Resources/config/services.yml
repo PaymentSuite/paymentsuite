@@ -1,7 +1,7 @@
 services:
 
     adyen.manager:
-        class: PaymentSuite\AdyenBundle\Service\AdyenManagerService
+        class: PaymentSuite\AdyenBundle\Services\AdyenManagerService
         arguments:
             - @payment.event.dispatcher
             - @payment.bridge
@@ -12,7 +12,7 @@ services:
             - %adyen_currency%
 
     adyen.client:
-        class: PaymentSuite\AdyenBundle\Service\AdyenClientService
+        class: PaymentSuite\AdyenBundle\Services\AdyenClientService
         arguments:
           - %adyen_applicationName%
           - %adyen_username%

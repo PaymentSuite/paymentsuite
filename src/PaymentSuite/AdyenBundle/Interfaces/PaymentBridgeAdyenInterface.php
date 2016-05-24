@@ -11,7 +11,7 @@
  *
  * @author Manu Garcia <manugarciaes@gmail.com>
  */
-namespace PaymentSuite\AdyenBundle\Services\Interfaces;
+namespace PaymentSuite\AdyenBundle\Interfaces;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 

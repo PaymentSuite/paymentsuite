@@ -19,7 +19,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 class AdyenMethod implements PaymentMethodInterface
 {
     /**
-     * Get Redsys API method name
+     * Get API method name
      *
      * @return string Payment name
      */
@@ -66,7 +66,7 @@ class AdyenMethod implements PaymentMethodInterface
     /**
      * @var integer
      *
-     * Redsys API transaction id
+     * transaction id
      */
     private $transactionId;
 
@@ -89,7 +89,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param string $creditCartNumber Credit cart number
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setCreditCartNumber($creditCartNumber)
     {
@@ -113,7 +113,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param string $creditCartOwner Credit cart owner
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setCreditCartOwner($creditCartOwner)
     {
@@ -137,7 +137,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param integer $creditCartExpirationYear Credit cart expiration year
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setCreditCartExpirationYear($creditCartExpirationYear)
     {
@@ -162,7 +162,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param integer $creditCartExpirationMonth Credit cart expiration month
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setCreditCartExpirationMonth($creditCartExpirationMonth)
     {
@@ -186,7 +186,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param string $creditCartSecurity Credit cart security
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setCreditCartSecurity($creditCartSecurity)
     {
@@ -220,7 +220,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param integer $transactionId Transaction id
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setTransactionId($transactionId)
     {
@@ -244,7 +244,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param string $transactionResponse Transaction response
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setTransactionResponse($transactionResponse)
     {
@@ -268,7 +268,7 @@ class AdyenMethod implements PaymentMethodInterface
      *
      * @param string $transactionStatus Transaction status
      *
-     * @return RedsysApiMethod self Object
+     * @return AdyenMethod self Object
      */
     public function setTransactionStatus($transactionStatus)
     {

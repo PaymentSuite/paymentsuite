@@ -1,17 +1,17 @@
 <?php
-
 /*
- * This file is part of the PaymentSuite package.
+ * This file is part of the Mascoteros package.
+ *
+ * Copyright (c) 2015-2016 Mascoteros.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * Feel free to edit as you please, and have fun.
  *
- * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Manu Garcia <manugarciaes@gmail.com>
  */
-
-namespace PaymentSuite\RedsysApiBundle\Form\Type;
+namespace PaymentSuite\AdyenBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +22,7 @@ use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 /**
  * Type for a shop edit profile form
  */
-class RedsysApiType extends AbstractType
+class AdyenType extends AbstractType
 {
     /**
      * @var PaymentBridgeInterface
@@ -85,6 +85,6 @@ class RedsysApiType extends AbstractType
      */
     public function getName()
     {
-        return 'redsys_api_type';
+        return 'adyen_type';
     }
 }

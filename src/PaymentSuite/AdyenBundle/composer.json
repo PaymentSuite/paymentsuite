@@ -1,13 +1,13 @@
 {
-    "name": "paymentsuite/redsys-api-bundle",
+    "name": "paymentsuite/adyen-bundle",
     "type": "symfony-bundle",
     "description": "Stripe PaymentSuite Component",
     "keywords": ["redsys", "payment", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Aldo Chiecchia",
-            "email": "zimage@tiscali.it"
+            "name": "Manu Garcia",
+            "email": "manugarciaes@gmail.com"
         },
         {
             "name": "Symfony Community",

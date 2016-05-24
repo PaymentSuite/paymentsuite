@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class AdyenBundleExtension extends Extension
+class AdyenExtension extends Extension
 {
     /**
      * {@inheritDoc}
