@@ -1,0 +1,11 @@
+services:
+    #
+    # Repositories
+    #
+
+    #
+    # Repository for entity transaction
+    #
+    paymentsuite.repository.adyen_transaction:
+        parent: elcodi.abstract_repository
+        arguments: [ PaymentSuite\AdyenBundle\Entity\Transaction ]
