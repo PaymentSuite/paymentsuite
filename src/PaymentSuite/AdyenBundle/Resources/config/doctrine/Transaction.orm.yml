@@ -37,6 +37,7 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
         message:
             column: message
             type: text
+            nullable: true
         createdAt:
             column: created_at
             type: datetime

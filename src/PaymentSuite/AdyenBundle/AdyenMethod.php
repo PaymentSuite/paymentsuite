@@ -28,6 +28,8 @@ class AdyenMethod implements PaymentMethodInterface
         return 'Adyen API';
     }
 
+    private $additionalData;
+
     /**
      * @var string
      *
@@ -285,6 +287,24 @@ class AdyenMethod implements PaymentMethodInterface
     public function getTransactionStatus()
     {
         return $this->transactionStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdditionalData()
+    {
+        return $this->additionalData;
+    }
+
+    /**
+     * @param mixed $additionalData
+     */
+    public function setAdditionalData($additionalData)
+    {
+        $this->additionalData = $additionalData;
+
+        return $this;
     }
 
 }

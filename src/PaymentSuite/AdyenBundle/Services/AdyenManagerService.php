@@ -77,12 +77,8 @@ class AdyenManagerService
          * @var AdyenMethod $method
          */
         $paymentData= [];
-        $paymentData['card'] = [
-            "number" => $method->getCreditCartNumber(),
-            "expiryMonth" => $method->getCreditCartExpirationMonth(),
-            "expiryYear" => $method->getCreditCartExpirationYear(),
-            "cvc" => $method->getCreditCartSecurity(),
-            "holderName" => $method->getCreditCartOwner()
+        $paymentData['additionalData'] = [
+            'card.encrypted.json' => $method->getAdditionalData()
         ];
 
         $paymentData['amount'] = [
@@ -98,7 +94,6 @@ class AdyenManagerService
             $r = $this->callApi($paymentData);
 
         } catch (\Exception $e) {
-
             /*
              * The Soap call failed
              */
@@ -114,13 +109,6 @@ class AdyenManagerService
 
         $r['amount'] = $amount;
         $this->storeTransaction($r);
-
-        $this
-            ->eventDispatcher
-            ->notifyPaymentOrderLoad(
-                $this->paymentBridge,
-                $method
-            );
 
         if (!$this->isAuthorized($r)) {
             $this->paymentBridge->setError($this->getError($r));
@@ -138,6 +126,14 @@ class AdyenManagerService
 
             throw new PaymentException($this->getErrorCode($r));
         }
+
+        $this
+            ->eventDispatcher
+            ->notifyPaymentOrderLoad(
+                $this->paymentBridge,
+                $method
+            );
+
 
         /*
          * Everything is ok, emitting the
@@ -210,6 +206,7 @@ class AdyenManagerService
         $transaction->setPspReference($response['pspReference']);
         $transaction->setResultCode($response['resultCode']);
         $transaction->setAuthCode($response['authCode']);
+        $transaction->setMessage('paid');
 
         $this->transactionObjectManager->persist($transaction);
         $this->transactionObjectManager->flush();
