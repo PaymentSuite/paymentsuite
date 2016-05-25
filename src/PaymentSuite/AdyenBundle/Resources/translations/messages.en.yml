@@ -1,0 +1,153 @@
+adyen:
+  payment:
+    error:
+       101: Tarjeta de crédito/débito incorrecta
+       000: Unknown
+       010: Not allowed
+       100: No amount specified
+       101: Invalid card number
+       102: Unable to determine variant
+       103: CVC is not the right length
+       104: Billing address problem
+       105: Invalid paRes from issuer
+       106: This session was already used previously
+       107: Recurring is not enabled
+       108: Invalid bankaccount number
+       109: Invalid variant
+       110: BankDetails missing
+       111: Invalid BankCountryCode specified
+       112: This bank country is not supported
+       113: No InvoiceLines provided
+       114: Received an incorrect InvoiceLine
+       115: Total amount is not the same as the sum of the lines
+       116: Invalid date of birth
+       117: Invalid billing address
+       118: Invalid delivery address
+       119: Invalid shopper name
+       120: ShopperEmail is missing
+       121: ShopperReference is missing
+       122: PhoneNumber is missing
+       123: The PhoneNumber should be mobile
+       124: Invalid PhoneNumber
+       125: Invalid recurring contract specified
+       126: Bank Account or Bank Location Id not valid or missing
+       127: Account holder missing
+       128: Card Holder Missing
+       129: Expiry Date Invalid
+       130: Reference Missing
+       131: Billing address problem (City)
+       132: Billing address problem (Street)
+       133: Billing address problem (HouseNumberOrName)
+       134: Billing address problem (Country)
+       135: Billing address problem (StateOrProvince)
+       136: Failed to retrieve OpenInvoiceLines
+       137: Invalid amount specified
+       138: Unsupported currency specified
+       139: Recurring requires shopperEmail and shopperReference
+       140: Invalid expiryMonth[1..12] / expiryYear[>2000], or before now
+       141: Invalid expiryMonth[1..12] / expiryYear[>2000]
+       142: Bank Name or Bank Location not valid or missing
+       143: Submitted total iDeal merchantReturnUrl length is {0}, but max size is {1} for this request
+       144: Invalid startMonth[1..12] / startYear[>2000], or in the future
+       145: Invalid issuer countrycode
+       146: Invalid social security number
+       147: Delivery address problem (City)
+       148: Delivery address problem (Street)
+       149: Delivery address problem (HouseNumberOrName)
+       150: Delivery address problem (Country)
+       151: Delivery address problem (StateOrProvince)
+       152: Invalid number of installments
+       153: Invalid CVC
+       154: No additional data specified
+       155: No acquirer specified
+       156: No authorisation mid specified
+       157: No fields specified
+       158: Required field {0} not specified
+       159: Invalid number of requests
+       160: Not allowed to store Payout Details
+       161: Invalid iban
+       162: Inconsistent iban
+       163: Invalid bic
+       164: Auto-capture delay invalid or out of range
+       165: MandateId does not match pattern
+       166: Amount not allowed for this operation
+       167: Original pspReference required for this operation
+       168: AuthorisationCode required for this operation
+       170: Generation Date required but missing
+       171: Unable to parse Generation Date
+       172: Encrypted data used outside of valid time period
+       173: Unable to load Private Key for decryption
+       174: Unable to decrypt data
+       175: Unable to parse JSON data
+       180: Invalid shopperReference
+       181: Invalid shopperEmail
+       182: Invalid selected brand
+       183: Invalid recurring contract
+       184: Invalid recurring detail name
+       185: Invalid additionalData
+       186: Missing additionalData field
+       187: Invalid additionalData field
+       188: Invalid pspEchoData
+       189: Invalid shopperStatement
+       190: Invalid shopper IP
+       191: No params specified
+       192: Invalid field {0}
+       193: Bin Details not found for the given card number
+       194: Billing address missing
+       600: No InvoiceProject provided
+       601: No InvoiceBatch provided
+       602: No creditorAccount specified
+       603: No projectCode specified
+       604: No creditorAccount found
+       605: No project found
+       606: Unable to create InvoiceProject
+       607: InvoiceBatch already exists
+       608: Unable to create InvoiceBatch
+       609: InvoiceBatch validity period exceeded
+       610: No dunning configuration found
+       611: Invalid dunning configuration
+       690: Error while storing debtor
+       691: Error while storing invoice
+       692: Error while checking if invoice already exists for creditorAccount
+       693: Error while searching invoices
+       694: No Invoice Configuration configured for creditAccount
+       695: Invalid Invoice Configuration configured for creditAccount
+       700: No method specified
+       701: Server could not process request
+       702: Problem parsing request
+       800: Contract not found
+       801: Too many PaymentDetails defined
+       802: Invalid contract
+       803: PaymentDetail not found
+       804: Failed to disable
+       805: RecurringDetailReference not available for provided recurring-contract
+       806: No applicable contractTypes left for this payment-method
+       901: Invalid Merchant Account
+       902: Shouldn't have gotten here without a request!
+       903: Internal error
+       904: Unable To Process
+       905: Payment details are not supported
+       906: Invalid Request: Original pspReference is invalid for this environment!
+       907: US Payment details are not supported
+       908: Invalid request
+       950: Invalid AcquirerAccount
+       951: Configuration Error (acquirerIdentification)
+       952: Configuration Error (acquirerPassword)
+       953: Configuration Error (apiKey)
+       954: Configuration Error (redirectUrl)
+       955: Configuration Error (AcquirerAccountData)
+       956: Configuration Error (currencyCode)
+       957: Configuration Error (terminalId)
+       958: Configuration Error (serialNumber)
+       959: Configuration Error (password)
+       960: Configuration Error (projectId)
+       961: Configuration Error (merchantCategoryCode)
+       962: Configuration Error (merchantName)
+       963: Invalid company registration number
+       964: Invalid company name
+       965: Missing company details
+       966: Configuration Error (privateKeyAlias)
+       967: Configuration Error (publicKeyAlias)
+       1000: Card number cannot be specified for Incontrol virtual card requests
+       1001: Recurring not allowed for Incontrol virtual card requests
+       1002: Invalid Authorisation Type supplied

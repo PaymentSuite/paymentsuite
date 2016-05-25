@@ -1,0 +1,26 @@
+<script src="{{ asset('js/adyen.min.js') }}"></script>
+<script>
+
+    {% if app.environment == 'dev' %}
+        if ($('#{{ generationDate|default('generationDate') }}').length > 0) {
+            // generate time client side for testing only... Don't deploy on a real integration!!!
+            document.getElementById('{{ generationDate|default('generationDate') }}').value = new Date().toISOString();
+        }
+    {% endif %}
+
+    // the form element to encrypt
+    var form    = document.getElementById('{{ payment_form_id|default('payment_form') }}');
+
+    var key     =   "{{ adyen_client_encrypt }}";
+
+    var options = {};
+
+    options.enableValidations = false;
+
+    options.submitButtonAlwaysEnabled = true;
+
+    options.cardTypeElement = document.getElementById('{{ payment_card_type|default('cardType') }}');
+
+    // the form will be encrypted before it is submitted
+    adyen.encrypt.createEncryptedForm( form, key, options);
+</script>

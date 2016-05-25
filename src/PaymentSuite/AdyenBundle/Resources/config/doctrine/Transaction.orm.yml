@@ -1,0 +1,43 @@
+PaymentSuite\AdyenBundle\Entity\Transaction:
+    type: entity
+    repositoryClass: PaymentSuite\AdyenBundle\Repository\TransactionRepository
+    table: adyen_transaction
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+
+    indexes:
+        adyen_order_id_idx:
+            columns: [ order_id ]
+
+    fields:
+        orderId:
+            column: order_id
+            type: string
+            length: 32
+            nullable: false
+        amount:
+            column: amount
+            type: integer
+        pspReference:
+            column: psp_reference
+            type: string
+            length: 2
+            nullable: false
+        resultCode:
+            column: result_code
+            type: string
+            length: 16
+        authCode:
+            column: auth_code
+            type: string
+            length: 16
+        message:
+            column: message
+            type: text
+            nullable: true
+        createdAt:
+            column: created_at
+            type: datetime

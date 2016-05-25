@@ -1,0 +1,8 @@
+services:
+
+    #
+    # Object Managers
+    #
+    paymentsuite.object_manager.adyen_transaction:
+        parent: elcodi.abstract_manager
+        arguments: [ PaymentSuite\AdyenBundle\Entity\Transaction ]

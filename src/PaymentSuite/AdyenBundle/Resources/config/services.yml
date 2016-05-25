@@ -1,0 +1,20 @@
+services:
+
+    adyen.manager:
+        class: PaymentSuite\AdyenBundle\Services\AdyenManagerService
+        arguments:
+            - @payment.event.dispatcher
+            - @payment.bridge
+            - @paymentsuite.object_manager.adyen_transaction
+            - @paymentsuite.repository.adyen_transaction
+            - @adyen.client
+            - %adyen_merchantCode%
+            - %adyen_currency%
+
+    adyen.client:
+        class: PaymentSuite\AdyenBundle\Services\AdyenClientService
+        arguments:
+          - %adyen_applicationName%
+          - %adyen_username%
+          - %adyen_password%
+          - %adyen_environment%
