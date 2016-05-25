@@ -39,5 +39,6 @@ class AdyenExtension extends Extension
         $loader->load('services.yml');
         $loader->load('objectManagers.yml');
         $loader->load('repositories.yml');
+        $loader->load('formTypes.yml');
     }
 }

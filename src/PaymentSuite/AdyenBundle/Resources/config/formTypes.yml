@@ -1,0 +1,7 @@
+services:
+    adyen_credit_card.form.type:
+        class: PaymentSuite\AdyenBundle\Form\CreditCardType
+        arguments:
+            - @payment.bridge
+        tags:
+            - { name: form.type, alias: credit_cat_form_type }

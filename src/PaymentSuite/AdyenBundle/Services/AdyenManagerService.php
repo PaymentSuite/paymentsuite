@@ -104,6 +104,7 @@ class AdyenManagerService
                     $method
                 );
 
+            $this->paymentBridge->setError($e->getMessage());
             throw new PaymentException($e->getMessage());
         }
 
@@ -214,6 +215,7 @@ class AdyenManagerService
 
     protected function getError($response)
     {
+        dump($response);
         if (isset($response['refusalReason'])) {
             return $response['refusalReason'];
         }
