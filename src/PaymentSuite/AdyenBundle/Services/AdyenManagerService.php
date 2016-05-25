@@ -105,6 +105,7 @@ class AdyenManagerService
                 );
 
             $this->paymentBridge->setError($e->getMessage());
+            $this->paymentBridge->setErrorCode($e->getCode());
             throw new PaymentException($e->getMessage());
         }
 
