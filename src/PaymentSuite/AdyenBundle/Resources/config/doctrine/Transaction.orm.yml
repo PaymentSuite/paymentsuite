@@ -34,6 +34,7 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
             column: auth_code
             type: string
             length: 16
+            nullable: true
         message:
             column: message
             type: text

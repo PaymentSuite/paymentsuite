@@ -207,8 +207,13 @@ class AdyenManagerService
         $transaction->setCreatedAt(new \DateTime('now'));
         $transaction->setPspReference($response['pspReference']);
         $transaction->setResultCode($response['resultCode']);
-        $transaction->setAuthCode($response['authCode']);
-        $transaction->setMessage('paid');
+
+        if (isset($response['authCode'])) {
+            $transaction->setAuthCode($response['authCode']);
+        }
+        if (isset($response['refusalReason'])) {
+            $transaction->setMessage($response['refusalReason']);
+        }
 
         $this->transactionObjectManager->persist($transaction);
         $this->transactionObjectManager->flush();
@@ -216,7 +221,6 @@ class AdyenManagerService
 
     protected function getError($response)
     {
-        dump($response);
         if (isset($response['refusalReason'])) {
             return $response['refusalReason'];
         }
