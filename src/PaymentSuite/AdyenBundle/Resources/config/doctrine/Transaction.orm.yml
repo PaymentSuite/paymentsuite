@@ -24,7 +24,7 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
         pspReference:
             column: psp_reference
             type: string
-            length: 2
+            length: 40
             nullable: false
         resultCode:
             column: result_code
