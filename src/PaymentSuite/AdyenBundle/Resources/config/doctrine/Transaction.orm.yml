@@ -15,8 +15,7 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
     fields:
         cartId:
             column: cart_id
-            type: string
-            length: 32
+            type: integer
             nullable: false
         amount:
             column: amount
@@ -24,16 +23,16 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
         pspReference:
             column: psp_reference
             type: string
-            length: 40
+            length: 200
             nullable: false
         resultCode:
             column: result_code
             type: string
-            length: 16
+            length: 200
         authCode:
             column: auth_code
             type: string
-            length: 16
+            length: 200
             nullable: true
         message:
             column: message
