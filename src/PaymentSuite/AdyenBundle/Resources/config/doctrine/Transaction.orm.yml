@@ -9,12 +9,12 @@ PaymentSuite\AdyenBundle\Entity\Transaction:
                 strategy: AUTO
 
     indexes:
-        adyen_order_id_idx:
-            columns: [ order_id ]
+        adyen_cart_id_idx:
+            columns: [ cart_id ]
 
     fields:
-        orderId:
-            column: order_id
+        cartId:
+            column: cart_id
             type: string
             length: 32
             nullable: false

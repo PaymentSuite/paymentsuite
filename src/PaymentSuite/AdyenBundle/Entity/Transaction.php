@@ -23,7 +23,7 @@ class Transaction
     /**
      * @var integer
      */
-    protected $orderId;
+    protected $cartId;
 
     /**
      * @var integer
@@ -74,17 +74,17 @@ class Transaction
     /**
      * @return int
      */
-    public function getOrderId()
+    public function getCartId()
     {
-        return $this->orderId;
+        return $this->cartId;
     }
 
     /**
-     * @param int $orderId
+     * @param int $cartId
      */
-    public function setOrderId($orderId)
+    public function setCartId($cartId)
     {
-        $this->orderId = $orderId;
+        $this->cartId = $cartId;
     }
 
     /**

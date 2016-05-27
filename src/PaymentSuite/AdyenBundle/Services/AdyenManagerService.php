@@ -202,7 +202,7 @@ class AdyenManagerService
          * this is a RESPONSE for the moment
          */
         $transaction = new Transaction();
-        $transaction->setOrderId($this->paymentBridge->getOrderId());
+        $transaction->setCartId($this->paymentBridge->getCartId());
         $transaction->setAmount($response['amount']);
         $transaction->setCreatedAt(new \DateTime('now'));
         $transaction->setPspReference($response['pspReference']);
