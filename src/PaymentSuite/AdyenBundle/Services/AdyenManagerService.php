@@ -23,6 +23,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\AdyenBundle\Entity\Transaction;
 use PaymentSuite\AdyenBundle\AdyenMethod;
+use Symfony\Bridge\Monolog\Logger;
 
 /**
  * Class AdyenManagerService
@@ -32,6 +33,10 @@ class AdyenManagerService
 {
     protected $merchantCode;
     protected $currency;
+    /**
+     * @var Logger
+     */
+    protected $logger;
 
     const AUTHORISED = 'Authorised';
 
@@ -42,6 +47,7 @@ class AdyenManagerService
      * @param ObjectManager $transactionObjectManager
      * @param ObjectRepository $transactionRepository
      * @param AdyenClientService $adyenClientService,
+     * @param Logger $logger,
      * @param string $merchantCode
      * @param string $currency
      */
@@ -51,6 +57,7 @@ class AdyenManagerService
         ObjectManager $transactionObjectManager,
         ObjectRepository $transactionRepository,
         AdyenClientService $adyenClientService,
+        Logger $logger,
         $merchantCode,
         $currency
     )
@@ -60,6 +67,7 @@ class AdyenManagerService
         $this->transactionObjectManager = $transactionObjectManager;
         $this->transactionRepository = $transactionRepository;
         $this->adyenClientService = $adyenClientService;
+        $this->logger = $logger;
 
         $this->merchantCode = $merchantCode;
         $this->currency = $currency;
@@ -104,6 +112,7 @@ class AdyenManagerService
                     $method
                 );
 
+            $this->logger->addError('PaymentException: '.$e->getMessage());
             $this->paymentBridge->setError($e->getMessage());
             $this->paymentBridge->setErrorCode($e->getCode());
             throw new PaymentException($e->getMessage());
