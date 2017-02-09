@@ -15,9 +15,8 @@
 
 namespace PaymentSuite\PaypalWebCheckoutBundle;
 
-use Mmoreram\SymfonyBundleDependencies\DependentBundleInterface;
+use Mmoreram\BaseBundle\BaseBundle;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 use PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection\PaypalWebCheckoutExtension;
@@ -25,7 +24,7 @@ use PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection\PaypalWebCheckoutEx
 /**
  * Class PaypalWebCheckoutBundle.
  */
-class PaypalWebCheckoutBundle extends Bundle implements DependentBundleInterface
+class PaypalWebCheckoutBundle extends BaseBundle
 {
     /**
      * Returns the bundle's container extension.
@@ -41,10 +40,12 @@ class PaypalWebCheckoutBundle extends Bundle implements DependentBundleInterface
      * Return all bundle dependencies.
      *
      * Values can be a simple bundle namespace or its instance
+     * 
+     * @param KernelInterface $kernel
      *
-     * @return array Bundle instances
+     * @return array
      */
-    public static function getBundleDependencies(KernelInterface $kernel)
+    public static function getBundleDependencies(KernelInterface $kernel) : array
     {
         return [
             'PaymentSuite\PaymentCoreBundle\PaymentCoreBundle',

@@ -15,15 +15,15 @@
 
 namespace PaymentSuite\PaymentCoreBundle;
 
+use Mmoreram\BaseBundle\BaseBundle;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\PaymentCoreExtension;
 
 /**
  * Core Payment Bundle.
  */
-class PaymentCoreBundle extends Bundle
+class PaymentCoreBundle extends BaseBundle
 {
     /**
      * Returns the bundle's container extension.
