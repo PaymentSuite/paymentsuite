@@ -260,6 +260,26 @@ class AdyenManagerService
         return $paymentService->listRecurringDetails($paymentData);
     }
 
+    public function removeCreditCard($shopperReference, $recurringDetailReference)
+    {
+        $paymentData= [];
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['shopperReference'] = $shopperReference;
+        $paymentData['recurringDetailReference'] = $recurringDetailReference;
+        $paymentData['recurring'] = [
+            'contract' => Contract::ONECLICK
+        ];
+
+        return $this->doDisableCreditCard($paymentData);
+    }
+
+    protected function doDisableCreditCard($paymentData)
+    {
+        $paymentService = $this->adyenClientService->getRecurringService();
+
+        return $paymentService->disable($paymentData);
+    }
+
     protected function getError($response)
     {
         if (isset($response['refusalReason'])) {
