@@ -107,6 +107,20 @@ class AdyenMethod implements PaymentMethodInterface
     private $shopperReference;
 
     /**
+     * @var string
+     *
+     * The shopper email
+     */
+    private $shopperEmail;
+
+    /**
+     * @var string
+     *
+     * The recurring detail reference
+     */
+    private $recurringDetailReference;
+
+    /**
      * set Credit cart number
      *
      * @param string $creditCartNumber Credit cart number
@@ -383,5 +397,37 @@ class AdyenMethod implements PaymentMethodInterface
         $this->shopperReference = $shopperReference;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperEmail()
+    {
+        return $this->shopperEmail;
+    }
+
+    /**
+     * @param string $shopperEmail
+     */
+    public function setShopperEmail($shopperEmail)
+    {
+        $this->shopperEmail = $shopperEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecurringDetailReference()
+    {
+        return $this->recurringDetailReference;
+    }
+
+    /**
+     * @param string $recurringDetailReference
+     */
+    public function setRecurringDetailReference($recurringDetailReference)
+    {
+        $this->recurringDetailReference = $recurringDetailReference;
     }
 }
