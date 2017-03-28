@@ -106,6 +106,11 @@ class AdyenManagerService
             ];
         }
 
+        if (!empty($method->getRecurringDetailReference())) {
+            $paymentData['shopperEmail'] = $method->getShopperEmail();
+            $paymentData['shopperInteraction'] = $method->getShopperInteraction();
+        }
+
         try {
             $r = $this->callApi($paymentData);
         } catch (\Exception $e) {

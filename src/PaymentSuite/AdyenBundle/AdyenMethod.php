@@ -116,6 +116,13 @@ class AdyenMethod implements PaymentMethodInterface
     /**
      * @var string
      *
+     * The shopper interaction
+     */
+    private $shopperInteraction;
+
+    /**
+     * @var string
+     *
      * The recurring detail reference
      */
     private $recurringDetailReference;
@@ -413,6 +420,22 @@ class AdyenMethod implements PaymentMethodInterface
     public function setShopperEmail($shopperEmail)
     {
         $this->shopperEmail = $shopperEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperInteraction()
+    {
+        return $this->shopperInteraction;
+    }
+
+    /**
+     * @param string $shopperInteraction
+     */
+    public function setShopperInteraction($shopperInteraction)
+    {
+        $this->shopperInteraction = $shopperInteraction;
     }
 
     /**
