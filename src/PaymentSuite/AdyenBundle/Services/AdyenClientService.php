@@ -14,6 +14,7 @@
 namespace PaymentSuite\AdyenBundle\Services;
 
 use Adyen\Service\Payment;
+use Adyen\Service\Recurring;
 
 class AdyenClientService
 {
