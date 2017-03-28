@@ -109,6 +109,7 @@ class AdyenManagerService
         if (!empty($method->getRecurringDetailReference())) {
             $paymentData['shopperEmail'] = $method->getShopperEmail();
             $paymentData['shopperInteraction'] = $method->getShopperInteraction();
+            $paymentData['selectedRecurringDetailReference'] = $method->getRecurringDetailReference();
         }
 
         try {
