@@ -416,10 +416,13 @@ class AdyenMethod implements PaymentMethodInterface
 
     /**
      * @param string $shopperEmail
+     * @return $this
      */
     public function setShopperEmail($shopperEmail)
     {
         $this->shopperEmail = $shopperEmail;
+
+        return $this;
     }
 
     /**
@@ -432,10 +435,13 @@ class AdyenMethod implements PaymentMethodInterface
 
     /**
      * @param string $shopperInteraction
+     * @return $this
      */
     public function setShopperInteraction($shopperInteraction)
     {
         $this->shopperInteraction = $shopperInteraction;
+
+        return $this;
     }
 
     /**
@@ -448,9 +454,12 @@ class AdyenMethod implements PaymentMethodInterface
 
     /**
      * @param string $recurringDetailReference
+     * @return $this
      */
     public function setRecurringDetailReference($recurringDetailReference)
     {
         $this->recurringDetailReference = $recurringDetailReference;
+
+        return $this;
     }
 }
