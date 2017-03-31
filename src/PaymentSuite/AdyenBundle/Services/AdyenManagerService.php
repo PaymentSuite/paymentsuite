@@ -25,6 +25,7 @@ use PaymentSuite\AdyenBundle\Entity\Transaction;
 use PaymentSuite\AdyenBundle\AdyenMethod;
 use Symfony\Bridge\Monolog\Logger;
 use Adyen\Contract;
+use Adyen\Service\Recurring;
 
 /**
  * Class AdyenManagerService
@@ -243,7 +244,7 @@ class AdyenManagerService
 
     public function getListRecurringDetails($shopperReference)
     {
-        $paymentData= [];
+        $paymentData = [];
         $paymentData['merchantAccount'] = $this->merchantCode;
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurring'] = [
@@ -262,7 +263,7 @@ class AdyenManagerService
 
     public function removeCreditCard($shopperReference, $recurringDetailReference)
     {
-        $paymentData= [];
+        $paymentData = [];
         $paymentData['merchantAccount'] = $this->merchantCode;
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurringDetailReference'] = $recurringDetailReference;
