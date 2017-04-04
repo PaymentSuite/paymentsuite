@@ -13,8 +13,8 @@
  */
 namespace PaymentSuite\AdyenBundle\Services;
 
-
 use Adyen\Service\Payment;
+use Adyen\Service\Recurring;
 
 class AdyenClientService
 {
@@ -32,8 +32,7 @@ class AdyenClientService
         $username,
         $password,
         $environment = 'test'
-    )
-    {
+    ) {
         $client = new \Adyen\Client();
         $client->setApplicationName($applicationName);
         $client->setUsername($username);
@@ -42,8 +41,14 @@ class AdyenClientService
 
         $this->client = $client;
     }
+
     public function getPaymentService()
     {
         return new Payment($this->client);
+    }
+
+    public function getRecurringService()
+    {
+        return new Recurring($this->client);
     }
 }

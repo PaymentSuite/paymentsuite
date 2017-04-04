@@ -24,6 +24,8 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\AdyenBundle\Entity\Transaction;
 use PaymentSuite\AdyenBundle\AdyenMethod;
 use Symfony\Bridge\Monolog\Logger;
+use Adyen\Contract;
+use Adyen\Service\Recurring;
 
 /**
  * Class AdyenManagerService
@@ -33,6 +35,7 @@ class AdyenManagerService
 {
     protected $merchantCode;
     protected $currency;
+
     /**
      * @var Logger
      */
@@ -60,8 +63,7 @@ class AdyenManagerService
         Logger $logger,
         $merchantCode,
         $currency
-    )
-    {
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->paymentBridge = $paymentBridge;
         $this->transactionObjectManager = $transactionObjectManager;
@@ -73,6 +75,7 @@ class AdyenManagerService
         $this->currency = $currency;
 
     }
+
     /**
      * @param PaymentMethodInterface $method
      * @param integer $amount
@@ -97,10 +100,21 @@ class AdyenManagerService
         $paymentData['reference'] = $method->getTransactionId();
         $paymentData['merchantAccount'] = $this->merchantCode;
 
+        if ($method->isRecurring() === true) {
+            $paymentData['shopperReference'] = $method->getShopperReference();
+            $paymentData['recurring'] = [
+                'contract' => $method->getContract()
+            ];
+        }
+
+        if (!empty($method->getRecurringDetailReference())) {
+            $paymentData['shopperEmail'] = $method->getShopperEmail();
+            $paymentData['shopperInteraction'] = $method->getShopperInteraction();
+            $paymentData['selectedRecurringDetailReference'] = $method->getRecurringDetailReference();
+        }
+
         try {
-
             $r = $this->callApi($paymentData);
-
         } catch (\Exception $e) {
             /*
              * The Soap call failed
@@ -203,7 +217,7 @@ class AdyenManagerService
     }
 
     /**
-     * @param $resource
+     * @param $response
      */
     protected function storeTransaction($response)
     {
@@ -226,6 +240,45 @@ class AdyenManagerService
 
         $this->transactionObjectManager->persist($transaction);
         $this->transactionObjectManager->flush();
+    }
+
+    public function getListRecurringDetails($shopperReference)
+    {
+        $paymentData = [];
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['shopperReference'] = $shopperReference;
+        $paymentData['recurring'] = [
+            'contract' => Contract::ONECLICK
+        ];
+
+        return $this->doRecurring($paymentData);
+    }
+
+    protected function doRecurring($paymentData)
+    {
+        $paymentService = $this->adyenClientService->getRecurringService();
+
+        return $paymentService->listRecurringDetails($paymentData);
+    }
+
+    public function removeCreditCard($shopperReference, $recurringDetailReference)
+    {
+        $paymentData = [];
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['shopperReference'] = $shopperReference;
+        $paymentData['recurringDetailReference'] = $recurringDetailReference;
+        $paymentData['recurring'] = [
+            'contract' => Contract::ONECLICK
+        ];
+
+        return $this->doDisableCreditCard($paymentData);
+    }
+
+    protected function doDisableCreditCard($paymentData)
+    {
+        $paymentService = $this->adyenClientService->getRecurringService();
+
+        return $paymentService->disable($paymentData);
     }
 
     protected function getError($response)

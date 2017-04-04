@@ -15,7 +15,6 @@ namespace PaymentSuite\AdyenBundle;
 
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
-
 class AdyenMethod implements PaymentMethodInterface
 {
     /**
@@ -85,6 +84,48 @@ class AdyenMethod implements PaymentMethodInterface
      * Transaction status
      */
     private $transactionStatus;
+
+    /**
+     * @var boolean
+     *
+     * If it's a recurring payment
+     */
+    private $recurring;
+
+    /**
+     * @var string
+     *
+     * The type of contract, only used when is recurring
+     */
+    private $contract;
+
+    /**
+     * @var string
+     *
+     * The shopper reference
+     */
+    private $shopperReference;
+
+    /**
+     * @var string
+     *
+     * The shopper email
+     */
+    private $shopperEmail;
+
+    /**
+     * @var string
+     *
+     * The shopper interaction
+     */
+    private $shopperInteraction;
+
+    /**
+     * @var string
+     *
+     * The recurring detail reference
+     */
+    private $recurringDetailReference;
 
     /**
      * set Credit cart number
@@ -299,6 +340,7 @@ class AdyenMethod implements PaymentMethodInterface
 
     /**
      * @param mixed $additionalData
+     * @return $this
      */
     public function setAdditionalData($additionalData)
     {
@@ -307,4 +349,117 @@ class AdyenMethod implements PaymentMethodInterface
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isRecurring()
+    {
+        return $this->recurring;
+    }
+
+    /**
+     * @param bool $recurring
+     * @return $this
+     */
+    public function setRecurring($recurring)
+    {
+        $this->recurring = $recurring;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContract()
+    {
+        return $this->contract;
+    }
+
+    /**
+     * @param string $contract
+     * @return $this
+     */
+    public function setContract($contract)
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperReference()
+    {
+        return $this->shopperReference;
+    }
+
+    /**
+     * @param string $shopperReference
+     * @return $this
+     */
+    public function setShopperReference($shopperReference)
+    {
+        $this->shopperReference = $shopperReference;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperEmail()
+    {
+        return $this->shopperEmail;
+    }
+
+    /**
+     * @param string $shopperEmail
+     * @return $this
+     */
+    public function setShopperEmail($shopperEmail)
+    {
+        $this->shopperEmail = $shopperEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperInteraction()
+    {
+        return $this->shopperInteraction;
+    }
+
+    /**
+     * @param string $shopperInteraction
+     * @return $this
+     */
+    public function setShopperInteraction($shopperInteraction)
+    {
+        $this->shopperInteraction = $shopperInteraction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecurringDetailReference()
+    {
+        return $this->recurringDetailReference;
+    }
+
+    /**
+     * @param string $recurringDetailReference
+     * @return $this
+     */
+    public function setRecurringDetailReference($recurringDetailReference)
+    {
+        $this->recurringDetailReference = $recurringDetailReference;
+
+        return $this;
+    }
 }
