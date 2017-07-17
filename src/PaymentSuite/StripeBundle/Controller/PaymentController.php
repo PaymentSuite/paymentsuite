@@ -16,6 +16,7 @@
 namespace PaymentSuite\StripeBundle\Controller;
 
 use Exception;
+use PaymentSuite\StripeBundle\Form\Type\StripeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
@@ -119,7 +120,7 @@ class PaymentController extends Controller
          */
         $form = $this
             ->formFactory
-            ->create('stripe_view');
+            ->create(StripeType::class);
 
         $form->handleRequest($request);
         $redirect = $this

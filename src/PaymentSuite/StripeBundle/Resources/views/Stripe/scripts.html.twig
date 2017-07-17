@@ -28,14 +28,15 @@
         }
     };
 
-    $("#payment-submit").on("click", function(event){
+    $(document).ready(function() {
+        $("#payment-submit").on("click", function(event){
 
-        var $form = $(this).closest('form');
-        $form.find('button').prop('disabled', true);
-
-        Stripe.createToken($form, stripeResponseHandler);
-
-        return false;
+            var $form = $(this).closest('form');
+            $form.find('button').prop('disabled', true);
+            Stripe.createToken($form, stripeResponseHandler);
+            return false;
+        });
     });
+
 
 </script>
