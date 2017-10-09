@@ -112,6 +112,6 @@ class PaypalExpressCheckoutMethod implements PaymentMethodInterface
      */
     public function getSomeExtraData()
     {
-        return $someExtraData;
+        return $this->someExtraData;
     }
 }
