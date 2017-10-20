@@ -1,0 +1,23 @@
+services:
+
+    paymentsuite.paylands.form_factory:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsFormFactory
+        arguments:
+            - '@form.factory'
+            - '@router'
+
+    paymentsuite.paylands.manager:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsManager
+        arguments:
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
+            - '@paymentsuite.paylands.api.client'
+            - '@request_stack'
+
+    paymentsuite.paylands.view_renderer:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsViewRenderer
+        arguments:
+            - '@paymentsuite.paylands.api.client'
+            - '@paymentsuite.paylands.form_factory'
+            - '%paymentsuite.paylands.view_template%'
+            - '%paymentsuite.paylands.scripts_template%'

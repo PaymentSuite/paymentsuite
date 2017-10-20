@@ -1,0 +1,94 @@
+<script type="text/javascript" src="https://ws-paylands.paynopain.com/js/v1-iframe.js"></script>
+
+<script type="text/javascript">
+
+    window.addEventListener('paylandsLoaded', function(){
+
+        var CUSTOMER_TOKEN_FIELD = 'paylands_customerToken';
+        var VALIDATE_BUTTON = 'paylands_validate_button';
+        var CARD_CONTAINER = 'paylands_card';
+        var ERROR_CONTAINER = 'paylands_error';
+
+        paylandsForm = document.forms['paylands'];
+
+        paylandsForm.loadSavedCard = function(card){
+            var fields = this.elements;
+
+            for( var i in card){
+                var selector = '[data-source="' + i + '"]';
+                var field = this.querySelector(selector);
+
+                if(field !== null){
+                    field.value = card[i];
+                }
+            }
+        };
+
+        paylandsForm.setOnlyTokenization = function(val){
+            this.elements['paylands_onlyTokenizeCard'].value = !!val ? 1 : 0;
+        };
+
+        paylandsForm.enablePayment = function(){
+            this.setOnlyTokenization(false);
+        };
+
+        paylandsForm.disablePayment = function(){
+            this.setOnlyTokenization(true);
+        };
+
+        var errors = document.getElementById(ERROR_CONTAINER);
+
+        errors.clear = function(){
+            this.innerHTML = '';
+        };
+
+        errors.addError = function(error){
+            this.innerHTML += error.outerHTML;
+        };
+
+        /**
+         * SDK Listeners.
+         */
+        window.addEventListener('initiated', function(){
+            var validate = document.getElementById(VALIDATE_BUTTON);
+
+            validate.addEventListener('click', function (ev) {
+                errors.clear();
+                paylands.storeSourceCard(true, '{{ service }}');
+            });
+
+            window.addEventListener('savedCard', function (ev) {
+                paylandsForm.loadSavedCard(ev.data.source);
+                paylandsForm.submit();
+            });
+
+            window.addEventListener('error', function (ev) {
+                if(typeof ev.data === 'undefined'){
+                    return;
+                }
+
+                var foundErrors = ev.data.errors || [];
+
+                for(var i = 0; i < foundErrors.length; i++){
+                    errors.addError(document.getElementById(foundErrors[i]));
+                }
+            });
+
+            window.addEventListener('errorServer', function (ev) {
+                errors.addError(document.getElementById('cardServer'));
+            });
+        });
+
+        /**
+         * Initialization.
+         */
+        var token = document.getElementById(CUSTOMER_TOKEN_FIELD).value;
+
+        paylands.setMode('{{ sandbox ? 'sandbox' : 'prod' }}');
+        paylands.setTemplate('{{ template }}');
+        paylands.setAdditional('{{ additional }}');
+
+        paylands.initializate(token, CARD_CONTAINER);
+    });
+
+</script>

@@ -1,0 +1,10 @@
+services:
+
+    paymentsuite.paylands.payment_controller:
+        class: PaymentSuite\PaylandsBundle\Controller\PaymentController
+        arguments:
+            - '@paymentsuite.paylands.manager'
+            - '@paymentsuite.paylands.form_factory'
+            - '@paymentsuite.paylands.routes'
+            - '@paymentsuite.bridge'
+            - '@router'
