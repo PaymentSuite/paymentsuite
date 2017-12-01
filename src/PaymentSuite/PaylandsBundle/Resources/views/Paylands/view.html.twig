@@ -1,0 +1,14 @@
+<div id="paylands_card"></div>
+
+<div style="display: none;">
+    <span id="cardPan" class="error">{{ 'paylands.error.cardPan'|trans({}, 'PaylandsBundle') }}</span>
+    <span id="cardCode" class="error">{{ 'paylands.error.cardCode'|trans({}, 'PaylandsBundle') }}</span>
+    <span id="cardExpiryDate" class="error">{{ 'paylands.error.cardExpiryDate'|trans({}, 'PaylandsBundle') }}</span>
+    <span id="cardServer" class="error">{{ 'paylands.error.cardServer'|trans({}, 'PaylandsBundle') }}</span>
+</div>
+
+<div id="paylands_form">
+    {{ form(paylands_form) }}
+</div>
+
+<div id="paylands_error"></div>

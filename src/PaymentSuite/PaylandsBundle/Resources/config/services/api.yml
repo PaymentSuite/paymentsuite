@@ -1,0 +1,36 @@
+services:
+
+    paymentsuite.paylands.api.discovery_proxy:
+        class: PaymentSuite\PaylandsBundle\ApiClient\ApiDiscoveryProxy
+
+    paymentsuite.paylands.api.service_resolver:
+        class: PaymentSuite\PaylandsBundle\ApiClient\ApiServiceResolver
+        public: false
+        arguments:
+            - '@paymentsuite.bridge'
+
+    paymentsuite.paylands.api.request_factory:
+        class: PaymentSuite\PaylandsBundle\ApiClient\ApiRequestFactory
+        public: false
+        arguments:
+            - '@paymentsuite.paylands.api.service_resolver'
+            - '@paymentsuite.paylands.api.discovery_proxy'
+            - '%paymentsuite.paylands.signature%'
+
+    paymentsuite.paylands.api.client_factory:
+        class: PaymentSuite\PaylandsBundle\ApiClient\ApiClientFactory
+        public: false
+        arguments:
+            - '@paymentsuite.paylands.api.request_factory'
+            - '@paymentsuite.paylands.api.discovery_proxy'
+            - '%paymentsuite.paylands.api_key%'
+            - '%paymentsuite.paylands.api_url%'
+            - '%paymentsuite.paylands.sandbox%'
+
+    paymentsuite.paylands.api.client_default:
+        class: PaymentSuite\PaylandsBundle\ApiClient\ApiClient
+        factory: ['@paymentsuite.paylands.api.client_factory', 'create']
+        public: false
+        calls:
+            - [setOperative, ['%paymentsuite.paylands.operative%']]
+            - [setTemplate, ['%paymentsuite.paylands.custom_template_uuid%']]
