@@ -5,6 +5,7 @@ namespace PaymentSuite\PaylandsBundle\ApiClient;
 use Http\Client\HttpClient;
 use PaymentSuite\PaylandsBundle\Exception\ApiErrorException;
 use Psr\Http\Message\RequestInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class Client.
@@ -34,9 +35,19 @@ class ApiClient implements ApiClientInterface
     protected $operative = ApiClientInterface::OPERATIVE_AUTHORIZATION;
 
     /**
+     * @var array
+     */
+    protected $i18nTemplates = [];
+
+    /**
      * @var string
      */
-    protected $template = '';
+    protected $fallbackTemplate = '';
+
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
 
     /**
      * ApiClient constructor.
@@ -73,6 +84,16 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
+     * Helper accessor to get current API card validation service identifier.
+     *
+     * @return string
+     */
+    public function getCurrentValidationService()
+    {
+        return $this->apiRequestFactory->getCurrentValidationService();
+    }
+
+    /**
      * Sets API's payments operative.
      *
      * @param string $operative
@@ -97,13 +118,15 @@ class ApiClient implements ApiClientInterface
     }
 
     /**
-     * Sets current template uuid to use to capture card.
+     * Sets defined template uuids to use to capture card by locale, and sets the fallback one.
      *
-     * @param string $template
+     * @param array $fallback
+     * @param array $i18n
      */
-    public function setTemplate($template)
+    public function setTemplates($fallback, array $i18n)
     {
-        $this->template = $template;
+        $this->i18nTemplates = $i18n;
+        $this->fallbackTemplate = $fallback;
     }
 
     /**
@@ -113,7 +136,29 @@ class ApiClient implements ApiClientInterface
      */
     public function getTemplate()
     {
-        return $this->template;
+        if (!$this->requestStack) {
+            return $this->fallbackTemplate;
+        }
+
+        $currentLocale = $this->requestStack
+            ->getCurrentRequest()
+            ->getLocale();
+
+        foreach ($this->i18nTemplates as $locale => $template) {
+            if (strtolower($locale) === $currentLocale) {
+                return $template;
+            }
+        }
+
+        return $this->fallbackTemplate;
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function setRequestStack(RequestStack $requestStack = null)
+    {
+        $this->requestStack = $requestStack;
     }
 
     /**

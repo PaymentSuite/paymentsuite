@@ -190,6 +190,16 @@ class ApiRequestFactory
     }
 
     /**
+     * Returns current API validation service identifier.
+     *
+     * @return string
+     */
+    public function getCurrentValidationService()
+    {
+        return $this->apiServiceResolver->getValidationService();
+    }
+
+    /**
      * Uses a PSR-7 compliant request factory to build up the expected request.
      *
      * @param string $method   Http method (POST, GET)

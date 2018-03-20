@@ -12,9 +12,18 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 class ApiServiceResolver
 {
     /**
+     * UUIDs of the services to pay through by currency.
+     *
      * @var array
      */
     protected $services;
+
+    /**
+     * UUID of the service to validate card against.
+     *
+     * @var string
+     */
+    protected $validationService;
 
     /**
      * @var PaymentBridgeInterface
@@ -62,5 +71,29 @@ class ApiServiceResolver
         }
 
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidationService()
+    {
+        if (!is_null($this->validationService)) {
+            return $this->validationService;
+        }
+
+        return $this->getService();
+    }
+
+    /**
+     * @param string $validationService
+     *
+     * @return ApiServiceResolver $this
+     */
+    public function setValidationService(string $validationService = null)
+    {
+        $this->validationService = $validationService;
+
+        return $this;
     }
 }

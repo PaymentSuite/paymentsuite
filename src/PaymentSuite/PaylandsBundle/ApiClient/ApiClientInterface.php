@@ -27,6 +27,13 @@ interface ApiClientInterface
     public function getCurrentService();
 
     /**
+     * Gets current client's card validation service.
+     *
+     * @return string
+     */
+    public function getCurrentValidationService();
+
+    /**
      * Gets current client's operative.
      *
      * @return string

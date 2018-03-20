@@ -27,10 +27,12 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
                 'signature' => $config['signature'],
                 'operative' => $config['operative'],
                 'sandbox' => $config['sandbox'],
-                'custom_template_uuid' => $config['custom_template_uuid'],
+                'fallback_template_uuid' => $config['fallback_template_uuid'],
+                'i18n_template_uuids' => $config['i18n_template_uuids'],
                 'api_url' => trim($config['sandbox'] ? $config['url_sandbox'] : $config['url'], " \t\n\r\0\x0B/"),
                 'view_template' => $config['templates']['view'],
                 'scripts_template' => $config['templates']['scripts'],
+                'validation_service' => $config['validation_service'],
             ]
         );
 

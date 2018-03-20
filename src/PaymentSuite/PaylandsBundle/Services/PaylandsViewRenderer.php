@@ -80,7 +80,7 @@ class PaylandsViewRenderer
 
         $renderedScripts = $environment->render($this->scriptsTemplate, [
             'sandbox' => $this->apiClient->isModeSandboxEnabled(),
-            'service' => $this->apiClient->getCurrentService(),
+            'service' => $this->apiClient->getCurrentValidationService(),
             'template' => $this->apiClient->getTemplate(),
             'additional' => $options['additional'],
         ]);

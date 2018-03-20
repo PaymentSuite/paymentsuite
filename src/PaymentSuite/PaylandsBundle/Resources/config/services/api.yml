@@ -8,6 +8,8 @@ services:
         public: false
         arguments:
             - '@paymentsuite.bridge'
+        calls:
+            - ['setValidationService', ['%paymentsuite.paylands.validation_service%']]
 
     paymentsuite.paylands.api.request_factory:
         class: PaymentSuite\PaylandsBundle\ApiClient\ApiRequestFactory
@@ -33,4 +35,5 @@ services:
         public: false
         calls:
             - [setOperative, ['%paymentsuite.paylands.operative%']]
-            - [setTemplate, ['%paymentsuite.paylands.custom_template_uuid%']]
+            - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', '%paymentsuite.paylands.i18n_template_uuids%']]
+            - [setRequestStack, ['@?request_stack']]
