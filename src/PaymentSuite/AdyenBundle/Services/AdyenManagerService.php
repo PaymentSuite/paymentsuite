@@ -242,13 +242,13 @@ class AdyenManagerService
         $this->transactionObjectManager->flush();
     }
 
-    public function getListRecurringDetails($shopperReference)
+    public function getListRecurringDetails($shopperReference, $contract)
     {
         $paymentData = [];
         $paymentData['merchantAccount'] = $this->merchantCode;
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurring'] = [
-            'contract' => Contract::ONECLICK
+            'contract' => $contract
         ];
 
         return $this->doRecurring($paymentData);
@@ -261,14 +261,14 @@ class AdyenManagerService
         return $paymentService->listRecurringDetails($paymentData);
     }
 
-    public function removeCreditCard($shopperReference, $recurringDetailReference)
+    public function removeCreditCard($shopperReference, $recurringDetailReference, $contract)
     {
         $paymentData = [];
         $paymentData['merchantAccount'] = $this->merchantCode;
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurringDetailReference'] = $recurringDetailReference;
         $paymentData['recurring'] = [
-            'contract' => Contract::ONECLICK
+            'contract' => $contract
         ];
 
         return $this->doDisableCreditCard($paymentData);
