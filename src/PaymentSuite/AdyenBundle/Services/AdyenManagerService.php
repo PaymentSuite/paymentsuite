@@ -70,7 +70,6 @@ class AdyenManagerService
         $this->transactionRepository = $transactionRepository;
         $this->adyenClientService = $adyenClientService;
         $this->logger = $logger;
-
         $this->merchantCode = $merchantCode;
         $this->currency = $currency;
 
@@ -103,7 +102,7 @@ class AdyenManagerService
         if ($method->isRecurring() === true) {
             $paymentData['shopperReference'] = $method->getShopperReference();
             $paymentData['recurring'] = [
-                'contract' => $method->getContract()
+                'Contract' => $method->getContract()
             ];
         }
 
