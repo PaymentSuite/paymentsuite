@@ -248,7 +248,7 @@ class AdyenManagerService
         $paymentData['merchantAccount'] = $this->merchantCode;
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurring'] = [
-            'contract' => $contract
+            'Contract' => $contract
         ];
 
         return $this->doRecurring($paymentData);
@@ -268,7 +268,7 @@ class AdyenManagerService
         $paymentData['shopperReference'] = $shopperReference;
         $paymentData['recurringDetailReference'] = $recurringDetailReference;
         $paymentData['recurring'] = [
-            'contract' => $contract
+            'Contract' => $contract
         ];
 
         return $this->doDisableCreditCard($paymentData);
