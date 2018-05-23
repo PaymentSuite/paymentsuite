@@ -102,7 +102,7 @@ class AdyenManagerService
         if ($method->isRecurring() === true) {
             $paymentData['shopperReference'] = $method->getShopperReference();
             $paymentData['recurring'] = [
-                'Contract' => $method->getContract()
+                'contract' => $method->getContract()
             ];
         }
 
