@@ -2,8 +2,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Services;
 
-use PaymentSuite\PaylandsBundle\ApiClient\ApiClient;
-use PaymentSuite\PaylandsBundle\ApiClient\ApiClientInterface;
+use WAM\Paylands\ClientInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -14,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PaylandsViewRenderer
 {
     /**
-     * @var ApiClientInterface
+     * @var ClientInterface
      */
     protected $apiClient;
 
@@ -22,6 +21,11 @@ class PaylandsViewRenderer
      * @var PaylandsFormFactory
      */
     protected $paymentFormFactory;
+
+    /**
+     * @var PaylandsCurrencyServiceResolver
+     */
+    protected $currencyServiceResolver;
 
     /**
      * @var string
@@ -36,19 +40,22 @@ class PaylandsViewRenderer
     /**
      * PaylandsViewRenderer constructor.
      *
-     * @param ApiClientInterface  $apiClient
-     * @param PaylandsFormFactory $paymentFormFactory
-     * @param string              $viewTemplate
-     * @param string              $scriptsTemplate
+     * @param ClientInterface                 $apiClient
+     * @param PaylandsFormFactory             $paymentFormFactory
+     * @param PaylandsCurrencyServiceResolver $currencyServiceResolver
+     * @param string                          $viewTemplate
+     * @param string                          $scriptsTemplate
      */
     public function __construct(
-        ApiClientInterface $apiClient,
+        ClientInterface $apiClient,
         PaylandsFormFactory $paymentFormFactory,
+        PaylandsCurrencyServiceResolver $currencyServiceResolver,
         $viewTemplate,
         $scriptsTemplate
     ) {
         $this->apiClient = $apiClient;
         $this->paymentFormFactory = $paymentFormFactory;
+        $this->currencyServiceResolver = $currencyServiceResolver;
         $this->viewTemplate = $viewTemplate;
         $this->scriptsTemplate = $scriptsTemplate;
     }
@@ -80,8 +87,8 @@ class PaylandsViewRenderer
 
         $renderedScripts = $environment->render($this->scriptsTemplate, [
             'sandbox' => $this->apiClient->isModeSandboxEnabled(),
-            'service' => $this->apiClient->getCurrentValidationService(),
-            'template' => $this->apiClient->getTemplate(),
+            'service' => $this->currencyServiceResolver->getValidationService(),
+            'template' => $this->apiClient->getTemplate($options['locale']),
             'additional' => $options['additional'],
         ]);
 
@@ -100,6 +107,7 @@ class PaylandsViewRenderer
             'only_tokenize_card' => false,
             'additional' => '',
             'template' => null,
+            'locale' => null,
         ]);
     }
 }

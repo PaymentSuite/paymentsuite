@@ -8,7 +8,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\PaylandsBundle\PaylandsMethod;
-use PaymentSuite\PaylandsBundle\ApiClient\ApiClientInterface;
+use WAM\Paylands\ClientInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -37,7 +37,7 @@ class PaylandsManager
     private $paymentEventDispatcher;
 
     /**
-     * @var ApiClientInterface
+     * @var ClientInterface
      *
      * Paylands API client
      */
@@ -51,23 +51,31 @@ class PaylandsManager
     private $requestStack;
 
     /**
+     * @var PaylandsCurrencyServiceResolver
+     */
+    private $currencyServiceResolver;
+
+    /**
      * PaylandsManager constructor.
      *
-     * @param PaymentBridgeInterface $paymentBridge
-     * @param PaymentEventDispatcher $paymentEventDispatcher
-     * @param ApiClientInterface     $apiClient
-     * @param RequestStack           $requestStack
+     * @param PaymentBridgeInterface          $paymentBridge
+     * @param PaymentEventDispatcher          $paymentEventDispatcher
+     * @param ClientInterface                 $apiClient
+     * @param RequestStack                    $requestStack
+     * @param PaylandsCurrencyServiceResolver $currencyServiceResolver
      */
     public function __construct(
         PaymentBridgeInterface $paymentBridge,
         PaymentEventDispatcher $paymentEventDispatcher,
-        ApiClientInterface $apiClient,
-        RequestStack $requestStack
+        ClientInterface $apiClient,
+        RequestStack $requestStack,
+        PaylandsCurrencyServiceResolver $currencyServiceResolver
     ) {
         $this->paymentBridge = $paymentBridge;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->apiClient = $apiClient;
         $this->requestStack = $requestStack;
+        $this->currencyServiceResolver = $currencyServiceResolver;
     }
 
     /**
@@ -132,7 +140,7 @@ class PaylandsManager
                     $paymentMethod
                 );
 
-            if ($paymentMethod->getPaymentStatus() !== self::STATUS_OK) {
+            if (self::STATUS_OK !== $paymentMethod->getPaymentStatus()) {
                 throw new PaymentException(sprintf('Order %s could not be paid',
                     $paymentMethod->getPaymentResult()['order']['uuid']
                 ));
@@ -150,7 +158,6 @@ class PaylandsManager
                     $paymentMethod
                 );
         } catch (PaymentException $e) {
-
             /*
              * Payment paid failed.
              *
@@ -179,7 +186,8 @@ class PaylandsManager
         $paymentOrder = $this->apiClient->createPayment(
             $paymentMethod->getCustomerExternalId(),
             $this->paymentBridge->getAmount(),
-            (string) $this->paymentBridge->getOrder()
+            (string) $this->paymentBridge->getOrder(),
+            $this->currencyServiceResolver->getService()
         );
 
         $transaction = $this->apiClient->directPayment(
