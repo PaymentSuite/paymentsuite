@@ -56,7 +56,7 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
      */
     protected function registerEndpointServices(ContainerBuilder $containerBuilder, array $config)
     {
-        $resolverDefinition = $containerBuilder->getDefinition('paymentsuite.paylands.api.service_resolver');
+        $resolverDefinition = $containerBuilder->getDefinition('paymentsuite.paylands.currency_service_resolver');
 
         foreach ($config as $option) {
             $resolverDefinition->addMethodCall('addService', [

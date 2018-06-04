@@ -1,26 +1,17 @@
 services:
 
     paymentsuite.paylands.api.discovery_proxy:
-        class: PaymentSuite\PaylandsBundle\ApiClient\ApiDiscoveryProxy
-
-    paymentsuite.paylands.api.service_resolver:
-        class: PaymentSuite\PaylandsBundle\ApiClient\ApiServiceResolver
-        public: false
-        arguments:
-            - '@paymentsuite.bridge'
-        calls:
-            - ['setValidationService', ['%paymentsuite.paylands.validation_service%']]
+        class: WAM\Paylands\DiscoveryProxy
 
     paymentsuite.paylands.api.request_factory:
-        class: PaymentSuite\PaylandsBundle\ApiClient\ApiRequestFactory
+        class: WAM\Paylands\RequestFactory
         public: false
         arguments:
-            - '@paymentsuite.paylands.api.service_resolver'
             - '@paymentsuite.paylands.api.discovery_proxy'
             - '%paymentsuite.paylands.signature%'
 
     paymentsuite.paylands.api.client_factory:
-        class: PaymentSuite\PaylandsBundle\ApiClient\ApiClientFactory
+        class: WAM\Paylands\ClientFactory
         public: false
         arguments:
             - '@paymentsuite.paylands.api.request_factory'
@@ -30,10 +21,9 @@ services:
             - '%paymentsuite.paylands.sandbox%'
 
     paymentsuite.paylands.api.client_default:
-        class: PaymentSuite\PaylandsBundle\ApiClient\ApiClient
+        class: WAM\Paylands\Client
         factory: ['@paymentsuite.paylands.api.client_factory', 'create']
         public: false
         calls:
             - [setOperative, ['%paymentsuite.paylands.operative%']]
             - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', '%paymentsuite.paylands.i18n_template_uuids%']]
-            - [setRequestStack, ['@?request_stack']]

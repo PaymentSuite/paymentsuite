@@ -3,7 +3,7 @@
 namespace PaymentSuite\PaylandsBundle\DependencyInjection;
 
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
-use PaymentSuite\PaylandsBundle\ApiClient\ApiClientInterface;
+use WAM\Paylands\ClientInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
@@ -47,10 +47,10 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->end()
                 ->enumNode('operative')
                     ->values([
-                        ApiClientInterface::OPERATIVE_AUTHORIZATION,
-                        ApiClientInterface::OPERATIVE_DEFERRED,
+                        ClientInterface::OPERATIVE_AUTHORIZATION,
+                        ClientInterface::OPERATIVE_DEFERRED,
                     ])
-                    ->defaultValue(ApiClientInterface::OPERATIVE_AUTHORIZATION)
+                    ->defaultValue(ClientInterface::OPERATIVE_AUTHORIZATION)
                 ->end()
                 ->scalarNode('fallback_template_uuid')
                     ->defaultValue('default')

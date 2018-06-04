@@ -2,7 +2,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Tests\DependencyInjection;
 
-use PaymentSuite\PaylandsBundle\ApiClient\ApiClientInterface;
+use WAM\Paylands\ClientInterface;
 use PaymentSuite\PaylandsBundle\DependencyInjection\Configuration;
 
 /**
@@ -70,7 +70,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     protected function getDefaultConfiguration()
     {
         return [
-            'operative' => ApiClientInterface::OPERATIVE_AUTHORIZATION,
+            'operative' => ClientInterface::OPERATIVE_AUTHORIZATION,
             'fallback_template_uuid' => 'default',
             'i18n_template_uuids' => [],
             'url' => 'https://ws-paylands.paynopain.com/v1/',

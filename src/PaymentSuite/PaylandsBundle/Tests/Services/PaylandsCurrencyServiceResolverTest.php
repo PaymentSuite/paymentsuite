@@ -1,23 +1,23 @@
 <?php
 
-namespace PaymentSuite\PaylandsBundle\Tests\ApiCient;
+namespace PaymentSuite\PaylandsBundle\Tests\Services;
 
-use PaymentSuite\PaylandsBundle\ApiClient\ApiServiceResolver;
+use PaymentSuite\PaylandsBundle\Services\PaylandsCurrencyServiceResolver;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
- * Class ApiServiceResolverTest.
+ * Class PaylandsCurrencyServiceResolverTest.
  *
  * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
  */
-class ApiServiceResolverTest extends \PHPUnit_Framework_TestCase
+class PaylandsCurrencyServiceResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function addServiceWorks()
     {
-        $resolver = new ApiServiceResolverTestClass($this->getPaymentBridgeMock('EUR')->reveal());
+        $resolver = new PaylandsCurrencyServiceResolverTestClass($this->getPaymentBridgeMock('EUR')->reveal());
 
         /*
          * Fresh resolve has no service registered
@@ -65,7 +65,7 @@ class ApiServiceResolverTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends addServiceWorks
      */
-    public function getServiceWorks(ApiServiceResolverTestClass $resolver)
+    public function getServiceWorks(PaylandsCurrencyServiceResolverTestClass $resolver)
     {
         $this->assertEquals('eur-service-id', $resolver->getService());
 
@@ -99,7 +99,7 @@ class ApiServiceResolverTest extends \PHPUnit_Framework_TestCase
  *
  * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
  */
-class ApiServiceResolverTestClass extends ApiServiceResolver
+class PaylandsCurrencyServiceResolverTestClass extends PaylandsCurrencyServiceResolver
 {
     /**
      * @return array Services registered at the moment

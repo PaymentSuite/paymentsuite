@@ -13,11 +13,21 @@ services:
             - '@paymentsuite.event_dispatcher'
             - '@paymentsuite.paylands.api.client'
             - '@request_stack'
+            - '@paymentsuite.paylands.currency_service_resolver'
 
     paymentsuite.paylands.view_renderer:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsViewRenderer
         arguments:
             - '@paymentsuite.paylands.api.client'
             - '@paymentsuite.paylands.form_factory'
+            - '@paymentsuite.paylands.currency_service_resolver'
             - '%paymentsuite.paylands.view_template%'
             - '%paymentsuite.paylands.scripts_template%'
+
+    paymentsuite.paylands.currency_service_resolver:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsCurrencyServiceResolver
+        public: false
+        arguments:
+            - '@paymentsuite.bridge'
+        calls:
+            - ['setValidationService', ['%paymentsuite.paylands.validation_service%']]

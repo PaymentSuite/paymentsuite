@@ -1,15 +1,15 @@
 <?php
 
-namespace PaymentSuite\PaylandsBundle\ApiClient;
+namespace PaymentSuite\PaylandsBundle\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
- * Class ApiServiceResolver.
+ * Class PaylandsCurrencyServiceResolver.
  *
  * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
  */
-class ApiServiceResolver
+class PaylandsCurrencyServiceResolver
 {
     /**
      * UUIDs of the services to pay through by currency.
@@ -31,7 +31,7 @@ class ApiServiceResolver
     protected $paymentBridge;
 
     /**
-     * ApiServiceResolver constructor.
+     * PaylandsCurrencyServiceResolver constructor.
      *
      * @param PaymentBridgeInterface $paymentBridge
      */
@@ -88,9 +88,9 @@ class ApiServiceResolver
     /**
      * @param string $validationService
      *
-     * @return ApiServiceResolver $this
+     * @return PaylandsCurrencyServiceResolver $this
      */
-    public function setValidationService(string $validationService = null)
+    public function setValidationService($validationService = null)
     {
         $this->validationService = $validationService;
 
