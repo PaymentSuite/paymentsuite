@@ -14,12 +14,11 @@
  */
 
 namespace PaymentSuite\PaymentCoreBundle\ValueObject;
-use PaymentSuite\PaymentCoreBundle\ValueObject\Interfaces\RedirectionRouteInterface;
 
 /**
  * Class RedirectionRoute.
  */
-final class RedirectionRoute implements RedirectionRouteInterface
+final class RedirectionRoute
 {
     /**
      * @var string
