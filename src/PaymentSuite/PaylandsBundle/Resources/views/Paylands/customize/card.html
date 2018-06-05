@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://ws-paylands.paynopain.com/css/bootstrap.min.css" rel="stylesheet">
+    <title>Gateway</title>
+</head>
+<body>
+<div class="container pull-left">
+    <div class="row">
+
+        <form action="" class="formTarjeta form_newcard" autocomplete="on" id="CardGatewayForm"
+              method="post" accept-charset="utf-8">
+
+            <div class="form-group col-xs-12 col-sm-4">
+                <input name="cardPan" autocorrect="off" autocapitalize="off"
+                       autocomplete="cc-num" placeholder="0000 0000 0000 0000"
+                       class="form-control cc-num" required="required" type="tel"
+                       id="CardPNPCardPan"/>
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-2">
+                <input name="cardExpireFull" autocorrect="off" autocapitalize="off"
+                       autocomplete="cc-exp" placeholder="00/00"
+                       class="form-control cc-exp" required="required" type="tel"
+                       id="CardPNPCardExpireFull"/>
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-2">
+                <input name="cvv2" autocorrect="off" autocapitalize="off"
+                       autocomplete="off" placeholder="CVV" class="form-control cc-cvc"
+                       required="required" type="tel" id="CardPNPCVV2"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://ws-paylands.paynopain.com/js/jquery.min.js"></script>
+<script src="https://ws-paylands.paynopain.com/js/bootstrap.min.js"></script>
+<script src="https://ws-paylands.paynopain.com/js/jquery.payment.js"></script>
+<script src="https://ws-paylands.paynopain.com/js/v1-card-iframe.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('input.cc-num').payment('formatCardNumber');
+        $('input.cc-exp').payment('formatCardExpiry');
+        $('input.cc-cvc').payment('formatCardCVC');
+
+        $(document).on('blur', 'input.cc-num', function () {
+            if ($('input.cc-num').val().length == 0)
+                $(".ccType").hide();
+        });
+
+        $('form.form_newcard').on('submit', function (e) {
+            var cardType = $.payment.cardType($('.cc-num').val());
+
+            if (!$.payment.validateCardNumber($('.cc-num').val())) {
+                e.preventDefault();
+                alert("Número de tarjeta no válido");
+                return false;
+            }
+
+            if (!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal'))) {
+                e.preventDefault();
+                alert("Fecha de caducidad no válida");
+                return false;
+            }
+
+            if (!$.payment.validateCardCVC($('.cc-cvc').val(), cardType)) {
+                e.preventDefault();
+                alert("Número de seguridad (CVV) no válido");
+                return false;
+            }
+
+            return true;
+        });
+
+        $('form.form_usecard').on('submit', function (e) {
+            if (!$.payment.validateCardCVC($('.cc2-cvc').val())) {
+                e.preventDefault();
+                alert("Número de seguridad (CVV) no válido");
+                return false;
+            }
+
+            $('.btn-submit').attr('disabled', 'disabled');
+            waitingDialog.show('Se esta tramitando la operación...');
+            return true;
+        });
+    });
+</script>
+</body>
+</html>

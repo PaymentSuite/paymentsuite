@@ -1,0 +1,41 @@
+{
+    "name": "paymentsuite/paylands-bundle",
+    "type": "symfony-bundle",
+    "description": "Paylands PaymentSuite Component",
+    "keywords": ["paylands", "cards", "payment", "ecommerce"],
+    "license": "MIT",
+    "support": {
+        "email": "sgarcia@wearemarketing.com"
+    },
+    "authors": [
+        {
+            "name": "Santiago Garcia",
+            "email": "sgarcia@wearemarketing.com"
+        }
+    ],
+    "require": {
+        "php": "^5.5|^7.0",
+        "symfony/framework-bundle": "^2.8|^3.0",
+        "symfony/form": "^2.8|^3.0",
+        "symfony/config": "^2.8|^3.0",
+        "symfony/http-kernel": "^2.8|^3.0",
+        "symfony/http-foundation": "^2.8|^3.0",
+        "symfony/dependency-injection": "^2.8|^3.0",
+        "symfony/options-resolver": "^2.8|^3.0",
+        "mmoreram/symfony-bundle-dependencies": "^1.0",
+        "twig/twig": "^1.23.1",
+        "paymentsuite/payment-core-bundle": "^2.0",
+        "wearemarketing/paylands-php": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.19"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "Implements a required PSR-7 Http client"
+    },
+    "autoload": {
+        "psr-4": {
+            "PaymentSuite\\PaylandsBundle\\": ""
+        }
+    }
+}

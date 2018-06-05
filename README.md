@@ -20,4 +20,3 @@ commit
 [Gitter](http://gitter.im/paymentsuite/paymentsuite) and we'll try to help you
 as much as possible
 * Look for some help on [Stackoverflow](http://stackoverflow.com)
-* As a last resort, look at [google](http://google.com)!
