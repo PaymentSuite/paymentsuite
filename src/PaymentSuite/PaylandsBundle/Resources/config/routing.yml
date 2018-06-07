@@ -1,0 +1,4 @@
+paymentsuite_paylands_execute:
+    path: /payment/paylands/execute
+    defaults:
+        _controller: paymentsuite.paylands.payment_controller:executeAction

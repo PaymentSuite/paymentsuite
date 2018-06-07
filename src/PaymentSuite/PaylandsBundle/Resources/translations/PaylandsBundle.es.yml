@@ -1,0 +1,8 @@
+paylands:
+    label:
+        validate_button: Validar Tarjeta
+    error:
+        cardPan: El número de tarjeta no es válido
+        cardCode: El código de seguridad no es válido
+        cardExpiryDate: La fecha de expiración no es válido
+        cardServer: Tarjeta no aceptada por el servicio
