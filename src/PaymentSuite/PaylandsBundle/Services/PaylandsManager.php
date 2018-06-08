@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Services;
 
+use PaymentSuite\PaylandsBundle\Exception\CardInvalidException;
 use PaymentSuite\PaylandsBundle\Exception\CardNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
@@ -27,14 +28,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class PaylandsManager.
  *
- * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class PaylandsManager
 {
-    const STATUS_OK = 'OK';
-
-    const STATUS_KO = 'KO';
-
     /**
      * @var PaymentBridgeInterface
      *
@@ -50,45 +47,33 @@ class PaylandsManager
     private $paymentEventDispatcher;
 
     /**
-     * @var ClientInterface
-     *
-     * Paylands API client
+     * @var PaylandsEventDispatcher
      */
-    private $apiClient;
+    private $paylandsEventDispatcher;
 
     /**
-     * @var RequestStack
-     *
-     * Http request stack
+     * @var PaylandsApiAdapter
      */
-    private $requestStack;
-
-    /**
-     * @var PaylandsCurrencyServiceResolver
-     */
-    private $currencyServiceResolver;
+    private $paylandsApiAdapter;
 
     /**
      * PaylandsManager constructor.
      *
-     * @param PaymentBridgeInterface          $paymentBridge
-     * @param PaymentEventDispatcher          $paymentEventDispatcher
-     * @param ClientInterface                 $apiClient
-     * @param RequestStack                    $requestStack
-     * @param PaylandsCurrencyServiceResolver $currencyServiceResolver
+     * @param PaymentBridgeInterface $paymentBridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher
+     * @param PaylandsEventDispatcher $paylandsEventDispatcher
+     * @param PaylandsApiAdapter $paylandsApiAdapter
      */
     public function __construct(
         PaymentBridgeInterface $paymentBridge,
         PaymentEventDispatcher $paymentEventDispatcher,
-        ClientInterface $apiClient,
-        RequestStack $requestStack,
-        PaylandsCurrencyServiceResolver $currencyServiceResolver
+        PaylandsEventDispatcher $paylandsEventDispatcher,
+        PaylandsApiAdapter $paylandsApiAdapter
     ) {
         $this->paymentBridge = $paymentBridge;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
-        $this->apiClient = $apiClient;
-        $this->requestStack = $requestStack;
-        $this->currencyServiceResolver = $currencyServiceResolver;
+        $this->paylandsEventDispatcher = $paylandsEventDispatcher;
+        $this->paylandsApiAdapter = $paylandsApiAdapter;
     }
 
     /**
@@ -99,6 +84,7 @@ class PaylandsManager
      * @return PaylandsManager Self object
      *
      * @throws PaymentException
+     * @throws CardInvalidException
      */
     public function processPayment(PaylandsMethod $paymentMethod)
     {
@@ -135,10 +121,12 @@ class PaylandsManager
          * Try to make the payment transaction
          */
         try {
-            $this->validateCard($paymentMethod);
+            $this->paylandsApiAdapter->validateCard($paymentMethod);
+
+            $this->paylandsEventDispatcher->notifyCardValid($paymentMethod);
 
             if (!$paymentMethod->isOnlyTokenizeCard()) {
-                $this->createTransaction($paymentMethod);
+                $this->paylandsApiAdapter->createTransaction($paymentMethod);
             }
 
             /*
@@ -153,7 +141,7 @@ class PaylandsManager
                     $paymentMethod
                 );
 
-            if (self::STATUS_OK !== $paymentMethod->getPaymentStatus()) {
+            if (PaylandsMethod::STATUS_OK !== $paymentMethod->getPaymentStatus()) {
                 throw new PaymentException(sprintf('Order %s could not be paid',
                     $paymentMethod->getPaymentResult()['order']['uuid']
                 ));
@@ -187,57 +175,5 @@ class PaylandsManager
         }
 
         return $this;
-    }
-
-    /**
-     * Sends the payment order to Paylands.
-     *
-     * @param PaylandsMethod $paymentMethod
-     */
-    private function createTransaction(PaylandsMethod $paymentMethod)
-    {
-        $paymentOrder = $this->apiClient->createPayment(
-            $paymentMethod->getCustomerExternalId(),
-            $this->paymentBridge->getAmount(),
-            (string) $this->paymentBridge->getOrder(),
-            $this->currencyServiceResolver->getService()
-        );
-
-        $transaction = $this->apiClient->directPayment(
-            $this->requestStack->getMasterRequest()->getClientIp(),
-            $paymentOrder['order']['uuid'],
-            $paymentMethod->getCardUuid()
-        );
-
-        $paymentMethod
-            ->setPaymentStatus($transaction['order']['paid'] ? self::STATUS_OK : self::STATUS_KO)
-            ->setPaymentResult($transaction);
-    }
-
-    /**
-     * Validates against Paylands that the card is associates with customer.
-     *
-     * @param PaylandsMethod $paymentMethod
-     *
-     * @throws CardNotFoundException
-     */
-    private function validateCard(PaylandsMethod $paymentMethod)
-    {
-        $response = $this->apiClient->retrieveCustomerCards($paymentMethod->getCustomerExternalId());
-
-        foreach ($response['cards'] as $card) {
-            if ($paymentMethod->getCardUuid() == $card['uuid']) {
-                $paymentMethod
-                    ->setPaymentStatus(self::STATUS_OK)
-                    ->setPaymentResult($response);
-
-                return;
-            }
-        }
-
-        throw new CardNotFoundException(sprintf('Card %s not found for customer %s',
-            $paymentMethod->getCardUuid(),
-            $paymentMethod->getCustomerExternalId()
-        ));
     }
 }

@@ -27,3 +27,11 @@ services:
         calls:
             - [setOperative, ['%paymentsuite.paylands.operative%']]
             - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', '%paymentsuite.paylands.i18n_template_uuids%']]
+
+    paymentsuite.paylands.api.adapter:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsApiAdapter
+        arguments:
+            - '@paymentsuite.paylands.api.client'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.paylands.currency_service_resolver'
+            - '@request_stack'

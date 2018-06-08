@@ -112,6 +112,7 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->end()
                 ->append($this->addRouteConfiguration('payment_success'))
                 ->append($this->addRouteConfiguration('payment_failure'))
+                ->append($this->addRouteConfiguration('payment_card_invalid'))
             ->end();
 
         return $treeBuilder;

@@ -24,6 +24,10 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  */
 final class PaylandsMethod implements PaymentMethodInterface
 {
+    const STATUS_OK = 'OK';
+
+    const STATUS_KO = 'KO';
+
     /**
      * @var string
      */

@@ -3,3 +3,4 @@ imports:
   - { resource: services/controllers.yml }
   - { resource: services/payment.yml }
   - { resource: services/twig.yml }
+  - { resource: services/dispatcher.yml }

@@ -6,14 +6,15 @@ services:
             - '@form.factory'
             - '@router'
 
+
+
     paymentsuite.paylands.manager:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsManager
         arguments:
             - '@paymentsuite.bridge'
             - '@paymentsuite.event_dispatcher'
-            - '@paymentsuite.paylands.api.client'
-            - '@request_stack'
-            - '@paymentsuite.paylands.currency_service_resolver'
+            - '@paymentsuite.paylands.event_dispatcher'
+            - '@paymentsuite.paylands.api.adapter'
 
     paymentsuite.paylands.view_renderer:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsViewRenderer

@@ -41,7 +41,7 @@
         "elcodi/fixtures-booster-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "fabpot/php-cs-fixer": "1.11",
-        "phpunit/phpunit": "^4.8.19"
+        "phpunit/phpunit": "<6.0"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",
