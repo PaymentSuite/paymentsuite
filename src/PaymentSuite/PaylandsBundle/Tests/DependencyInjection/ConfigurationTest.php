@@ -21,7 +21,7 @@ use PaymentSuite\PaylandsBundle\DependencyInjection\Configuration;
 /**
  * Class ConfigurationTest.
  *
- * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -118,6 +118,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             ],
             'payment_failure' => [
                 'route' => 'test-route-failure',
+                'order_append' => true,
+                'order_append_field' => 'id',
+            ],
+            'payment_card_invalid' => [
+                'route' => 'test-route-card-invalid',
                 'order_append' => true,
                 'order_append_field' => 'id',
             ],

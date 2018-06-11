@@ -1,0 +1,5 @@
+services:
+
+    paymentsuite.paylands.event_dispatcher:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsEventDispatcher
+        arguments: ['@event_dispatcher']

@@ -51,6 +51,7 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
         $this->registerRedirectRoutesDefinition($container, 'paylands', [
                 'success' => $config['payment_success'],
                 'failure' => $config['payment_failure'],
+                'card_invalid' => $config['payment_card_invalid'],
             ]
         );
 

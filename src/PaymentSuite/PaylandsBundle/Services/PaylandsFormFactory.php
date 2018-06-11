@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Class PaylandsFormFactory.
  *
- * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class PaylandsFormFactory
 {

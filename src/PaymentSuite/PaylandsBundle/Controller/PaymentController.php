@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Controller;
 
+use PaymentSuite\PaylandsBundle\Exception\CardInvalidException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaylandsBundle\Services\PaylandsManager;
@@ -116,6 +117,15 @@ class PaymentController extends Controller
             $this
                 ->paymentManager
                 ->processPayment($paymentMethod);
+        }catch (CardInvalidException $e) {
+
+            /**
+             * Must redirect to card invalid route.
+             */
+            $redirect = $this
+                ->redirectionRoutes
+                ->getRedirectionRoute('card_invalid');
+
         } catch (\Exception $e) {
 
             /**
