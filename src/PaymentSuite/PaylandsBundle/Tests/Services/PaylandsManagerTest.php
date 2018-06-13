@@ -24,13 +24,14 @@ use PaymentSuite\PaylandsBundle\Services\PaylandsManager;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PaylandsManagerTest
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
+class PaylandsManagerTest extends TestCase
 {
     /**
      * @test
@@ -322,14 +323,5 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
         $this->expectException(PaymentException::class);
 
         $paylandsManager->processPayment($paymentMethod);
-    }
-
-    public function expectException($exception)
-    {
-        if (method_exists('\PHPUnit_Framework_TestCase', 'expectException')) {
-            parent::expectException($exception);
-        }
-
-        parent::setExpectedException($exception);
     }
 }

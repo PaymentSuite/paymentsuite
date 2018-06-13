@@ -16,11 +16,12 @@
 namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentLogger class.
  */
-class PaymentLoggerTest extends \PHPUnit_Framework_TestCase
+class PaymentLoggerTest extends TestCase
 {
     /**
      * Tests log().

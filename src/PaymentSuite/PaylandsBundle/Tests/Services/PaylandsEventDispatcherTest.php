@@ -18,6 +18,7 @@ namespace PaymentSuite\PaylandsBundle\Tests\Services;
 use PaymentSuite\PaylandsBundle\Event\PaylandsCardValidEvent;
 use PaymentSuite\PaylandsBundle\PaylandsMethod;
 use PaymentSuite\PaylandsBundle\Services\PaylandsEventDispatcher;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -27,7 +28,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class PaylandsEventDispatcherTest extends \PHPUnit_Framework_TestCase
+class PaylandsEventDispatcherTest extends TestCase
 {
     /**
      * @test

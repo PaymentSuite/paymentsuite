@@ -17,13 +17,14 @@ namespace PaymentSuite\PaylandsBundle\Tests\Services;
 
 use PaymentSuite\PaylandsBundle\Services\PaylandsCurrencyServiceResolver;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PaylandsCurrencyServiceResolverTest.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class PaylandsCurrencyServiceResolverTest extends \PHPUnit_Framework_TestCase
+class PaylandsCurrencyServiceResolverTest extends TestCase
 {
     /**
      * @test

@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaymentCoreBundle\Tests\Services;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use PaymentSuite\PaymentCoreBundle\PaymentCoreEvents;
@@ -25,7 +26,7 @@ use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 /**
  * Tests PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher class.
  */
-class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
+class PaymentEventDispatcherTest extends TestCase
 {
     /**
      * @var PaymentBridgeInterface
@@ -58,8 +59,8 @@ class PaymentEventDispatcherTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->paymentBridge = $this->getMock('\PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface');
-        $this->paymentMethod = $this->getMock('\PaymentSuite\PaymentCoreBundle\PaymentMethodInterface');
+        $this->paymentBridge = $this->getMockBuilder('\PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface')->getMock();
+        $this->paymentMethod = $this->getMockBuilder('\PaymentSuite\PaymentCoreBundle\PaymentMethodInterface')->getMock();
     }
 
     /**
