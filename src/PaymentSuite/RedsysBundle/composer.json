@@ -21,15 +21,15 @@
         }
     ],
     "require": {
-        "php": "^5.4|^7.0",
+        "php": "^7.1",
 
-        "symfony/framework-bundle": "^2.7|^3.0",
-        "symfony/form": "^2.7|^3.0",
-        "symfony/config": "^2.7|^3.0",
-        "symfony/http-kernel": "^2.7|^3.0",
-        "symfony/http-foundation": "^2.7|^3.0",
-        "symfony/dependency-injection": "^2.7|^3.0",
-        "mmoreram/symfony-bundle-dependencies": "^1.0",
+        "symfony/framework-bundle": "^3.4",
+        "symfony/form": "^3.4",
+        "symfony/config": "^3.4",
+        "symfony/http-kernel": "^3.4",
+        "symfony/http-foundation": "^3.4",
+        "symfony/dependency-injection": "^3.4",
+        "mmoreram/symfony-bundle-dependencies": "^2.0",
         "twig/twig": "^1.23.1",
 
         "paymentsuite/payment-core-bundle": "^2.0"
@@ -37,7 +37,7 @@
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
         "elcodi/fixtures-booster-bundle": "^2.0",
-        "phpunit/phpunit": "<6.0"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -46,7 +46,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "3.0-dev"
         }
     }
 }
