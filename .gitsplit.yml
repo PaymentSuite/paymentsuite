@@ -1,3 +1,0 @@
-split:
-    # Split definition for http://gitsplit.com
-    src/PaymentSuite/*: git@github.com:PaymentSuite/$i.git

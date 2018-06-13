@@ -6,7 +6,7 @@ services:
     paymentsuite.bankwire.payment_controller:
         class: PaymentSuite\BankwireBundle\Controller\PaymentController
         arguments:
-            - "@paymentsuite.bankwire.manager"
-            - "@paymentsuite.bankwire.route_success"
-            - "@paymentsuite.bridge"
-            - "@router"
+            - @paymentsuite.bankwire.manager'
+            - @paymentsuite.bankwire.route_success'
+            - @paymentsuite.bridge'
+            - @router'

@@ -9,6 +9,6 @@ services:
     paymentsuite.bankwire.manager:
         class: PaymentSuite\BankwireBundle\Services\BankwireManager
         arguments:
-            - "@paymentsuite.bankwire.method_factory"
-            - "@paymentsuite.bridge"
-            - "@paymentsuite.event_dispatcher"
+            - '@paymentsuite.bankwire.method_factory'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
