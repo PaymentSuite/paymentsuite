@@ -7,6 +7,10 @@
 Paymentsuite is a suite of payment Bundles built on top of Symfony and under
 [MIT](http://opensource.org/licenses/MIT) license.
 
+### Important
+
+This branch intended use is for symfony 3.4 and php 7.1
+
 ### Tags
 
 * Use last unstable version ( alias of `dev-master` ) to stay always in last 

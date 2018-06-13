@@ -38,7 +38,7 @@ class PaylandsBundle extends Bundle implements DependentBundleInterface
     /**
      * {@inheritdoc}
      */
-    public static function getBundleDependencies(KernelInterface $kernel)
+    public static function getBundleDependencies(KernelInterface $kernel): array
     {
         return [
             'PaymentSuite\PaymentCoreBundle\PaymentCoreBundle',

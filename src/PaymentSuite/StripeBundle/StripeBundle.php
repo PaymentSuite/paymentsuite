@@ -44,7 +44,7 @@ class StripeBundle extends Bundle implements DependentBundleInterface
      *
      * @return array Bundle instances
      */
-    public static function getBundleDependencies(KernelInterface $kernel)
+    public static function getBundleDependencies(KernelInterface $kernel): array
     {
         return [
             'PaymentSuite\PaymentCoreBundle\PaymentCoreBundle',

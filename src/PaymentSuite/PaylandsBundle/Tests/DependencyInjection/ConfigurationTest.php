@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use WAM\Paylands\ClientInterface;
 use PaymentSuite\PaylandsBundle\DependencyInjection\Configuration;
 
@@ -23,7 +24,7 @@ use PaymentSuite\PaylandsBundle\DependencyInjection\Configuration;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     /**
      * @var array

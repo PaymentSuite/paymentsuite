@@ -9,6 +9,6 @@ services:
     paymentsuite.freepayment.manager:
         class: PaymentSuite\FreePaymentBundle\Services\FreePaymentManager
         arguments:
-            - "@paymentsuite.freepayment.method_factory"
-            - "@paymentsuite.bridge"
-            - "@paymentsuite.event_dispatcher"
+            - '@paymentsuite.freepayment.method_factory'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
