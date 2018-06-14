@@ -197,18 +197,8 @@ class StripeManager
                 $paymentMethod
             );
 
-        /**
-         * Validate the order in the module
-         * params for stripe interaction.
-         */
-        $cardParams = [
-            'number' => $paymentMethod->getCreditCardNumber(),
-            'exp_month' => $paymentMethod->getCreditCardExpirationMonth(),
-            'exp_year' => $paymentMethod->getCreditCardExpirationYear(),
-        ];
-
         return [
-            'card' => $cardParams,
+            'source' => $paymentMethod->getApiToken(),
             'amount' => $cartAmount,
             'currency' => strtolower($this->paymentBridge->getCurrency()),
         ];
