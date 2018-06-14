@@ -17,6 +17,7 @@ namespace PaymentSuite\StripeBundle\Services;
 
 use Exception;
 use Stripe\Charge;
+use Stripe\Customer;
 use Stripe\Stripe;
 
 /**
@@ -52,6 +53,16 @@ class StripeTransactionFactory
     {
         try {
             Stripe::setApiKey($this->privateKey);
+
+            $customer = Customer::create(array(
+                'source' => $params['source'],
+                //"description" => "email@email.com"
+            ));
+
+            unset($params['source']);
+
+            $params['customer'] = $customer->id;
+
             $chargeData = Charge::create($params);
         } catch (Exception $e) {
             // The way to get to 'notifyPaymentOrderFail'
