@@ -28,4 +28,9 @@
         </whitelist>
     </filter>
 
+    <php>
+        <env name="STRIPE_API_KEY" value="api-key"/>
+        <env name="ENABLE_API_INTEGRATION" value="false"/>
+    </php>
+
 </phpunit>
