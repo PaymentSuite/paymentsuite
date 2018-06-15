@@ -21,6 +21,7 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\StripeBundle\StripeMethod;
+use PaymentSuite\StripeBundle\ValueObject\StripeTransaction;
 
 /**
  * Stripe manager.
@@ -151,7 +152,7 @@ class StripeManager
      * @param StripeMethod $paymentMethod Payment method
      * @param float        $amount        Amount
      *
-     * @return array Charge params
+     * @return StripeTransaction Charge params
      *
      * @throws PaymentAmountsNotMatchException
      * @throws PaymentOrderNotFoundException
@@ -197,10 +198,10 @@ class StripeManager
                 $paymentMethod
             );
 
-        return [
-            'source' => $paymentMethod->getApiToken(),
-            'amount' => $cartAmount,
-            'currency' => strtolower($this->paymentBridge->getCurrency()),
-        ];
+        return new StripeTransaction(
+            $paymentMethod->getApiToken(),
+            $cartAmount,
+            $this->paymentBridge->getCurrency()
+        );
     }
 }

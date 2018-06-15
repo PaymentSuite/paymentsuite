@@ -6,10 +6,16 @@ services:
         tags:
             - { name: form.type, alias: stripe_view }
 
+    paymentsuite.stripe.event_dispatcher:
+        class: PaymentSuite\StripeBundle\Services\StripeEventDispatcher
+        arguments:
+            - '@event_dispatcher'
+
     paymentsuite.stripe.transaction_factory:
         class: PaymentSuite\StripeBundle\Services\StripeTransactionFactory
         arguments:
             - '%paymentsuite.stripe.private_key%'
+            - '@paymentsuite.stripe.event_dispatcher'
 
     paymentsuite.stripe.manager:
         class: PaymentSuite\StripeBundle\Services\StripeManager
