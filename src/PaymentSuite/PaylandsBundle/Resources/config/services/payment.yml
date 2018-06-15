@@ -24,6 +24,7 @@ services:
             - '@paymentsuite.paylands.currency_service_resolver'
             - '%paymentsuite.paylands.view_template%'
             - '%paymentsuite.paylands.scripts_template%'
+            - '%paymentsuite.paylands.sandbox%'
 
     paymentsuite.paylands.currency_service_resolver:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsCurrencyServiceResolver

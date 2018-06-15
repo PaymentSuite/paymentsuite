@@ -18,7 +18,6 @@ services:
             - '@paymentsuite.paylands.api.discovery_proxy'
             - '%paymentsuite.paylands.api_key%'
             - '%paymentsuite.paylands.api_url%'
-            - '%paymentsuite.paylands.sandbox%'
 
     paymentsuite.paylands.api.client_default:
         class: WAM\Paylands\Client
