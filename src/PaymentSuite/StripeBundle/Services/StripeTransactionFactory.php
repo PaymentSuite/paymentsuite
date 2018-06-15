@@ -16,6 +16,7 @@
 namespace PaymentSuite\StripeBundle\Services;
 
 use Exception;
+use PaymentSuite\StripeBundle\ValueObject\StripeTransaction;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
@@ -31,39 +32,41 @@ class StripeTransactionFactory
      * Private key
      */
     private $privateKey;
+    /**
+     * @var StripeEventDispatcher
+     */
+    private $dispatcher;
 
     /**
      * Construct method for stripe transaction wrapper.
      *
      * @param string $privateKey Private key
      */
-    public function __construct($privateKey)
+    public function __construct($privateKey, StripeEventDispatcher $dispatcher)
     {
         $this->privateKey = $privateKey;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * Create new Transaction with a set of params.
      *
-     * @param array $params Set of params
+     * @param array $transaction Set of params [source, amount, currency]
      *
-     * @return array Result of transaction
+     * @return \ArrayAccess|array Result of transaction
      */
-    public function create(array $params)
+    public function create(StripeTransaction $transaction)
     {
         try {
             Stripe::setApiKey($this->privateKey);
 
-            $customer = Customer::create(array(
-                'source' => $params['source'],
-                //"description" => "email@email.com"
-            ));
+            $this->dispatcher->notifyCustomerPreCreate($transaction);
 
-            unset($params['source']);
+            $customer = Customer::create($transaction->getCustomerData());
 
-            $params['customer'] = $customer->id;
+            $transaction->setCustomerId($customer->id);
 
-            $chargeData = Charge::create($params);
+            $chargeData = Charge::create($transaction->getChargeData());
         } catch (Exception $e) {
             // The way to get to 'notifyPaymentOrderFail'
             return [
