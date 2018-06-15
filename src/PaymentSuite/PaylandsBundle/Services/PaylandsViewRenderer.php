@@ -51,6 +51,11 @@ class PaylandsViewRenderer
     protected $scriptsTemplate;
 
     /**
+     * @var bool
+     */
+    private $sandbox;
+
+    /**
      * PaylandsViewRenderer constructor.
      *
      * @param ClientInterface                 $apiClient
@@ -58,19 +63,22 @@ class PaylandsViewRenderer
      * @param PaylandsCurrencyServiceResolver $currencyServiceResolver
      * @param string                          $viewTemplate
      * @param string                          $scriptsTemplate
+     * @param bool                            $sandbox
      */
     public function __construct(
         ClientInterface $apiClient,
         PaylandsFormFactory $paymentFormFactory,
         PaylandsCurrencyServiceResolver $currencyServiceResolver,
         $viewTemplate,
-        $scriptsTemplate
+        $scriptsTemplate,
+        $sandbox
     ) {
         $this->apiClient = $apiClient;
         $this->paymentFormFactory = $paymentFormFactory;
         $this->currencyServiceResolver = $currencyServiceResolver;
         $this->viewTemplate = $viewTemplate;
         $this->scriptsTemplate = $scriptsTemplate;
+        $this->sandbox = $sandbox;
     }
 
     /**
@@ -99,7 +107,7 @@ class PaylandsViewRenderer
         ]);
 
         $renderedScripts = $environment->render($this->scriptsTemplate, [
-            'sandbox' => $this->apiClient->isModeSandboxEnabled(),
+            'sandbox' => $this->sandbox,
             'service' => $this->currencyServiceResolver->getValidationService(),
             'template' => $this->apiClient->getTemplate($options['locale']),
             'additional' => $options['additional'],
