@@ -34,7 +34,7 @@
         "twig/twig": "^1.23.1",
         "stripe/stripe-php": "3.4.0",
         "monolog/monolog": "^1.17",
-        "wearemarketing/paylands-php": "dev-master"
+        "wearemarketing/paylands-php": "0.1.*"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
