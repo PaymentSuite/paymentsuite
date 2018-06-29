@@ -5,7 +5,10 @@
     "keywords": ["paylands", "cards", "payment", "ecommerce"],
     "license": "MIT",
     "support": {
-        "email": "sgarcia@wearemarketing.com"
+        "email": "yuhu@mmoreram.com",
+        "forum": "https://gitter.im/paymentsuite/paymentsuite",
+        "source": "https://github.com/paymentsuite/paymentsuite",
+        "issues": "https://github.com/paymentsuite/paymentsuite/issues"
     },
     "authors": [
         {
@@ -25,7 +28,7 @@
         "mmoreram/symfony-bundle-dependencies": "^2.0",
         "twig/twig": "^1.23.1",
         "paymentsuite/payment-core-bundle": "^2.0",
-        "wearemarketing/paylands-php": "dev-master"
+        "wearemarketing/paylands-php": "0.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0"
@@ -36,6 +39,11 @@
     "autoload": {
         "psr-4": {
             "PaymentSuite\\PaylandsBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
         }
     }
 }
