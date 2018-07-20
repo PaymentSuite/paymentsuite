@@ -26,6 +26,10 @@ use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPayment
  */
 class Configuration extends AbstractPaymentSuiteConfiguration
 {
+    const GATEWAY_TERMINAL = '001';
+
+    const GATEWAY_URL = 'https://sis.redsys.es/sis/realizarPago';
+
     /**
      * {@inheritdoc}
      */
@@ -44,8 +48,12 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
+                ->scalarNode('terminal')
+                    ->defaultValue(self::GATEWAY_TERMINAL)
+                    ->cannotBeEmpty()
+                ->end()
                 ->scalarNode('url')
-                    ->defaultValue('https://sis.redsys.es/sis/realizarPago')
+                    ->defaultValue(self::GATEWAY_URL)
                 ->end()
                 ->append($this->addRouteConfiguration('payment_success'))
                 ->append($this->addRouteConfiguration('payment_failure'))

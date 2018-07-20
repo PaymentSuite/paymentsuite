@@ -22,22 +22,22 @@
     ],
     "require": {
         "php": "^7.1",
-
+        "ext-openssl": "*",
+        "ext-json": "*",
         "symfony/framework-bundle": "^3.4",
         "symfony/form": "^3.4",
         "symfony/config": "^3.4",
         "symfony/http-kernel": "^3.4",
         "symfony/http-foundation": "^3.4",
         "symfony/dependency-injection": "^3.4",
+        "symfony/templating": "^3.4",
         "mmoreram/symfony-bundle-dependencies": "^2.0",
         "twig/twig": "^1.23.1",
-
         "paymentsuite/payment-core-bundle": "^2.0"
     },
     "require-dev": {
-        "elcodi/test-common-bundle": "^2.0",
-        "elcodi/fixtures-booster-bundle": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "symfony/twig-bundle": "^3.4"
     },
     "autoload": {
         "psr-4": {

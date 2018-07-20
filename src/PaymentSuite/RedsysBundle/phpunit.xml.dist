@@ -8,9 +8,12 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
          bootstrap="vendor/autoload.php"
         >
+    <php>
+        <env name="KERNEL_CLASS" value="PaymentSuite\RedsysBundle\Tests\app\RedsysKernel" />
+    </php>
+
     <testsuites>
         <testsuite name="RedsysBundle Test Suite">
             <directory>./Tests</directory>

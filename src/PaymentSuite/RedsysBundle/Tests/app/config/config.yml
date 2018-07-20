@@ -1,0 +1,37 @@
+parameters:
+    locale: en
+    secret: s3cr3t
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.filesystem
+        name: MOCKSESSID
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+    form:            true
+    default_locale:  "%locale%"
+    templating:      { engines: ['twig'] }
+    profiler:
+        enabled: false
+        collect: false
+
+redsys:
+    merchant_code: "999888777"
+    secret_key: test-secret-key
+    payment_success:
+        route: paymentsuite_redsys_success
+        order_append: false
+    payment_failure:
+        route: paymentsuite_redsys_failure
+        order_append: false
+
+services:
+    paymentsuite.redsys.dummy_payment_bridge:
+        class: PaymentSuite\RedsysBundle\Tests\Fixtures\DummyPaymentBridge
+
+    paymentsuite.bridge:
+        alias: paymentsuite.redsys.dummy_payment_bridge
+        public: true

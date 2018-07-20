@@ -1,0 +1,2 @@
+_redsys:
+    resource: '@RedsysBundle/Resources/config/routing.yml'

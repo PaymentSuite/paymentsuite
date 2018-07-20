@@ -22,6 +22,8 @@
     ],
     "require": {
         "php": "^7.1",
+        "ext-openssl": "*",
+        "ext-json": "*",
         "symfony/finder": "^3.4",
         "symfony/config": "^3.4",
         "symfony/framework-bundle": "^3.4",
@@ -36,14 +38,16 @@
         "monolog/monolog": "^1.17",
         "wearemarketing/paylands-php": "0.1.*",
         "endelwar/gestpayws": "^1.4",
-        "symfony/expression-language": "^3.4"
+        "symfony/expression-language": "^3.4",
+        "symfony/templating": "^3.4"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^7.0",
-        "symfony/phpunit-bridge": "^3.4"
+        "symfony/phpunit-bridge": "^3.4",
+        "symfony/twig-bundle": "^3.4"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",

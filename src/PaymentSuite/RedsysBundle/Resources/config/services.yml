@@ -10,17 +10,19 @@ services:
             - '@paymentsuite.redsys.method_factory'
             - '@paymentsuite.bridge'
             - '@paymentsuite.event_dispatcher'
-            - '%paymentsuite.redsys.secret_key%'
+            - '@paymentsuite.redsys.order_transformer'
 
     paymentsuite.redsys.form_type_builder:
         class: PaymentSuite\RedsysBundle\Services\RedsysFormTypeBuilder
         arguments:
             - '@paymentsuite.bridge'
             - '@paymentsuite.redsys.url_factory'
+            - '@paymentsuite.redsys.signature_factory'
             - '@form.factory'
+            - '@paymentsuite.redsys.order_transformer'
             - '%paymentsuite.redsys.merchant_code%'
-            - '%paymentsuite.redsys.secret_key%'
             - '%paymentsuite.redsys.url%'
+            - '%paymentsuite.redsys.terminal%'
 
     paymentsuite.redsys.url_factory:
         class: PaymentSuite\RedsysBundle\Services\RedsysUrlFactory
@@ -29,3 +31,13 @@ services:
 
     paymentsuite.redsys.method_factory:
         class: PaymentSuite\RedsysBundle\Services\RedsysMethodFactory
+        arguments:
+            - '@paymentsuite.redsys.signature_factory'
+
+    paymentsuite.redsys.signature_factory:
+        class: PaymentSuite\RedsysBundle\Services\RedsysSignatureFactory
+        arguments:
+            - '%paymentsuite.redsys.secret_key%'
+
+    paymentsuite.redsys.order_transformer:
+        class: PaymentSuite\RedsysBundle\Services\RedsysOrderTransformer
