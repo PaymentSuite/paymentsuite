@@ -13,6 +13,7 @@
  */
 namespace PaymentSuite\AdyenBundle\Services;
 
+use Adyen\Config;
 use Adyen\Service\Payment;
 use Adyen\Service\Checkout;
 use Adyen\Service\Recurring;
@@ -28,6 +29,7 @@ class AdyenClientService
      * @param string $username
      * @param string $password
      * @param string $environment
+     * @param array $config
      *
      * @throws \Adyen\AdyenException
      */
@@ -35,9 +37,19 @@ class AdyenClientService
         $applicationName,
         $username,
         $password,
-        $environment = 'test'
+        $environment = 'test',
+        $config = []
     ) {
-        $client = new \Adyen\Client();
+        $adyenConfig = null;
+
+        if (!empty($config)) {
+            $adyenConfig = new Config($config);
+
+            $client = new \Adyen\Client($adyenConfig);
+        } else {
+            $client = new \Adyen\Client();
+        }
+
         $client->setApplicationName($applicationName);
         $client->setUsername($username);
         $client->setPassword($password);
