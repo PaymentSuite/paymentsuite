@@ -45,8 +45,11 @@ class AdyenClientService
         $client->setUsername($username);
         $client->setPassword($password);
         $client->setEnvironment($environment);
-        $client->setXApiKey($xApiKey);
-        $client->setInputType('json');
+
+        if (!is_null($xApiKey)) {
+            $client->setXApiKey($xApiKey);
+            $client->setInputType('json');
+        }
 
         $this->client = $client;
     }
