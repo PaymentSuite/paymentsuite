@@ -1,0 +1,46 @@
+{
+    "name": "paymentsuite/gestpay-bundle",
+    "type": "symfony-bundle",
+    "description": "GestPay PaymentSuite Component",
+    "keywords": ["gestpay", "bancasella", "payment", "ecommerce"],
+    "license": "MIT",
+    "support": {
+        "email": "yuhu@mmoreram.com",
+        "forum": "https://gitter.im/paymentsuite/paymentsuite",
+        "source": "https://github.com/paymentsuite/paymentsuite",
+        "issues": "https://github.com/paymentsuite/paymentsuite/issues"
+    },
+    "authors": [
+        {
+            "name": "Santiago Garcia",
+            "email": "sgarcia@wearemarketing.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "symfony/framework-bundle": "^3.4",
+        "symfony/form": "^3.4",
+        "symfony/config": "^3.4",
+        "symfony/http-kernel": "^3.4",
+        "symfony/http-foundation": "^3.4",
+        "symfony/dependency-injection": "^3.4",
+        "symfony/options-resolver": "^3.4",
+        "mmoreram/symfony-bundle-dependencies": "^2.0",
+        "twig/twig": "^1.23.1",
+        "paymentsuite/payment-core-bundle": "^2.0",
+        "pepeverde/gestpayws": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PaymentSuite\\GestpayBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
+}

@@ -38,7 +38,7 @@ class RedsysManager
     /**
      * @var RedsysMethodFactory
      *
-     * RedsysMethod factory
+     * GestPayMethod factory
      */
     private $redsysMethodFactory;
 
@@ -67,7 +67,7 @@ class RedsysManager
      * Construct method for redsys manager.
      *
      * @param RedsysFormTypeBuilder  $redsysFormTypeBuilder  Form Type Builder
-     * @param RedsysMethodFactory    $redsysMethodFactory    RedsysMethod factory
+     * @param RedsysMethodFactory    $redsysMethodFactory    GestPayMethod factory
      * @param PaymentBridgeInterface $paymentBridge          Payment Bridge
      * @param PaymentEventDispatcher $paymentEventDispatcher Event dispatcher
      * @param string                 $secretKey              Secret Key

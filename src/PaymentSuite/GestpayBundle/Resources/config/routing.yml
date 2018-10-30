@@ -1,0 +1,21 @@
+paymentsuite_gestpay_execute:
+    path: /payment/gestpay/execute
+    defaults:
+        _controller: paymentsuite.gestpay.payment_controller:executeAction
+    methods: ["GET"]
+
+paymentsuite_gestpay_result:
+    path: /payment/gestpay/result
+    defaults:
+        _controller: paymentsuite.gestpay.payment_controller:resultAction
+    methods: ["GET"]
+
+paymentsuite_gestpay_success:
+    path: /payment/gestpay/success
+    defaults:
+        _controller: paymentsuite.gestpay.response_controller:successAction
+
+paymentsuite_gestpay_failure:
+    path: /payment/gestpay/failure
+    defaults:
+        _controller: paymentsuite.gestpay.response_controller:failureAction
