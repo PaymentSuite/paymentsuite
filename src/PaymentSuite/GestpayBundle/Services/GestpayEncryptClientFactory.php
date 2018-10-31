@@ -24,9 +24,11 @@ use EndelWar\GestPayWS\WSCryptDecryptSoapClient;
 class GestpayEncryptClientFactory
 {
     /**
+     * @param bool|null $sandbox
+     *
      * @return WSCryptDecrypt
      */
-    public static function create(bool $sandbox)
+    public static function create(?bool $sandbox = false)
     {
         $soapClient = new WSCryptDecryptSoapClient($sandbox);
 

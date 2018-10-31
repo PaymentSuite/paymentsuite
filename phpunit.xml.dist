@@ -8,7 +8,6 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
@@ -31,6 +30,7 @@
     <php>
         <env name="STRIPE_API_KEY" value="api-key"/>
         <env name="ENABLE_API_INTEGRATION" value="false"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
 </phpunit>

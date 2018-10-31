@@ -43,7 +43,6 @@ class GestpayExtension extends AbstractPaymentSuiteExtension
                 'shop_login' => $config['shop_login'],
                 'api_key' => $config['api_key'],
                 'sandbox' => $config['sandbox'],
-                'api_env' => $config['sandbox'] ? 'production' : 'test',
             ]
         );
 

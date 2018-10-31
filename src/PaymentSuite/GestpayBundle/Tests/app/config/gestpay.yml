@@ -1,0 +1,12 @@
+gestpay:
+    shop_login: GESPAY71689
+    sandbox: true
+    api_key: 'R0VTUEFZNzE2ODkjI0VzZXJjZW50ZSBUZXN0IGRpIFdhbSMjMDIvMTEvMjAxOCA5OjU2OjUw'
+    payment_success:
+        route: paymentsuite_gestpay_success
+        order_append: true
+        order_append_field: 'id'
+    payment_failure:
+        route: paymentsuite_gestpay_failure
+        order_append: true
+        order_append_field: 'id'

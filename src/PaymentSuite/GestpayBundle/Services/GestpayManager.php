@@ -203,10 +203,6 @@ class GestpayManager
         if (!$order) {
             throw new PaymentOrderNotFoundException();
         }
-
-        $this
-            ->paymentBridge
-            ->setOrder($order);
     }
 
     /**

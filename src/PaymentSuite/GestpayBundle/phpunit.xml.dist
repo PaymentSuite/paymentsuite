@@ -8,9 +8,9 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
          bootstrap="vendor/autoload.php"
         >
+
     <testsuites>
         <testsuite name="GestPayBundle Test Suite">
             <directory>./Tests</directory>
@@ -27,5 +27,9 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
+    </php>
 
 </phpunit>

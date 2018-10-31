@@ -1,0 +1,18 @@
+framework:
+    secret:        test
+    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+    validation:    { enabled: false }
+    csrf_protection: false
+    form: false
+    test: true
+    default_locale: en
+    session:
+        storage_id:     session.storage.mock_file
+
+services:
+    logger: { class: Psr\Log\NullLogger }
+
+    dummy.payment_bridge:
+        class: PaymentSuite\GestpayBundle\Tests\Fixtures\DummyPaymentBridge
+
+    paymentsuite.bridge: '@dummy.payment_bridge'

@@ -41,7 +41,9 @@
         "elcodi/test-common-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "friendsofphp/php-cs-fixer": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "liip/functional-test-bundle": "2.x-dev",
+        "symfony/phpunit-bridge": "^3.4"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",

@@ -46,12 +46,12 @@ class GestpayCurrencyResolver
     {
         $currency = $this->paymentBridge->getCurrency();
 
-        $currencyCode = constant(sprintf('%s::%s', Currency::class, strtoupper($currency)));
+        $constantName = sprintf('%s::%s', Currency::class, strtoupper($currency));
 
-        if (!$currencyCode) {
+        if (!defined($constantName)) {
             throw new CurrencyNotSupportedException();
         }
 
-        return $currencyCode;
+        return constant($constantName);
     }
 }
