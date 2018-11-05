@@ -22,9 +22,9 @@ use Symfony\Component\DependencyInjection\Loader;
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
- * This is the class that loads and manages your bundle configuration.
+ * Class GestpayExtension
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayExtension extends AbstractPaymentSuiteExtension
 {

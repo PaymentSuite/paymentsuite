@@ -35,14 +35,13 @@
         "stripe/stripe-php": "3.4.0",
         "monolog/monolog": "^1.17",
         "wearemarketing/paylands-php": "0.1.*",
-        "endelwar/gestpayws": "dev-master"
+        "endelwar/gestpayws": "^1.4"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^7.0",
-        "liip/functional-test-bundle": "2.x-dev",
         "symfony/phpunit-bridge": "^3.4"
     },
     "replace": {

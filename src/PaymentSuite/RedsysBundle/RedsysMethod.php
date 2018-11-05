@@ -18,7 +18,7 @@ namespace PaymentSuite\RedsysBundle;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
- * GestPayMethod class.
+ * RedsysMethod class.
  */
 final class RedsysMethod implements PaymentMethodInterface
 {

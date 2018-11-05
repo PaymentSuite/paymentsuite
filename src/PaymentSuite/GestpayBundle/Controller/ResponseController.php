@@ -25,6 +25,8 @@ use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection;
 
 /**
  * Class ResponseController.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class ResponseController
 {

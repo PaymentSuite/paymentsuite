@@ -72,7 +72,7 @@ class PaymentController extends Controller
         return new Response(
             $this
                 ->templatingEngine
-                ->render('GestpayBundle:Redsys:process.html.twig', [
+                ->render('RedsysBundle:Redsys:process.html.twig', [
                     'redsys_form' => $formView,
                 ])
         );

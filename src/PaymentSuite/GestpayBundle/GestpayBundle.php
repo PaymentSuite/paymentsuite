@@ -23,6 +23,8 @@ use PaymentSuite\GestpayBundle\DependencyInjection\GestpayExtension;
 
 /**
  * Gestpay payment bundle.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayBundle extends Bundle implements DependentBundleInterface
 {

@@ -28,9 +28,23 @@
     </filter>
 
     <php>
+        <env name="GESTPAY_SHOP_LOGIN" value="GESPAYXXXX"/>
+        <env name="GESTPAY_API_KEY" value="api-key"/>
         <env name="STRIPE_API_KEY" value="api-key"/>
         <env name="ENABLE_API_INTEGRATION" value="false"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
+            <arguments>
+                <array>
+                    <element key="time-sensitive">
+                        <string>PaymentSuite\GestpayBundle\Services\Tests</string>
+                    </element>
+                </array>
+            </arguments>
+        </listener>
+    </listeners>
 
 </phpunit>

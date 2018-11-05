@@ -18,7 +18,7 @@ namespace PaymentSuite\GestpayBundle\Services;
 /**
  * Class GestpayOrderIdAssembler.
  *
- * @author Santiago Garcia <sangarbe@gmail.com>
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayOrderIdAssembler
 {

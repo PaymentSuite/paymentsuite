@@ -20,6 +20,8 @@ use EndelWar\GestPayWS\WSCryptDecryptSoapClient;
 
 /**
  * Class GestpayEncryptClientFactory.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayEncryptClientFactory
 {

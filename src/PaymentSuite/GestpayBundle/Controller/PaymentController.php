@@ -28,6 +28,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * PaymentController.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class PaymentController extends Controller
 {

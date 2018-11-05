@@ -30,11 +30,10 @@
         "mmoreram/symfony-bundle-dependencies": "^2.0",
         "twig/twig": "^1.23.1",
         "paymentsuite/payment-core-bundle": "^2.0",
-        "pepeverde/gestpayws": "dev-master"
+        "pepeverde/gestpayws": "^1.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
-        "liip/functional-test-bundle": "2.x-dev",
         "symfony/phpunit-bridge": "^3.4"
     },
     "autoload": {

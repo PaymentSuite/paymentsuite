@@ -3,5 +3,4 @@ bin
 composer.phar
 composer.lock
 phpunit.xml
-.idea/
 **/Tests/app/cache/

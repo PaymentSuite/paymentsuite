@@ -19,6 +19,8 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * Class ParameterNotReceivedException.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class ParameterNotReceivedException extends PaymentException
 {

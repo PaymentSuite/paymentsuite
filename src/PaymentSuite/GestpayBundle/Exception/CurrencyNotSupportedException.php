@@ -19,6 +19,8 @@ use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
  * CurrencyNotSupportedException.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class CurrencyNotSupportedException extends PaymentException
 {

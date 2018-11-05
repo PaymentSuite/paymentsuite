@@ -21,6 +21,8 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Class GestpayCurrencyResolver.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayCurrencyResolver
 {

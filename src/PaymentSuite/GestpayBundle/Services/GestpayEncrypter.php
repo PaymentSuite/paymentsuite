@@ -26,6 +26,8 @@ use PaymentSuite\GestpayBundle\Exception\CurrencyNotSupportedException;
 
 /**
  * Class GestpayEncrypter.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayEncrypter
 {

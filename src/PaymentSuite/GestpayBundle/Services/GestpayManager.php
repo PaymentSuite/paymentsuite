@@ -25,6 +25,8 @@ use PaymentSuite\GestpayBundle\Exception\CurrencyNotSupportedException;
 
 /**
  * Gestpay manager.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 class GestpayManager
 {

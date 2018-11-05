@@ -19,6 +19,8 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
  * GestpayMethod class.
+ *
+ * @author WAM Team <develop@wearemarketing.com>
  */
 final class GestpayMethod implements PaymentMethodInterface
 {
