@@ -10,19 +10,20 @@
          stopOnFailure="true"
          bootstrap="vendor/autoload.php"
 >
+
     <testsuites>
-        <testsuite name="PaymentSuite Test Suite">
-            <directory>./src/PaymentSuite/*/Tests</directory>
+        <testsuite name="GestPayBundle Test Suite">
+            <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./src/PaymentSuite/</directory>
+            <directory>./</directory>
             <exclude>
-                <directory>./src/PaymentSuite/*/Tests</directory>
-                <directory>./src/PaymentSuite/*/Resources</directory>
-                <directory>./src/PaymentSuite/*/Vendor</directory>
+                <directory>./Resources/</directory>
+                <directory>./DependencyInjection/</directory>
+                <directory>./vendor/</directory>
             </exclude>
         </whitelist>
     </filter>
@@ -30,9 +31,8 @@
     <php>
         <env name="GESTPAY_SHOP_LOGIN" value="GESPAYXXXX"/>
         <env name="GESTPAY_API_KEY" value="api-key"/>
-        <env name="STRIPE_API_KEY" value="api-key"/>
         <env name="ENABLE_API_INTEGRATION" value="false"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors"/>
     </php>
 
     <listeners>
@@ -46,5 +46,4 @@
             </arguments>
         </listener>
     </listeners>
-
 </phpunit>

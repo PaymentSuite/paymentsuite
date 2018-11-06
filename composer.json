@@ -34,13 +34,15 @@
         "twig/twig": "^1.23.1",
         "stripe/stripe-php": "3.4.0",
         "monolog/monolog": "^1.17",
-        "wearemarketing/paylands-php": "0.1.*"
+        "wearemarketing/paylands-php": "0.1.*",
+        "endelwar/gestpayws": "^1.4"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "friendsofphp/php-cs-fixer": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "symfony/phpunit-bridge": "^3.4"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",
@@ -49,7 +51,8 @@
         "paymentsuite/paypal-web-checkout-bundle": "self.version",
         "paymentsuite/redsys-bundle": "self.version",
         "paymentsuite/stripe-bundle": "self.version",
-        "paymentsuite/paylands-bundle": "self.version"
+        "paymentsuite/paylands-bundle": "self.version",
+        "paymentsuite/gestpay-bundle": "self.version"
     },
     "autoload": {
         "psr-4": {

@@ -1,0 +1,29 @@
+services:
+
+    paymentsuite.gestpay.encrypt_client:
+        factory: ['PaymentSuite\GestpayBundle\Services\GestpayEncryptClientFactory', 'create']
+        class: EndelWar\GestPayWS\WSCryptDecrypt
+        arguments:
+            - '%paymentsuite.gestpay.sandbox%'
+
+    paymentsuite.gestpay.currency_resolver:
+        class: PaymentSuite\GestpayBundle\Services\GestpayCurrencyResolver
+        arguments:
+            - '@paymentsuite.bridge'
+
+    paymentsuite.gestpay.encrypter:
+        class: PaymentSuite\GestpayBundle\Services\GestpayEncrypter
+        arguments:
+            - '@paymentsuite.gestpay.encrypt_client'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.gestpay.currency_resolver'
+            - '%paymentsuite.gestpay.sandbox%'
+            - '%paymentsuite.gestpay.shop_login%'
+            - '%paymentsuite.gestpay.api_key%'
+
+    paymentsuite.gestpay.manager:
+        class: PaymentSuite\GestpayBundle\Services\GestpayManager
+        arguments:
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
+            - '@paymentsuite.gestpay.encrypter'

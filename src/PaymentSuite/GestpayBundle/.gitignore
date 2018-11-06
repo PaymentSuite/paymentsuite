@@ -1,0 +1,9 @@
+# Symfony directories
+vendor/
+
+# Composer
+composer.phar
+composer.lock
+
+# PHPUnit
+phpunit.xml

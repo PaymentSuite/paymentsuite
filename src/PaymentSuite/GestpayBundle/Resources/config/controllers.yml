@@ -1,0 +1,13 @@
+services:
+
+    paymentsuite.gestpay.payment_controller:
+        class: PaymentSuite\GestpayBundle\Controller\PaymentController
+        arguments:
+            - '@paymentsuite.gestpay.manager'
+            - '@paymentsuite.logger'
+
+    paymentsuite.gestpay.response_controller:
+        class: PaymentSuite\GestpayBundle\Controller\ResponseController
+        arguments:
+            - '@paymentsuite.gestpay.routes'
+            - '@router'
