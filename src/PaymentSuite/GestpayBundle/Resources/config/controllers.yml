@@ -11,3 +11,4 @@ services:
         arguments:
             - '@paymentsuite.gestpay.routes'
             - '@router'
+            - '@paymentsuite.gestpay.encrypter'
