@@ -218,7 +218,7 @@ class GestpayManager
             return false;
         }
 
-        if ($gestpayMethod->getAmount() != $this->paymentBridge->getAmount()) {
+        if ($gestpayMethod->getAmount() * 100 != $this->paymentBridge->getAmount()) {
             return false;
         }
 
