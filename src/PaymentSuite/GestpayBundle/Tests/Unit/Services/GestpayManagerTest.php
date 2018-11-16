@@ -129,7 +129,7 @@ class GestpayManagerTest extends TestCase
         $paymentBridge
             ->getAmount()
             ->shouldBeCalled()
-            ->willReturn(112.12);
+            ->willReturn(11212);
 
         $paymentEventDispatcher = $this->prophesize(PaymentEventDispatcher::class);
         $paymentEventDispatcher
