@@ -33,6 +33,8 @@ class GestpayCurrencyResolver
 
     /**
      * GestpayCurrencyResolver constructor.
+     *
+     * @param PaymentBridgeInterface $paymentBridge
      */
     public function __construct(PaymentBridgeInterface $paymentBridge)
     {
