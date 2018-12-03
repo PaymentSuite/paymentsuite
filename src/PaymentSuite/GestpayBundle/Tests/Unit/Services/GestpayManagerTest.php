@@ -107,6 +107,7 @@ class GestpayManagerTest extends TestCase
             'AuthorizationCode' => '33',
             'Currency' => '242',
             'Amount' => '112.12',
+            'CustomInfo' => '',
             'ErrorCode' => '0',
             'ErrorDescription' => '',
         ];
@@ -120,6 +121,7 @@ class GestpayManagerTest extends TestCase
         $paymentMethod->setCurrency(242);
         $paymentMethod->setBankTransactionId('12');
         $paymentMethod->setTransactionResult('OK');
+        $paymentMethod->setCustomInfo('');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -164,6 +166,7 @@ class GestpayManagerTest extends TestCase
             'AuthorizationCode' => '33',
             'Currency' => '242',
             'Amount' => '112.12',
+            'CustomInfo' => '',
             'ErrorCode' => '0',
             'ErrorDescription' => '',
         ];
@@ -177,6 +180,7 @@ class GestpayManagerTest extends TestCase
         $paymentMethod->setCurrency(242);
         $paymentMethod->setBankTransactionId('12');
         $paymentMethod->setTransactionResult('KO');
+        $paymentMethod->setCustomInfo('');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -224,6 +228,7 @@ class GestpayManagerTest extends TestCase
             'AuthorizationCode' => '33',
             'Currency' => '242',
             'Amount' => '112.12',
+            'CustomInfo' => '',
             'ErrorCode' => '0',
             'ErrorDescription' => '',
         ];
@@ -237,6 +242,7 @@ class GestpayManagerTest extends TestCase
         $paymentMethod->setCurrency(242);
         $paymentMethod->setBankTransactionId('12');
         $paymentMethod->setTransactionResult('OK');
+        $paymentMethod->setCustomInfo('');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge

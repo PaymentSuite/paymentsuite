@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\GestpayBundle\Tests\Fixtures;
 
+use PaymentSuite\GestpayBundle\Services\Interfaces\PaymentBridgeGestpayInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
@@ -22,7 +23,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class DummyPaymentBridge implements PaymentBridgeInterface
+class DummyPaymentBridge implements PaymentBridgeGestpayInterface
 {
     private $currency;
 
@@ -70,5 +71,10 @@ class DummyPaymentBridge implements PaymentBridgeInterface
     public function setCurrency(string $currency)
     {
         $this->currency = $currency;
+    }
+
+    public function getCustomInfo()
+    {
+        return '';
     }
 }

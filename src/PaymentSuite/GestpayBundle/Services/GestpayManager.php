@@ -140,6 +140,7 @@ class GestpayManager
             ->setAuthorizationCode($decrypted['AuthorizationCode'])
             ->setCurrency($decrypted['Currency'])
             ->setAmount($decrypted['Amount'])
+            ->setCustomInfo($decrypted['CustomInfo'])
             ->setErrorCode($decrypted['ErrorCode'])
             ->setErrorDescription($decrypted['ErrorDescription']);
 

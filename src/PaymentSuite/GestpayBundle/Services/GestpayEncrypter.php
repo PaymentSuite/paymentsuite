@@ -21,6 +21,7 @@ use EndelWar\GestPayWS\Parameter\EncryptParameter;
 use EndelWar\GestPayWS\WSCryptDecrypt;
 use EndelWar\GestPayWS\Response\DecryptResponse;
 use EndelWar\GestPayWS\Response\EncryptResponse;
+use PaymentSuite\GestpayBundle\Services\Interfaces\PaymentBridgeGestpayInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\GestpayBundle\Exception\CurrencyNotSupportedException;
 
@@ -71,7 +72,7 @@ class GestpayEncrypter
      */
     public function __construct(
         WSCryptDecrypt $encryptClient,
-        PaymentBridgeInterface $paymentBridge,
+        PaymentBridgeGestpayInterface $paymentBridge,
         GestpayCurrencyResolver $currencyResolver,
         string $sandbox,
         string $shopLogin,
@@ -98,6 +99,7 @@ class GestpayEncrypter
             'shopTransactionId' => GestpayOrderIdAssembler::assemble($this->paymentBridge->getOrderId()),
             'uicCode' => $this->currencyResolver->getCurrencyCode(),
             'languageId' => Language::ENGLISH,
+            'customInfo' => $this->paymentBridge->getCustomInfo(),
         ]);
 
         if ($this->apiKey) {

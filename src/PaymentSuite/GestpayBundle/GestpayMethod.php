@@ -37,6 +37,7 @@ final class GestpayMethod implements PaymentMethodInterface
     private $authorizationCode;
     private $currency;
     private $amount;
+    private $customInfo;
     private $errorCode;
     private $errorDescription;
 
@@ -118,6 +119,18 @@ final class GestpayMethod implements PaymentMethodInterface
     }
 
     /**
+     * @param mixed $customInfo
+     *
+     * @return GestpayMethod
+     */
+    public function setCustomInfo($customInfo)
+    {
+        $this->customInfo = $customInfo;
+
+        return $this;
+    }
+
+    /**
      * @param mixed $errorCode
      *
      * @return GestpayMethod
@@ -187,6 +200,14 @@ final class GestpayMethod implements PaymentMethodInterface
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomInfo()
+    {
+        return $this->customInfo;
     }
 
     /**
