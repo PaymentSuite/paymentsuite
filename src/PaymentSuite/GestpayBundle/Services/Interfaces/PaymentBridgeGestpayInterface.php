@@ -14,7 +14,7 @@ interface PaymentBridgeGestpayInterface extends PaymentBridgeInterface
     /**
      * Returns custom info to send to gestpay gateway.
      *
-     * @return string
+     * @return array
      */
     public function getCustomInfo();
 }

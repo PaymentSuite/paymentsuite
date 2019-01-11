@@ -75,6 +75,44 @@ class GestpayEncrypterTest extends TestCase
         $encrypter->encrypt();
     }
 
+    public function testEncryptWithCustomInfoArray()
+    {
+        $now = 1541416836;
+        ClockMock::withClockMock($now);
+        $shopLogin = 'GESPAY12345';
+        $apiKey = null;
+
+        $encryptParameters = new EncryptParameter([
+            'shopLogin' => $shopLogin,
+            'amount' => '100.51',
+            'shopTransactionId' => '123T'.$now,
+            'uicCode' => 242,
+            'languageId' => Language::ENGLISH,
+        ]);
+
+        $encryptParameters->setCustomInfo(['data' => 'test']);
+
+        $sandbox = true;
+        $encryptClient = $this->prophesize(WSCryptDecrypt::class);
+        $encryptClient
+            ->encrypt($encryptParameters)
+            ->shouldBeCalled();
+
+        $paymentBridge = new DummyPaymentBridge(['data' => 'test']);
+        $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
+
+        $encrypter = new GestpayEncrypter(
+            $encryptClient->reveal(),
+            $paymentBridge,
+            $currencyResolver,
+            $sandbox,
+            $shopLogin,
+            $apiKey
+        );
+
+        $encrypter->encrypt();
+    }
+
     public function testEncryptWithApikey()
     {
         $now = 1541416836;
