@@ -27,9 +27,12 @@ class DummyPaymentBridge implements PaymentBridgeGestpayInterface
 {
     private $currency;
 
-    public function __construct()
+    private $customInfo;
+
+    public function __construct($customInfo = [])
     {
         $this->currency = 'EUR';
+        $this->customInfo = $customInfo;
     }
 
     public function setOrder($order)
@@ -75,6 +78,6 @@ class DummyPaymentBridge implements PaymentBridgeGestpayInterface
 
     public function getCustomInfo()
     {
-        return '';
+        return $this->customInfo;
     }
 }

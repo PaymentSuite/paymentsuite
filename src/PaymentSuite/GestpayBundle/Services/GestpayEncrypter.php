@@ -99,8 +99,9 @@ class GestpayEncrypter
             'shopTransactionId' => GestpayOrderIdAssembler::assemble($this->paymentBridge->getOrderId()),
             'uicCode' => $this->currencyResolver->getCurrencyCode(),
             'languageId' => Language::ENGLISH,
-            'customInfo' => $this->paymentBridge->getCustomInfo(),
         ]);
+
+        $encryptParameter->setCustomInfo($this->paymentBridge->getCustomInfo());
 
         if ($this->apiKey) {
             $encryptParameter->apikey = $this->apiKey;
