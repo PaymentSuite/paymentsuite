@@ -50,20 +50,28 @@ class GestpayManager
     private $gestpayEncrypter;
 
     /**
+     * @var GestpayTransactionIdAssembler
+     */
+    private $transactionIdAssembler;
+
+    /**
      * GestpayManager constructor.
      *
-     * @param PaymentBridgeInterface $paymentBridge
-     * @param PaymentEventDispatcher $paymentEventDispatcher
-     * @param GestpayEncrypter       $gestpayEncrypter
+     * @param PaymentBridgeInterface        $paymentBridge
+     * @param PaymentEventDispatcher        $paymentEventDispatcher
+     * @param GestpayEncrypter              $gestpayEncrypter
+     * @param GestpayTransactionIdAssembler $transactionIdAssembler
      */
     public function __construct(
         PaymentBridgeInterface $paymentBridge,
         PaymentEventDispatcher $paymentEventDispatcher,
-        GestpayEncrypter $gestpayEncrypter
+        GestpayEncrypter $gestpayEncrypter,
+        GestpayTransactionIdAssembler $transactionIdAssembler
     ) {
         $this->paymentBridge = $paymentBridge;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->gestpayEncrypter = $gestpayEncrypter;
+        $this->transactionIdAssembler = $transactionIdAssembler;
     }
 
     /**
@@ -194,7 +202,7 @@ class GestpayManager
      */
     protected function loadPaymentBridgeOrder(GestpayMethod $gestpayMethod)
     {
-        $orderId = GestpayOrderIdAssembler::extract($gestpayMethod->getShopTransactionId());
+        $orderId = $this->transactionIdAssembler->extract($gestpayMethod->getShopTransactionId());
 
         /**
          * Retrieving the order object.

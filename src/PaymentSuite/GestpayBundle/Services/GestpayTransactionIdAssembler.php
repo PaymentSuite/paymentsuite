@@ -15,31 +15,51 @@
 
 namespace PaymentSuite\GestpayBundle\Services;
 
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
+
 /**
- * Class GestpayOrderIdAssembler.
+ * Class GestpayTransactionIdAssembler.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class GestpayOrderIdAssembler
+class GestpayTransactionIdAssembler
 {
     const SEPARTOR = 'T';
+    /**
+     * @var PaymentBridgeInterface
+     */
+    protected $paymentBridge;
 
     /**
-     * @param int $orderId
+     * GestpayTransactionIdAssembler constructor.
+     *
+     * @param PaymentBridgeInterface $paymentBridge
+     */
+    public function __construct(PaymentBridgeInterface $paymentBridge)
+    {
+        $this->paymentBridge = $paymentBridge;
+    }
+
+    /**
+     * Returns gestpay shop transaction id.
      *
      * @return string
      */
-    public static function assemble(int $orderId)
+    public function assemble()
     {
+        $orderId = $this->paymentBridge->getOrderId();
+
         return sprintf('%d%s%d', $orderId, self::SEPARTOR, time());
     }
 
     /**
+     * Extracts order id from shop transaction id.
+     *
      * @param string $shopTransactionId
      *
      * @return int
      */
-    public static function extract(string $shopTransactionId)
+    public function extract(string $shopTransactionId)
     {
         $pieces = explode(self::SEPARTOR, $shopTransactionId);
 
