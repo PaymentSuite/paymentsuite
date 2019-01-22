@@ -20,11 +20,12 @@ use EndelWar\GestPayWS\Response\EncryptResponse;
 use PaymentSuite\GestpayBundle\Services\GestpayCurrencyResolver;
 use PaymentSuite\GestpayBundle\Services\GestpayEncryptClientFactory;
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
+use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
 use PaymentSuite\GestpayBundle\Tests\Fixtures\DummyPaymentBridge;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class GestpayEncrypterTest
+ * Class GestpayEncrypterTest.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
@@ -41,11 +42,20 @@ class GestpayEncrypterTest extends TestCase
         $encryptClient = GestpayEncryptClientFactory::create($sandbox);
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
+        $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
 
         $shopLogin = getenv('GESTPAY_SHOP_LOGIN');
         $apiKey = getenv('GESTPAY_API_KEY') ?: null;
 
-        $this->encrypter = new GestpayEncrypter($encryptClient, $paymentBridge, $currencyResolver, $sandbox, $shopLogin, $apiKey);
+        $this->encrypter = new GestpayEncrypter(
+            $encryptClient,
+            $paymentBridge,
+            $currencyResolver,
+            $transactionIdAssembler,
+            $sandbox,
+            $shopLogin,
+            $apiKey
+        );
     }
 
     public function testEncrypt()

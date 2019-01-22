@@ -48,6 +48,10 @@ class GestpayEncrypter
      */
     private $currencyResolver;
     /**
+     * @var GestpayTransactionIdAssembler
+     */
+    private $transactionIdAssembler;
+    /**
      * @var string
      */
     private $shopLogin;
@@ -63,17 +67,19 @@ class GestpayEncrypter
     /**
      * GestpayEncrypter constructor.
      *
-     * @param WSCryptDecrypt          $encryptClient
-     * @param PaymentBridgeInterface  $paymentBridge
-     * @param GestpayCurrencyResolver $currencyResolver
-     * @param string                  $sandbox
-     * @param string                  $shopLogin
-     * @param null|string             $apiKey
+     * @param WSCryptDecrypt                $encryptClient
+     * @param PaymentBridgeGestpayInterface $paymentBridge
+     * @param GestpayCurrencyResolver       $currencyResolver
+     * @param GestpayTransactionIdAssembler $transactionIdAssembler
+     * @param string                        $sandbox
+     * @param string                        $shopLogin
+     * @param null|string                   $apiKey
      */
     public function __construct(
         WSCryptDecrypt $encryptClient,
         PaymentBridgeGestpayInterface $paymentBridge,
         GestpayCurrencyResolver $currencyResolver,
+        GestpayTransactionIdAssembler $transactionIdAssembler,
         string $sandbox,
         string $shopLogin,
         ?string $apiKey
@@ -81,6 +87,7 @@ class GestpayEncrypter
         $this->encryptClient = $encryptClient;
         $this->paymentBridge = $paymentBridge;
         $this->currencyResolver = $currencyResolver;
+        $this->transactionIdAssembler = $transactionIdAssembler;
         $this->shopLogin = $shopLogin;
         $this->apiKey = $apiKey;
         $this->sandbox = $sandbox;
@@ -96,7 +103,7 @@ class GestpayEncrypter
         $encryptParameter = new EncryptParameter([
             'shopLogin' => $this->shopLogin,
             'amount' => (string) round($this->paymentBridge->getAmount() / 100, 2),
-            'shopTransactionId' => GestpayOrderIdAssembler::assemble($this->paymentBridge->getOrderId()),
+            'shopTransactionId' => $this->transactionIdAssembler->assemble(),
             'uicCode' => $this->currencyResolver->getCurrencyCode(),
             'languageId' => Language::ENGLISH,
         ]);

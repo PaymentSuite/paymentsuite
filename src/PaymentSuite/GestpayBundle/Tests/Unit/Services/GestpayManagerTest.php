@@ -18,6 +18,7 @@ namespace PaymentSuite\GestpayBundle\Tests\Unit\Services;
 use PaymentSuite\GestpayBundle\GestpayMethod;
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
 use PaymentSuite\GestpayBundle\Services\GestpayManager;
+use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -57,7 +58,8 @@ class GestpayManagerTest extends TestCase
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
-            $gestpayEncrypter->reveal()
+            $gestpayEncrypter->reveal(),
+            new GestpayTransactionIdAssembler($paymentBridge->reveal())
         );
 
         $gestpayManager->processPayment($paymentMethod);
@@ -89,7 +91,8 @@ class GestpayManagerTest extends TestCase
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
-            $gestpayEncrypter->reveal()
+            $gestpayEncrypter->reveal(),
+            new GestpayTransactionIdAssembler($paymentBridge->reveal())
         );
 
         $this->expectException(PaymentOrderNotFoundException::class);
@@ -150,7 +153,8 @@ class GestpayManagerTest extends TestCase
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
-            $gestpayEncrypter->reveal()
+            $gestpayEncrypter->reveal(),
+            new GestpayTransactionIdAssembler($paymentBridge->reveal())
         );
 
         $gestpayManager->processResult($parameters);
@@ -211,7 +215,8 @@ class GestpayManagerTest extends TestCase
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
-            $gestpayEncrypter->reveal()
+            $gestpayEncrypter->reveal(),
+            new GestpayTransactionIdAssembler($paymentBridge->reveal())
         );
 
         $this->expectException(PaymentException::class);
@@ -275,7 +280,8 @@ class GestpayManagerTest extends TestCase
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
-            $gestpayEncrypter->reveal()
+            $gestpayEncrypter->reveal(),
+            new GestpayTransactionIdAssembler($paymentBridge->reveal())
         );
 
         $this->expectException(PaymentException::class);

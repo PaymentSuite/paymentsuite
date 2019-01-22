@@ -15,21 +15,29 @@
 
 namespace PaymentSuite\GestpayBundle\Tests\Unit\Services;
 
-use PaymentSuite\GestpayBundle\Services\GestpayOrderIdAssembler;
+use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class GestpayOrderIdAssemblerTest.
+ * Class GestpayTransactionIdAssemblerTest.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
-class GestpayOrderIdAssemblerTest extends TestCase
+class GestpayTransactionIdAssemblerTest extends TestCase
 {
     public function testAssemble()
     {
         $orderId = 128;
 
-        $result = GestpayOrderIdAssembler::assemble($orderId);
+        $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
+        $paymentBridge
+            ->getOrderId()
+            ->shouldBeCalled()
+            ->willReturn($orderId);
+
+        $assembler = new GestpayTransactionIdAssembler($paymentBridge->reveal());
+        $result = $assembler->assemble();
 
         $this->assertContains('T', $result);
         $this->assertStringStartsWith('128', $result);
@@ -37,8 +45,11 @@ class GestpayOrderIdAssemblerTest extends TestCase
 
     public function testExtract()
     {
+        $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
+
         $shopTransactionId = '12345T1122334455';
-        $result = GestpayOrderIdAssembler::extract($shopTransactionId);
+        $assembler = new GestpayTransactionIdAssembler($paymentBridge->reveal());
+        $result = $assembler->extract($shopTransactionId);
 
         $this->assertEquals(12345, $result);
     }

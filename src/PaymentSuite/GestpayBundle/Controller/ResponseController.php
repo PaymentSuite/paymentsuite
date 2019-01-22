@@ -16,7 +16,7 @@
 namespace PaymentSuite\GestpayBundle\Controller;
 
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
-use PaymentSuite\GestpayBundle\Services\GestpayOrderIdAssembler;
+use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,22 +48,29 @@ class ResponseController
      * @var GestpayEncrypter
      */
     private $gestpayEncrypter;
+    /**
+     * @var GestpayTransactionIdAssembler
+     */
+    private $transactionIdAssembler;
 
     /**
      * ResponseController constructor.
      *
-     * @param RedirectionRouteCollection $redirectionRoutes
-     * @param UrlGeneratorInterface      $urlGenerator
-     * @param GestpayEncrypter           $gestpayEncrypter
+     * @param RedirectionRouteCollection    $redirectionRoutes
+     * @param UrlGeneratorInterface         $urlGenerator
+     * @param GestpayEncrypter              $gestpayEncrypter
+     * @param GestpayTransactionIdAssembler $transactionIdAssembler
      */
     public function __construct(
         RedirectionRouteCollection $redirectionRoutes,
         UrlGeneratorInterface $urlGenerator,
-        GestpayEncrypter $gestpayEncrypter
+        GestpayEncrypter $gestpayEncrypter,
+        GestpayTransactionIdAssembler $transactionIdAssembler
     ) {
         $this->redirectionRoutes = $redirectionRoutes;
         $this->urlGenerator = $urlGenerator;
         $this->gestpayEncrypter = $gestpayEncrypter;
+        $this->transactionIdAssembler = $transactionIdAssembler;
     }
 
     /**
@@ -135,7 +142,8 @@ class ResponseController
             $decrypted = $this
                 ->gestpayEncrypter
                 ->decrypt($encrypted);
-            $orderId = GestpayOrderIdAssembler::extract($decrypted['ShopTransactionID']);
+
+            $orderId = $this->transactionIdAssembler->extract($decrypted['ShopTransactionID']);
         } catch (\Exception $e) {
             $orderId = false;
         }
