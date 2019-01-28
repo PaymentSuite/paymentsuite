@@ -102,7 +102,7 @@ class GestpayEncrypter
     {
         $encryptParameter = new EncryptParameter([
             'shopLogin' => $this->shopLogin,
-            'amount' => number_format(round($this->paymentBridge->getAmount() / 100, 2), 2),
+            'amount' => number_format(round($this->paymentBridge->getAmount() / 100, 2), 2, ".", ""),
             'shopTransactionId' => $this->transactionIdAssembler->assemble(),
             'uicCode' => $this->currencyResolver->getCurrencyCode(),
             'languageId' => Language::ENGLISH,
