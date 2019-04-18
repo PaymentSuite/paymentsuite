@@ -15,9 +15,9 @@
 
 namespace PaymentSuite\PaypalWebCheckoutBundle\Services;
 
+use PaymentSuite\PaypalWebCheckoutBundle\Services\Interfaces\PaypalWebCheckoutSettingsProviderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormView;
-
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaypalWebCheckoutBundle\Exception\CurrencyNotSupportedException;
 
@@ -48,36 +48,38 @@ class PaypalWebCheckoutFormTypeFactory
     private $paymentBridge;
 
     /**
-     * @var string
+     * @var PaypalWebCheckoutSettingsProviderInterface
      *
-     * Merchant identifier
+     * Settings provider
      */
-    private $business;
+    private $settingsProvider;
 
     /**
      * Formtype construct method.
      *
-     * @param PaypalWebCheckoutUrlFactory $urlFactory    URL Factory service
-     * @param PaymentBridgeInterface      $paymentBridge Payment bridge
-     * @param FormFactory                 $formFactory   Form factory
-     * @param string                      $business      merchant code
+     * @param PaypalWebCheckoutUrlFactory                $urlFactory       URL Factory service
+     * @param PaymentBridgeInterface                     $paymentBridge    Payment bridge
+     * @param FormFactory                                $formFactory      Form factory
+     * @param PaypalWebCheckoutSettingsProviderInterface $settingsProvider Settings provider
      */
     public function __construct(
         PaypalWebCheckoutUrlFactory $urlFactory,
         PaymentBridgeInterface $paymentBridge,
         FormFactory $formFactory,
-        $business
+        PaypalWebCheckoutSettingsProviderInterface $settingsProvider
     ) {
         $this->urlFactory = $urlFactory;
         $this->paymentBridge = $paymentBridge;
         $this->formFactory = $formFactory;
-        $this->business = $business;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
      * Builds form given return, success and fail urls.
      *
      * @return FormView
+     *
+     * @throws CurrencyNotSupportedException
      */
     public function buildForm()
     {
@@ -129,7 +131,7 @@ class PaypalWebCheckoutFormTypeFactory
             ->setAction($this->urlFactory->getApiEndpoint())
             ->setMethod('POST')
             ->add('business', 'hidden', [
-                'data' => $this->business,
+                'data' => $this->settingsProvider->getBusiness(),
             ])
             ->add('return', 'hidden', [
                 'data' => $successReturnUrl,
@@ -168,13 +170,13 @@ class PaypalWebCheckoutFormTypeFactory
 
         foreach ($itemsData as $orderLine) {
             $formBuilder
-                ->add('item_name_' . $iteration, 'hidden', [
+                ->add('item_name_'.$iteration, 'hidden', [
                     'data' => $orderLine['item_name'],
                 ])
-                ->add('amount_' . $iteration, 'hidden', [
+                ->add('amount_'.$iteration, 'hidden', [
                     'data' => $orderLine['amount'],
                 ])
-                ->add('quantity_' . $iteration, 'hidden', [
+                ->add('quantity_'.$iteration, 'hidden', [
                     'data' => $orderLine['quantity'],
                 ]);
             ++$iteration;

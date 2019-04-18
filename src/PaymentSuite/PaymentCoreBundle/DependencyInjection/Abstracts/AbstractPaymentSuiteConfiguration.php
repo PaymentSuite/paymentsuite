@@ -52,4 +52,39 @@ abstract class AbstractPaymentSuiteConfiguration implements ConfigurationInterfa
 
         return $node;
     }
+
+    /**
+     * Adds common configuration for every payment method given a root node.
+     *
+     * @param NodeDefinition $rootNode
+     */
+    final protected function addSettingsProviderConfiguration(NodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->beforeNormalization()
+                ->ifTrue(function ($v) {
+                    return isset($v['settings_provider']) && 'default' != $v['settings_provider'];
+                })
+                ->then(function ($v) {
+                    return static::setDefaultSettings($v);
+                })
+            ->end()
+            ->children()
+                ->scalarNode('settings_provider')
+                    ->defaultValue('default')
+                ->end()
+            ->end();
+    }
+
+    /**
+     * Sets default values for required custom settings.
+     *
+     * @param array $config
+     *
+     * @return array
+     */
+    protected function setDefaultSettings(array $config): array
+    {
+        return $config;
+    }
 }

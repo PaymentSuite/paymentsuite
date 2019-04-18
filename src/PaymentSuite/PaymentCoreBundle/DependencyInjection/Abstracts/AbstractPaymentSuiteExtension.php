@@ -56,9 +56,9 @@ abstract class AbstractPaymentSuiteExtension extends Extension
      */
     protected function registerRedirectRoutesDefinition(
         ContainerBuilder $containerBuilder,
-        $paymentName,
+        string $paymentName,
         array $redirectionRoutesConfiguration
-    ) {
+    ): void {
         $collectionDefinition = $containerBuilder->register(
             "paymentsuite.{$paymentName}.routes",
             'PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection'
@@ -95,9 +95,9 @@ abstract class AbstractPaymentSuiteExtension extends Extension
      */
     protected function addParameters(
         ContainerBuilder $containerBuilder,
-        $paymentName,
+        string $paymentName,
         array $configuration
-    ) {
+    ): void {
         foreach ($configuration as $key => $value) {
             $parameterName = '' === $paymentName
                 ? "paymentsuite.$key"
@@ -108,5 +108,24 @@ abstract class AbstractPaymentSuiteExtension extends Extension
                 $value
             );
         }
+    }
+
+    /**
+     * Defines the alias for the settings provider services.
+     *
+     * @param ContainerBuilder $container
+     * @param string           $paymentName
+     * @param string           $settingsProviderConfiguration
+     */
+    protected function addSettingsProvider(
+        ContainerBuilder $container,
+        string $paymentName,
+        string $settingsProviderConfiguration
+    ): void {
+        $serviceId = 'default' == $settingsProviderConfiguration
+            ? "paymentsuite.$paymentName.settings_provider_default"
+            : $settingsProviderConfiguration;
+
+        $container->setAlias("paymentsuite.$paymentName.settings_provider", $serviceId);
     }
 }

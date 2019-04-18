@@ -23,12 +23,27 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 class PaypalWebCheckoutEmptyMethod implements PaymentMethodInterface
 {
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
+     * PaypalWebCheckoutEmptyMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    public function __construct(string $paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
      * Return type of payment name.
      *
      * @return string
      */
     public function getPaymentName()
     {
-        return 'paypal_web_checkout';
+        return $this->paymentName;
     }
 }

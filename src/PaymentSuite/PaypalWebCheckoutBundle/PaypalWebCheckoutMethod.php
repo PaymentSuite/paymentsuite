@@ -23,7 +23,7 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
  * Mirrors Paypal IPN message issued when confirming a payment.
  * This class is used to wrap the message in a class
  *
- * @link   https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNandPDTVariables/#id091EB04C0HS
+ * @see   https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNandPDTVariables/#id091EB04C0HS
  */
 class PaypalWebCheckoutMethod implements PaymentMethodInterface
 {
@@ -372,7 +372,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
      * @var string
      *
      * The merchant's original transaction identification number for the payment from the buyer,
-     * against which the case was registered.
+     * against which the case was registered
      */
     private $txnId;
 
@@ -384,11 +384,19 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
     private $ipnTrackId;
 
     /**
+     * @var string
+     *
+     * Payment method name
+     */
+    private $paymentName;
+
+    /**
      * Initialize Paypal Method using an array which represents
      * the parameters coming from the IPN message as shown in.
      *
      * https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNandPDTVariables/#id091EAB0105Z
      *
+     * @param string $paymentName   Payment method name
      * @param float  $mcGross       Mc gross
      * @param string $paymentStatus Payment status
      * @param string $notifyVersion Notify version
@@ -409,24 +417,25 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
      * @param string $ipnTrackId    Ipn track id
      */
     public function __construct(
-        $mcGross = null,
-        $paymentStatus = null,
-        $notifyVersion = null,
-        $payerStatus = null,
-        $business = null,
-        $quantity = null,
-        $verifySign = null,
-        $payerEmail = null,
-        $txnId = null,
-        $paymentType = null,
-        $receiverEmail = null,
-        $pendingReason = null,
-        $txnType = null,
-        $itemName = null,
-        $mcCurrency = null,
-        $itemNumber = null,
-        $testIpn = null,
-        $ipnTrackId = null
+        string $paymentName,
+        ?float $mcGross = null,
+        ?string $paymentStatus = null,
+        ?string $notifyVersion = null,
+        ?string $payerStatus = null,
+        ?string $business = null,
+        ?string $quantity = null,
+        ?string $verifySign = null,
+        ?string $payerEmail = null,
+        ?string $txnId = null,
+        ?string $paymentType = null,
+        ?string $receiverEmail = null,
+        ?string $pendingReason = null,
+        ?string $txnType = null,
+        ?string $itemName = null,
+        ?string $mcCurrency = null,
+        ?string $itemNumber = null,
+        ?string $testIpn = null,
+        ?string $ipnTrackId = null
     ) {
         $this->mcGross = $mcGross;
         $this->paymentStatus = $paymentStatus;
@@ -446,6 +455,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
         $this->itemNumber = $itemNumber;
         $this->testIpn = $testIpn;
         $this->ipnTrackId = $ipnTrackId;
+        $this->paymentName = $paymentName;
     }
 
     /**
@@ -455,7 +465,7 @@ class PaypalWebCheckoutMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'paypal_web_checkout';
+        return $this->paymentName;
     }
 
     /**
