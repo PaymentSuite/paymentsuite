@@ -16,6 +16,7 @@
 namespace PaymentSuite\BankwireBundle\Services;
 
 use PaymentSuite\BankwireBundle\BankwireMethod;
+use PaymentSuite\BankwireBundle\Services\Interfaces\BankwireSettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 
 /**
@@ -24,12 +25,27 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 class BankwireMethodFactory
 {
     /**
+     * @var BankwireSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
+     * BankwireMethodFactory constructor.
+     *
+     * @param BankwireSettingsProviderInterface $settingsProvider
+     */
+    public function __construct(BankwireSettingsProviderInterface $settingsProvider)
+    {
+        $this->settingsProvider = $settingsProvider;
+    }
+
+    /**
      * Create new PaymentMethodInterface instance.
      *
      * @return PaymentMethodInterface New instance
      */
     public function create()
     {
-        return new BankwireMethod();
+        return new BankwireMethod($this->settingsProvider->getPaymentName());
     }
 }

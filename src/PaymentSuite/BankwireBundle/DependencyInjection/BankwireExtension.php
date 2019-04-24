@@ -18,7 +18,6 @@ namespace PaymentSuite\BankwireBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
@@ -42,8 +41,14 @@ class BankwireExtension extends AbstractPaymentSuiteExtension
             ]
         );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controllers.yml');
         $loader->load('services.yml');
+
+        $this->addSettingsProvider(
+            $container,
+            'bankwire',
+            $config['settings_provider']
+        );
     }
 }
