@@ -16,6 +16,7 @@
 namespace PaymentSuite\StripeBundle\Services;
 
 use Exception;
+use PaymentSuite\StripeBundle\Services\Interfaces\StripeSettingsProviderInterface;
 use PaymentSuite\StripeBundle\ValueObject\StripeTransaction;
 use Stripe\Charge;
 use Stripe\Customer;
@@ -27,25 +28,24 @@ use Stripe\Stripe;
 class StripeTransactionFactory
 {
     /**
-     * @var string
-     *
-     * Private key
-     */
-    private $privateKey;
-    /**
      * @var StripeEventDispatcher
      */
     private $dispatcher;
+    /**
+     * @var StripeSettingsProviderInterface
+     */
+    private $settingsProvider;
 
     /**
      * Construct method for stripe transaction wrapper.
      *
-     * @param string $privateKey Private key
+     * @param StripeSettingsProviderInterface $settingsProvider
+     * @param StripeEventDispatcher           $dispatcher
      */
-    public function __construct($privateKey, StripeEventDispatcher $dispatcher)
+    public function __construct(StripeSettingsProviderInterface $settingsProvider, StripeEventDispatcher $dispatcher)
     {
-        $this->privateKey = $privateKey;
         $this->dispatcher = $dispatcher;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -58,7 +58,7 @@ class StripeTransactionFactory
     public function create(StripeTransaction $transaction)
     {
         try {
-            Stripe::setApiKey($this->privateKey);
+            Stripe::setApiKey($this->settingsProvider->getPrivateKey());
 
             $this->dispatcher->notifyCustomerPreCreate($transaction);
 
