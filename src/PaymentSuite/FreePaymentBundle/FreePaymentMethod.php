@@ -23,12 +23,27 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 final class FreePaymentMethod implements PaymentMethodInterface
 {
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
+     * FreePaymentMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    public function __construct(string $paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
      * Get Free payment method name.
      *
      * @return string Payment name
      */
     public function getPaymentName()
     {
-        return 'free_payment';
+        return $this->paymentName;
     }
 }
