@@ -16,11 +16,10 @@
 namespace PaymentSuite\GestpayBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
- * Class Configuration
+ * Class Configuration.
  *
  * @author WAM Team <develop@wearemarketing.com>
  */
@@ -51,6 +50,15 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->append($this->addRouteConfiguration('payment_failure'))
             ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    protected function setDefaultSettings(array $config): array
+    {
+        $config['shop_login'] = 'dummy_login';
+
+        return $config;
     }
 }

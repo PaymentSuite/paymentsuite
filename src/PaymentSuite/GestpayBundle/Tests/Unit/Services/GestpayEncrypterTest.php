@@ -22,6 +22,7 @@ use EndelWar\GestPayWS\Response\EncryptResponse;
 use EndelWar\GestPayWS\WSCryptDecrypt;
 use PaymentSuite\GestpayBundle\Services\GestpayCurrencyResolver;
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
+use PaymentSuite\GestpayBundle\Services\GestpaySettingsProviderDefault;
 use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
 use PaymentSuite\GestpayBundle\Tests\Fixtures\DummyPaymentBridge;
 use PHPUnit\Framework\TestCase;
@@ -63,15 +64,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $encrypter->encrypt();
@@ -103,15 +104,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge(['data' => 'test']);
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $encrypter->encrypt();
@@ -142,15 +143,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $encrypter->encrypt();
@@ -176,15 +177,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $encrypter->decrypt($encryptedString);
@@ -211,15 +212,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $encrypter->decrypt($encryptedString);
@@ -257,15 +258,15 @@ class GestpayEncrypterTest extends TestCase
         $paymentBridge = new DummyPaymentBridge();
         $currencyResolver = new GestpayCurrencyResolver($paymentBridge);
         $transactionIdAssembler = new GestpayTransactionIdAssembler($paymentBridge);
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
 
         $encrypter = new GestpayEncrypter(
             $encryptClient->reveal(),
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
 
         $resultUrl = $encrypter->encryptedUrl();

@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\GestpayBundle\Services;
 
+use PaymentSuite\GestpayBundle\Services\Interfaces\GestpaySettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -55,23 +56,31 @@ class GestpayManager
     private $transactionIdAssembler;
 
     /**
+     * @var GestpaySettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
      * GestpayManager constructor.
      *
-     * @param PaymentBridgeInterface        $paymentBridge
-     * @param PaymentEventDispatcher        $paymentEventDispatcher
-     * @param GestpayEncrypter              $gestpayEncrypter
+     * @param PaymentBridgeInterface $paymentBridge
+     * @param PaymentEventDispatcher $paymentEventDispatcher
+     * @param GestpayEncrypter $gestpayEncrypter
      * @param GestpayTransactionIdAssembler $transactionIdAssembler
+     * @param GestpaySettingsProviderInterface $settingsProvider
      */
     public function __construct(
         PaymentBridgeInterface $paymentBridge,
         PaymentEventDispatcher $paymentEventDispatcher,
         GestpayEncrypter $gestpayEncrypter,
-        GestpayTransactionIdAssembler $transactionIdAssembler
+        GestpayTransactionIdAssembler $transactionIdAssembler,
+        GestpaySettingsProviderInterface $settingsProvider
     ) {
         $this->paymentBridge = $paymentBridge;
         $this->paymentEventDispatcher = $paymentEventDispatcher;
         $this->gestpayEncrypter = $gestpayEncrypter;
         $this->transactionIdAssembler = $transactionIdAssembler;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -82,7 +91,7 @@ class GestpayManager
      */
     public function processPayment()
     {
-        $gestpayMethod = new GestpayMethod();
+        $gestpayMethod = new GestpayMethod($this->settingsProvider->getPaymentName());
 
         /*
          * At this point, order must be created given a cart, and placed in PaymentBridge.
@@ -130,7 +139,7 @@ class GestpayManager
             throw new ParameterNotReceivedException();
         }
 
-        $gestpayMethod = new GestpayMethod();
+        $gestpayMethod = new GestpayMethod($this->settingsProvider->getPaymentName());
 
         $decrypted = $this
             ->gestpayEncrypter
