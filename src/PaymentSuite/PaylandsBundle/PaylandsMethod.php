@@ -99,6 +99,11 @@ final class PaylandsMethod implements PaymentMethodInterface
     private $paymentStatus;
 
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
      * @return string
      */
     public function getCustomerExternalId()
@@ -379,12 +384,24 @@ final class PaylandsMethod implements PaymentMethodInterface
     }
 
     /**
+     * @param string $paymentName
+     *
+     * @return PaylandsMethod
+     */
+    public function setPaymentName($paymentName)
+    {
+        $this->paymentName = $paymentName;
+
+        return $this;
+    }
+
+    /**
      * Gets Paylands method name.
      *
      * @return string
      */
     public function getPaymentName()
     {
-        return 'Paylands';
+        return $this->paymentName;
     }
 }

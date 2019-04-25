@@ -25,6 +25,7 @@
         "symfony/http-foundation": "^3.4",
         "symfony/dependency-injection": "^3.4",
         "symfony/options-resolver": "^3.4",
+        "symfony/expression-language": "^3.4",
         "mmoreram/symfony-bundle-dependencies": "^2.0",
         "twig/twig": "^1.23.1",
         "paymentsuite/payment-core-bundle": "^2.0",

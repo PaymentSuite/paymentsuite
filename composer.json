@@ -35,7 +35,8 @@
         "stripe/stripe-php": "3.4.0",
         "monolog/monolog": "^1.17",
         "wearemarketing/paylands-php": "0.1.*",
-        "endelwar/gestpayws": "^1.4"
+        "endelwar/gestpayws": "^1.4",
+        "symfony/expression-language": "^3.4"
     },
     "require-dev": {
         "elcodi/test-common-bundle": "^2.0",

@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Services;
 
+use PaymentSuite\PaylandsBundle\Services\Interfaces\PaylandsSettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
@@ -25,49 +26,27 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 class PaylandsCurrencyServiceResolver
 {
     /**
-     * UUIDs of the services to pay through by currency.
-     *
-     * @var array
-     */
-    protected $services;
-
-    /**
-     * UUID of the service to validate card against.
-     *
-     * @var string
-     */
-    protected $validationService;
-
-    /**
      * @var PaymentBridgeInterface
      */
     protected $paymentBridge;
 
     /**
-     * PaylandsCurrencyServiceResolver constructor.
-     *
-     * @param PaymentBridgeInterface $paymentBridge
+     * @var PaylandsSettingsProviderInterface
      */
-    public function __construct(PaymentBridgeInterface $paymentBridge)
-    {
-        $this->paymentBridge = $paymentBridge;
-
-        $this->services = [];
-    }
+    private $settingsProvider;
 
     /**
-     * Adds a new service ID for a given currency ISO code.
+     * PaylandsCurrencyServiceResolver constructor.
      *
-     * @param $currency
-     * @param $service
-     *
-     * @return $this Self instance
+     * @param PaymentBridgeInterface            $paymentBridge
+     * @param PaylandsSettingsProviderInterface $settingsProvider
      */
-    public function addService($currency, $service)
-    {
-        $this->services[$currency] = $service;
-
-        return $this;
+    public function __construct(
+        PaymentBridgeInterface $paymentBridge,
+        PaylandsSettingsProviderInterface $settingsProvider
+    ) {
+        $this->paymentBridge = $paymentBridge;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -79,8 +58,9 @@ class PaylandsCurrencyServiceResolver
     {
         $currency = $this->paymentBridge->getCurrency();
 
-        if (key_exists($currency, $this->services)) {
-            return $this->services[$currency];
+        $paymentServices = $this->settingsProvider->getPaymentServices();
+        if (key_exists($currency, $paymentServices)) {
+            return $paymentServices[$currency];
         }
 
         return '';
@@ -91,22 +71,10 @@ class PaylandsCurrencyServiceResolver
      */
     public function getValidationService()
     {
-        if (!is_null($this->validationService)) {
-            return $this->validationService;
+        if (!is_null($this->settingsProvider->getValidationService())) {
+            return $this->settingsProvider->getValidationService();
         }
 
         return $this->getService();
-    }
-
-    /**
-     * @param string $validationService
-     *
-     * @return PaylandsCurrencyServiceResolver $this
-     */
-    public function setValidationService($validationService = null)
-    {
-        $this->validationService = $validationService;
-
-        return $this;
     }
 }
