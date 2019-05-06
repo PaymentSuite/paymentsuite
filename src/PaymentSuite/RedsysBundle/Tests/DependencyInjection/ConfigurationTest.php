@@ -33,7 +33,10 @@ class ConfigurationTest extends TestCase
         $normalized = $configTree->normalize($config);
         $finalized = $configTree->finalize($normalized);
 
-        $this->assertEquals($config, $finalized);
+        $expected = $config;
+        $expected['settings_provider'] = 'default';
+
+        $this->assertEquals($expected, $finalized);
     }
 
     public function testDefaultConfiguration()
@@ -63,6 +66,7 @@ class ConfigurationTest extends TestCase
         $expected = array_merge($config, [
             'terminal' => '001',
             'url' => 'https://sis.redsys.es/sis/realizarPago',
+            'settings_provider' => 'default'
         ]);
 
         $this->assertEquals($expected, $finalized);

@@ -16,6 +16,7 @@
 namespace PaymentSuite\RedsysBundle\Services;
 
 use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysOrderTransformerInterface;
+use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysSettingsProviderInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormView;
@@ -49,33 +50,24 @@ class RedsysFormTypeBuilder
     protected $formFactory;
 
     /**
-     * @var string
-     *
-     * Merchant code
-     */
-    private $merchantCode;
-
-    /**
-     * @var string
-     *
-     * Url
-     */
-    private $url;
-
-    /**
-     * @var string
-     *
-     * Terminal id
-     */
-    private $terminal;
-    /**
      * @var RedsysSignatureFactory
      */
     private $signatureFactory;
+
     /**
      * @var RedsysOrderTransformerInterface
      */
     private $redsysOrderTransformer;
+
+    /**
+     * @var RedsysSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
+     * @var string
+     */
+    private $url;
 
     /**
      * construct.
@@ -85,9 +77,8 @@ class RedsysFormTypeBuilder
      * @param RedsysSignatureFactory          $signatureFactory       Signature factory service
      * @param FormFactory                     $formFactory            Form factory
      * @param RedsysOrderTransformerInterface $redsysOrderTransformer Redsys order transformer
-     * @param string                          $merchantCode           merchant code
+     * @param RedsysSettingsProviderInterface $settingsProvider       Redsys settings provider
      * @param string                          $url                    gateway url
-     * @param $terminal
      */
     public function __construct(
         PaymentBridgeRedsysInterface $paymentBridge,
@@ -95,18 +86,16 @@ class RedsysFormTypeBuilder
         RedsysSignatureFactory $signatureFactory,
         FormFactory $formFactory,
         RedsysOrderTransformerInterface $redsysOrderTransformer,
-        $merchantCode,
-        $url,
-        $terminal
+        RedsysSettingsProviderInterface $settingsProvider,
+        $url
     ) {
         $this->paymentBridge = $paymentBridge;
         $this->urlFactory = $urlFactory;
         $this->formFactory = $formFactory;
-        $this->merchantCode = $merchantCode;
         $this->url = $url;
-        $this->terminal = $terminal;
         $this->signatureFactory = $signatureFactory;
         $this->redsysOrderTransformer = $redsysOrderTransformer;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -164,9 +153,9 @@ class RedsysFormTypeBuilder
             'Ds_Merchant_UrlKO' => $this->urlFactory->getReturnUrlKoForOrderId($orderId),
             'Ds_Merchant_Amount' => (string) $this->paymentBridge->getAmount(),
             'Ds_Merchant_Order' => $this->redsysOrderTransformer->transform($orderId),
-            'Ds_Merchant_MerchantCode' => $this->merchantCode,
+            'Ds_Merchant_MerchantCode' => $this->settingsProvider->getMerchanCode(),
             'Ds_Merchant_Currency' => $this->getCurrencyCodeByIso($this->paymentBridge->getCurrency()),
-            'Ds_Merchant_Terminal' => $this->terminal,
+            'Ds_Merchant_Terminal' => $this->settingsProvider->getTerminal(),
         );
 
         /*

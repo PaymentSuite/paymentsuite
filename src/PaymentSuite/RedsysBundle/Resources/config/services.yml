@@ -20,9 +20,8 @@ services:
             - '@paymentsuite.redsys.signature_factory'
             - '@form.factory'
             - '@paymentsuite.redsys.order_transformer'
-            - '%paymentsuite.redsys.merchant_code%'
+            - '@paymentsuite.redsys.settings_provider'
             - '%paymentsuite.redsys.url%'
-            - '%paymentsuite.redsys.terminal%'
 
     paymentsuite.redsys.url_factory:
         class: PaymentSuite\RedsysBundle\Services\RedsysUrlFactory
@@ -33,11 +32,19 @@ services:
         class: PaymentSuite\RedsysBundle\Services\RedsysMethodFactory
         arguments:
             - '@paymentsuite.redsys.signature_factory'
+            - '@paymentsuite.redsys.settings_provider'
 
     paymentsuite.redsys.signature_factory:
         class: PaymentSuite\RedsysBundle\Services\RedsysSignatureFactory
         arguments:
-            - '%paymentsuite.redsys.secret_key%'
+            - '@paymentsuite.redsys.settings_provider'
 
     paymentsuite.redsys.order_transformer:
         class: PaymentSuite\RedsysBundle\Services\RedsysOrderTransformer
+
+    paymentsuite.redsys.settings_provider_default:
+        class: PaymentSuite\RedsysBundle\Services\RedsysSettingsProviderDefault
+        arguments:
+            - '%paymentsuite.redsys.merchant_code%'
+            - '%paymentsuite.redsys.terminal%'
+            - '%paymentsuite.redsys.secret_key%'

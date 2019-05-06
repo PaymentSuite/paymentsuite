@@ -9,13 +9,16 @@ class RedsysMethodTest extends TestCase
 {
     public function testCreateEmpty()
     {
-        $instance = RedsysMethod::createEmpty();
+        $paymentName = 'test-name';
+
+        $instance = RedsysMethod::createEmpty($paymentName);
 
         $this->assertEmpty($instance->getDsMerchantParameters());
         $this->assertEmpty($instance->getDsMerchantParametersDecoded());
         $this->assertEmpty($instance->getDsSignatureVersion());
         $this->assertEmpty($instance->getDsSignature());
         $this->assertEmpty($instance->getDsOrder());
+        $this->assertEquals($paymentName, $instance->getPaymentName());
     }
 
     public function testCreate()
@@ -29,7 +32,10 @@ class RedsysMethodTest extends TestCase
         $dsSignatureVersion = 'sha256';
         $dsSignature = 'dummySignature';
 
+        $paymentName = 'test-payment';
+
         $instance = RedsysMethod::create(
+            $paymentName,
             $dsMerchantParametersDecoded,
             $dsMerchantParameters,
             $dsSignatureVersion,
@@ -41,11 +47,12 @@ class RedsysMethodTest extends TestCase
         $this->assertEquals($dsSignatureVersion, $instance->getDsSignatureVersion());
         $this->assertEquals($dsSignature, $instance->getDsSignature());
         $this->assertEquals($order, $instance->getDsOrder());
+        $this->assertEquals($paymentName, $instance->getPaymentName());
     }
 
     public function testIsTransactionSuccessfulReturnsFalseIfEmptyMethod()
     {
-        $instance = RedsysMethod::createEmpty();
+        $instance = RedsysMethod::createEmpty('test-name');
 
         $this->assertFalse($instance->isTransactionSuccessful());
     }
@@ -55,7 +62,7 @@ class RedsysMethodTest extends TestCase
      */
     public function testIsTransactionSuccessfulReturnsFalse($value)
     {
-        $instance = RedsysMethod::create(['Ds_Response' => $value], '', '', '');
+        $instance = RedsysMethod::create('test-name', ['Ds_Response' => $value], '', '', '');
 
         $this->assertFalse($instance->isTransactionSuccessful());
     }
@@ -65,7 +72,7 @@ class RedsysMethodTest extends TestCase
      */
     public function testIsTransactionSuccessfulReturnsTrue($value)
     {
-        $instance = RedsysMethod::create(['Ds_Response' => $value], '', '', '');
+        $instance = RedsysMethod::create('test-name', ['Ds_Response' => $value], '', '', '');
 
         $this->assertTrue($instance->isTransactionSuccessful());
     }

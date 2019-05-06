@@ -3,6 +3,7 @@
 namespace PaymentSuite\RedsysBundle\Tests\Services;
 
 use PaymentSuite\RedsysBundle\RedsysSignature;
+use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysSettingsProviderInterface;
 use PaymentSuite\RedsysBundle\Services\RedsysSignatureFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,10 @@ class RedsysSignatureFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->factory = new RedsysSignatureFactory('very-secret');
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
+        $settingsProvider->getSecretKey()->willReturn('very-secret');
+
+        $this->factory = new RedsysSignatureFactory($settingsProvider->reveal());
     }
 
     public function testCreateFromResultParameters()

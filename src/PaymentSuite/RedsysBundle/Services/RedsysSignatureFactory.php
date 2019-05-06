@@ -3,22 +3,23 @@
 namespace PaymentSuite\RedsysBundle\Services;
 
 use PaymentSuite\RedsysBundle\RedsysSignature;
+use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysSettingsProviderInterface;
 
 class RedsysSignatureFactory
 {
     /**
-     * @var string
+     * @var RedsysSettingsProviderInterface
      */
-    private $secretKey;
+    private $settingsProvider;
 
     /**
      * RedsysSignatureFactory constructor.
      *
-     * @param string $secretKey
+     * @param RedsysSettingsProviderInterface $settingsProvider
      */
-    public function __construct(string $secretKey)
+    public function __construct(RedsysSettingsProviderInterface $settingsProvider)
     {
-        $this->secretKey = $secretKey;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -36,7 +37,7 @@ class RedsysSignatureFactory
     /**
      * @param array $parameters
      *
-     * @return string
+     * @return RedsysSignature
      */
     public function createFromMerchantParameters(array $parameters): RedsysSignature
     {
@@ -46,7 +47,7 @@ class RedsysSignatureFactory
     /**
      * @param array $parameters
      *
-     * @return string
+     * @return RedsysSignature
      */
     public function createFromResultParameters(array $parameters): RedsysSignature
     {
@@ -69,7 +70,7 @@ class RedsysSignatureFactory
 
     private function encrypt(string $message): string
     {
-        $key = base64_decode($this->secretKey);
+        $key = base64_decode($this->settingsProvider->getSecretKey());
 
         $bytes = array(0, 0, 0, 0, 0, 0, 0, 0);
         $iv = implode(array_map('chr', $bytes));

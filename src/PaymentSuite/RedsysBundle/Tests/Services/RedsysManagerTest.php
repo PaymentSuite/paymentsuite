@@ -20,7 +20,7 @@ class RedsysManagerTest extends TestCase
     public function testProcessPayment()
     {
         $form = $this->prophesize(Form::class);
-        $redsysMethod = RedsysMethod::createEmpty();
+        $redsysMethod = RedsysMethod::createEmpty('test-name');
         $order = new \stdClass();
 
         $redsysFormTypeBuilder = $this->prophesize(RedsysFormTypeBuilder::class);
@@ -66,7 +66,7 @@ class RedsysManagerTest extends TestCase
 
     public function testProcessPaymentThrowsExceptionIfNotAnOrder()
     {
-        $redsysMethod = RedsysMethod::createEmpty();
+        $redsysMethod = RedsysMethod::createEmpty('test-name');
 
         $redsysFormTypeBuilder = $this->prophesize(RedsysFormTypeBuilder::class);
         $redsysFormTypeBuilder
@@ -111,7 +111,7 @@ class RedsysManagerTest extends TestCase
     public function testProcessResult()
     {
         $order = '123';
-        $redsysMethod = RedsysMethod::create([
+        $redsysMethod = RedsysMethod::create('test-name', [
             'Ds_Order' => $order,
             'Ds_Response' => '0',
         ], '', '', '');
@@ -158,7 +158,7 @@ class RedsysManagerTest extends TestCase
     public function testProcessResultThrowsExceptionIfNotTransactionSuccessful()
     {
         $order = '123';
-        $redsysMethod = RedsysMethod::create([
+        $redsysMethod = RedsysMethod::create('test-name', [
             'Ds_Order' => $order,
             'Ds_Response' => '100',
         ], '', '', '');

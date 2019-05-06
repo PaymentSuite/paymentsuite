@@ -51,21 +51,32 @@ final class RedsysMethod implements PaymentMethodInterface
     private $dsSignature;
 
     /**
-     * RedsysMethod constructor.
+     * @var string
      */
-    private function __construct()
+    private $paymentName;
+
+    /**
+     * RedsysMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    private function __construct(string $paymentName)
     {
+        $this->paymentName = $paymentName;
     }
 
     /**
+     * @param string $paymentName
+     *
      * @return RedsysMethod
      */
-    public static function createEmpty(): self
+    public static function createEmpty(string $paymentName): self
     {
-        return new self();
+        return new self($paymentName);
     }
 
     /**
+     * @param string $paymentName
      * @param array  $dsMerchantParametersDecoded
      * @param string $dsMerchantParameters
      * @param string $dsSignatureVersion
@@ -74,12 +85,13 @@ final class RedsysMethod implements PaymentMethodInterface
      * @return RedsysMethod
      */
     public static function create(
+        string $paymentName,
         array $dsMerchantParametersDecoded,
         string $dsMerchantParameters,
         string $dsSignatureVersion,
         string $dsSignature
     ): self {
-        $instance = new self();
+        $instance = new self($paymentName);
 
         $instance->dsMerchantParametersDecoded = $dsMerchantParametersDecoded;
         $instance->dsMerchantParameters = $dsMerchantParameters;
@@ -126,7 +138,7 @@ final class RedsysMethod implements PaymentMethodInterface
      */
     public function isTransactionSuccessful()
     {
-        if(is_null($this->dsMerchantParametersDecoded)){
+        if (is_null($this->dsMerchantParametersDecoded)) {
             return false;
         }
 
@@ -150,6 +162,6 @@ final class RedsysMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'redsys';
+        return $this->paymentName;
     }
 }

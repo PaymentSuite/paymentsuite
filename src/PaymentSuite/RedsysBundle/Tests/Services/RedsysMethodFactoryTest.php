@@ -7,6 +7,7 @@ use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
 use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
 use PaymentSuite\RedsysBundle\RedsysMethod;
 use PaymentSuite\RedsysBundle\RedsysSignature;
+use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysSettingsProviderInterface;
 use PaymentSuite\RedsysBundle\Services\RedsysEncoder;
 use PaymentSuite\RedsysBundle\Services\RedsysMethodFactory;
 use PaymentSuite\RedsysBundle\Services\RedsysSignatureFactory;
@@ -14,12 +15,18 @@ use PHPUnit\Framework\TestCase;
 
 class RedsysMethodFactoryTest extends TestCase
 {
-
     public function testCreateEmpty()
     {
-        $signatureFactory = $this->prophesize(RedsysSignatureFactory::class);
+        $paymentName = 'test-name';
 
-        $factory = new RedsysMethodFactory($signatureFactory->reveal());
+        $signatureFactory = $this->prophesize(RedsysSignatureFactory::class);
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn($paymentName);
+
+        $factory = new RedsysMethodFactory($signatureFactory->reveal(), $settingsProvider->reveal());
 
         $method = $factory->createEmpty();
 
@@ -28,13 +35,15 @@ class RedsysMethodFactoryTest extends TestCase
         $this->assertNull($method->getDsMerchantParametersDecoded());
         $this->assertNull($method->getDsSignature());
         $this->assertNull($method->getDsSignatureVersion());
+        $this->assertEquals($paymentName, $method->getPaymentName());
     }
 
     public function testCreateFromResultParametersThrowsExceptionIfMissingParameter()
     {
         $signatureFactory = $this->prophesize(RedsysSignatureFactory::class);
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
 
-        $factory = new RedsysMethodFactory($signatureFactory->reveal());
+        $factory = new RedsysMethodFactory($signatureFactory->reveal(), $settingsProvider->reveal());
 
         $parameters = [];
 
@@ -46,8 +55,9 @@ class RedsysMethodFactoryTest extends TestCase
     public function testCreateFromResultParametersThrowsExceptionIfInvalidParameters()
     {
         $signatureFactory = $this->prophesize(RedsysSignatureFactory::class);
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
 
-        $factory = new RedsysMethodFactory($signatureFactory->reveal());
+        $factory = new RedsysMethodFactory($signatureFactory->reveal(), $settingsProvider->reveal());
 
         $parameters = [
             'Ds_MerchantParameters' => '',
@@ -63,7 +73,7 @@ class RedsysMethodFactoryTest extends TestCase
     public function testCreateFromResultParametersThrowsExceptionIfInvalidSignature()
     {
         $merchantParameters = [
-            'Ds_Order' => '1234'
+            'Ds_Order' => '1234',
         ];
 
         $receivedSignature = 'invalid';
@@ -79,7 +89,9 @@ class RedsysMethodFactoryTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(new RedsysSignature($receivedSignature));
 
-        $factory = new RedsysMethodFactory($signatureFactory->reveal());
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
+
+        $factory = new RedsysMethodFactory($signatureFactory->reveal(), $settingsProvider->reveal());
 
         $parameters = [
             'Ds_MerchantParameters' => RedsysEncoder::encode($merchantParameters),
@@ -95,7 +107,7 @@ class RedsysMethodFactoryTest extends TestCase
     public function testCreateFromResultParameters()
     {
         $merchantParameters = [
-            'Ds_Order' => '1234'
+            'Ds_Order' => '1234',
         ];
 
         $receivedSignature = 'valid';
@@ -111,7 +123,15 @@ class RedsysMethodFactoryTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(new RedsysSignature($receivedSignature));
 
-        $factory = new RedsysMethodFactory($signatureFactory->reveal());
+        $paymentName = 'test-name';
+
+        $settingsProvider = $this->prophesize(RedsysSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn($paymentName);
+
+        $factory = new RedsysMethodFactory($signatureFactory->reveal(), $settingsProvider->reveal());
 
         $encodedMerchantParameters = RedsysEncoder::encode($merchantParameters);
 

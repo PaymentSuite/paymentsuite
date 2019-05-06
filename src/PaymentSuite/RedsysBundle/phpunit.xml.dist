@@ -11,7 +11,7 @@
          bootstrap="vendor/autoload.php"
         >
     <php>
-        <env name="KERNEL_CLASS" value="PaymentSuite\RedsysBundle\Tests\app\RedsysKernel" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
     <testsuites>

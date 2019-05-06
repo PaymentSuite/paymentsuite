@@ -19,6 +19,7 @@ use PaymentSuite\RedsysBundle\Exception\DecodeParametersException;
 use PaymentSuite\RedsysBundle\Exception\InvalidSignatureException;
 use PaymentSuite\RedsysBundle\Exception\ParameterNotReceivedException;
 use PaymentSuite\RedsysBundle\RedsysMethod;
+use PaymentSuite\RedsysBundle\Services\Interfaces\RedsysSettingsProviderInterface;
 
 /**
  * Class RedsysMethodFactory.
@@ -29,15 +30,23 @@ class RedsysMethodFactory
      * @var RedsysSignatureFactory
      */
     private $signatureFactory;
+    /**
+     * @var RedsysSettingsProviderInterface
+     */
+    private $settingsProvider;
 
     /**
      * RedsysMethodFactory constructor.
      *
-     * @param RedsysSignatureFactory $signatureFactory
+     * @param RedsysSignatureFactory          $signatureFactory
+     * @param RedsysSettingsProviderInterface $settingsProvider
      */
-    public function __construct(RedsysSignatureFactory $signatureFactory)
-    {
+    public function __construct(
+        RedsysSignatureFactory $signatureFactory,
+        RedsysSettingsProviderInterface $settingsProvider
+    ) {
         $this->signatureFactory = $signatureFactory;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -47,7 +56,7 @@ class RedsysMethodFactory
      */
     public function createEmpty()
     {
-        return RedsysMethod::createEmpty();
+        return RedsysMethod::createEmpty($this->settingsProvider->getPaymentName());
     }
 
     /**
@@ -70,6 +79,7 @@ class RedsysMethodFactory
         $this->validateSignature($dsMerchantParameters, $resultParameters['Ds_Signature']);
 
         return RedsysMethod::create(
+            $this->settingsProvider->getPaymentName(),
             $dsMerchantParameters,
             $resultParameters['Ds_MerchantParameters'],
             $resultParameters['Ds_SignatureVersion'],

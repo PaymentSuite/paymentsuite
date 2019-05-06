@@ -59,6 +59,20 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->append($this->addRouteConfiguration('payment_failure'))
             ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setDefaultSettings(array $config): array
+    {
+        $config['merchant_code'] = '999888777';
+        $config['secret_key'] = 'dummy-key';
+        $config['terminal'] = self::GATEWAY_TERMINAL;
+
+        return $config;
     }
 }

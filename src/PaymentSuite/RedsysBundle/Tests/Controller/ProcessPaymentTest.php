@@ -4,6 +4,7 @@ namespace PaymentSuite\RedsysBundle\Tests\Controller;
 
 use PaymentSuite\RedsysBundle\Services\Interfaces\PaymentBridgeRedsysInterface;
 use PaymentSuite\RedsysBundle\Services\RedsysEncoder;
+use PaymentSuite\RedsysBundle\Tests\app\RedsysKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Form;
 
@@ -12,6 +13,11 @@ use Symfony\Component\DomCrawler\Form;
  */
 class ProcessPaymentTest extends WebTestCase
 {
+    protected static function createKernel(array $options = array())
+    {
+        return new RedsysKernel('test', false);
+    }
+
     private $client;
 
     protected function setUp()
