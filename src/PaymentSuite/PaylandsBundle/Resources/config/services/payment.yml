@@ -5,6 +5,7 @@ services:
         arguments:
             - '@form.factory'
             - '@router'
+            - '@paymentsuite.paylands.settings_provider'
 
     paymentsuite.paylands.manager:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsManager

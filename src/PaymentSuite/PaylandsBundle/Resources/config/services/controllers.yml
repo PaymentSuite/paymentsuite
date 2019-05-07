@@ -8,4 +8,3 @@ services:
             - '@paymentsuite.paylands.routes'
             - '@paymentsuite.bridge'
             - '@router'
-            - '@paymentsuite.paylands.settings_provider'

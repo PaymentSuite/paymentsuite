@@ -69,10 +69,7 @@ class PaymentController extends Controller
      * Url generator
      */
     private $urlGenerator;
-    /**
-     * @var PaylandsSettingsProviderInterface
-     */
-    private $settingsProvider;
+
 
     /**
      * PaymentController constructor.
@@ -82,22 +79,19 @@ class PaymentController extends Controller
      * @param RedirectionRouteCollection $redirectionRoutes
      * @param PaymentBridgeInterface $paymentBridge
      * @param UrlGeneratorInterface $urlGenerator
-     * @param PaylandsSettingsProviderInterface $settingsProvider
      */
     public function __construct(
         PaylandsManager $paymentManager,
         PaylandsFormFactory $paymentFormFactory,
         RedirectionRouteCollection $redirectionRoutes,
         PaymentBridgeInterface $paymentBridge,
-        UrlGeneratorInterface $urlGenerator,
-        PaylandsSettingsProviderInterface $settingsProvider
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->paymentManager = $paymentManager;
         $this->paymentFormFactory = $paymentFormFactory;
         $this->redirectionRoutes = $redirectionRoutes;
         $this->paymentBridge = $paymentBridge;
         $this->urlGenerator = $urlGenerator;
-        $this->settingsProvider = $settingsProvider;
     }
 
     public function executeAction(Request $request)
@@ -107,7 +101,7 @@ class PaymentController extends Controller
          */
         $form = $this
             ->paymentFormFactory
-            ->create();
+            ->createEmpty();
 
         $form->handleRequest($request);
 
@@ -121,7 +115,6 @@ class PaymentController extends Controller
             }
 
             $paymentMethod = $form->getData();
-            $paymentMethod->setPaymentName($this->settingsProvider->getPaymentName);
 
             $this
                 ->paymentManager

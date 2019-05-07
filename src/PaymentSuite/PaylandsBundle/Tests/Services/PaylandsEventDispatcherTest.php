@@ -35,7 +35,7 @@ class PaylandsEventDispatcherTest extends TestCase
      */
     public function notifyCardValid()
     {
-        $paylandsMethod = new PaylandsMethod();
+        $paylandsMethod = new PaylandsMethod('test-name');
 
         /** @var EventDispatcherInterface|ObjectProphecy $eventDispatcher */
         $eventDispatcher = $this->prophesize(EventDispatcherInterface::class);
