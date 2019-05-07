@@ -17,7 +17,6 @@ namespace PaymentSuite\PaymentCoreBundle;
 
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\PaymentCoreExtension;
 
 /**

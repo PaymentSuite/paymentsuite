@@ -22,8 +22,11 @@
     ],
     "require": {
         "php": "^5.5|^7.0",
+        "ext-openssl": "*",
+        "ext-json": "*",
         "symfony/finder": "^2.8|^3.0",
         "symfony/config": "^2.8|^3.0",
+        "symfony/expression-language": "^2.8|^3.0",
         "symfony/framework-bundle": "^2.8|^3.0",
         "symfony/form": "^2.8|^3.0",
         "symfony/http-kernel": "^2.8|^3.0",
@@ -41,7 +44,9 @@
         "elcodi/fixtures-booster-bundle": "^2.0",
         "mmoreram/php-formatter": "1.1.0",
         "fabpot/php-cs-fixer": "1.11",
-        "phpunit/phpunit": "<6.0"
+        "phpunit/phpunit": "<6.0",
+        "symfony/twig-bundle": "^2.8|^3.0",
+        "symfony/templating": "^2.8|^3.0"
     },
     "replace": {
         "paymentsuite/bankwire-bundle": "self.version",

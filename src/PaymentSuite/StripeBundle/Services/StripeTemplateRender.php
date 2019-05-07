@@ -15,9 +15,9 @@
 
 namespace PaymentSuite\StripeBundle\Services;
 
+use PaymentSuite\StripeBundle\Services\Interfaces\StripeSettingsProviderInterface;
 use Symfony\Component\Form\FormFactory;
 use Twig_Environment;
-
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
@@ -42,13 +42,6 @@ class StripeTemplateRender
     /**
      * @var string
      *
-     * Public key
-     */
-    private $publicKey;
-
-    /**
-     * @var string
-     *
      * View template name in Bundle notation
      */
     private $viewTemplate;
@@ -61,26 +54,31 @@ class StripeTemplateRender
     private $scriptsTemplate;
 
     /**
+     * @var StripeSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
      * Construct method.
      *
-     * @param PaymentBridgeInterface $paymentBridgeInterface Payment Bridge Interface
-     * @param FormFactory            $formFactory            Form factory
-     * @param string                 $publicKey              Public key
-     * @param string                 $viewTemplate           Twig template name for displaying the form
-     * @param string                 $scriptsTemplate        Twig template name for scripts/js
+     * @param PaymentBridgeInterface          $paymentBridgeInterface Payment Bridge Interface
+     * @param FormFactory                     $formFactory            Form factory
+     * @param StripeSettingsProviderInterface $settingsProvider       Settings provider
+     * @param string                          $viewTemplate           Twig template name for displaying the form
+     * @param string                          $scriptsTemplate        Twig template name for scripts/js
      */
     public function __construct(
         PaymentBridgeInterface $paymentBridgeInterface,
         FormFactory $formFactory,
-        $publicKey,
+        StripeSettingsProviderInterface $settingsProvider,
         $viewTemplate,
         $scriptsTemplate
     ) {
         $this->paymentBridgeInterface = $paymentBridgeInterface;
         $this->formFactory = $formFactory;
-        $this->publicKey = $publicKey;
         $this->viewTemplate = $viewTemplate;
         $this->scriptsTemplate = $scriptsTemplate;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -88,6 +86,10 @@ class StripeTemplateRender
      *
      * @param Twig_Environment $environment  Environment
      * @param bool             $viewTemplate View template
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function renderStripeForm(Twig_Environment $environment, $viewTemplate = null)
     {
@@ -103,11 +105,15 @@ class StripeTemplateRender
      * Render stripe scripts.
      *
      * @param Twig_Environment $environment Environment
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function renderStripeScripts(Twig_Environment $environment)
     {
         $environment->display($this->scriptsTemplate, [
-            'public_key' => $this->publicKey,
+            'public_key' => $this->settingsProvider->getPublicKey(),
             'currency' => $this->paymentBridgeInterface->getCurrency(),
         ]);
     }

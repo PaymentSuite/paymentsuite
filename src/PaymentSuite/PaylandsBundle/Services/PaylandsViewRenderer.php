@@ -83,9 +83,12 @@ class PaylandsViewRenderer
 
     /**
      * @param \Twig_Environment $environment
-     * @param array             $options
+     * @param array $options
      *
      * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function renderView(\Twig_Environment $environment, array $options = array())
     {
@@ -96,11 +99,9 @@ class PaylandsViewRenderer
 
         $response = $this->apiClient->createCustomer($options['customer_ext_id']);
 
-        $form = $this->paymentFormFactory->create([
-            'customerExternalId' => $options['customer_ext_id'],
-            'customerToken' => $response['Customer']['token'],
-            'onlyTokenizeCard' => (int) $options['only_tokenize_card'],
-        ]);
+        $form = $this
+            ->paymentFormFactory
+            ->createForTransaction($options['customer_ext_id'], $response['Customer']['token'], (bool) $options['only_tokenize_card']);
 
         $renderedView = $environment->render($options['template'] ?: $this->viewTemplate, [
             'paylands_form' => $form->createView(),

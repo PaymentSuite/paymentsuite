@@ -24,13 +24,18 @@ use ArrayAccess;
 final class StripeMethod implements PaymentMethodInterface
 {
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
      * Get Stripe method name.
      *
      * @return string Payment name
      */
     public function getPaymentName()
     {
-        return 'Stripe';
+        return $this->paymentName;
     }
 
     /**
@@ -99,14 +104,16 @@ final class StripeMethod implements PaymentMethodInterface
     /**
      * Construct method.
      *
-     * @param string $apiToken                  Api token
-     * @param string $creditCardNumber          Credit card number
-     * @param string $creditCardOwner           Credit card owner
-     * @param string $creditCardExpirationYear  Credit card expiration year
+     * @param string $paymentName
+     * @param string $apiToken Api token
+     * @param string $creditCardNumber Credit card number
+     * @param string $creditCardOwner Credit card owner
+     * @param string $creditCardExpirationYear Credit card expiration year
      * @param string $creditCardExpirationMonth Credit card expiration month
-     * @param string $creditCardSecurity        Credit card security
+     * @param string $creditCardSecurity Credit card security
      */
     public function __construct(
+        $paymentName,
         $apiToken,
         $creditCardNumber,
         $creditCardOwner,
@@ -120,6 +127,7 @@ final class StripeMethod implements PaymentMethodInterface
         $this->creditCardExpirationYear = $creditCardExpirationYear;
         $this->creditCardExpirationMonth = $creditCardExpirationMonth;
         $this->creditCardSecurity = $creditCardSecurity;
+        $this->paymentName = $paymentName;
     }
 
     /**

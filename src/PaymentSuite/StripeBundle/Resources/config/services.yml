@@ -14,7 +14,7 @@ services:
     paymentsuite.stripe.transaction_factory:
         class: PaymentSuite\StripeBundle\Services\StripeTransactionFactory
         arguments:
-            - '%paymentsuite.stripe.private_key%'
+            - '@paymentsuite.stripe.settings_provider'
             - '@paymentsuite.stripe.event_dispatcher'
 
     paymentsuite.stripe.manager:
@@ -26,12 +26,20 @@ services:
 
     paymentsuite.stripe.method_factory:
         class: PaymentSuite\StripeBundle\Services\StripeMethodFactory
+        arguments:
+            - '@paymentsuite.stripe.settings_provider'
 
     paymentsuite.stripe.template_render:
         class: PaymentSuite\StripeBundle\Services\StripeTemplateRender
         arguments:
             - '@paymentsuite.bridge'
             - '@form.factory'
-            - '%paymentsuite.stripe.public_key%'
+            - '@paymentsuite.stripe.settings_provider'
             - '%paymentsuite.stripe.view_template%'
             - '%paymentsuite.stripe.scripts_template%'
+
+    paymentsuite.stripe.settings_provider_default:
+        class: PaymentSuite\StripeBundle\Services\StripeSettingsProviderDefault
+        arguments:
+            - '%paymentsuite.stripe.private_key%'
+            - '%paymentsuite.stripe.public_key%'

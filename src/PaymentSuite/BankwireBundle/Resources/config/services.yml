@@ -5,10 +5,15 @@ services:
     #
     paymentsuite.bankwire.method_factory:
         class: PaymentSuite\BankwireBundle\Services\BankwireMethodFactory
+        arguments:
+            - '@paymentsuite.bankwire.settings_provider'
 
     paymentsuite.bankwire.manager:
         class: PaymentSuite\BankwireBundle\Services\BankwireManager
         arguments:
-            - "@paymentsuite.bankwire.method_factory"
-            - "@paymentsuite.bridge"
-            - "@paymentsuite.event_dispatcher"
+            - '@paymentsuite.bankwire.method_factory'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
+
+    paymentsuite.bankwire.settings_provider_default:
+        class: PaymentSuite\BankwireBundle\Services\BankwireSettingsProviderDefault

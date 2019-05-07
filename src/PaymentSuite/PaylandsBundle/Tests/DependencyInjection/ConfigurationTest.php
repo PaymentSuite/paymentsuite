@@ -70,12 +70,25 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $input2 = array_merge($input1, $i18nTemplates);
         $expectations2 = array_merge($expectations1, $i18nTemplates);
 
+        $settingsProvider = [
+            'settings_provider' => 'test.settings_provider.service_id',
+            'api_key' => null,
+            'signature' => null,
+            'services' => null,
+        ];
+
+        $input3 = array_merge($input1, $settingsProvider);
+        $expectations3 = array_merge($expectations1, $this->getSettingsProviderConfiguration());
+
         return [
             'test default configuration' => [
                 $input1, $expectations1,
             ],
             'test i18n templates configuration' => [
                 $input2, $expectations2,
+            ],
+            'test settings provider configuration' => [
+                $input3, $expectations3,
             ],
         ];
     }
@@ -100,6 +113,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             ],
             'api_client' => Configuration::API_CLIENT_DEFAULT,
             'validation_service' => null,
+            'settings_provider' => 'default',
         ];
     }
 
@@ -125,6 +139,18 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'route' => 'test-route-card-invalid',
                 'order_append' => true,
                 'order_append_field' => 'id',
+            ],
+        ];
+    }
+
+    protected function getSettingsProviderConfiguration()
+    {
+        return [
+            'settings_provider' => 'test.settings_provider.service_id',
+            'api_key' => 'dummy_api_key',
+            'signature' => 'dummy_signature',
+            'services' => [
+                ['currency' => 'EUR', 'service' => 'dummy_service'],
             ],
         ];
     }

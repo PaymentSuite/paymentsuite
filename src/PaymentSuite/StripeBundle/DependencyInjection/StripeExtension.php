@@ -61,5 +61,11 @@ class StripeExtension extends AbstractPaymentSuiteExtension
         $loader->load('controllers.yml');
         $loader->load('services.yml');
         $loader->load('twig.yml');
+
+        $this->addSettingsProvider(
+            $container,
+            'stripe',
+            $config['settings_provider']
+        );
     }
 }

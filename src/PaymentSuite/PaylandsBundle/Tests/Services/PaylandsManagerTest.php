@@ -37,7 +37,7 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function paymentWorksFineAndCreatesAPaymentTransaction()
     {
-        $paymentMethod = new PaylandsMethod();
+        $paymentMethod = new PaylandsMethod('test-name');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -93,7 +93,7 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function paymentWorksFineOnlyCardValidation()
     {
-        $paymentMethod = new PaylandsMethod();
+        $paymentMethod = new PaylandsMethod('test-name');
 
         $paymentMethod->setOnlyTokenizeCard(true);
 
@@ -152,7 +152,7 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function paymentThrowsExceptionIfCardNotValid()
     {
-        $paymentMethod = new PaylandsMethod();
+        $paymentMethod = new PaylandsMethod('test-name');
 
         $paymentMethod->setOnlyTokenizeCard(true);
 
@@ -211,7 +211,7 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function paymentThrowsExceptionIfCardValidEventThrowsException()
     {
-        $paymentMethod = new PaylandsMethod();
+        $paymentMethod = new PaylandsMethod('test-name');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -268,7 +268,7 @@ class PaylandsManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function paymentThrowsExceptionIfTransactionFails()
     {
-        $paymentMethod = new PaylandsMethod();
+        $paymentMethod = new PaylandsMethod('test-name');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge

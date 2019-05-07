@@ -43,6 +43,7 @@ class RedsysExtension extends AbstractPaymentSuiteExtension
                 'merchant_code' => $config['merchant_code'],
                 'secret_key' => $config['secret_key'],
                 'url' => $config['url'],
+                'terminal' => $config['terminal']
             ]
         );
 

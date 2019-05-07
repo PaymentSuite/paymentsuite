@@ -8,7 +8,7 @@ services:
         public: false
         arguments:
             - '@paymentsuite.paylands.api.discovery_proxy'
-            - '%paymentsuite.paylands.signature%'
+            - "@=service('paymentsuite.paylands.settings_provider').getApiSignature()"
 
     paymentsuite.paylands.api.client_factory:
         class: WAM\Paylands\ClientFactory
@@ -16,7 +16,7 @@ services:
         arguments:
             - '@paymentsuite.paylands.api.request_factory'
             - '@paymentsuite.paylands.api.discovery_proxy'
-            - '%paymentsuite.paylands.api_key%'
+            - "@=service('paymentsuite.paylands.settings_provider').getApiKey()"
             - '%paymentsuite.paylands.api_url%'
 
     paymentsuite.paylands.api.client_default:
@@ -25,7 +25,7 @@ services:
         public: false
         calls:
             - [setOperative, ['%paymentsuite.paylands.operative%']]
-            - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', '%paymentsuite.paylands.i18n_template_uuids%']]
+            - [setTemplates, ['%paymentsuite.paylands.fallback_template_uuid%', "@=service('paymentsuite.paylands.settings_provider').getI18nCardTemplates()"]]
 
     paymentsuite.paylands.api.adapter:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsApiAdapter

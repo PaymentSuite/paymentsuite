@@ -17,6 +17,7 @@ namespace PaymentSuite\PaypalWebCheckoutBundle\Services;
 
 use PaymentSuite\PaypalWebCheckoutBundle\PaypalWebCheckoutEmptyMethod;
 use PaymentSuite\PaypalWebCheckoutBundle\PaypalWebCheckoutMethod;
+use PaymentSuite\PaypalWebCheckoutBundle\Services\Interfaces\PaypalWebCheckoutSettingsProviderInterface;
 
 /**
  * Class PaypalWebCheckoutMethodFactory.
@@ -24,13 +25,28 @@ use PaymentSuite\PaypalWebCheckoutBundle\PaypalWebCheckoutMethod;
 class PaypalWebCheckoutMethodFactory
 {
     /**
+     * @var PaypalWebCheckoutSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
+     * PaypalWebCheckoutMethodFactory constructor.
+     *
+     * @param PaypalWebCheckoutSettingsProviderInterface $settingsProvider
+     */
+    public function __construct(PaypalWebCheckoutSettingsProviderInterface $settingsProvider)
+    {
+        $this->settingsProvider = $settingsProvider;
+    }
+
+    /**
      * Create a new empty PaypalWebCheckoutEmptyMethod instance.
      *
      * @return PaypalWebCheckoutEmptyMethod
      */
     public function createEmpty()
     {
-        return new PaypalWebCheckoutEmptyMethod();
+        return new PaypalWebCheckoutEmptyMethod($this->settingsProvider->getPaymentName());
     }
 
     /**
@@ -81,6 +97,7 @@ class PaypalWebCheckoutMethodFactory
         $ipnTrackId = null
     ) {
         return new PaypalWebCheckoutMethod(
+            $this->settingsProvider->getPaymentName(),
             $mcGross,
             $paymentStatus,
             $notifyVersion,

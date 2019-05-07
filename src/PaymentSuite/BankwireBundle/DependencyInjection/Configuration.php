@@ -37,6 +37,8 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->append($this->addRouteConfiguration('payment_success'))
             ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
     }
 }
