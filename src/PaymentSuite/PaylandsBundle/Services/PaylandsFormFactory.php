@@ -15,9 +15,9 @@
 
 namespace PaymentSuite\PaylandsBundle\Services;
 
-use PaymentSuite\PaylandsBundle\Exception\CreateFormException;
 use PaymentSuite\PaylandsBundle\Form\Type\PaylandsType;
 use PaymentSuite\PaylandsBundle\PaylandsMethod;
+use PaymentSuite\PaylandsBundle\Services\Interfaces\PaylandsSettingsProviderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -40,46 +40,70 @@ class PaylandsFormFactory
     private $urlGenerator;
 
     /**
+     * @var PaylandsSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
      * PaylandsFormFactory constructor.
      *
-     * @param FormFactoryInterface  $formFactory
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param FormFactoryInterface              $formFactory
+     * @param UrlGeneratorInterface             $urlGenerator
+     * @param PaylandsSettingsProviderInterface $settingsProvider
      */
-    public function __construct(FormFactoryInterface $formFactory, UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        PaylandsSettingsProviderInterface $settingsProvider
+    ) {
         $this->formFactory = $formFactory;
         $this->urlGenerator = $urlGenerator;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
      * Creates the payment form.
      *
-     * @param mixed $data
-     * @param array $options
+     * @param PaylandsMethod $data
      *
      * @return FormInterface
-     *
-     * @throws CreateFormException
      */
-    public function create($data = null, array $options = [])
+    private function create(PaylandsMethod $data)
     {
-        $options = array_merge($options, [
+        $options = [
             'action' => $this->urlGenerator->generate('paymentsuite_paylands_execute'),
             'method' => 'POST',
-        ]);
+        ];
 
-        if (is_array($data)) {
-            $data = $this
-                ->formFactory
-                ->create(PaylandsType::class)
-                ->submit($data, true)
-                ->getData();
-        }
+        return $this->formFactory->create(PaylandsType::class, $data, $options);
+    }
 
-        if (is_null($data) || $data instanceof PaylandsMethod) {
-            return $this->formFactory->create(PaylandsType::class, $data, $options);
-        }
+    /**
+     * @return FormInterface
+     */
+    public function createEmpty()
+    {
+        $paymentMethod = new PaylandsMethod($this->settingsProvider->getPaymentName());
 
-        throw new CreateFormException();
+        return $this->create($paymentMethod);
+    }
+
+    /**
+     * @param string $customerExternalId
+     * @param string $customerToken
+     * @param bool   $onlyTokenizeCard
+     *
+     * @return FormInterface
+     */
+    public function createForTransaction(string $customerExternalId, string $customerToken, bool $onlyTokenizeCard)
+    {
+        $paymentMethod = new PaylandsMethod($this->settingsProvider->getPaymentName());
+
+        $paymentMethod
+            ->setCustomerExternalId($customerExternalId)
+            ->setCustomerToken($customerToken)
+            ->setOnlyTokenizeCard($onlyTokenizeCard);
+
+        return $this->create($paymentMethod);
     }
 }

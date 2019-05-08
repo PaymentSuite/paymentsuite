@@ -23,290 +23,145 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 final class RedsysMethod implements PaymentMethodInterface
 {
     /**
-     * @var string
+     * @var array
      *
-     * Transaction response
+     * Decoded dsMerchantParameters array
      */
-    private $dsResponse;
+    private $dsMerchantParametersDecoded;
 
     /**
      * @var string
      *
-     * Transaction date
+     * Base64 encoded json string representation of payment parameters
      */
-    private $dsDate;
+    private $dsMerchantParameters;
 
     /**
      * @var string
      *
-     * Transaction hour
+     * Transmission version type
      */
-    private $dsHour;
+    private $dsSignatureVersion;
 
     /**
-     *  @var string
+     * @var string
      *
-     * Transaction secure payment
+     * Encrypted payment signature
      */
-    private $dsSecurePayment;
+    private $dsSignature;
 
     /**
-     *  @var string
-     *
-     * Transaction card country
+     * @var string
      */
-    private $dsCardCountry;
+    private $paymentName;
 
     /**
-     *  @var string
+     * RedsysMethod constructor.
      *
-     * Transaction authorisation code
+     * @param string $paymentName
      */
-    private $dsAuthorisationCode;
+    private function __construct(string $paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
 
     /**
-     *  @var string
+     * @param string $paymentName
      *
-     * Transaction consumer language
+     * @return RedsysMethod
      */
-    private $dsConsumerLanguage;
+    public static function createEmpty(string $paymentName): self
+    {
+        return new self($paymentName);
+    }
 
     /**
-     *  @var string
+     * @param string $paymentName
+     * @param array  $dsMerchantParametersDecoded
+     * @param string $dsMerchantParameters
+     * @param string $dsSignatureVersion
+     * @param string $dsSignature
      *
-     * Transaction card type
+     * @return RedsysMethod
      */
-    private $dsCardType;
+    public static function create(
+        string $paymentName,
+        array $dsMerchantParametersDecoded,
+        string $dsMerchantParameters,
+        string $dsSignatureVersion,
+        string $dsSignature
+    ): self {
+        $instance = new self($paymentName);
+
+        $instance->dsMerchantParametersDecoded = $dsMerchantParametersDecoded;
+        $instance->dsMerchantParameters = $dsMerchantParameters;
+        $instance->dsSignatureVersion = $dsSignatureVersion;
+        $instance->dsSignature = $dsSignature;
+
+        return $instance;
+    }
 
     /**
-     *  @var string
-     *
-     * Transaction order
+     * @return array|null
      */
-    private $dsOrder;
+    public function getDsMerchantParametersDecoded(): ?array
+    {
+        return $this->dsMerchantParametersDecoded;
+    }
 
     /**
-     * Get Redsys method name.
+     * @return string|null
+     */
+    public function getDsMerchantParameters(): ?string
+    {
+        return $this->dsMerchantParameters;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDsSignatureVersion(): ?string
+    {
+        return $this->dsSignatureVersion;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDsSignature(): ?string
+    {
+        return $this->dsSignature;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTransactionSuccessful()
+    {
+        if (is_null($this->dsMerchantParametersDecoded)) {
+            return false;
+        }
+
+        $dsResponse = intval($this->dsMerchantParametersDecoded['Ds_Response']);
+
+        return $dsResponse >= 0 && $dsResponse <= 99;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDsOrder(): ?string
+    {
+        return $this->dsMerchantParametersDecoded['Ds_Order'];
+    }
+
+    /**
+     * Returns the method's type name.
      *
-     * @return string Payment name
+     * @return string
      */
     public function getPaymentName()
     {
-        return 'Redsys';
-    }
-
-    /**
-     * set Response code.
-     *
-     * @param string $dsResponse Response code
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsResponse($dsResponse)
-    {
-        $this->dsResponse = $dsResponse;
-
-        return $this;
-    }
-
-    /**
-     * Get Response code.
-     *
-     * @return string Response code
-     */
-    public function getDsResponse()
-    {
-        return $this->dsResponse;
-    }
-    /**
-     * set Authorisation code.
-     *
-     * @param string $dsAuthorisationCode
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsAuthorisationCode($dsAuthorisationCode)
-    {
-        $this->dsAuthorisationCode = $dsAuthorisationCode;
-
-        return $this;
-    }
-
-    /**
-     * Get Authorisation code.
-     *
-     * @return string
-     */
-    public function getDsAuthorisationCode()
-    {
-        return $this->dsAuthorisationCode;
-    }
-
-    /**
-     *  Set Card country.
-     *
-     * @param string $dsCardCountry
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsCardCountry($dsCardCountry)
-    {
-        $this->dsCardCountry = $dsCardCountry;
-
-        return $this;
-    }
-
-    /**
-     * Get Card country.
-     *
-     * @return string
-     */
-    public function getDsCardCountry()
-    {
-        return $this->dsCardCountry;
-    }
-
-    /**
-     * Set Card type.
-     *
-     * @param string $dsCardType
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsCardType($dsCardType)
-    {
-        $this->dsCardType = $dsCardType;
-
-        return $this;
-    }
-
-    /**
-     * Get Card type.
-     *
-     * @return string
-     */
-    public function getDsCardType()
-    {
-        return $this->dsCardType;
-    }
-
-    /**
-     * Set consumer language.
-     *
-     * @param string $dsConsumerLanguage
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsConsumerLanguage($dsConsumerLanguage)
-    {
-        $this->dsConsumerLanguage = $dsConsumerLanguage;
-
-        return $this;
-    }
-
-    /**
-     * Get Consumer language.
-     *
-     * @return string
-     */
-    public function getDsConsumerLanguage()
-    {
-        return $this->dsConsumerLanguage;
-    }
-
-    /**
-     * Set date.
-     *
-     * @param string $dsDate
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsDate($dsDate)
-    {
-        $this->dsDate = $dsDate;
-
-        return $this;
-    }
-
-    /**
-     * Get date.
-     *
-     * @return string
-     */
-    public function getDsDate()
-    {
-        return $this->dsDate;
-    }
-
-    /**
-     * Set hour.
-     *
-     * @param string $dsHour
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsHour($dsHour)
-    {
-        $this->dsHour = $dsHour;
-
-        return $this;
-    }
-
-    /**
-     * Get Hour.
-     *
-     * @return string
-     */
-    public function getDsHour()
-    {
-        return $this->dsHour;
-    }
-
-    /**
-     * Set Secure payment.
-     *
-     * @param string $dsSecurePayment
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsSecurePayment($dsSecurePayment)
-    {
-        $this->dsSecurePayment = $dsSecurePayment;
-
-        return $this;
-    }
-
-    /**
-     * Get Secure payment.
-     *
-     * @return string
-     */
-    public function getDsSecurePayment()
-    {
-        return $this->dsSecurePayment;
-    }
-
-    /**
-     * Set Order payment.
-     *
-     * @param string $dsOrder
-     *
-     * @return RedsysMethod self Object
-     */
-    public function setDsOrder($dsOrder)
-    {
-        $this->dsOrder = $dsOrder;
-
-        return $this;
-    }
-
-    /**
-     * Get Order payment.
-     *
-     * @return string
-     */
-    public function getDsOrder()
-    {
-        return $this->dsOrder;
+        return $this->paymentName;
     }
 }

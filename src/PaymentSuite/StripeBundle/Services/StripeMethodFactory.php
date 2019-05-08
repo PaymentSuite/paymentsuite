@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\StripeBundle\Services;
 
+use PaymentSuite\StripeBundle\Services\Interfaces\StripeSettingsProviderInterface;
 use PaymentSuite\StripeBundle\StripeMethod;
 
 /**
@@ -22,6 +23,21 @@ use PaymentSuite\StripeBundle\StripeMethod;
  */
 class StripeMethodFactory
 {
+    /**
+     * @var StripeSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
+     * StripeMethodFactory constructor.
+     *
+     * @param StripeSettingsProviderInterface $settingsProvider
+     */
+    public function __construct(StripeSettingsProviderInterface $settingsProvider)
+    {
+        $this->settingsProvider = $settingsProvider;
+    }
+
     /**
      * Given some data, creates a StripeMethod object.
      *
@@ -43,6 +59,7 @@ class StripeMethodFactory
         $creditCardSecurity
     ) {
         return new StripeMethod(
+            $this->settingsProvider->getPaymentName(),
             $apiToken,
             $creditCardNumber,
             $creditCardOwner,

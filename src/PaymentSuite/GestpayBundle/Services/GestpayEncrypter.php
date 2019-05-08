@@ -21,6 +21,7 @@ use EndelWar\GestPayWS\Parameter\EncryptParameter;
 use EndelWar\GestPayWS\WSCryptDecrypt;
 use EndelWar\GestPayWS\Response\DecryptResponse;
 use EndelWar\GestPayWS\Response\EncryptResponse;
+use PaymentSuite\GestpayBundle\Services\Interfaces\GestpaySettingsProviderInterface;
 use PaymentSuite\GestpayBundle\Services\Interfaces\PaymentBridgeGestpayInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\GestpayBundle\Exception\CurrencyNotSupportedException;
@@ -54,43 +55,36 @@ class GestpayEncrypter
     /**
      * @var string
      */
-    private $shopLogin;
-    /**
-     * @var null|string
-     */
-    private $apiKey;
-    /**
-     * @var string
-     */
     private $sandbox;
+    /**
+     * @var GestpaySettingsProviderInterface
+     */
+    private $settingsProvider;
 
     /**
      * GestpayEncrypter constructor.
      *
-     * @param WSCryptDecrypt                $encryptClient
-     * @param PaymentBridgeGestpayInterface $paymentBridge
-     * @param GestpayCurrencyResolver       $currencyResolver
-     * @param GestpayTransactionIdAssembler $transactionIdAssembler
-     * @param string                        $sandbox
-     * @param string                        $shopLogin
-     * @param null|string                   $apiKey
+     * @param WSCryptDecrypt                   $encryptClient
+     * @param PaymentBridgeGestpayInterface    $paymentBridge
+     * @param GestpayCurrencyResolver          $currencyResolver
+     * @param GestpayTransactionIdAssembler    $transactionIdAssembler
+     * @param GestpaySettingsProviderInterface $settingsProvider
+     * @param string                           $sandbox
      */
     public function __construct(
         WSCryptDecrypt $encryptClient,
         PaymentBridgeGestpayInterface $paymentBridge,
         GestpayCurrencyResolver $currencyResolver,
         GestpayTransactionIdAssembler $transactionIdAssembler,
-        string $sandbox,
-        string $shopLogin,
-        ?string $apiKey
+        GestpaySettingsProviderInterface $settingsProvider,
+        string $sandbox
     ) {
         $this->encryptClient = $encryptClient;
         $this->paymentBridge = $paymentBridge;
         $this->currencyResolver = $currencyResolver;
         $this->transactionIdAssembler = $transactionIdAssembler;
-        $this->shopLogin = $shopLogin;
-        $this->apiKey = $apiKey;
         $this->sandbox = $sandbox;
+        $this->settingsProvider = $settingsProvider;
     }
 
     /**
@@ -101,8 +95,8 @@ class GestpayEncrypter
     public function encrypt()
     {
         $encryptParameter = new EncryptParameter([
-            'shopLogin' => $this->shopLogin,
-            'amount' => number_format(round($this->paymentBridge->getAmount() / 100, 2), 2, ".", ""),
+            'shopLogin' => $this->settingsProvider->getShopLogin(),
+            'amount' => number_format(round($this->paymentBridge->getAmount() / 100, 2), 2, '.', ''),
             'shopTransactionId' => $this->transactionIdAssembler->assemble(),
             'uicCode' => $this->currencyResolver->getCurrencyCode(),
             'languageId' => Language::ENGLISH,
@@ -110,8 +104,8 @@ class GestpayEncrypter
 
         $encryptParameter->setCustomInfo($this->paymentBridge->getCustomInfo());
 
-        if ($this->apiKey) {
-            $encryptParameter->apikey = $this->apiKey;
+        if ($this->settingsProvider->getApiKey()) {
+            $encryptParameter->apikey = $this->settingsProvider->getApiKey();
         }
 
         return $this->encryptClient->encrypt($encryptParameter);
@@ -127,12 +121,12 @@ class GestpayEncrypter
     public function decrypt(string $encrypted)
     {
         $decryptParam = new DecryptParameter([
-            'shopLogin' => $this->shopLogin,
+            'shopLogin' => $this->settingsProvider->getShopLogin(),
             'CryptedString' => $encrypted,
         ]);
 
-        if ($this->apiKey) {
-            $decryptParam->apikey = $this->apiKey;
+        if ($this->settingsProvider->getApiKey()) {
+            $decryptParam->apikey = $this->settingsProvider->getApiKey();
         }
 
         return $this->encryptClient->decrypt($decryptParam);
@@ -147,6 +141,6 @@ class GestpayEncrypter
     {
         $encryptResult = $this->encrypt();
 
-        return $encryptResult->getPaymentPageUrl($this->shopLogin, $this->sandbox ? self::ENV_TEST : self::ENV_PROD);
+        return $encryptResult->getPaymentPageUrl($this->settingsProvider->getShopLogin(), $this->sandbox ? self::ENV_TEST : self::ENV_PROD);
     }
 }

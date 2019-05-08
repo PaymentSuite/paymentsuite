@@ -18,7 +18,6 @@ namespace PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteExtension;
 
 /**
@@ -57,8 +56,14 @@ class PaypalWebCheckoutExtension extends AbstractPaymentSuiteExtension
             ]
         );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controllers.yml');
         $loader->load('services.yml');
+
+        $this->addSettingsProvider(
+            $container,
+            'paypal_web_checkout',
+            $config['settings_provider']
+        );
     }
 }

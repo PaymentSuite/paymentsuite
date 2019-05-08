@@ -19,6 +19,7 @@ use PaymentSuite\GestpayBundle\GestpayMethod;
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
 use PaymentSuite\GestpayBundle\Services\GestpayManager;
 use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
+use PaymentSuite\GestpayBundle\Services\Interfaces\GestpaySettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
@@ -32,9 +33,9 @@ use PHPUnit\Framework\TestCase;
  */
 class GestpayManagerTest extends TestCase
 {
-    public function testProcessPaymentResturnRedirUrl()
+    public function testProcessPaymentReturnRedirUrl()
     {
-        $paymentMethod = new GestpayMethod();
+        $paymentMethod = new GestpayMethod('test-name');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -55,11 +56,18 @@ class GestpayManagerTest extends TestCase
             ->encryptedUrl()
             ->shouldBeCalled();
 
+        $settingsProvider = $this->prophesize(GestpaySettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn('test-name');
+
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
             $gestpayEncrypter->reveal(),
-            new GestpayTransactionIdAssembler($paymentBridge->reveal())
+            new GestpayTransactionIdAssembler($paymentBridge->reveal()),
+            $settingsProvider->reveal()
         );
 
         $gestpayManager->processPayment($paymentMethod);
@@ -67,7 +75,7 @@ class GestpayManagerTest extends TestCase
 
     public function testProcessPaymentThrowsExceptionIfNoOrderPresent()
     {
-        $paymentMethod = new GestpayMethod();
+        $paymentMethod = new GestpayMethod('test-name');
 
         $paymentBridge = $this->prophesize(PaymentBridgeInterface::class);
         $paymentBridge
@@ -88,11 +96,18 @@ class GestpayManagerTest extends TestCase
             ->encryptedUrl()
             ->shouldNotBeCalled();
 
+        $settingsProvider = $this->prophesize(GestpaySettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn('test-name');
+
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
             $gestpayEncrypter->reveal(),
-            new GestpayTransactionIdAssembler($paymentBridge->reveal())
+            new GestpayTransactionIdAssembler($paymentBridge->reveal()),
+            $settingsProvider->reveal()
         );
 
         $this->expectException(PaymentOrderNotFoundException::class);
@@ -115,7 +130,7 @@ class GestpayManagerTest extends TestCase
             'ErrorDescription' => '',
         ];
 
-        $paymentMethod = new GestpayMethod();
+        $paymentMethod = new GestpayMethod('test-name');
         $paymentMethod->setAmount(112.12);
         $paymentMethod->setShopTransactionId('123TXXXXXXX');
         $paymentMethod->setAuthorizationCode('33');
@@ -150,11 +165,18 @@ class GestpayManagerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($decryptResponse);
 
+        $settingsProvider = $this->prophesize(GestpaySettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn('test-name');
+
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
             $gestpayEncrypter->reveal(),
-            new GestpayTransactionIdAssembler($paymentBridge->reveal())
+            new GestpayTransactionIdAssembler($paymentBridge->reveal()),
+            $settingsProvider->reveal()
         );
 
         $gestpayManager->processResult($parameters);
@@ -175,7 +197,7 @@ class GestpayManagerTest extends TestCase
             'ErrorDescription' => '',
         ];
 
-        $paymentMethod = new GestpayMethod();
+        $paymentMethod = new GestpayMethod('test-name');
         $paymentMethod->setAmount(112.12);
         $paymentMethod->setShopTransactionId('123TXXXXXXX');
         $paymentMethod->setAuthorizationCode('33');
@@ -212,11 +234,18 @@ class GestpayManagerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($decryptResponse);
 
+        $settingsProvider = $this->prophesize(GestpaySettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn('test-name');
+
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
             $gestpayEncrypter->reveal(),
-            new GestpayTransactionIdAssembler($paymentBridge->reveal())
+            new GestpayTransactionIdAssembler($paymentBridge->reveal()),
+            $settingsProvider->reveal()
         );
 
         $this->expectException(PaymentException::class);
@@ -238,7 +267,7 @@ class GestpayManagerTest extends TestCase
             'ErrorDescription' => '',
         ];
 
-        $paymentMethod = new GestpayMethod();
+        $paymentMethod = new GestpayMethod('test-name');
         $paymentMethod->setAmount(112.12);
         $paymentMethod->setShopTransactionId('123TXXXXXXX');
         $paymentMethod->setAuthorizationCode('33');
@@ -277,11 +306,18 @@ class GestpayManagerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($decryptResponse);
 
+        $settingsProvider = $this->prophesize(GestpaySettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentName()
+            ->shouldBeCalled()
+            ->willReturn('test-name');
+
         $gestpayManager = new GestpayManager(
             $paymentBridge->reveal(),
             $paymentEventDispatcher->reveal(),
             $gestpayEncrypter->reveal(),
-            new GestpayTransactionIdAssembler($paymentBridge->reveal())
+            new GestpayTransactionIdAssembler($paymentBridge->reveal()),
+            $settingsProvider->reveal()
         );
 
         $this->expectException(PaymentException::class);

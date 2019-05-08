@@ -45,6 +45,7 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
                 'view_template' => $config['templates']['view'],
                 'scripts_template' => $config['templates']['scripts'],
                 'validation_service' => $config['validation_service'],
+                'payment_services' => $this->marshalPaymentServices($config['services']),
             ]
         );
 
@@ -59,24 +60,23 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
         $loader->load('services.yml');
 
         $this->registerApiClient($container, $config);
+
+        $this->addSettingsProvider($container, 'paylands', $config['settings_provider']);
     }
 
     /**
-     * Registers the list of available currency dependant Paylands' services to use.
+     * @param array $services
      *
-     * @param ContainerBuilder $containerBuilder
-     * @param array            $config
+     * @return array
      */
-    protected function registerEndpointServices(ContainerBuilder $containerBuilder, array $config)
+    protected function marshalPaymentServices(array $services): array
     {
-        $resolverDefinition = $containerBuilder->getDefinition('paymentsuite.paylands.currency_service_resolver');
-
-        foreach ($config as $option) {
-            $resolverDefinition->addMethodCall('addService', [
-                $option['currency'],
-                $option['service'],
-            ]);
+        $result = [];
+        foreach ($services as $option) {
+            $result[$option['currency']] = $option['service'];
         }
+
+        return $result;
     }
 
     /**
@@ -117,8 +117,6 @@ class PaylandsExtension extends AbstractPaymentSuiteExtension
 
         if (Configuration::API_CLIENT_DEFAULT == $config['api_client']) {
             $this->resolveApiClientInterfaces($containerBuilder, $config['interfaces']);
-
-            $this->registerEndpointServices($containerBuilder, $config['services']);
         }
     }
 }

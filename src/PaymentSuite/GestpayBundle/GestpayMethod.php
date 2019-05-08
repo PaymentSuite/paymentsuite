@@ -25,11 +25,9 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 final class GestpayMethod implements PaymentMethodInterface
 {
     /**
-     * Get Free payment method name.
-     *
-     * @return string Payment name
+     * @var string
      */
-    const METHOD_NAME = 'gestpay';
+    private $paymentName;
 
     private $transactionResult;
     private $shopTransactionId;
@@ -41,9 +39,19 @@ final class GestpayMethod implements PaymentMethodInterface
     private $errorCode;
     private $errorDescription;
 
+    /**
+     * GestpayMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    public function __construct(string $paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
     public function getPaymentName()
     {
-        return self::METHOD_NAME;
+        return $this->paymentName;
     }
 
     /**

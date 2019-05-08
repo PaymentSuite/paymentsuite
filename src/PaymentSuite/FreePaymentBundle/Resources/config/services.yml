@@ -5,6 +5,8 @@ services:
     #
     paymentsuite.freepayment.method_factory:
         class: PaymentSuite\FreePaymentBundle\Services\FreePaymentMethodFactory
+        arguments:
+            - 'paymentsuite.freepayment.settings_provider'
 
     paymentsuite.freepayment.manager:
         class: PaymentSuite\FreePaymentBundle\Services\FreePaymentManager
@@ -12,3 +14,6 @@ services:
             - '@paymentsuite.freepayment.method_factory'
             - '@paymentsuite.bridge'
             - '@paymentsuite.event_dispatcher'
+
+    paymentsuite.freepayment.settings_provider_default:
+        class: PaymentSuite\FreePaymentBundle\Services\FreePaymentSettingsProviderDefault

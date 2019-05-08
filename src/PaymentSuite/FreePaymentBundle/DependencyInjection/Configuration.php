@@ -16,7 +16,6 @@
 namespace PaymentSuite\FreePaymentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
@@ -36,6 +35,8 @@ class Configuration extends AbstractPaymentSuiteConfiguration
             ->children()
                 ->append($this->addRouteConfiguration('payment_success'))
             ->end();
+
+        $this->addSettingsProviderConfiguration($rootNode);
 
         return $treeBuilder;
     }

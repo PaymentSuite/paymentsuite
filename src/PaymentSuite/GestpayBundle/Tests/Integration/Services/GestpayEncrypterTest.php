@@ -22,6 +22,7 @@ use PaymentSuite\GestpayBundle\Services\GestpayEncryptClientFactory;
 use PaymentSuite\GestpayBundle\Services\GestpayEncrypter;
 use PaymentSuite\GestpayBundle\Services\GestpayTransactionIdAssembler;
 use PaymentSuite\GestpayBundle\Tests\Fixtures\DummyPaymentBridge;
+use PaymentSuite\GestpayBundle\Services\GestpaySettingsProviderDefault;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,14 +48,15 @@ class GestpayEncrypterTest extends TestCase
         $shopLogin = getenv('GESTPAY_SHOP_LOGIN');
         $apiKey = getenv('GESTPAY_API_KEY') ?: null;
 
+        $settingsProvider = new GestpaySettingsProviderDefault($shopLogin, $apiKey);
+
         $this->encrypter = new GestpayEncrypter(
             $encryptClient,
             $paymentBridge,
             $currencyResolver,
             $transactionIdAssembler,
-            $sandbox,
-            $shopLogin,
-            $apiKey
+            $settingsProvider,
+            $sandbox
         );
     }
 

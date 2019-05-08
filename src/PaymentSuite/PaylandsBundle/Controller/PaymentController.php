@@ -16,6 +16,7 @@
 namespace PaymentSuite\PaylandsBundle\Controller;
 
 use PaymentSuite\PaylandsBundle\Exception\CardInvalidException;
+use PaymentSuite\PaylandsBundle\Services\Interfaces\PaylandsSettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaylandsBundle\Services\PaylandsManager;
@@ -69,14 +70,15 @@ class PaymentController extends Controller
      */
     private $urlGenerator;
 
+
     /**
      * PaymentController constructor.
      *
-     * @param PaylandsManager                     $paymentManager
-     * @param PaylandsFormFactory                 $paymentFormFactory
+     * @param PaylandsManager $paymentManager
+     * @param PaylandsFormFactory $paymentFormFactory
      * @param RedirectionRouteCollection $redirectionRoutes
-     * @param PaymentBridgeInterface              $paymentBridge
-     * @param UrlGeneratorInterface               $urlGenerator
+     * @param PaymentBridgeInterface $paymentBridge
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         PaylandsManager $paymentManager,
@@ -99,7 +101,7 @@ class PaymentController extends Controller
          */
         $form = $this
             ->paymentFormFactory
-            ->create();
+            ->createEmpty();
 
         $form->handleRequest($request);
 

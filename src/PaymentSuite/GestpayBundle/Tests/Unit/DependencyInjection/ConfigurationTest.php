@@ -67,6 +67,8 @@ class ConfigurationTest extends TestCase
         $expectedConfig = $inputConfig;
         $expectedConfig['api_key'] = null;
         $expectedConfig['sandbox'] = false;
+        $expectedConfig['settings_provider'] = 'default';
+
 
         $this->assertSame($expectedConfig, $finalizedConfig);
     }
@@ -87,6 +89,7 @@ class ConfigurationTest extends TestCase
 
         $expectedConfig = $inputConfig;
         $expectedConfig['api_key'] = null;
+        $expectedConfig['settings_provider'] = 'default';
 
         $this->assertSame($expectedConfig, $finalizedConfig);
     }
@@ -107,6 +110,7 @@ class ConfigurationTest extends TestCase
         $finalizedConfig = $configTree->finalize($normalizedConfig);
 
         $expectedConfig = $inputConfig;
+        $expectedConfig['settings_provider'] = 'default';
 
         $this->assertSame($expectedConfig, $finalizedConfig);
     }

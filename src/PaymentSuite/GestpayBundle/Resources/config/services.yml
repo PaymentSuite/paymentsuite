@@ -23,10 +23,8 @@ services:
             - '@paymentsuite.bridge'
             - '@paymentsuite.gestpay.currency_resolver'
             - '@paymentsuite.gestpay.transaction_id_assembler'
+            - '@paymentsuite.gestpay.settings_provider'
             - '%paymentsuite.gestpay.sandbox%'
-            - '%paymentsuite.gestpay.shop_login%'
-            - '%paymentsuite.gestpay.api_key%'
-            - '@?'
 
     paymentsuite.gestpay.manager:
         class: PaymentSuite\GestpayBundle\Services\GestpayManager
@@ -35,3 +33,10 @@ services:
             - '@paymentsuite.event_dispatcher'
             - '@paymentsuite.gestpay.encrypter'
             - '@paymentsuite.gestpay.transaction_id_assembler'
+            - '@paymentsuite.gestpay.settings_provider'
+
+    paymentsuite.gestpay.settings_provider_default:
+        class: PaymentSuite\PaypalWebCheckoutBundle\Services\GestpaySettingsProviderDefault
+        arguments:
+            - '%paymentsuite.gestpay.shop_login%'
+            - '%paymentsuite.gestpay.api_key%'

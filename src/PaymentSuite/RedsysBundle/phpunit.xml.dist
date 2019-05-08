@@ -8,9 +8,12 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
          bootstrap="vendor/autoload.php"
         >
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+    </php>
+
     <testsuites>
         <testsuite name="RedsysBundle Test Suite">
             <directory>./Tests</directory>

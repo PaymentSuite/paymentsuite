@@ -43,6 +43,7 @@ class RedsysExtension extends AbstractPaymentSuiteExtension
                 'merchant_code' => $config['merchant_code'],
                 'secret_key' => $config['secret_key'],
                 'url' => $config['url'],
+                'terminal' => $config['terminal']
             ]
         );
 
@@ -58,5 +59,11 @@ class RedsysExtension extends AbstractPaymentSuiteExtension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('controllers.yml');
         $loader->load('services.yml');
+
+        $this->addSettingsProvider(
+            $container,
+            'redsys',
+            $config['settings_provider']
+        );
     }
 }

@@ -16,7 +16,6 @@
 namespace PaymentSuite\StripeBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
@@ -61,6 +60,16 @@ class Configuration extends AbstractPaymentSuiteConfiguration
             ->append($this->addRouteConfiguration('payment_failure'))
         ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    protected function setDefaultSettings(array $config): array
+    {
+        $config['public_key'] = 'public_dummy';
+        $config['private_key'] = 'private_dummy';
+
+        return $config;
     }
 }

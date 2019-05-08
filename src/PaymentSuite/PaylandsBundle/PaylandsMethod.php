@@ -99,6 +99,21 @@ final class PaylandsMethod implements PaymentMethodInterface
     private $paymentStatus;
 
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
+     * PaylandsMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    public function __construct(string $paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
      * @return string
      */
     public function getCustomerExternalId()
@@ -323,7 +338,7 @@ final class PaylandsMethod implements PaymentMethodInterface
      */
     public function isOnlyTokenizeCard()
     {
-        return $this->onlyTokenizeCard;
+        return (bool) $this->onlyTokenizeCard;
     }
 
     /**
@@ -385,6 +400,6 @@ final class PaylandsMethod implements PaymentMethodInterface
      */
     public function getPaymentName()
     {
-        return 'Paylands';
+        return $this->paymentName;
     }
 }
