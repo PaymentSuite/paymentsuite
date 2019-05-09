@@ -6,7 +6,7 @@ services:
     paymentsuite.freepayment.method_factory:
         class: PaymentSuite\FreePaymentBundle\Services\FreePaymentMethodFactory
         arguments:
-            - 'paymentsuite.freepayment.settings_provider'
+            - '@paymentsuite.freepayment.settings_provider'
 
     paymentsuite.freepayment.manager:
         class: PaymentSuite\FreePaymentBundle\Services\FreePaymentManager
