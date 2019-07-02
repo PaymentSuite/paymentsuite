@@ -16,6 +16,8 @@
 namespace PaymentSuite\PaylandsBundle\Controller;
 
 use PaymentSuite\PaylandsBundle\Exception\CardInvalidException;
+use PaymentSuite\PaylandsBundle\PaylandsMethod;
+use PaymentSuite\PaylandsBundle\Services\Interfaces\PaylandsSettingsProviderInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaylandsBundle\Services\PaylandsManager;
@@ -70,26 +72,34 @@ class PaymentController extends Controller
     private $urlGenerator;
 
     /**
+     * @var PaylandsSettingsProviderInterface
+     */
+    private $settingsProvider;
+
+    /**
      * PaymentController constructor.
      *
-     * @param PaylandsManager                     $paymentManager
-     * @param PaylandsFormFactory                 $paymentFormFactory
+     * @param PaylandsManager $paymentManager
+     * @param PaylandsFormFactory $paymentFormFactory
      * @param RedirectionRouteCollection $redirectionRoutes
-     * @param PaymentBridgeInterface              $paymentBridge
-     * @param UrlGeneratorInterface               $urlGenerator
+     * @param PaymentBridgeInterface $paymentBridge
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param PaylandsSettingsProviderInterface $settingsProvider
      */
     public function __construct(
         PaylandsManager $paymentManager,
         PaylandsFormFactory $paymentFormFactory,
         RedirectionRouteCollection $redirectionRoutes,
         PaymentBridgeInterface $paymentBridge,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        PaylandsSettingsProviderInterface $settingsProvider
     ) {
         $this->paymentManager = $paymentManager;
         $this->paymentFormFactory = $paymentFormFactory;
         $this->redirectionRoutes = $redirectionRoutes;
         $this->paymentBridge = $paymentBridge;
         $this->urlGenerator = $urlGenerator;
+        $this->settingsProvider = $settingsProvider;
     }
 
     public function executeAction(Request $request)
@@ -99,7 +109,7 @@ class PaymentController extends Controller
          */
         $form = $this
             ->paymentFormFactory
-            ->create();
+            ->createEmpty();
 
         $form->handleRequest($request);
 
@@ -112,6 +122,7 @@ class PaymentController extends Controller
                 throw new PaymentException();
             }
 
+            /** @var PaylandsMethod $paymentMethod */
             $paymentMethod = $form->getData();
 
             $this

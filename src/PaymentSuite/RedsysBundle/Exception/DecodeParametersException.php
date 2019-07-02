@@ -13,15 +13,13 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace PaymentSuite\PaylandsBundle\Exception;
+namespace PaymentSuite\RedsysBundle\Exception;
 
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 
 /**
- * Class CreateFormException.
- *
- * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
+ * Class DecodeParametersException.
  */
-class CreateFormException extends PaymentException
+class DecodeParametersException extends PaymentException
 {
 }

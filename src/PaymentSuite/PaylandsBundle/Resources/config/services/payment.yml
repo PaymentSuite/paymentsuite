@@ -5,8 +5,7 @@ services:
         arguments:
             - '@form.factory'
             - '@router'
-
-
+            - '@paymentsuite.paylands.settings_provider'
 
     paymentsuite.paylands.manager:
         class: PaymentSuite\PaylandsBundle\Services\PaylandsManager
@@ -31,5 +30,13 @@ services:
         public: false
         arguments:
             - '@paymentsuite.bridge'
-        calls:
-            - ['setValidationService', ['%paymentsuite.paylands.validation_service%']]
+            - '@paymentsuite.paylands.settings_provider'
+
+    paymentsuite.paylands.settings_provider_default:
+        class: PaymentSuite\PaylandsBundle\Services\PaylandsSettingsProviderDefault
+        arguments:
+            - '%paymentsuite.paylands.api_key%'
+            - '%paymentsuite.paylands.signature%'
+            - '%paymentsuite.paylands.payment_services%'
+            - '%paymentsuite.paylands.i18n_template_uuids%'
+            - '%paymentsuite.paylands.validation_service%'

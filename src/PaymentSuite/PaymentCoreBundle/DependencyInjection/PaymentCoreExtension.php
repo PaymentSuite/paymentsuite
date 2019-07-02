@@ -28,6 +28,7 @@ use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPayment
  */
 class PaymentCoreExtension extends AbstractPaymentSuiteExtension
 {
+
     /**
      * {@inheritdoc}
      */

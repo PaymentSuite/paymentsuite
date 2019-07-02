@@ -77,7 +77,7 @@ class StripeTransaction implements EditableStripeTransaction
      * @param mixed $metadata
      * @return StripeTransaction
      */
-    public function setMetadata(array $metadata)
+    public function setMetadata($metadata)
     {
         $this->metadata = $metadata;
         return $this;

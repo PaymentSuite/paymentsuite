@@ -109,4 +109,23 @@ abstract class AbstractPaymentSuiteExtension extends Extension
             );
         }
     }
+
+    /**
+     * Defines the alias for the settings provider services.
+     *
+     * @param ContainerBuilder $container
+     * @param string           $paymentName
+     * @param string           $settingsProviderConfiguration
+     */
+    protected function addSettingsProvider(
+        ContainerBuilder $container,
+        $paymentName,
+        $settingsProviderConfiguration
+    ) {
+        $serviceId = 'default' == $settingsProviderConfiguration
+            ? "paymentsuite.$paymentName.settings_provider_default"
+            : $settingsProviderConfiguration;
+
+        $container->setAlias("paymentsuite.$paymentName.settings_provider", $serviceId);
+    }
 }

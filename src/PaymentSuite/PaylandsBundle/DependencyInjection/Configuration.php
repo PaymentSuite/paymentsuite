@@ -115,6 +115,22 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->append($this->addRouteConfiguration('payment_card_invalid'))
             ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    protected function setDefaultSettings($config)
+    {
+        $config['api_key'] = 'dummy_api_key';
+        $config['signature'] = 'dummy_signature';
+        $config['services'] = [
+            [
+                'currency' => 'EUR',
+                'service' => 'dummy_service',
+            ]
+        ];
+
+        return $config;
     }
 }

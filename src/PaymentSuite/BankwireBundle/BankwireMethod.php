@@ -23,12 +23,27 @@ use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
 final class BankwireMethod implements PaymentMethodInterface
 {
     /**
+     * @var string
+     */
+    private $paymentName;
+
+    /**
+     * BankwireMethod constructor.
+     *
+     * @param string $paymentName
+     */
+    public function __construct($paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
      * Get Bankwire method name.
      *
      * @return string Payment name
      */
     public function getPaymentName()
     {
-        return 'Bankwire';
+        return $this->paymentName;
     }
 }

@@ -6,26 +6,33 @@ services:
     paymentsuite.paypal_web_checkout.form_type_factory:
         class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutFormTypeFactory
         arguments:
-            - "@paymentsuite.paypal_web_checkout.url_factory"
-            - "@paymentsuite.bridge"
-            - "@form.factory"
-            - %paymentsuite.paypal_web_checkout.business%
+            - '@paymentsuite.paypal_web_checkout.url_factory'
+            - '@paymentsuite.bridge'
+            - '@form.factory'
+            - '@paymentsuite.paypal_web_checkout.settings_provider'
 
     paymentsuite.paypal_web_checkout.manager:
         class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutManager
         arguments:
-            - "@paymentsuite.paypal_web_checkout.url_factory"
-            - "@paymentsuite.paypal_web_checkout.form_type_factory"
-            - "@paymentsuite.paypal_web_checkout.method_factory"
-            - "@paymentsuite.bridge"
-            - "@paymentsuite.event_dispatcher"
+            - '@paymentsuite.paypal_web_checkout.url_factory'
+            - '@paymentsuite.paypal_web_checkout.form_type_factory'
+            - '@paymentsuite.paypal_web_checkout.method_factory'
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.event_dispatcher'
 
     paymentsuite.paypal_web_checkout.url_factory:
         class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutUrlFactory
         arguments:
-            - "@paymentsuite.paypal_web_checkout.routes"
-            - "@router"
-            - %paymentsuite.paypal_web_checkout.api_endpoint%
+            - '@paymentsuite.paypal_web_checkout.routes'
+            - '@router'
+            - '%paymentsuite.paypal_web_checkout.api_endpoint%'
 
     paymentsuite.paypal_web_checkout.method_factory:
         class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutMethodFactory
+        arguments:
+            - '@paymentsuite.paypal_web_checkout.settings_provider'
+
+    paymentsuite.paypal_web_checkout.settings_provider_default:
+        class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutSettingsProviderDefault
+        arguments:
+            - '%paymentsuite.paypal_web_checkout.business%'

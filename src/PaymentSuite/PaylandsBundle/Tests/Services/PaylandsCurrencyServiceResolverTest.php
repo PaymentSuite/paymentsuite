@@ -15,6 +15,7 @@
 
 namespace PaymentSuite\PaylandsBundle\Tests\Services;
 
+use PaymentSuite\PaylandsBundle\Services\Interfaces\PaylandsSettingsProviderInterface;
 use PaymentSuite\PaylandsBundle\Services\PaylandsCurrencyServiceResolver;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
@@ -25,70 +26,85 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
  */
 class PaylandsCurrencyServiceResolverTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
-    public function addServiceWorks()
+    public function testGetServiceReturnsCorrectService()
     {
-        $resolver = new PaylandsCurrencyServiceResolverTestClass($this->getPaymentBridgeMock('EUR')->reveal());
+        $paymentServices = [
+            'EUR' => 'eur-service-id',
+        ];
 
-        /*
-         * Fresh resolve has no service registered
-         */
-        $this->assertEmpty($resolver->getServices());
+        $paymentBridge = $this->getPaymentBridgeMock('EUR');
 
-        /*
-         * Can add a new service
-         */
-        $resolver->addService('EUR', 'eur-service-id');
+        $settingsProvider = $this->prophesize(PaylandsSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentServices()
+            ->shouldBeCalled()
+            ->willReturn($paymentServices);
 
-        $this->assertNotEmpty($resolver->getServices());
-        $this->assertCount(1, $resolver->getServices());
-        $this->assertArrayHasKey('EUR', $resolver->getServices());
-        $this->assertEquals('eur-service-id', $resolver->getServices()['EUR']);
+        $resolver = new PaylandsCurrencyServiceResolver($paymentBridge->reveal(), $settingsProvider->reveal());
 
-        /*
-         * Can add more than one service
-         */
-        $resolver->addService('USD', 'usd-service-id');
-
-        $this->assertNotEmpty($resolver->getServices());
-        $this->assertCount(2, $resolver->getServices());
-        $this->assertArrayHasKey('EUR', $resolver->getServices());
-        $this->assertArrayHasKey('USD', $resolver->getServices());
-        $this->assertEquals('eur-service-id', $resolver->getServices()['EUR']);
-        $this->assertEquals('usd-service-id', $resolver->getServices()['USD']);
-
-        /*
-         * Overwrites a service if same key is used
-         */
-        $resolver->addService('USD', 'usd-service-id-2');
-
-        $this->assertNotEmpty($resolver->getServices());
-        $this->assertCount(2, $resolver->getServices());
-        $this->assertArrayHasKey('EUR', $resolver->getServices());
-        $this->assertArrayHasKey('USD', $resolver->getServices());
-        $this->assertEquals('eur-service-id', $resolver->getServices()['EUR']);
-        $this->assertEquals('usd-service-id-2', $resolver->getServices()['USD']);
-
-        return $resolver;
+        $this->assertEquals('eur-service-id', $resolver->getService());
     }
 
-    /**
-     * @test
-     * @depends addServiceWorks
-     */
-    public function getServiceWorks(PaylandsCurrencyServiceResolverTestClass $resolver)
+    public function testGetServiceReturnsEmptyService()
     {
-        $this->assertEquals('eur-service-id', $resolver->getService());
+        $paymentServices = [
+            'EUR' => 'eur-service-id',
+        ];
 
-        $resolver->setPaymentBridge($this->getPaymentBridgeMock('USD')->reveal());
+        $paymentBridge = $this->getPaymentBridgeMock('USD');
 
-        $this->assertEquals('usd-service-id-2', $resolver->getService());
+        $settingsProvider = $this->prophesize(PaylandsSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentServices()
+            ->shouldBeCalled()
+            ->willReturn($paymentServices);
 
-        $resolver->setPaymentBridge($this->getPaymentBridgeMock('GBP')->reveal());
+        $resolver = new PaylandsCurrencyServiceResolver($paymentBridge->reveal(), $settingsProvider->reveal());
 
         $this->assertEquals('', $resolver->getService());
+    }
+
+    public function testGetValidationServiceReturnsCorrectService()
+    {
+        $paymentBridge = $this->getPaymentBridgeMock('EUR');
+
+        $settingsProvider = $this->prophesize(PaylandsSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentServices()
+            ->shouldNotBeCalled();
+
+        $settingsProvider
+            ->getValidationService()
+            ->shouldBeCalled()
+            ->willReturn('validation-service-id');
+
+        $resolver = new PaylandsCurrencyServiceResolver($paymentBridge->reveal(), $settingsProvider->reveal());
+
+        $this->assertEquals('validation-service-id', $resolver->getValidationService());
+    }
+
+    public function testGetValidationServiceReturnsCurrencyServiceIfNull()
+    {
+        $paymentServices = [
+            'EUR' => 'eur-service-id',
+        ];
+
+        $paymentBridge = $this->getPaymentBridgeMock('EUR');
+
+        $settingsProvider = $this->prophesize(PaylandsSettingsProviderInterface::class);
+        $settingsProvider
+            ->getPaymentServices()
+            ->shouldBeCalled()
+            ->willReturn($paymentServices);
+
+        $settingsProvider
+            ->getValidationService()
+            ->shouldBeCalled()
+            ->willReturn(null);
+
+        $resolver = new PaylandsCurrencyServiceResolver($paymentBridge->reveal(), $settingsProvider->reveal());
+
+        $this->assertEquals('eur-service-id', $resolver->getValidationService());
     }
 
     /**
@@ -104,31 +120,5 @@ class PaylandsCurrencyServiceResolverTest extends \PHPUnit_Framework_TestCase
             ->willReturn($currencyIso);
 
         return $bridge;
-    }
-}
-
-/**
- * Class ExposedApiServiceResolver.
- *
- * @author Santi Garcia <sgarcia@wearemarketing.com>, <sangarbe@gmail.com>
- */
-class PaylandsCurrencyServiceResolverTestClass extends PaylandsCurrencyServiceResolver
-{
-    /**
-     * @return array Services registered at the moment
-     */
-    public function getServices()
-    {
-        return $this->services;
-    }
-
-    /**
-     * Inyects new PaymentBridgeInterface to use.
-     *
-     * @param PaymentBridgeInterface $paymentBridge
-     */
-    public function setPaymentBridge(PaymentBridgeInterface $paymentBridge)
-    {
-        $this->paymentBridge = $paymentBridge;
     }
 }

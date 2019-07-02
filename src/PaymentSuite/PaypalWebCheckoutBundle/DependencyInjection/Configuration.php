@@ -16,7 +16,6 @@
 namespace PaymentSuite\PaypalWebCheckoutBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
 use PaymentSuite\PaymentCoreBundle\DependencyInjection\Abstracts\AbstractPaymentSuiteConfiguration;
 
 /**
@@ -41,16 +40,28 @@ class Configuration extends AbstractPaymentSuiteConfiguration
                 ->booleanNode('debug')
                     ->defaultTrue()
                 ->end()
-                ->booleanNode('api_endpoint')
+                ->scalarNode('api_endpoint')
                     ->defaultValue('https://www.paypal.com/cgi-bin/webscr')
                 ->end()
-                ->booleanNode('sandbox_api_endpoint')
+                ->scalarNode('sandbox_api_endpoint')
                     ->defaultValue('https://www.sandbox.paypal.com/cgi-bin/webscr')
                 ->end()
                 ->append($this->addRouteConfiguration('payment_success'))
                 ->append($this->addRouteConfiguration('payment_cancel'))
             ->end();
 
+        $this->addSettingsProviderConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setDefaultSettings($config)
+    {
+        $config['business'] = 'dummy@paypal.com';
+
+        return $config;
     }
 }
