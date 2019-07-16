@@ -29,22 +29,22 @@ class AdyenClientService
      * @param string $password
      * @param string $environment
      * @param null $xApiKey
-     *
-     * @throws \Adyen\AdyenException
+     * @param null $liveEndpointUrlPrefix
      */
     public function __construct(
         $applicationName,
         $username,
         $password,
         $environment,
-        $xApiKey = null
+        $xApiKey = null,
+        $liveEndpointUrlPrefix = null
     ) {
         $client = new \Adyen\Client();
 
         $client->setApplicationName($applicationName);
         $client->setUsername($username);
         $client->setPassword($password);
-        $client->setEnvironment($environment);
+        $client->setEnvironment($environment, $liveEndpointUrlPrefix);
 
         if (!is_null($xApiKey)) {
             $client->setXApiKey($xApiKey);
