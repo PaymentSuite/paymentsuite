@@ -13,8 +13,9 @@
  */
 namespace PaymentSuite\AdyenBundle\Services;
 
-
 use Adyen\Service\Payment;
+use Adyen\Service\Checkout;
+use Adyen\Service\Recurring;
 
 class AdyenClientService
 {
@@ -22,28 +23,60 @@ class AdyenClientService
 
     /**
      * AdyenClientService constructor.
+     *
      * @param string $applicationName
      * @param string $username
      * @param string $password
      * @param string $environment
+     * @param null $xApiKey
+     * @param null $liveEndpointUrlPrefix
      */
     public function __construct(
         $applicationName,
         $username,
         $password,
-        $environment = 'test'
-    )
-    {
+        $environment,
+        $xApiKey = null,
+        $liveEndpointUrlPrefix = null
+    ) {
         $client = new \Adyen\Client();
+
         $client->setApplicationName($applicationName);
         $client->setUsername($username);
         $client->setPassword($password);
-        $client->setEnvironment($environment);
+        $client->setEnvironment($environment, $liveEndpointUrlPrefix);
+
+        if (!is_null($xApiKey)) {
+            $client->setXApiKey($xApiKey);
+            $client->setInputType('json');
+        }
 
         $this->client = $client;
     }
+
+    /**
+     * @return Payment
+     */
     public function getPaymentService()
     {
         return new Payment($this->client);
     }
+
+    /**
+     * @return Recurring
+     */
+    public function getRecurringService()
+    {
+        return new Recurring($this->client);
+    }
+
+    /**
+     * @return Checkout
+     * @throws \Adyen\AdyenException
+     */
+    public function getCheckoutService()
+    {
+        return new Checkout($this->client);
+    }
 }
+

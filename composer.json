@@ -26,7 +26,8 @@
         "psr/log": "~1.0",
         "paymill/paymill": ">=3.0",
         "stripe/stripe-php": "1.10.1.*",
-        "monolog/monolog": "~1.13"
+        "monolog/monolog": "~1.13",
+        "adyen/php-api-library": "^1.4.2"
     },
     "require-dev": {
         "phpunit/phpunit": "4.6.*",
