@@ -15,17 +15,14 @@ namespace PaymentSuite\AdyenBundle\Services;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
-use Elcodi\Component\Core\Services\ObjectDirector;
+use Mascoteros\Checkout\Application\Command\PS2ValidationCommandInterface;
 use PaymentSuite\AdyenBundle\Interfaces\PaymentBridgeAdyenInterface;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
 use PaymentSuite\AdyenBundle\Entity\Transaction;
 use PaymentSuite\AdyenBundle\AdyenMethod;
 use Symfony\Bridge\Monolog\Logger;
-use Adyen\Contract;
-use Adyen\Service\Recurring;
 
 /**
  * Class AdyenManagerService
@@ -33,7 +30,20 @@ use Adyen\Service\Recurring;
  */
 class AdyenManagerService
 {
+    const REFUSED = 'Refused';
+    const AUTHORISED = 'Authorised';
+    const IDENTIFY_SHOPPER = 'IdentifyShopper';
+    const CHALLENGE_SHOPPER = 'ChallengeShopper';
+    const REDIRECT_SHOPPER = 'RedirectShopper';
+
+    /**
+     * @var string
+     */
     protected $merchantCode;
+
+    /**
+     * @var string
+     */
     protected $currency;
 
     /**
@@ -41,7 +51,30 @@ class AdyenManagerService
      */
     protected $logger;
 
-    const AUTHORISED = 'Authorised';
+    /**
+     * @var PaymentEventDispatcher
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var AdyenClientService
+     */
+    private $adyenClientService;
+
+    /**
+     * @var PaymentBridgeAdyenInterface
+     */
+    private $paymentBridge;
+
+    /**
+     * @var ObjectManager
+     */
+    private $transactionObjectManager;
+
+    /**
+     * @var ObjectRepository
+     */
+    private $transactionRepository;
 
     /**
      * AdyenService constructor.
@@ -78,11 +111,62 @@ class AdyenManagerService
     /**
      * @param PaymentMethodInterface $method
      * @param integer $amount
+     * @param PS2AppValidationCommand $ps2ValidationData
+     * @return mixed
      *
      * @throws PaymentException
      */
-    public function processPayment(PaymentMethodInterface $method, $amount)
-    {
+    public function process3DSValidation(
+        PaymentMethodInterface $method,
+        $amount,
+        PS2ValidationCommandInterface $ps2ValidationData
+    ) {
+        /**
+         * @var AdyenMethod $method
+         */
+        $paymentData = [];
+
+        if ($ps2ValidationData->getValidationType() == 'fingerPrint') {
+            $paymentData["threeDS2RequestData"] = [
+                "deviceChannel" => "app",
+                "sdkAppID" => $ps2ValidationData->getSdkAppId(),
+                "sdkEncData" => $ps2ValidationData->getSdkEncData(),
+                "sdkEphemPubKey" => [
+                    "crv" => $ps2ValidationData->getSdkEphemPubKey()['crv'],
+                    "kty" => $ps2ValidationData->getSdkEphemPubKey()['kty'],
+                    "x" => $ps2ValidationData->getSdkEphemPubKey()['x'],
+                    "y" => $ps2ValidationData->getSdkEphemPubKey()['y']
+                ],
+                "sdkReferenceNumber" => $ps2ValidationData->getSdkReferenceNumber(),
+                "sdkTransID" => $ps2ValidationData->getSdkTransID()
+            ];
+        } else {
+            $paymentData["threeDS2Result"] = [
+                "deviceChannel" => "app",
+                "transStatus" => $ps2ValidationData->getTransactionStatus()
+            ];
+        }
+
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['threeDS2Token'] = $ps2ValidationData->getThreeDS2Token();
+
+        return $this->callValidate3DS2($method, $amount, true, $paymentData);
+    }
+
+    /**
+     * @param PaymentMethodInterface $method
+     * @param integer $amount
+     * @param bool $ps2Available
+     *
+     * @return mixed
+     *
+     * @throws PaymentException
+     */
+    public function processPayment(
+        PaymentMethodInterface $method,
+        $amount,
+        $ps2Available = false
+    ) {
         /**
          * @var AdyenMethod $method
          */
@@ -90,6 +174,11 @@ class AdyenManagerService
         $paymentData['additionalData'] = [
             'card.encrypted.json' => $method->getAdditionalData()
         ];
+
+        if ($ps2Available) {
+            $paymentData['additionalData']['allow3DS2'] = true;     // Seems not necessary
+            $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';   // Hardcoded value, I know..
+        }
 
         $paymentData['amount'] = [
             'value' => $amount,
@@ -112,6 +201,216 @@ class AdyenManagerService
             $paymentData['selectedRecurringDetailReference'] = $method->getRecurringDetailReference();
         }
 
+        return $this->callPayment($method, $amount, $ps2Available, $paymentData);
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    private function isAuthorized($response)
+    {
+        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::AUTHORISED) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    private function isRefused($response)
+    {
+        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::REFUSED) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    private function isIdentifyShopper($response)
+    {
+        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::IDENTIFY_SHOPPER) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    private function isChallengeShopper($response)
+    {
+        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::CHALLENGE_SHOPPER) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    private function isRedirectShopper($response)
+    {
+        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::REDIRECT_SHOPPER) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $response
+     *
+     * @throws \Exception
+     */
+    protected function storeTransaction($response)
+    {
+        /**
+         * this is a RESPONSE for the moment
+         */
+        $transaction = new Transaction();
+        $transaction->setCartId($this->paymentBridge->getCartId());
+        $transaction->setAmount($response['amount']);
+        $transaction->setCreatedAt(new \DateTime('now'));
+        $transaction->setPspReference($response['pspReference']);
+        $transaction->setResultCode($response['resultCode']);
+
+        if (isset($response['authCode'])) {
+            $transaction->setAuthCode($response['authCode']);
+        }
+        if (isset($response['refusalReason'])) {
+            $transaction->setMessage($response['refusalReason']);
+        }
+
+        $this->transactionObjectManager->persist($transaction);
+        $this->transactionObjectManager->flush();
+    }
+
+    /**
+     * @param $shopperReference
+     * @param $contract
+     *
+     * @return mixed
+     *
+     * @throws \Adyen\AdyenException
+     */
+    public function getListRecurringDetails($shopperReference, $contract)
+    {
+        $paymentData = [];
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['shopperReference'] = $shopperReference;
+        $paymentData['recurring'] = [
+            'Contract' => $contract
+        ];
+
+        return $this->doRecurring($paymentData);
+    }
+
+    /**
+     * @param $paymentData
+     * @return mixed
+     * @throws \Adyen\AdyenException
+     */
+    protected function doRecurring($paymentData)
+    {
+        $paymentService = $this->adyenClientService->getRecurringService();
+
+        return $paymentService->listRecurringDetails($paymentData);
+    }
+
+    /**
+     * @param $shopperReference
+     * @param $recurringDetailReference
+     * @param $contract
+     * @return mixed
+     */
+    public function removeCreditCard($shopperReference, $recurringDetailReference, $contract)
+    {
+        $paymentData = [];
+        $paymentData['merchantAccount'] = $this->merchantCode;
+        $paymentData['shopperReference'] = $shopperReference;
+        $paymentData['recurringDetailReference'] = $recurringDetailReference;
+        $paymentData['recurring'] = [
+            'Contract' => $contract
+        ];
+
+        return $this->doDisableCreditCard($paymentData);
+    }
+
+    protected function doDisableCreditCard($paymentData)
+    {
+        $paymentService = $this->adyenClientService->getRecurringService();
+
+        return $paymentService->disable($paymentData);
+    }
+
+    protected function getError($response)
+    {
+        if (isset($response['refusalReason'])) {
+            return $response['refusalReason'];
+        }
+    }
+
+    protected function getErrorCode($response)
+    {
+        if (isset($response['resultCode'])) {
+            return $response['resultCode'];
+        }
+    }
+
+    /**
+     * @param PaymentMethodInterface $method
+     * @param $amount
+     * @param $ps2Available
+     * @param array $paymentData
+     * @return mixed
+     * @throws PaymentException
+     */
+    private function callValidate3DS2(PaymentMethodInterface $method, $amount, $ps2Available, array $paymentData)
+    {
+        try {
+            $r = $this->callValidate3DS2Api($paymentData);
+        } catch (\Exception $e) {
+            /*
+             * The Soap call failed
+             */
+            $this
+                ->eventDispatcher
+                ->notifyPaymentOrderFail(
+                    $this->paymentBridge,
+                    $method
+                );
+
+            $this->logger->addError('PaymentException: ' . $e->getMessage());
+            $this->paymentBridge->setError($e->getMessage());
+            $this->paymentBridge->setErrorCode($e->getCode());
+            throw new PaymentException($e->getMessage());
+        }
+
+        return $this->processPaymentResponse($method, $amount, $ps2Available, $r);
+    }
+
+    /**
+     * @param PaymentMethodInterface $method
+     * @param $amount
+     * @param $ps2Available
+     * @param array $paymentData
+     * @return mixed
+     * @throws PaymentException
+     */
+    private function callPayment(PaymentMethodInterface $method, $amount, $ps2Available, array $paymentData)
+    {
         try {
             $r = $this->callApi($paymentData);
         } catch (\Exception $e) {
@@ -125,16 +424,47 @@ class AdyenManagerService
                     $method
                 );
 
-            $this->logger->addError('PaymentException: '.$e->getMessage());
+            $this->logger->addError('PaymentException: ' . $e->getMessage());
             $this->paymentBridge->setError($e->getMessage());
             $this->paymentBridge->setErrorCode($e->getCode());
             throw new PaymentException($e->getMessage());
         }
 
+        return $this->processPaymentResponse($method, $amount, $ps2Available, $r);
+    }
+
+    /**
+     * @param PaymentMethodInterface $method
+     * @param $amount
+     * @param $ps2Available
+     * @param $r
+     * @return mixed
+     * @throws PaymentException
+     */
+    private function processPaymentResponse(PaymentMethodInterface $method, $amount, $ps2Available, $r)
+    {
         $r['amount'] = $amount;
         $this->storeTransaction($r);
 
-        if (!$this->isAuthorized($r)) {
+        $transactionError = false;
+
+        if (!$ps2Available) {
+            // When not a 3DS2 transaction only can be authorized or refused
+            if (!$this->isAuthorized($r)) {
+                $transactionError = true;
+            }
+        } else {
+            // Transaction can be authorized (so we must create the order) or redirect to next step
+            if ($this->isIdentifyShopper($r) || $this->isChallengeShopper($r) || $this->isRedirectShopper($r)) {
+                // We need to send response to application to show next step to the user
+                return $r;
+            } else if (!$this->isAuthorized($r)) {
+                $transactionError = true;
+            }
+        }
+
+        // An error occurred with not 3DS2 or 3DS2 transaction so return the error
+        if ($transactionError) {
             $this->paymentBridge->setError($this->getError($r));
             $this->paymentBridge->setErrorCode($this->getErrorCode($r));
 
@@ -196,18 +526,15 @@ class AdyenManagerService
                 $method
             );
 
+        return $r;
     }
 
-    protected function isAuthorized($response)
-    {
-        if (isset($response['resultCode']) && $response['resultCode'] == AdyenManagerService::AUTHORISED) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function callApi($paymentData)
+    /**
+     * @param $paymentData
+     * @return mixed
+     * @throws \Adyen\AdyenException
+     */
+    private function callApi($paymentData)
     {
         $paymentService = $this->adyenClientService->getPaymentService();
 
@@ -216,82 +543,15 @@ class AdyenManagerService
     }
 
     /**
-     * @param $response
+     * @param $paymentData
+     * @return mixed
+     * @throws \Adyen\AdyenException
      */
-    protected function storeTransaction($response)
+    private function callValidate3DS2Api($paymentData)
     {
-        /**
-         * this is a RESPONSE for the moment
-         */
-        $transaction = new Transaction();
-        $transaction->setCartId($this->paymentBridge->getCartId());
-        $transaction->setAmount($response['amount']);
-        $transaction->setCreatedAt(new \DateTime('now'));
-        $transaction->setPspReference($response['pspReference']);
-        $transaction->setResultCode($response['resultCode']);
+        $paymentService = $this->adyenClientService->getPaymentService();
 
-        if (isset($response['authCode'])) {
-            $transaction->setAuthCode($response['authCode']);
-        }
-        if (isset($response['refusalReason'])) {
-            $transaction->setMessage($response['refusalReason']);
-        }
-
-        $this->transactionObjectManager->persist($transaction);
-        $this->transactionObjectManager->flush();
-    }
-
-    public function getListRecurringDetails($shopperReference, $contract)
-    {
-        $paymentData = [];
-        $paymentData['merchantAccount'] = $this->merchantCode;
-        $paymentData['shopperReference'] = $shopperReference;
-        $paymentData['recurring'] = [
-            'Contract' => $contract
-        ];
-
-        return $this->doRecurring($paymentData);
-    }
-
-    protected function doRecurring($paymentData)
-    {
-        $paymentService = $this->adyenClientService->getRecurringService();
-
-        return $paymentService->listRecurringDetails($paymentData);
-    }
-
-    public function removeCreditCard($shopperReference, $recurringDetailReference, $contract)
-    {
-        $paymentData = [];
-        $paymentData['merchantAccount'] = $this->merchantCode;
-        $paymentData['shopperReference'] = $shopperReference;
-        $paymentData['recurringDetailReference'] = $recurringDetailReference;
-        $paymentData['recurring'] = [
-            'Contract' => $contract
-        ];
-
-        return $this->doDisableCreditCard($paymentData);
-    }
-
-    protected function doDisableCreditCard($paymentData)
-    {
-        $paymentService = $this->adyenClientService->getRecurringService();
-
-        return $paymentService->disable($paymentData);
-    }
-
-    protected function getError($response)
-    {
-        if (isset($response['refusalReason'])) {
-            return $response['refusalReason'];
-        }
-    }
-
-    protected function getErrorCode($response)
-    {
-        if (isset($response['resultCode'])) {
-            return $response['resultCode'];
-        }
+        return $paymentService->authorise3DS2($paymentData);
     }
 
 }
