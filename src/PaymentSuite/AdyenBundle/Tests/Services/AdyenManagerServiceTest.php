@@ -95,6 +95,10 @@ class AdyenManagerServiceTest extends \PHPUnit_Framework_TestCase
         $this->shopperReference = 14194858;
     }
 
+    /**
+     * @group api_integration
+     * @group payment
+     */
     public function testGetListRecurringDetails()
     {
         // Set Recurring class behavior
