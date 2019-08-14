@@ -13,16 +13,16 @@
  */
 namespace PaymentSuite\AdyenBundle\Services;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
-use Mascoteros\Checkout\Application\Command\PS2ValidationCommandInterface;
-use PaymentSuite\AdyenBundle\Interfaces\PaymentBridgeAdyenInterface;
-use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
-use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
-use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
-use PaymentSuite\AdyenBundle\Entity\Transaction;
-use PaymentSuite\AdyenBundle\AdyenMethod;
 use Symfony\Bridge\Monolog\Logger;
+use PaymentSuite\AdyenBundle\AdyenMethod;
+use Doctrine\Common\Persistence\ObjectManager;
+use PaymentSuite\AdyenBundle\Entity\Transaction;
+use Doctrine\Common\Persistence\ObjectRepository;
+use PaymentSuite\PaymentCoreBundle\PaymentMethodInterface;
+use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
+use PaymentSuite\PaymentCoreBundle\Services\PaymentEventDispatcher;
+use PaymentSuite\AdyenBundle\Interfaces\PaymentBridgeAdyenInterface;
+use Mascoteros\Checkout\Application\Command\PS2ValidationCommandInterface;
 
 /**
  * Class AdyenManagerService
@@ -78,12 +78,13 @@ class AdyenManagerService
 
     /**
      * AdyenService constructor.
+     *
      * @param PaymentEventDispatcher $eventDispatcher
      * @param PaymentBridgeAdyenInterface $paymentBridge
      * @param ObjectManager $transactionObjectManager
      * @param ObjectRepository $transactionRepository
-     * @param AdyenClientService $adyenClientService,
-     * @param Logger $logger,
+     * @param AdyenClientService $adyenClientService ,
+     * @param Logger $logger ,
      * @param string $merchantCode
      * @param string $currency
      */
@@ -105,7 +106,6 @@ class AdyenManagerService
         $this->logger = $logger;
         $this->merchantCode = $merchantCode;
         $this->currency = $currency;
-
     }
 
     /**
@@ -121,30 +121,10 @@ class AdyenManagerService
         $amount,
         PS2ValidationCommandInterface $ps2ValidationData
     ) {
-        /**
-         * @var AdyenMethod $method
-         */
-        $paymentData = [];
-
-        if ($ps2ValidationData->getValidationType() == 'fingerPrint') {
-            $paymentData["threeDS2RequestData"] = [
-                "deviceChannel" => "app",
-                "sdkAppID" => $ps2ValidationData->getSdkAppId(),
-                "sdkEncData" => $ps2ValidationData->getSdkEncData(),
-                "sdkEphemPubKey" => [
-                    "crv" => $ps2ValidationData->getSdkEphemPubKey()['crv'],
-                    "kty" => $ps2ValidationData->getSdkEphemPubKey()['kty'],
-                    "x" => $ps2ValidationData->getSdkEphemPubKey()['x'],
-                    "y" => $ps2ValidationData->getSdkEphemPubKey()['y']
-                ],
-                "sdkReferenceNumber" => $ps2ValidationData->getSdkReferenceNumber(),
-                "sdkTransID" => $ps2ValidationData->getSdkTransID()
-            ];
+        if ($ps2ValidationData->isAppRequest()) {
+            $paymentData = $this->setAppRequestData($ps2ValidationData);
         } else {
-            $paymentData["threeDS2Result"] = [
-                "deviceChannel" => "app",
-                "transStatus" => $ps2ValidationData->getTransactionStatus()
-            ];
+            $paymentData = $this->setWebRequestData($ps2ValidationData);
         }
 
         $paymentData['merchantAccount'] = $this->merchantCode;
@@ -157,6 +137,8 @@ class AdyenManagerService
      * @param PaymentMethodInterface $method
      * @param integer $amount
      * @param bool $ps2Available
+     * @param bool $isAppRequest
+     * @param null $notificationUrl
      *
      * @return mixed
      *
@@ -165,19 +147,39 @@ class AdyenManagerService
     public function processPayment(
         PaymentMethodInterface $method,
         $amount,
-        $ps2Available = false
+        $ps2Available = false,
+        $isAppRequest = false,
+        $notificationUrl = null
     ) {
         /**
          * @var AdyenMethod $method
          */
-        $paymentData= [];
+        $paymentData = [];
+
         $paymentData['additionalData'] = [
             'card.encrypted.json' => $method->getAdditionalData()
         ];
 
         if ($ps2Available) {
-            $paymentData['additionalData']['allow3DS2'] = true;     // Seems not necessary
-            $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';   // Hardcoded value, I know..
+            $paymentData['additionalData']['allow3DS2'] = true;
+
+            if ($isAppRequest) {
+                $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';
+            } else {
+                $paymentData['threeDS2RequestData']['deviceChannel'] = 'browser';
+                $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
+
+                $browser = get_browser(null, true);
+
+                $paymentData['browserInfo']['userAgent'] = $browser['browser_name_pattern'];
+                $paymentData['browserInfo']['acceptHeader'] = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8";
+                $paymentData['browserInfo']['language'] = "es";
+                $paymentData['browserInfo']['colorDepth'] = 24;
+                $paymentData['browserInfo']['screenHeight'] = 723;
+                $paymentData['browserInfo']['screenWidth'] = 1536;
+                $paymentData['browserInfo']['timeZoneOffset'] = '+60';
+                $paymentData['browserInfo']['javaEnabled'] = $browser['browser_name_pattern'];
+            }
         }
 
         $paymentData['amount'] = [
@@ -554,4 +556,52 @@ class AdyenManagerService
         return $paymentService->authorise3DS2($paymentData);
     }
 
+    /**
+     * @param PS2ValidationCommandInterface $ps2ValidationData
+     *
+     * @return array
+     */
+    private function setAppRequestData(PS2ValidationCommandInterface $ps2ValidationData): array
+    {
+        $paymentData = [];
+
+        if ('fingerPrint' == $ps2ValidationData->getValidationType()) {
+            $paymentData["threeDS2RequestData"] = [
+                "deviceChannel" => "app",
+                "sdkAppID" => $ps2ValidationData->getSdkAppId(),
+                "sdkEncData" => $ps2ValidationData->getSdkEncData(),
+                "sdkEphemPubKey" => [
+                    "crv" => $ps2ValidationData->getSdkEphemPubKey()['crv'],
+                    "kty" => $ps2ValidationData->getSdkEphemPubKey()['kty'],
+                    "x" => $ps2ValidationData->getSdkEphemPubKey()['x'],
+                    "y" => $ps2ValidationData->getSdkEphemPubKey()['y']
+                ],
+                "sdkReferenceNumber" => $ps2ValidationData->getSdkReferenceNumber(),
+                "sdkTransID" => $ps2ValidationData->getSdkTransID()
+            ];
+        } else {
+            $paymentData["threeDS2Result"] = [
+                "deviceChannel" => "app",
+                "transStatus" => $ps2ValidationData->getTransactionStatus()
+            ];
+        }
+
+        return $paymentData;
+    }
+
+    /**
+     * @param PS2ValidationCommandInterface $ps2ValidationData
+     *
+     * @return array
+     */
+    private function setWebRequestData(PS2ValidationCommandInterface $ps2ValidationData): array
+    {
+        $paymentData = [];
+
+        $paymentData["threeDS2RequestData"] = [
+            "deviceChannel" => "browser",
+        ];
+
+        return $paymentData;
+    }
 }
