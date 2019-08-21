@@ -178,7 +178,7 @@ class AdyenManagerService
                 $paymentData['browserInfo']['screenHeight'] = 723;
                 $paymentData['browserInfo']['screenWidth'] = 1536;
                 $paymentData['browserInfo']['timeZoneOffset'] = '+60';
-                $paymentData['browserInfo']['javaEnabled'] = $browser['browser_name_pattern'];
+                $paymentData['browserInfo']['javaEnabled'] = $browser['javaapplets'];
             }
         }
 
