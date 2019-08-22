@@ -124,7 +124,7 @@ class AdyenManagerService
         if ($ps2ValidationData->isAppRequest()) {
             $paymentData = $this->setAppRequestData($ps2ValidationData);
         } else {
-            $paymentData = $this->setWebRequestData($ps2ValidationData);
+            $paymentData = $this->setBrowserCommonData($ps2ValidationData->getNotificationUrl());
         }
 
         $paymentData['merchantAccount'] = $this->merchantCode;
@@ -166,19 +166,7 @@ class AdyenManagerService
             if ($isAppRequest) {
                 $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';
             } else {
-                $paymentData['threeDS2RequestData']['deviceChannel'] = 'browser';
-                $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
-
-                $browser = get_browser(null, true);
-
-                $paymentData['browserInfo']['userAgent'] = $browser['browser_name_pattern'];
-                $paymentData['browserInfo']['acceptHeader'] = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8";
-                $paymentData['browserInfo']['language'] = "es";
-                $paymentData['browserInfo']['colorDepth'] = 24;
-                $paymentData['browserInfo']['screenHeight'] = 723;
-                $paymentData['browserInfo']['screenWidth'] = 1536;
-                $paymentData['browserInfo']['timeZoneOffset'] = '+60';
-                $paymentData['browserInfo']['javaEnabled'] = $browser['javaapplets'];
+                $paymentData = $this->setBrowserCommonData($notificationUrl, $paymentData);
             }
         }
 
@@ -590,18 +578,27 @@ class AdyenManagerService
     }
 
     /**
-     * @param PS2ValidationCommandInterface $ps2ValidationData
+     * @param $notificationUrl
+     * @param array $paymentData
      *
      * @return array
      */
-    private function setWebRequestData(PS2ValidationCommandInterface $ps2ValidationData): array
+    private function setBrowserCommonData($notificationUrl, array $paymentData = [])
     {
-        $paymentData = [];
+        $paymentData['threeDS2RequestData']['deviceChannel'] = 'browser';
+        $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
 
-        $paymentData["threeDS2RequestData"] = [
-            "deviceChannel" => "browser",
-        ];
+        $browser = get_browser(null, true);
+
+        $paymentData['browserInfo']['userAgent'] = $browser['browser_name_pattern'];
+        $paymentData['browserInfo']['acceptHeader'] = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8";
+        $paymentData['browserInfo']['language'] = "es";
+        $paymentData['browserInfo']['colorDepth'] = 24;
+        $paymentData['browserInfo']['screenHeight'] = 723;
+        $paymentData['browserInfo']['screenWidth'] = 1536;
+        $paymentData['browserInfo']['timeZoneOffset'] = '+60';
+        $paymentData['browserInfo']['javaEnabled'] = $browser['javaapplets'];
 
         return $paymentData;
-    }
+}
 }
