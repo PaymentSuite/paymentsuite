@@ -77,6 +77,11 @@ class AdyenManagerService
     private $transactionRepository;
 
     /**
+     * @var array
+     */
+    private $browserInfo;
+
+    /**
      * AdyenService constructor.
      *
      * @param PaymentEventDispatcher $eventDispatcher
@@ -124,7 +129,11 @@ class AdyenManagerService
         if ($ps2ValidationData->isAppRequest()) {
             $paymentData = $this->setAppRequestData($ps2ValidationData);
         } else {
-            $paymentData = $this->setBrowserCommonData($ps2ValidationData->getNotificationUrl());
+            $paymentData = $this->setBrowserCommonData(
+                $ps2ValidationData->getNotificationUrl(),
+                [],
+                $ps2ValidationData->getBrowserInfo()
+            );
         }
 
         $paymentData['merchantAccount'] = $this->merchantCode;
@@ -580,24 +589,24 @@ class AdyenManagerService
     /**
      * @param $notificationUrl
      * @param array $paymentData
+     * @param array $browserInfo
      *
      * @return array
      */
-    private function setBrowserCommonData($notificationUrl, array $paymentData = [])
+    private function setBrowserCommonData($notificationUrl, array $paymentData = [], array $browserInfo = [])
     {
         $paymentData['threeDS2RequestData']['deviceChannel'] = 'browser';
         $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
+        $paymentData['threeDS2RequestData']['threeDSCompInd'] = 'N';
 
-        $browser = get_browser(null, true);
-
-        $paymentData['browserInfo']['userAgent'] = $browser['browser_name_pattern'];
+        $paymentData['browserInfo']['userAgent'] = $browserInfo['user_agent'];
         $paymentData['browserInfo']['acceptHeader'] = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8";
         $paymentData['browserInfo']['language'] = "es";
         $paymentData['browserInfo']['colorDepth'] = 24;
         $paymentData['browserInfo']['screenHeight'] = 723;
         $paymentData['browserInfo']['screenWidth'] = 1536;
         $paymentData['browserInfo']['timeZoneOffset'] = '+60';
-        $paymentData['browserInfo']['javaEnabled'] = $browser['javaapplets'];
+        $paymentData['browserInfo']['javaEnabled'] = $browserInfo['is_java_enabled'];
 
         return $paymentData;
 }
