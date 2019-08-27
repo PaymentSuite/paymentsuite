@@ -134,6 +134,14 @@ class AdyenManagerService
                 [],
                 $ps2ValidationData->getBrowserInfo()
             );
+
+            if ($ps2ValidationData->isChallengeTransaction()) {
+                if ($ps2ValidationData->getTransStatus()) {
+                    $paymentData['threeDS2Result']['transStatus'] = 'Y';
+                } else {
+                    $paymentData['threeDS2Result']['transStatus'] = 'U';
+                }
+            }
         }
 
         $paymentData['merchantAccount'] = $this->merchantCode;
@@ -148,6 +156,7 @@ class AdyenManagerService
      * @param bool $ps2Available
      * @param bool $isAppRequest
      * @param null $notificationUrl
+     * @param array $browserInfo
      *
      * @return mixed
      *
@@ -158,7 +167,8 @@ class AdyenManagerService
         $amount,
         $ps2Available = false,
         $isAppRequest = false,
-        $notificationUrl = null
+        $notificationUrl = null,
+        array $browserInfo = []
     ) {
         /**
          * @var AdyenMethod $method
@@ -175,7 +185,7 @@ class AdyenManagerService
             if ($isAppRequest) {
                 $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';
             } else {
-                $paymentData = $this->setBrowserCommonData($notificationUrl, $paymentData);
+                $paymentData = $this->setBrowserCommonData($notificationUrl, $paymentData, $browserInfo);
             }
         }
 
@@ -593,8 +603,11 @@ class AdyenManagerService
      *
      * @return array
      */
-    private function setBrowserCommonData($notificationUrl, array $paymentData = [], array $browserInfo = [])
-    {
+    private function setBrowserCommonData(
+        $notificationUrl,
+        array $paymentData = [],
+        array $browserInfo = []
+    ) {
         $paymentData['threeDS2RequestData']['deviceChannel'] = 'browser';
         $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
         $paymentData['threeDS2RequestData']['threeDSCompInd'] = 'N';
@@ -609,5 +622,5 @@ class AdyenManagerService
         $paymentData['browserInfo']['javaEnabled'] = $browserInfo['is_java_enabled'];
 
         return $paymentData;
-}
+    }
 }
