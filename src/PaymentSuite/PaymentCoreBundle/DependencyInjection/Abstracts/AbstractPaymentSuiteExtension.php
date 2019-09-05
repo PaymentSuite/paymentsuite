@@ -126,6 +126,8 @@ abstract class AbstractPaymentSuiteExtension extends Extension
             ? "paymentsuite.$paymentName.settings_provider_default"
             : $settingsProviderConfiguration;
 
-        $container->setAlias("paymentsuite.$paymentName.settings_provider", $serviceId);
+        $container->setAlias("paymentsuite.$paymentName.settings_provider", $serviceId)
+            ->setPublic(true);
+
     }
 }

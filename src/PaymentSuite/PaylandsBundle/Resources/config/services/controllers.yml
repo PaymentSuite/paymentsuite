@@ -2,6 +2,7 @@ services:
 
     paymentsuite.paylands.payment_controller:
         class: PaymentSuite\PaylandsBundle\Controller\PaymentController
+        public: true
         arguments:
             - '@paymentsuite.paylands.manager'
             - '@paymentsuite.paylands.form_factory'

@@ -8,12 +8,16 @@ services:
         arguments:
             - '@paymentsuite.redsys.manager'
             - '@templating'
+        tags:
+            - { name: controller.service_arguments }
 
     paymentsuite.redsys.response_controller:
         class: PaymentSuite\RedsysBundle\Controller\ResponseController
         arguments:
             - '@paymentsuite.redsys.routes'
             - '@router'
+        tags:
+            - { name: controller.service_arguments }
 
     paymentsuite.redsys.result_controller:
         class: PaymentSuite\RedsysBundle\Controller\ResultController
@@ -22,3 +26,5 @@ services:
             - '@paymentsuite.redsys.routes'
             - '@paymentsuite.bridge'
             - '@router'
+        tags:
+            - { name: controller.service_arguments }

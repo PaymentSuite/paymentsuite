@@ -5,6 +5,7 @@ services:
     #
     paymentsuite.freepayment.payment_controller:
         class: PaymentSuite\FreePaymentBundle\Controller\PaymentController
+        public: true
         arguments:
             - '@paymentsuite.freepayment.manager'
             - '@paymentsuite.freepayment.route_success'

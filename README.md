@@ -9,7 +9,8 @@ Paymentsuite is a suite of payment Bundles built on top of Symfony and under
 
 Branch | Symfony version | PHP Versions | Supported        |
 :----: | :-------------: | :----------: | :--------------: |
-master |      >= 3.4     |    >= 7.1    |     active       |
+master |      >= 4.3     |    >= 7.1    |     active       |
+ 3.0   |  >= 3.4 < 4.0   |    >= 7.1    |  security fixes  |
  2.1   |  >= 2.8 <= 3.3  | >= 5.5 <=7.1 |  security fixes  |
  2.0   |     <= 2.8      | >= 5.4 <=7.0 |   end of life    |
 

@@ -36,8 +36,6 @@
         "paymentsuite/payment-core-bundle": "^2.0"
     },
     "require-dev": {
-        "elcodi/test-common-bundle": "^2.0",
-        "elcodi/fixtures-booster-bundle": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {

@@ -3,7 +3,7 @@ parameters:
     secret: s3cr3t
 
 framework:
-    test: ~
+    test: true
     session:
         storage_id: session.storage.filesystem
         name: MOCKSESSID
@@ -35,3 +35,9 @@ services:
     paymentsuite.bridge:
         alias: paymentsuite.redsys.dummy_payment_bridge
         public: true
+
+    paymentsuite.redsys.signature_factory:
+        class: PaymentSuite\RedsysBundle\Services\RedsysSignatureFactory
+        public: true
+        arguments:
+            - '@paymentsuite.redsys.settings_provider'
