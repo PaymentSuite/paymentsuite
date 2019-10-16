@@ -16,6 +16,9 @@
 namespace PaymentSuite\StripeBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
@@ -51,26 +54,30 @@ class StripeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('credit_card', 'text', [
+            ->add('credit_card', TextType::class, [
                 'required' => true,
-                'max_length' => 20,
+                'attr' => [
+                    'maxlength' => 20
+                ]
             ])
-            ->add('credit_card_security', 'text', [
+            ->add('credit_card_security', TextType::class, [
                 'required' => true,
-                'max_length' => 4,
+                'attr' => [
+                    'maxlength' => 4
+                ]
             ])
-            ->add('credit_card_expiration_month', 'choice', [
+            ->add('credit_card_expiration_month', ChoiceType::class, [
                 'required' => true,
                 'choices' => array_combine(range(1, 12), range(1, 12)),
             ])
-            ->add('credit_card_expiration_year', 'choice', [
+            ->add('credit_card_expiration_year', ChoiceType::class, [
                 'required' => true,
-                'choices' => array_combine(range(date('Y'), 2025), range(date('Y'), 2025)),
+                'choices' => array_combine(range(date('Y'), date('Y')+15), range(date('Y'), date('Y')+15)),
             ])
-            ->add('amount', 'hidden', [
+            ->add('amount', HiddenType::class, [
                 'data' => $this->paymentBridge->getAmount(),
             ])
-            ->add('api_token', 'hidden', [
+            ->add('api_token', HiddenType::class, [
                 'data' => '',
             ]);
     }
