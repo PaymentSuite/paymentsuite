@@ -22,7 +22,7 @@ use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use PaymentSuite\PaylandsBundle\Services\PaylandsManager;
 use PaymentSuite\PaylandsBundle\Services\PaylandsFormFactory;
 use PaymentSuite\PaymentCoreBundle\ValueObject\RedirectionRouteCollection;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

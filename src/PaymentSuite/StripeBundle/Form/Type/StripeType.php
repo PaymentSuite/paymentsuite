@@ -58,13 +58,13 @@ class StripeType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'maxlength' => 20
-                ]
+                ],
             ])
             ->add('credit_card_security', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'maxlength' => 4
-                ]
+                ],
             ])
             ->add('credit_card_expiration_month', ChoiceType::class, [
                 'required' => true,

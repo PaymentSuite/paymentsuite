@@ -18,7 +18,7 @@ namespace PaymentSuite\GestpayBundle\Controller;
 use PaymentSuite\GestpayBundle\GestpayMethod;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentException;
 use PaymentSuite\PaymentCoreBundle\Services\PaymentLogger;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PaymentSuite\GestpayBundle\Services\GestpayManager;
 use PaymentSuite\PaymentCoreBundle\Exception\PaymentOrderNotFoundException;
