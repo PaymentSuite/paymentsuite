@@ -16,6 +16,7 @@
 namespace PaymentSuite\PaypalWebCheckoutBundle\Services;
 
 use PaymentSuite\PaypalWebCheckoutBundle\Services\Interfaces\PaypalWebCheckoutSettingsProviderInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormView;
 use PaymentSuite\PaymentCoreBundle\Services\interfaces\PaymentBridgeInterface;
@@ -130,22 +131,22 @@ class PaypalWebCheckoutFormTypeFactory
         $formBuilder
             ->setAction($this->urlFactory->getApiEndpoint())
             ->setMethod('POST')
-            ->add('business', 'hidden', [
+            ->add('business', HiddenType::class, [
                 'data' => $this->settingsProvider->getBusiness(),
             ])
-            ->add('return', 'hidden', [
+            ->add('return', HiddenType::class, [
                 'data' => $successReturnUrl,
             ])
-            ->add('cancel_return', 'hidden', [
+            ->add('cancel_return', HiddenType::class, [
                 'data' => $cancelReturnUrl,
             ])
-            ->add('notify_url', 'hidden', [
+            ->add('notify_url', HiddenType::class, [
                 'data' => $processUrl,
             ])
-            ->add('currency_code', 'hidden', [
+            ->add('currency_code', HiddenType::class, [
                 'data' => $orderCurrency,
             ])
-            ->add('env', 'hidden', [
+            ->add('env', HiddenType::class, [
                 'data' => '',
             ]);
 
@@ -170,20 +171,20 @@ class PaypalWebCheckoutFormTypeFactory
 
         foreach ($itemsData as $orderLine) {
             $formBuilder
-                ->add('item_name_'.$iteration, 'hidden', [
+                ->add('item_name_'.$iteration, HiddenType::class, [
                     'data' => $orderLine['item_name'],
                 ])
-                ->add('amount_'.$iteration, 'hidden', [
+                ->add('amount_'.$iteration, HiddenType::class, [
                     'data' => $orderLine['amount'],
                 ])
-                ->add('quantity_'.$iteration, 'hidden', [
+                ->add('quantity_'.$iteration, HiddenType::class, [
                     'data' => $orderLine['quantity'],
                 ]);
             ++$iteration;
         }
 
         if (isset($cartData['discount_amount_cart'])) {
-            $formBuilder->add('discount_amount_cart', 'hidden', [
+            $formBuilder->add('discount_amount_cart', HiddenType::class, [
                 'data' => $cartData['discount_amount_cart'],
             ]);
         }
