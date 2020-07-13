@@ -175,9 +175,7 @@ class AdyenManagerService
          */
         $paymentData = [];
 
-        $paymentData['additionalData'] = [
-            'card.encrypted.json' => $method->getAdditionalData()
-        ];
+        $paymentData['additionalData'] = $method->getAdditionalData();
 
         if ($ps2Available) {
             $paymentData['additionalData']['allow3DS2'] = true;
