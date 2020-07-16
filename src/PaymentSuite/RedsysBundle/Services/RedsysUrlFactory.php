@@ -67,7 +67,7 @@ class RedsysUrlFactory
         return $this->urlGenerator->generate(
             'paymentsuite_redsys_success',
             ['id' => $orderId],
-            true
+            UrlGeneratorInterface::ABSOLUTE_URL
         );
     }
 
@@ -85,7 +85,7 @@ class RedsysUrlFactory
             ->generate(
                 'paymentsuite_redsys_failure',
                 ['id' => $orderId],
-                true
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
     }
 }
