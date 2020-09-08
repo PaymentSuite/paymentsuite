@@ -51,7 +51,7 @@ class RedsysUrlFactory
             ->generate(
                 'paymentsuite_redsys_result',
                 [],
-                true
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
     }
 
