@@ -79,7 +79,7 @@ class PaypalWebCheckoutUrlFactory
             ->generate(
                 'paymentsuite_paypal_web_checkout_process',
                 ['order_id' => $orderId],
-                true
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
     }
 
@@ -103,7 +103,7 @@ class PaypalWebCheckoutUrlFactory
                 $redirectRoute->getRouteAttributes(
                     $orderId
                 ),
-                true
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
     }
 
@@ -127,7 +127,7 @@ class PaypalWebCheckoutUrlFactory
                 $redirectRoute->getRouteAttributes(
                     $orderId
                 ),
-                true
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
     }
 
