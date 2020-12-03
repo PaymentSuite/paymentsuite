@@ -152,7 +152,7 @@ final class RedsysMethod implements PaymentMethodInterface
      */
     public function getDsOrder(): ?string
     {
-        return $this->dsMerchantParametersDecoded['Ds_Order'];
+        return $this->dsMerchantParametersDecoded['Ds_Order'] ?? null;
     }
 
     /**

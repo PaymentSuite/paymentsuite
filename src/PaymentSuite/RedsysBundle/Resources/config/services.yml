@@ -16,12 +16,25 @@ services:
         class: PaymentSuite\RedsysBundle\Services\RedsysFormTypeBuilder
         arguments:
             - '@paymentsuite.bridge'
-            - '@paymentsuite.redsys.url_factory'
             - '@paymentsuite.redsys.signature_factory'
             - '@form.factory'
+            - '@paymentsuite.redsys.parameters_factory'
+            - '%paymentsuite.redsys.url%'
+
+    paymentsuite.redsys.parameters_factory:
+        class: PaymentSuite\RedsysBundle\Services\RedsysParametersFactory
+        arguments:
+            - '@paymentsuite.bridge'
+            - '@paymentsuite.redsys.url_factory'
             - '@paymentsuite.redsys.order_transformer'
             - '@paymentsuite.redsys.settings_provider'
-            - '%paymentsuite.redsys.url%'
+        calls:
+            - [addExtension, ['@paymentsuite.redsys.psd2_parameters_extension']]
+
+    paymentsuite.redsys.psd2_parameters_extension:
+        class: PaymentSuite\RedsysBundle\Services\RedsysPsd2ParametersExtension
+        arguments:
+            - '@paymentsuite.bridge'
 
     paymentsuite.redsys.url_factory:
         class: PaymentSuite\RedsysBundle\Services\RedsysUrlFactory
