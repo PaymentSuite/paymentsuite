@@ -143,7 +143,7 @@ class PaylandsManager
 
             if (PaylandsMethod::STATUS_OK !== $paymentMethod->getPaymentStatus()) {
                 throw new PaymentException(sprintf('Order %s could not be paid',
-                    $paymentMethod->getPaymentResult()['order']['uuid']
+                    $paymentMethod->getPaymentResult()['order']['uuid'] ?? '-'
                 ));
             }
 
