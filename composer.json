@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": ">=7.1",
         "ext-openssl": "*",
         "ext-json": "*",
         "symfony/finder": "^4.3",
@@ -35,7 +35,7 @@
         "psr/log": "^1.0",
         "twig/twig": "^2.11",
         "stripe/stripe-php": "3.4.0",
-        "monolog/monolog": "^1.17",
+        "monolog/monolog": ">=1.17",
         "wearemarketing/paylands-php": "0.1.*",
         "endelwar/gestpayws": "^1.4",
         "symfony/expression-language": "^4.3",
