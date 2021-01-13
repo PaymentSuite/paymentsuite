@@ -127,7 +127,7 @@ class AdyenManagerService
         PS2ValidationCommandInterface $ps2ValidationData
     ) {
         if ($ps2ValidationData->isAppRequest()) {
-            $paymentData = $this->setAppRequestData($ps2ValidationData);
+            $paymentData = $this->setAppRequestData($ps2ValidationData, $ps2ValidationData->getBrowserInfo());
         } else {
             $paymentData = $this->setBrowserCommonData(
                 $ps2ValidationData->getNotificationUrl(),
@@ -182,6 +182,7 @@ class AdyenManagerService
 
             if ($isAppRequest) {
                 $paymentData['threeDS2RequestData']['deviceChannel'] = 'app';
+                $paymentData = $this->setBrowserInfoData($paymentData, $browserInfo);
             } else {
                 $paymentData = $this->setBrowserCommonData($notificationUrl, $paymentData, $browserInfo);
             }
@@ -200,6 +201,10 @@ class AdyenManagerService
             $paymentData['recurring'] = [
                 'contract' => $method->getContract()
             ];
+        }
+
+        if (!empty($method->getShopperIp())) {
+            $paymentData['shopperIP'] = $method->getShopperIp();
         }
 
         if (!empty($method->getRecurringDetailReference())) {
@@ -563,10 +568,10 @@ class AdyenManagerService
 
     /**
      * @param PS2ValidationCommandInterface $ps2ValidationData
-     *
+     * @param array $browserInfo
      * @return array
      */
-    private function setAppRequestData(PS2ValidationCommandInterface $ps2ValidationData): array
+    private function  setAppRequestData(PS2ValidationCommandInterface $ps2ValidationData, array $browserInfo = []): array
     {
         $paymentData = [];
 
@@ -591,6 +596,8 @@ class AdyenManagerService
             ];
         }
 
+        $paymentData = $this->setBrowserInfoData($paymentData, $browserInfo);
+
         return $paymentData;
     }
 
@@ -610,6 +617,18 @@ class AdyenManagerService
         $paymentData['threeDS2RequestData']['notificationURL'] = $notificationUrl;
         $paymentData['threeDS2RequestData']['threeDSCompInd'] = 'N';
 
+        $paymentData = $this->setBrowserInfoData($paymentData, $browserInfo);
+
+        return $paymentData;
+    }
+
+    /**
+     * @param array $browserInfo
+     * @param array $paymentData
+     * @return array
+     */
+    private function setBrowserInfoData(array $paymentData, array $browserInfo): array
+    {
         $paymentData['browserInfo']['userAgent'] = $browserInfo['user_agent'];
         $paymentData['browserInfo']['acceptHeader'] = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8";
         $paymentData['browserInfo']['language'] = "es";
@@ -618,7 +637,6 @@ class AdyenManagerService
         $paymentData['browserInfo']['screenWidth'] = 1536;
         $paymentData['browserInfo']['timeZoneOffset'] = '+60';
         $paymentData['browserInfo']['javaEnabled'] = $browserInfo['is_java_enabled'];
-
         return $paymentData;
     }
 }

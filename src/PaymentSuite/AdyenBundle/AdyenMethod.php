@@ -116,6 +116,13 @@ class AdyenMethod implements PaymentMethodInterface
     /**
      * @var string
      *
+     * The shopper IP
+     */
+    private $shopperIp;
+
+    /**
+     * @var string
+     *
      * The shopper interaction
      */
     private $shopperInteraction;
@@ -421,6 +428,25 @@ class AdyenMethod implements PaymentMethodInterface
     public function setShopperEmail($shopperEmail)
     {
         $this->shopperEmail = $shopperEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopperIp()
+    {
+        return $this->shopperIp;
+    }
+
+    /**
+     * @param string $shopperIp
+     * @return $this
+     */
+    public function setShopperIp($shopperIp)
+    {
+        $this->shopperIp = $shopperIp;
 
         return $this;
     }
