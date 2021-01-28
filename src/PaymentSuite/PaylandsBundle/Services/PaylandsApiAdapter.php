@@ -17,6 +17,7 @@ namespace PaymentSuite\PaylandsBundle\Services;
 
 use PaymentSuite\PaylandsBundle\Exception\CardNotFoundException;
 use PaymentSuite\PaylandsBundle\PaylandsMethod;
+use PaymentSuite\PaylandsBundle\Services\Interfaces\ExtraDataBuilderAwareInterface;
 use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use WAM\Paylands\ClientInterface;
@@ -73,11 +74,16 @@ class PaylandsApiAdapter
      */
     public function createTransaction(PaylandsMethod $paymentMethod)
     {
+        $extraData = $this->paymentBridge instanceof ExtraDataBuilderAwareInterface
+            ? $this->paymentBridge->buildExtraData()->toArray()
+            : [];
+
         $paymentOrder = $this->client->createPayment(
             $paymentMethod->getCustomerExternalId(),
             $this->paymentBridge->getAmount(),
             (string)$this->paymentBridge->getOrder(),
-            $this->currencyServiceResolver->getService()
+            $this->currencyServiceResolver->getService(),
+            $extraData
         );
 
         $transaction = $this->client->directPayment(
