@@ -303,16 +303,16 @@ class Redsys3dSecureBuilderTest extends TestCase
      * @param string|null $changeDate
      * @param string|null $expected
      */
-    public function testLastPasswordChangeIndicator(?string $authDate, ?string $changeDate, ?string $expected)
+    public function testLastPasswordChangeIndicator(?\DateTime $authDate, ?\DateTime $changeDate, ?string $expected)
     {
         $builder = new Redsys3dSecureBuilder();
 
         if (!is_null($authDate)) {
-            $builder->addAuthenticationDate(\DateTime::createFromFormat('Y-m-d', $authDate));
+            $builder->addAuthenticationDate($authDate);
         }
 
         if (!is_null($changeDate)) {
-            $builder->addLastPasswordChangeDate(\DateTime::createFromFormat('Y-m-d', $changeDate));
+            $builder->addLastPasswordChangeDate($changeDate);
         }
 
         $this->assertEquals($expected, $builder->get()['acctInfo']['chAccPwChangeInd'] ?? null);
@@ -321,13 +321,13 @@ class Redsys3dSecureBuilderTest extends TestCase
     public function passwordChangeIndicatorProvider()
     {
         return [
-            'Changed after date' => ['2020-12-07', '2020-12-08', '02'],
-            'Changed on authentication date' => ['2020-12-07', '2020-12-07', '02'],
-            'Changed some days ago' => ['2020-12-07', '2020-12-01', '03'],
-            'Changed one month ago' => ['2020-12-07', '2020-11-07', '04'],
-            'Changed two months ago' => ['2020-12-07', '2020-09-07', '05'],
-            'Without change date' => ['2020-12-07', null, null],
-            'Without authentication date' => [null, '2020-12-07', '03'],
+            'Changed after date' => [new \DateTime('- 1 day'), new \DateTime('today'), '02'],
+            'Changed on authentication date' => [new \DateTime('today'), new \DateTime('today'), '02'],
+            'Changed some days ago' => [new \DateTime('today'), new \DateTime('- 6 days'), '03'],
+            'Changed one month ago' => [new \DateTime('today'), new \DateTime('- 1 month'), '04'],
+            'Changed two months ago' => [new \DateTime('today'), new \DateTime('- 3 months'), '05'],
+            'Without change date' => [new \DateTime('today'), null, null],
+            'Without authentication date' => [null, new \DateTime('today'), '03'],
         ];
     }
 
