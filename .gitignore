@@ -5,3 +5,4 @@ composer.lock
 phpunit.xml
 **/Tests/app/cache/
 **/var/cache/
+.idea

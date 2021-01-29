@@ -36,7 +36,7 @@
         "twig/twig": "^2.11",
         "stripe/stripe-php": "3.4.0",
         "monolog/monolog": "^1.17",
-        "wearemarketing/paylands-php": "0.1.*",
+        "wearemarketing/paylands-php": "0.2.*",
         "endelwar/gestpayws": "^1.4",
         "symfony/expression-language": "^4.3",
         "symfony/templating": "^4.3",
